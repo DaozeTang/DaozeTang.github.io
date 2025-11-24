@@ -4,8 +4,8 @@ navbar_name: "Daoze Tang"
 
 positions:
 - name: Admitted Master's Student
-- name: China Agricultural University
-  logo: /assets/images/badges/CAU_Logo.png  # Logo is optional
+# - name: China Agricultural University
+#   logo: /assets/images/badges/CAU_Logo.png  # Logo is optional
 
 
 email: "tdz@s.hrbcu.edu.cn"
