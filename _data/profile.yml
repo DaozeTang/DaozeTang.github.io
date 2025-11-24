@@ -30,9 +30,9 @@ short_bio: >-
     as well as being common in domestic longhair and domestic shorthair cats.
   </p>
 
-portrait_url: /assets/images/photos/portrait.jpg
+portrait_url: /assets/images/photos/tdz.jpg
 portrait_caption: >-
-  Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
+  Photo by Yue Sun, China, July 2022.
 
 education:
 - name: China Agricultural University
@@ -53,9 +53,9 @@ experience:
   date: Jul. 2025 - Aug. 2025
 
 awards:
-- name: Award Name 2
-  date: 2024
-- name: Award Name 1 
-  date: 2021
-- name: A quick brown fox jumps over the lazy dog and runs away award
-  date: 2021
+- name: China National Scholarship
+  date: 2025
+- name: China National Encouragement Scholarship
+  date: 2023, 2024
+- name: Provincial Merit Student (Heilongjiang Province)
+  date: 2023, 2025
