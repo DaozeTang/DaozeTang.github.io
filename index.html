@@ -21,6 +21,13 @@ navbar_title: Home
     {% 
         include widgets/publication_card.html 
         publications=pubs
-        title='<i class="fas fa-star"></i> Selected Publications'
+        title='<i class="fa-regular fa-star"></i> Selected Publications'
     %}
+
+{% if site.data.display.homepage.show_comments %}
+    {% 
+        include widgets/comments.html 
+        title='<i class="fa-regular fa-comment"></i> Comments'
+    %}
+
 {% endif %}
