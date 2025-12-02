@@ -1,15 +1,11 @@
-<nav class="navbar navbar-expand-md fixed-top my-3">
-    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %} academic-nav-card">
-        <a class="navbar-brand d-flex align-items-center" href="{{ '/' | relative_url }}">
+<nav class="academic-nav-card">
+    <div class="navbar-inner">
+        <a class="font-bold text-primary" style="font-size: 1.1rem;" href="{{ '/' | relative_url }}">
             {{ site.data.profile.navbar_name }}
         </a>
         
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars text-secondary"></i>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+        <div class="d-flex align-items-center">
+            <ul class="nav d-flex" style="list-style: none; margin: 0; padding: 0; gap: 4px;">
                 {% for item in site.data.navigation.pages %}
                 <li class="nav-item {% if item.name == page.navbar_title %}active{% endif %}">
                     <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>

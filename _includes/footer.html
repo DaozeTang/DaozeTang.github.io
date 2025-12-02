@@ -1,18 +1,12 @@
-<footer class="mt-5 pb-5">
-    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
-        <div class="border-top pt-4 text-center text-muted">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
-                    <div class="small">
-                        <span class="font-weight-bold text-main">&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.</span>
-                        <span class="ml-1">Powered by Jekyll.</span>
-                    </div>
-                </div>
-                <div class="col-md-6 text-center text-md-right">
-                    <div class="small text-mono opacity-70">
-                        Last updated: {{ "now" | date: "%b %Y" }}
-                    </div>
-                </div>
+<footer class="py-5 mt-5 border-top" style="border-color: var(--border-light) !important;">
+    <div class="container-lg">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-secondary small">
+            <div class="mb-2 mb-md-0">
+                &copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}. 
+                <span class="text-tertiary">All rights reserved.</span>
+            </div>
+            <div class="text-tertiary font-mono">
+                Updated: {{ "now" | date: "%b %Y" }}
             </div>
         </div>
     </div>

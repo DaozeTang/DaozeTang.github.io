@@ -6,10 +6,6 @@ navbar_title: Home
 
 {% include widgets/profile_card.html %}
 
-{% if site.data.display.homepage.show_experience %}
-    {% include widgets/experience_card.html %}
-{% endif %}
-
 {% if site.data.display.homepage.show_news %}
     {% assign count_news = site.news | size %}
     {% if count_news > 0 %}
@@ -17,11 +13,15 @@ navbar_title: Home
     {% endif %}
 {% endif %}
 
+{% if site.data.display.homepage.show_experience %}
+    {% include widgets/experience_card.html %}
+{% endif %}
+
 {% if site.data.display.homepage.show_selected_publications %}
     {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
-    {% include widgets/publication_card.html publications=pubs title='<i class="fas fa-star text-warning"></i> Selected Publications' %}
+    {% include widgets/publication_card.html publications=pubs title='Selected Publications' %}
 {% endif %}
 
 {% if site.data.display.homepage.show_comments %}
-    {% include widgets/comments.html title='<i class="fas fa-comments text-primary"></i> Comments' %}
+    {% include widgets/comments.html title='Comments' %}
 {% endif %}
