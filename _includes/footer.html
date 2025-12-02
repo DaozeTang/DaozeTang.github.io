@@ -1,13 +1,13 @@
 <footer class="my-3">
-    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %} bg-white shadow-sm rounded-xl py-1">
-        <div class="row my-3">
-            <div class="col-6">
-                <div class="text-muted">
-                    <i>Last updated: {{ "now" | date: "%b %Y" }}</i>
+    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %} academic-footer-card rounded-xl py-3 px-4">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-12 text-center text-md-left mb-2 mb-md-0">
+                <div class="text-muted small">
+                    <i class="fas fa-history mr-1"></i> Last updated: {{ "now" | date: "%b %Y" }}
                 </div>
             </div>
-            <div class="col-6">
-                <div class="text-right text-muted">
+            <div class="col-md-6 col-12 text-center text-md-right">
+                <div class="text-muted small">
                     {{ site.data.display.footer_text }}
                 </div>
             </div>

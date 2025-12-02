@@ -90,3 +90,75 @@ div.lazy {
     font-family: Source Code Pro, monospace;
 }
 
+/* === Academic Theme Customizations === */
+
+:root {
+    /* 你可以在这里修改高亮颜色 */
+    --hover-bg-color: rgba(0, 0, 0, 0.05);
+    --active-text-color: #007bff; 
+    --nav-blur-bg: rgba(255, 255, 255, 0.9);
+}
+
+/* 导航栏卡片样式：毛玻璃 + 柔和阴影 */
+.academic-nav-card {
+    background-color: var(--nav-blur-bg);
+    /* 核心：背景模糊效果 */
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* 边框和阴影 */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    transition: all 0.3s ease;
+}
+
+/* 导航链接样式优化 */
+.navbar-nav .nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #555; /* 默认深灰色，不要纯黑 */
+    padding: 0.5rem 0.8rem !important;
+    border-radius: 6px;
+    margin: 0 2px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 鼠标悬停效果 */
+.navbar-nav .nav-link:hover {
+    color: var(--active-text-color);
+    background-color: var(--hover-bg-color);
+    transform: translateY(-1px); /* 轻微上浮 */
+}
+
+/* 当前选中页面状态 */
+.navbar-nav .nav-item.active .nav-link {
+    color: var(--active-text-color);
+    font-weight: 600;
+    background-color: rgba(0, 123, 255, 0.08);
+}
+
+/* 移动端菜单按钮美化 */
+.navbar-toggler {
+    border: none !important;
+    outline: none !important;
+    font-size: 0.85rem !important;
+    padding: 0.4rem 0.8rem !important;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 6px;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+/* 页脚卡片样式 */
+.academic-footer-card {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* 页脚文字大小调整 */
+.academic-footer-card .small {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
