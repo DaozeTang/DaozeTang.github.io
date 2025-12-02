@@ -1,84 +1,29 @@
-<!-- 
-    Optimized Publication Card Container
-    Features: Unified styling with other cards, clean header with "View All" link.
--->
 {% assign publications = include.publications %}
-
-<style>
-    /* 容器样式保持统一 */
-    .pubs-card {
-        border-radius: 12px;
-        overflow: hidden;
-        border: none;
-        background-color: #fff;
-    }
+<div class="my-4 bg-white shadow-sm rounded border">
     
-    .pubs-header {
-        font-weight: 700;
-        font-size: 1.1rem;
-        color: #2c3e50;
-        padding: 20px 25px;
-        border-bottom: 2px solid #f1f3f5;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #fff;
-    }
-
-    .pubs-header a {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    .pubs-header a:hover {
-        text-decoration: underline;
-    }
-
-    .pubs-footer {
-        background-color: #f8f9fa;
-        border-top: 1px solid #f1f3f5;
-        padding: 15px 25px;
-        text-align: right;
-    }
-    
-    .pubs-footer a {
-        color: #6c757d;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: color 0.2s;
-    }
-    
-    .pubs-footer a:hover {
-        color: #007bff;
-        text-decoration: none;
-    }
-</style>
-
-<div class="my-3 shadow-sm pubs-card">
-    <div class="pubs-header">
-        <div>
+    <div class="d-flex justify-content-between align-items-center border-bottom border-light p-3 bg-light rounded-top">
+        <h6 class="m-0 font-weight-bold text-dark">
             {% if include.title %}
                 {{ include.title }}
             {% else %}
-                <i class="fas fa-book-open text-primary mr-2"></i> Selected Publications
+                <i class="fas fa-book-open mr-2 text-primary"></i> Selected Recent Publications
             {% endif %}
-        </div>
-        <a href="{{ 'publications' | relative_url }}">
-            View All <i class="fas fa-arrow-right ml-1"></i>
+        </h6>
+        <a href="{{ 'publications' | relative_url }}" class="small text-muted text-decoration-none">
+            view all <i class="fas fa-angle-right ml-1"></i>
         </a>
     </div>
-    
-    <div class="px-3">
+
+    <div class="p-3">
         {% for item in publications limit:include.limit %}
-            {% include widgets/publication_item.html item=item first=forloop.first last=forloop.last %}    
+            {% assign is_last = forloop.last %}
+            {% include widgets/publication_item.html item=item hide_bottom_border=is_last %}    
         {% endfor %}
     </div>
 
-    <div class="pubs-footer">
-        <a href="{{ 'publications' | relative_url }}">
-            See all publications <i class="fas fa-angle-double-right"></i>
+    <div class="d-block bg-light rounded-bottom p-2 text-center border-top border-light">
+        <a href="{{ 'publications' | relative_url }}" class="btn btn-link btn-sm text-muted font-weight-bold text-decoration-none btn-block">
+            See All Publications <i class="fas fa-angle-double-right ml-1"></i>
         </a>
-    </h6>
+    </div>
 </div>

@@ -1,196 +1,78 @@
-<!-- 
-    Optimized Publication Item
-    Features: Hover effects, styled action buttons (PDF/Code), responsive layout improvements.
--->
 {% assign item = include.item %}
+<div class="publication-item mb-4" style="transition: all 0.2s ease-in-out;">
+    <div class="d-none d-md-block">
+        <div class="row no-gutters {% unless include.hide_bottom_border %}border-bottom{% endunless %} border-gray pb-4 mb-4">
+            <div class="col-md-3 col-xl-2 mb-md-0 p-md-3 pl-0">
+                <div class="shadow-sm rounded overflow-hidden" style="position: relative;">
+                    {%- if item.cover -%}
+                    <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy w-100 d-block" src="{{ '/assets/images/empty_300x200.png' | relative_url }}" style="object-fit: cover;">
+                    {%- else -%}
+                    <svg class="bubble-visual-hash lazy w-100 d-block" data-bubble-visual-hash="{{ item.id }}" viewBox="0 0 300 200"></svg>
+                    {%- endif -%}
+                </div>
+            </div>
 
-<style>
-    .pub-item {
-        padding: 20px 5px;
-        border-bottom: 1px dashed #e9ecef;
-        transition: background-color 0.2s ease;
-    }
+            <div class="col-md-9 col-xl-10 p-3 pr-0">
+                <h5 class="mt-0 mb-2 font-weight-bold text-dark">{{ item.title }}</h5>
+                
+                <div class="mb-2 small text-muted">
+                    {% include widgets/author_list.html authors=item.authors %}
+                </div>
 
-    /* 最后一个元素去掉底边框 */
-    .pub-item:last-child {
-        border-bottom: none;
-    }
+                <div class="mb-2 small font-italic" style="color: #666;">
+                    {{item.pub_pre}}{{ item.pub }}{{ item.pub_post }} 
+                    <span class="ml-1 badge badge-light border">{{ item.pub_date }}</span>
+                    {{ item.pub_last }} 
+                    <span data-semantic-scholar-id="{{ item.semantic_scholar_id }}"></span>
+                </div>
 
-    .pub-item:hover {
-        background-color: #fafbfc; /* 鼠标悬停微弱背景色 */
-    }
+                {% if item.abstract %}
+                <p class="mt-2 mb-3 small text-secondary text-justify" style="line-height: 1.5;">{{ item.abstract }}</p>
+                {% endif %}
+                
+                <div class="d-flex flex-wrap align-items-center">
+                    {% for link in item.links %}
+                    <span class="mr-2 mb-2">
+                        {% if link[1].url %}
+                        <a class="btn btn-sm btn-outline-primary py-0 px-2 small" style="font-size: 0.85rem;" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">
+                            {{ link[0] }}
+                        </a>
+                        {% else %}
+                        <a class="btn btn-sm btn-outline-dark py-0 px-2 small" style="font-size: 0.85rem;" target="_blank" href="{{ link[1] }}">
+                            {{ link[0] }}
+                        </a>
+                        {% endif %}
+                    </span>
+                    {% endfor %}
+                </div>
 
-    /* 封面图样式 */
-    .pub-cover-img {
-        width: 100%;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        object-fit: cover;
-    }
-
-    .pub-item:hover .pub-cover-img {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.15);
-    }
-
-    /* 文字排版 */
-    .pub-title {
-        font-weight: 700;
-        font-size: 1.05rem;
-        color: #2c3e50;
-        margin-bottom: 6px;
-        line-height: 1.4;
-    }
-
-    .pub-authors {
-        color: #495057;
-        font-size: 0.95rem;
-        margin-bottom: 6px;
-    }
-
-    .pub-venue {
-        color: #007bff; /* 期刊颜色 */
-        font-weight: 500;
-        font-style: italic;
-        font-size: 0.9rem;
-    }
-    
-    .pub-date {
-        color: #868e96;
-        font-size: 0.9rem;
-    }
-
-    .pub-abstract {
-        font-size: 0.85rem;
-        color: #6c757d;
-        margin-top: 8px;
-        line-height: 1.5;
-        /* 限制摘要行数，可选 */
-        /* display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; */
-    }
-
-    /* 链接按钮样式 */
-    .pub-btn {
-        display: inline-block;
-        padding: 4px 10px;
-        margin-right: 6px;
-        margin-top: 8px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        border-radius: 20px;
-        text-decoration: none !important;
-        transition: all 0.2s;
-        border: 1px solid transparent;
-    }
-
-    /* 默认按钮风格 */
-    .pub-btn-default {
-        color: #495057;
-        background-color: #f8f9fa;
-        border-color: #dee2e6;
-    }
-    .pub-btn-default:hover {
-        background-color: #e9ecef;
-        color: #212529;
-    }
-
-    /* 特殊按钮风格：PDF */
-    .pub-btn-pdf {
-        color: #e74c3c;
-        background-color: #fce8e6;
-        border-color: #f1c40f00; /* 透明边框 */
-    }
-    .pub-btn-pdf:hover {
-        background-color: #e74c3c;
-        color: #fff;
-    }
-
-    /* 特殊按钮风格：Code */
-    .pub-btn-code {
-        color: #24292e;
-        background-color: #f0f3f6;
-    }
-    .pub-btn-code:hover {
-        background-color: #24292e;
-        color: #fff;
-    }
-</style>
-
-<!-- Unified Layout for Desktop and Mobile (Responsive) -->
-<div class="row pub-item mx-0">
-    <!-- Image Column -->
-    <div class="col-md-3 col-lg-3 mb-3 mb-md-0 d-flex align-items-center justify-content-center">
-        {%- if item.cover -%}
-            <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover-img" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
-        {%- else -%}
-            <!-- Fallback visual if no image -->
-            <svg class="bubble-visual-hash lazy pub-cover-img" data-bubble-visual-hash="{{ item.id }}" viewBox="0 0 300 200"></svg>
-        {%- endif -%}
+            </div>
+        </div>
     </div>
 
-    <!-- Content Column -->
-    <div class="col-md-9 col-lg-9 pl-md-4">
-        <!-- Title -->
-        <h5 class="pub-title">{{ item.title }}</h5>
-        
-        <!-- Authors -->
-        <div class="pub-authors">
-            {% include widgets/author_list.html authors=item.authors %}
-        </div>
-
-        <!-- Venue & Date -->
-        <div class="mb-2">
-            {{ item.pub_pre }}
-            <span class="pub-venue">{{ item.pub }}</span>
-            {{ item.pub_post }} 
-            <span class="pub-date">{{ item.pub_date }} {{ item.pub_last }}</span>
-            <span data-semantic-scholar-id="{{ item.semantic_scholar_id }}"></span>
-        </div>
-
-        <!-- Abstract (Optional, often hidden in lists but kept if short) -->
-        {% if item.abstract %}
-        <div class="pub-abstract d-none d-lg-block">
-            {{ item.abstract }}
+    <div class="d-md-none border rounded shadow-sm overflow-hidden bg-white mb-4">
+        {% if item.cover %}
+        <div class="w-100">
+            <img data-src="{{ item.cover | relative_url }}" class="lazy w-100" style="max-height: 200px; object-fit: cover;" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
         </div>
         {% endif %}
-
-        <!-- Action Buttons (Links) -->
-        <div class="pub-links">
-            {% for link in item.links %}
-                {% assign link_name = link[0] | downcase %}
-                {% assign link_url = link[1] %}
-                {% assign link_target = "_blank" %}
-                
-                <!-- Handle complex link object structure if present -->
+        
+        <div class="p-3">
+            <h5 class="mt-0 mb-2 font-weight-bold">{{ item.title }}</h5>
+            <p class="mb-2 small text-muted">{% include widgets/author_list.html authors=item.authors %}</p>
+            <p class="mb-2 small">
+                <i>{{ item.pub }}</i> • {{ item.pub_date }}
+            </p>
+            
+            <div class="d-flex flex-wrap mt-3">
+                {% for link in item.links %}
                 {% if link[1].url %}
-                    {% assign link_url = link[1].url %}
-                    {% assign link_target = link[1].target %}
-                {% endif %}
-
-                <!-- Dynamic styling based on link name -->
-                {% if link_name contains 'pdf' %}
-                    <a href="{{ link_url }}" target="{{ link_target }}" class="pub-btn pub-btn-pdf">
-                        <i class="fas fa-file-pdf"></i> PDF
-                    </a>
-                {% elsif link_name contains 'code' or link_name contains 'github' %}
-                    <a href="{{ link_url }}" target="{{ link_target }}" class="pub-btn pub-btn-code">
-                        <i class="fab fa-github"></i> Code
-                    </a>
-                {% elsif link_name contains 'video' %}
-                    <a href="{{ link_url }}" target="{{ link_target }}" class="pub-btn pub-btn-default">
-                        <i class="fas fa-play-circle"></i> Video
-                    </a>
-                {% elsif link_name contains 'slide' %}
-                    <a href="{{ link_url }}" target="{{ link_target }}" class="pub-btn pub-btn-default">
-                        <i class="fas fa-file-powerpoint"></i> Slides
-                    </a>
+                <a class="badge badge-primary mr-2 mb-2 p-2" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">{{ link[0] }}</a>
                 {% else %}
-                    <a href="{{ link_url }}" target="{{ link_target }}" class="pub-btn pub-btn-default">
-                        <i class="fas fa-external-link-alt"></i> {{ link[0] }}
-                    </a>
+                <a class="badge badge-secondary mr-2 mb-2 p-2" target="_blank" href="{{ link[1] }}">{{ link[0] }}</a>
                 {% endif %}
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
