@@ -1,17 +1,18 @@
-<footer class="mt-auto">
+<footer class="mt-5 pb-5">
     <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
-        <div class="academic-footer-card">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-left px-4">
-                
-                <div class="mb-2 mb-md-0">
-                    <span class="font-weight-bold">&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.</span>
-                    <span class="d-block d-md-inline ml-md-2">Powered by Jekyll.</span>
+        <div class="border-top pt-4 text-center text-muted">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
+                    <div class="small">
+                        <span class="font-weight-bold text-main">&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.</span>
+                        <span class="ml-1">Powered by Jekyll.</span>
+                    </div>
                 </div>
-
-                <div class="text-mono small">
-                    Last updated: {{ "now" | date: "%b %Y" }}
+                <div class="col-md-6 text-center text-md-right">
+                    <div class="small text-mono opacity-70">
+                        Last updated: {{ "now" | date: "%b %Y" }}
+                    </div>
                 </div>
-                
             </div>
         </div>
     </div>

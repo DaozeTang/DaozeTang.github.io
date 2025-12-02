@@ -1,28 +1,32 @@
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<div class="academic-card h-100">
-    <div class="card-header-simple">
-        <div class="card-header-title">
-            <i class="fas fa-rss" style="color: #e11d48;"></i> News
-        </div>
-    </div>
-    
-    <div class="card-body-simple news-scroll">
-        {% for year in news_by_year %}
-        <div class="news-group">
-            <div class="news-year">{{ year.name }}</div>
-            <ul class="news-list">
-                {% for item in year.items %}
-                <li class="news-item">
-                    <div class="news-dot"></div>
+<section class="row mt-3">
+    <div class="col-12">
+        <div class="academic-card">
+            <header class="card-header-simple">
+                <h2 class="card-header-title mb-0">
+                    <i class="fas fa-rss text-primary"></i> News
+                </h2>
+            </header>
+            
+            <div class="card-body-simple" style="max-height: 400px; overflow-y: auto;">
+                {% for year in news_by_year %}
+                <div class="d-flex mb-4">
+                    <div class="font-weight-bold text-primary mr-4" style="min-width: 50px;">{{ year.name }}</div>
                     <div class="flex-grow-1">
-                        <span class="news-content">{{ item.title }}</span>
-                        <span class="news-date">{{ item.date | date: "%b %d" }}</span>
+                        {% for item in year.items %}
+                        <div class="timeline-item pb-3">
+                            <div class="timeline-marker"></div>
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <span class="text-main">{{ item.title }}</span>
+                                <span class="text-muted small text-mono ml-3 no-break">{{ item.date | date: "%b %d" }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
-                </li>
+                </div>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
-        {% endfor %}
     </div>
-</div>
+</section>

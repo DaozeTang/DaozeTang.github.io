@@ -1,507 +1,276 @@
-@charset "utf-8";
-
-/* =========================================
-   1. Root Variables & Design Tokens
-   ========================================= */
 :root {
-    /* Color Palette - Modern Slate Theme */
-    --color-primary: #0f172a;       /* Slate 900 */
-    --color-primary-hover: #1e293b; /* Slate 800 */
-    --color-accent: #2563eb;        /* Blue 600 */
-    --color-accent-hover: #1d4ed8;  /* Blue 700 */
+    /* Color Palette */
+    --primary-color: #2980b9;
+    --primary-dark: #1f618d;
+    --secondary-color: #7f8c8d;
+    --text-main: #2c3e50;
+    --text-secondary: #5d6d7e;
+    --text-muted: #95a5a6;
     
-    --text-main: #111827;           /* Gray 900 */
-    --text-body: #374151;           /* Gray 700 */
-    --text-muted: #6b7280;          /* Gray 500 */
-    --text-light: #9ca3af;          /* Gray 400 */
-
-    --bg-body: #f9fafb;             /* Gray 50 */
-    --bg-surface: #ffffff;
-    --bg-hover: #f3f4f6;            /* Gray 100 */
-
-    --border-color: #e5e7eb;        /* Gray 200 */
-    --border-subtle: #f3f4f6;
-
-    /* Dimensions & Spacing */
-    --radius-sm: 6px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-full: 9999px;
-
-    /* Shadows (Subtle & Soft) */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
-    /* Transitions */
-    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
+    /* Backgrounds */
+    --bg-body: #f8f9fa;
+    --bg-card: #ffffff;
+    --bg-subtle: #f1f3f5;
+    
+    /* Borders & Shadows */
+    --border-color: #e9ecef;
+    --border-radius-lg: 16px;
+    --border-radius-md: 8px;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 12px 32px rgba(44, 62, 80, 0.12);
+    
     /* Typography */
-    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    
+    /* Transitions */
+    --transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* =========================================
-   2. Reset & Base Styles
-   ========================================= */
 body {
     font-family: var(--font-sans);
     background-color: var(--bg-body);
-    color: var(--text-body);
-    line-height: 1.65;
+    color: var(--text-main);
+    line-height: 1.7;
+    padding-top: 5.5rem;
     -webkit-font-smoothing: antialiased;
-    padding-top: 5rem; /* Space for fixed navbar */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-    color: var(--color-accent);
+    color: var(--primary-color);
     text-decoration: none;
     transition: var(--transition-base);
 }
 
 a:hover {
-    color: var(--color-accent-hover);
+    color: var(--primary-dark);
     text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-main);
     font-weight: 700;
-    letter-spacing: -0.025em; /* Tighter tracking for headings */
-    margin-bottom: 0.75rem;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* =========================================
-   3. Component: Academic Card
-   ========================================= */
+/* Component: Academic Card */
 .academic-card {
-    background: var(--bg-surface);
+    background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
+    border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-sm);
-    margin-bottom: 2rem;
-    overflow: hidden;
     transition: var(--transition-base);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    position: relative;
 }
 
 .academic-card:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
-    border-color: var(--color-accent);
+    border-color: transparent;
 }
 
-/* Header inside cards */
 .card-header-simple {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .card-header-title {
-    font-size: 1.125rem;
+    font-size: 1.15rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: var(--text-main);
     display: flex;
     align-items: center;
     gap: 0.75rem;
 }
 
 .card-header-title i {
-    color: var(--text-muted); /* Subtler icons */
-    font-size: 1rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
 }
 
 .card-body-simple {
-    padding: 1.5rem;
+    padding: 1.75rem;
 }
 
-/* =========================================
-   4. Component: Navigation
-   ========================================= */
+/* Component: Navigation */
 .navbar {
-    padding: 0;
     transition: var(--transition-base);
+    padding: 0.5rem 1rem;
 }
 
 .academic-nav-card {
-    background-color: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(229, 231, 235, 0.5);
-    box-shadow: var(--shadow-sm);
-    border-radius: var(--radius-lg);
-    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border-radius: 50px; 
+    padding: 0.5rem 1.5rem !important;
 }
 
 .navbar-brand {
     font-weight: 800;
-    color: var(--color-primary) !important;
+    font-size: 1.1rem;
+    color: var(--text-main) !important;
     letter-spacing: -0.02em;
 }
 
 .nav-link {
     font-weight: 500;
-    color: var(--text-muted) !important;
+    color: var(--text-secondary) !important;
     padding: 0.5rem 1rem !important;
-    border-radius: var(--radius-md);
+    border-radius: 20px;
     transition: var(--transition-base);
 }
 
 .nav-link:hover,
 .nav-item.active .nav-link {
-    color: var(--color-accent) !important;
-    background-color: var(--bg-hover);
+    color: var(--primary-color) !important;
+    background-color: rgba(41, 128, 185, 0.08);
 }
 
-.navbar-toggler {
-    border: 1px solid var(--border-color);
-    padding: 0.5rem 0.75rem;
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
+/* Component: Buttons */
+.btn-subtle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-subtle);
+    color: var(--text-secondary);
+    border-radius: var(--border-radius-md);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition-base);
+    border: 1px solid transparent;
+    gap: 0.5rem;
 }
 
-/* =========================================
-   5. Component: Profile
-   ========================================= */
-.profile-section {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: 1fr;
+.btn-subtle:hover {
+    background-color: var(--bg-card);
+    color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
 }
 
-@media (min-width: 768px) {
-    .profile-section {
-        grid-template-columns: 2fr 1fr;
-        align-items: start;
-    }
-    /* Reorder logic via CSS grid areas if needed, but flexbox order is cleaner in HTML */
+.btn-primary-soft {
+    background-color: rgba(41, 128, 185, 0.1);
+    color: var(--primary-color);
+    font-weight: 600;
+    border-radius: var(--border-radius-md);
+    padding: 0.4rem 1rem;
+    transition: var(--transition-base);
 }
 
+.btn-primary-soft:hover {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(41, 128, 185, 0.25);
+}
+
+/* Component: Profile */
 .profile-img {
-    width: 100%;
-    max-width: 240px;
-    border-radius: var(--radius-lg);
+    border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
-    border: 3px solid var(--bg-surface);
+    transition: var(--transition-base);
+    max-width: 240px;
+    width: 100%;
+}
+
+.profile-img:hover {
+    transform: scale(1.01);
+    box-shadow: var(--shadow-hover);
 }
 
 .position-badge {
     display: inline-flex;
     align-items: center;
-    background-color: var(--bg-hover);
-    color: var(--text-body);
     padding: 0.35rem 0.85rem;
-    border-radius: var(--radius-full);
-    font-size: 0.875rem;
-    font-weight: 500;
-    margin: 0 0.5rem 0.5rem 0;
+    background-color: white;
     border: 1px solid var(--border-color);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0 0.5rem 0.5rem 0;
+    gap: 0.5rem;
 }
 
 .position-badge img {
     height: 18px;
-    width: auto;
-    margin-right: 0.5rem;
+    border-radius: 2px;
 }
 
-.social-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 38px;
-    padding: 0 1rem;
-    margin: 0 0.5rem 0.5rem 0;
-    border-radius: var(--radius-md);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-body);
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    transition: var(--transition-base);
-}
-
-.social-btn:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-}
-
-.social-btn.btn-cv {
-    background-color: var(--color-primary);
-    color: #fff;
-    border-color: var(--color-primary);
-}
-
-.social-btn.btn-cv:hover {
-    background-color: var(--color-primary-hover);
-    color: #fff;
-    box-shadow: var(--shadow-md);
-}
-
-/* =========================================
-   6. Component: Experience & Education
-   ========================================= */
-.exp-item {
-    display: flex;
-    gap: 1.25rem;
-    padding-bottom: 1.5rem;
+/* Component: Timeline (Experience/News) */
+.timeline-item {
+    position: relative;
+    padding-left: 1.5rem;
     margin-bottom: 1.5rem;
+    border-left: 2px solid var(--border-color);
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--bg-body);
+    border: 2px solid var(--text-muted);
+}
+
+/* Component: Publications */
+.pub-item {
+    padding: 1.5rem 0;
     border-bottom: 1px dashed var(--border-color);
 }
 
-.exp-item:last-child {
+.pub-item:last-child {
     border-bottom: none;
-    margin-bottom: 0;
     padding-bottom: 0;
-}
-
-.exp-logo {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-    padding: 4px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    flex-shrink: 0;
-}
-
-.exp-content {
-    flex-grow: 1;
-}
-
-.exp-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    margin-bottom: 0.25rem;
-}
-
-.exp-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-.exp-date {
-    font-size: 0.8rem;
-    font-family: var(--font-mono);
-    color: var(--text-muted);
-    background: var(--bg-hover);
-    padding: 2px 8px;
-    border-radius: var(--radius-sm);
-}
-
-.exp-subtitle {
-    color: var(--text-body);
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-.exp-meta {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-top: 0.25rem;
-}
-
-/* =========================================
-   7. Component: News
-   ========================================= */
-.news-scroll {
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 0.5rem;
-}
-
-/* Modern scrollbar */
-.news-scroll::-webkit-scrollbar {
-    width: 6px;
-}
-.news-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-.news-scroll::-webkit-scrollbar-thumb {
-    background-color: var(--border-color);
-    border-radius: 20px;
-}
-
-.news-group {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.news-year {
-    font-family: var(--font-mono);
-    font-weight: 700;
-    color: var(--color-accent);
-    font-size: 1rem;
-    min-width: 3rem;
-    padding-top: 0.2rem;
-}
-
-.news-list {
-    flex-grow: 1;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.news-item {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: 0.75rem;
-    line-height: 1.5;
-}
-
-.news-item:last-child { margin-bottom: 0; }
-
-.news-dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--border-color);
-    border-radius: 50%;
-    margin-right: 1rem;
-    flex-shrink: 0;
-}
-
-.news-item:hover .news-dot {
-    background-color: var(--color-accent);
-}
-
-.news-content {
-    font-size: 0.95rem;
-    color: var(--text-body);
-}
-
-.news-date {
-    font-size: 0.75rem;
-    color: var(--text-light);
-    margin-left: 0.75rem;
-    font-family: var(--font-mono);
-    white-space: nowrap;
-}
-
-/* =========================================
-   8. Component: Publications
-   ========================================= */
-.pub-item {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-@media (min-width: 768px) {
-    .pub-item {
-        grid-template-columns: 180px 1fr;
-    }
-}
-
-.pub-item:last-child { border-bottom: none; }
-
-.pub-cover-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.pub-cover {
-    width: 100%;
-    height: auto;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border-color);
-    transition: var(--transition-base);
-}
-
-.pub-item:hover .pub-cover {
-    transform: scale(1.02);
-    box-shadow: var(--shadow-md);
 }
 
 .pub-title {
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--text-main);
     line-height: 1.4;
+    color: var(--text-main);
     margin-bottom: 0.5rem;
 }
 
-.pub-authors {
-    font-size: 0.95rem;
-    color: var(--text-body);
-    margin-bottom: 0.5rem;
-}
-
-.pub-venue {
+.pub-meta {
     font-size: 0.9rem;
-    color: var(--text-muted);
-    font-style: italic;
+    color: var(--text-secondary);
     margin-bottom: 0.75rem;
 }
 
-.pub-venue strong {
-    color: var(--color-primary);
-    font-weight: 600;
-    font-style: normal;
-}
-
-.pub-abstract {
-    background-color: var(--bg-hover);
-    padding: 1rem;
-    border-radius: var(--radius-md);
-    font-size: 0.9rem;
-    color: var(--text-body);
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
-
-.pub-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-
-.btn-pub {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.8rem;
-    font-weight: 600;
+.pub-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.1rem 0.4rem;
+    background-color: var(--bg-subtle);
+    border-radius: 4px;
+    margin-left: 0.5rem;
     color: var(--text-muted);
-    background: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    transition: var(--transition-base);
 }
 
-.btn-pub:hover {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
-}
-
-.btn-pub i { margin-right: 0.4rem; font-size: 0.9em; }
-
-/* =========================================
-   9. Component: Footer
-   ========================================= */
-.academic-footer-card {
-    background: var(--bg-surface);
-    border-top: 1px solid var(--border-color);
-    padding: 2rem 0;
-    margin-top: 4rem;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
+/* Utilities */
+.text-justify { text-align: justify; }
+.hover-lift { transition: transform 0.2s ease; }
+.hover-lift:hover { transform: translateY(-2px); }
+.opacity-70 { opacity: 0.7; }
+.cursor-pointer { cursor: pointer; }
+.no-break { white-space: nowrap; }

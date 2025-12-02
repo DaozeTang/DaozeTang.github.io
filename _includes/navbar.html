@@ -1,25 +1,21 @@
-<nav class="navbar navbar-expand-sm fixed-top p-0">
-    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
-        <div class="academic-nav-card d-flex align-items-center justify-content-between py-2 px-4 w-100">
-            
-            <a class="navbar-brand" href="{{ '/' | relative_url }}">
-                {{ site.data.profile.navbar_name }}
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+<nav class="navbar navbar-expand-md fixed-top my-3">
+    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %} academic-nav-card">
+        <a class="navbar-brand d-flex align-items-center" href="{{ '/' | relative_url }}">
+            {{ site.data.profile.navbar_name }}
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars text-secondary"></i>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    {% for item in site.data.navigation.pages %}
-                    <li class="nav-item {% if item.name == page.navbar_title %}active{% endif %}">
-                        <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                {% for item in site.data.navigation.pages %}
+                <li class="nav-item {% if item.name == page.navbar_title %}active{% endif %}">
+                    <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </nav>
