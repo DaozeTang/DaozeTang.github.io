@@ -1,23 +1,26 @@
-<div class="my-3 p-0 bg-white shadow-sm rounded-xl">
-        <h6 class="border-bottom border-gray p-3 mb-0">
-                {% if include.title %}{{ include.title }}{% else %}<i class="fas fa-star"></i> Comments{% endif %} 
+<div class="my-4 bg-white shadow-sm rounded-4 overflow-hidden" style="transition: transform 0.2s; border: 1px solid rgba(0,0,0,0.02);">
+    <div class="p-3 border-bottom border-light bg-light bg-opacity-25 d-flex align-items-center">
+        <div style="width: 4px; height: 16px; background-color: #0d6efd; border-radius: 2px; margin-right: 10px;"></div>
+        <h6 class="mb-0 fw-bold text-secondary">
+            {% if include.title %}{{ include.title }}{% else %}Comments{% endif %}
         </h6>
-        <div class="p-3">
-                <script src="https://giscus.app/client.js"
-                        data-repo="DaozeTang/DaozeTang.github.io"
-                        data-repo-id="R_kgDOQbw9EA"
-                        data-category="Announcements"
-                        data-category-id="DIC_kwDOQbw9EM4CzREs"
-                        data-mapping="pathname"
-                        data-strict="1"
-                        data-reactions-enabled="1"
-                        data-emit-metadata="0"
-                        data-input-position="top"
-                        data-theme="preferred_color_scheme"
-                        data-lang="zh-CN"
-                        data-loading="lazy"
-                        crossorigin="anonymous"
-                        async>
-                </script>
-        </div>
+    </div>
+    <div class="p-4">
+        <script src="https://giscus.app/client.js"
+                data-repo="DaozeTang/DaozeTang.github.io"
+                data-repo-id="R_kgDOQbw9EA"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOQbw9EM4CzREs"
+                data-mapping="pathname"
+                data-strict="1"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light" 
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
 </div>
