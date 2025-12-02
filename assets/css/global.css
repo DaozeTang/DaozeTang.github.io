@@ -9,11 +9,12 @@
     --color-border: #e5e7eb;
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: "JetBrains Mono", source-code-pro, Menlo, monospace;
-    --radius-card: 12px;
-    --radius-btn: 8px;
+    --radius-card: 12px; /* 加大圆角以增强卡片感 */
+    --radius-btn: 6px;
     --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: all 0.2s ease-in-out;
 }
 
 body {
@@ -22,10 +23,7 @@ body {
     font-family: var(--font-sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    padding-top: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    padding-top: 1rem; /* 调整顶部间距适配悬浮导航 */
 }
 
 a {
@@ -36,7 +34,6 @@ a {
 
 a:hover {
     color: var(--color-accent);
-    text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -46,11 +43,13 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5rem;
 }
 
+/* 核心卡片样式 */
 .academic-card {
     background: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-card);
     transition: var(--transition);
+    height: 100%;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
 }
@@ -61,15 +60,24 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-2px);
 }
 
+/* 导航栏卡片特定样式 */
+.navbar-card {
+    padding: 0.8rem 1.5rem;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+}
+
+/* 覆盖 Bootstrap 默认 Navbar 样式以适应卡片设计 */
 .navbar {
-    background: var(--color-card);
     border: none;
-    padding: 0.5rem;
+    margin-bottom: 0;
 }
 
 .navbar-brand {
     font-weight: 800;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     color: var(--color-text-main) !important;
     letter-spacing: -0.02em;
 }
@@ -81,6 +89,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.5rem 1rem !important;
     border-radius: var(--radius-btn);
     transition: var(--transition);
+    margin-left: 0.25rem;
 }
 
 .nav-link:hover, .nav-item.active .nav-link {
@@ -90,13 +99,21 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar-toggler {
     border: none;
+    padding: 0.5rem;
     color: var(--color-text-main);
-    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-btn);
 }
 
+.navbar-toggler:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+/* 页脚卡片样式 */
 .footer-card {
+    padding: 1.5rem 2rem;
     color: var(--color-text-muted);
-    border: 1px solid var(--color-border);
+    background: #fff;
+    margin-top: 2rem;
 }
 
 .profile-img {
@@ -160,6 +177,7 @@ h1, h2, h3, h4, h5, h6 {
     border-color: var(--color-accent);
 }
 
+/* 其他组件保持原样 */
 .exp-list-item {
     display: grid;
     grid-template-columns: 48px 1fr;
@@ -206,7 +224,6 @@ h1, h2, h3, h4, h5, h6 {
 .news-scroll {
     max-height: 280px;
     overflow-y: auto;
-    scrollbar-width: thin;
 }
 
 .news-row {
@@ -226,6 +243,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .news-link {
     color: var(--color-text-secondary);
+    transition: var(--transition);
 }
 
 .news-link:hover {
@@ -343,8 +361,5 @@ h1, h2, h3, h4, h5, h6 {
     }
     .exp-logo {
         display: none;
-    }
-    .navbar-card {
-        padding: 0.5rem;
     }
 }
