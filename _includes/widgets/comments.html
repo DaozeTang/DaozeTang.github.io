@@ -1,9 +1,9 @@
-<section class="row mt-5">
+<div class="row mt-4">
     <div class="col-12">
         <div class="academic-card">
             <div class="card-header-simple">
                 <div class="card-header-title">
-                    {% if include.title %}{{ include.title }}{% else %}Discussion{% endif %}
+                    {% if include.title %}{{ include.title }}{% else %}<i class="fas fa-comments"></i> Discussion{% endif %}
                 </div>
             </div>
             <div class="card-body-simple">
@@ -28,4 +28,4 @@
             </div>
         </div>
     </div>
-</section>
+</div>

@@ -1,12 +1,12 @@
 {% assign publications = include.publications %}
 
-<section class="academic-card my-5">
+<div class="academic-card mt-4">
     <div class="card-header-simple">
         <div class="card-header-title">
-            {% if include.title %}{{ include.title }}{% else %}Publications{% endif %}
+            {% if include.title %}{{ include.title }}{% else %}<i class="fas fa-book-open"></i> Selected Publications{% endif %}
         </div>
-        <a class="text-secondary font-weight-500 small" href="{{ 'publications' | relative_url }}">
-            View All &rarr;
+        <a class="pub-view-all" href="{{ 'publications' | relative_url }}">
+            View All <i class="fas fa-arrow-right small"></i>
         </a>
     </div>
     
@@ -15,4 +15,4 @@
             {% include widgets/publication_item.html item=item %}    
         {% endfor %}
     </div>
-</section>
+</div>

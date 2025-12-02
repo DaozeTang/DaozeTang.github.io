@@ -1,46 +1,46 @@
 {% assign item = include.item %}
 
-<article class="pub-item">
-    <div class="pub-cover-wrapper">
-        {% if item.cover %}
-        <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
-        {% else %}
-        <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 100px;">
-            <i class="far fa-file-alt fa-2x opacity-25"></i>
+<div class="pub-item">
+    <div class="row no-gutters">
+        <div class="col-md-3 col-xl-2 d-none d-md-block pr-md-4">
+            {% if item.cover %}
+            <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
+            {% else %}
+            <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 80px; border-style: dashed;">
+                <i class="fas fa-file-alt opacity-50"></i>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
+
+        <div class="col-md-9 col-xl-10">
+            <div class="pub-title">{{ item.title }}</div>
+            
+            <div class="pub-authors">
+                {% include widgets/author_list.html authors=item.authors %}
+            </div>
+
+            <div class="pub-venue">
+                {{ item.pub_pre }} <strong>{{ item.pub }}</strong> {{ item.pub_post }} 
+                {% if item.pub_date %}<span class="text-muted ml-1">, {{ item.pub_date }}</span>{% endif %}
+            </div>
+
+            {% if item.abstract %}
+            <div class="pub-abstract">{{ item.abstract }}</div>
+            {% endif %}
+            
+            <div class="d-flex flex-wrap mt-2">
+                {% for link in item.links %}
+                    {% if link[1].url %}
+                        <a class="btn-pub-link" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">
+                            {{ link[0] }}
+                        </a>
+                    {% else %}
+                        <a class="btn-pub-link" target="_blank" href="{{ link[1] }}">
+                            {{ link[0] }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
-
-    <div class="pub-details">
-        <div class="pub-title">{{ item.title }}</div>
-        
-        <div class="pub-authors">
-            {% include widgets/author_list.html authors=item.authors %}
-        </div>
-
-        <div class="pub-venue">
-            {{ item.pub_pre }} <strong>{{ item.pub }}</strong> {{ item.pub_post }} 
-            {% if item.pub_date %}<span class="text-tertiary"> · {{ item.pub_date }}</span>{% endif %}
-        </div>
-
-        {% if item.abstract %}
-        <div class="small text-secondary mb-3 pl-3 border-left" style="font-style: italic;">
-            {{ item.abstract }}
-        </div>
-        {% endif %}
-        
-        <div class="d-flex flex-wrap gap-2">
-            {% for link in item.links %}
-                {% if link[1].url %}
-                    <a class="btn-pub-link" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">
-                        {{ link[0] }}
-                    </a>
-                {% else %}
-                    <a class="btn-pub-link" target="_blank" href="{{ link[1] }}">
-                        {{ link[0] }}
-                    </a>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-</article>
+</div>
