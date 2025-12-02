@@ -1,83 +1,121 @@
-<div class="academic-card">
-    <div class="card-body">
-        <div class="row">
-            
-            <!-- Education -->
-            {% if site.data.profile.education %}
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <h6 class="section-title">
-                    <i class="fas fa-graduation-cap"></i> Education
-                </h6>
-                <div class="list-group list-group-flush">
-                    {% for item in site.data.profile.education %}
-                    <div class="list-group-item px-0 border-0 py-2">
-                        <div class="d-flex align-items-start">
-                            {% if item.logo %}
-                            <img src="{{ item.logo | relative_url }}" class="mr-3 p-1 border rounded bg-white" style="width: 42px; height: 42px; object-fit: contain;">
-                            {% endif %}
-                            <div class="flex-grow-1">
-                                <div class="d-flex justify-content-between">
-                                    <span class="font-weight-bold text-dark">{{ item.name }}</span>
-                                    <small class="text-muted text-nowrap ml-2">{{ item.date }}</small>
+<style>
+    .exp-list-item {
+        padding: 1rem 0;
+        border-bottom: 1px dashed var(--border-color);
+        transition: background-color 0.2s;
+    }
+    .exp-list-item:last-child { border-bottom: none; }
+    .exp-list-item:hover { background-color: rgba(0,0,0,0.01); }
+
+    .exp-logo {
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 4px;
+        margin-right: 1rem;
+    }
+    
+    .exp-title { font-size: 1rem; font-weight: 600; color: var(--text-main); margin-bottom: 2px; }
+    .exp-subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+    .exp-meta { font-size: 0.85rem; color: var(--text-muted); }
+    .exp-date-badge {
+        font-size: 0.75rem;
+        background: #f1f3f5;
+        color: var(--text-secondary);
+        padding: 2px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+        font-family: var(--font-mono);
+    }
+    
+    .award-icon { color: #f1c40f; width: 24px; text-align: center; }
+</style>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="academic-card">
+            <div class="card-body card-body-simple">
+                <div class="row" data-masonry='{"percentPosition": true }'>
+                    
+                    <!-- Education -->
+                    {% if site.data.profile.education %}
+                    <div class="col-lg-6 mb-5">
+                        <div class="card-header-simple px-0 pt-0">
+                            <div class="card-header-title"><i class="fas fa-graduation-cap"></i> Education</div>
+                        </div>
+                        <div>
+                            {% for item in site.data.profile.education %}
+                            <div class="media exp-list-item">
+                                {% if item.logo %}
+                                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="exp-logo align-self-start">
+                                {% endif %}
+                                <div class="media-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="exp-title">{{ item.name }}</div>
+                                        <div class="exp-date-badge d-none d-sm-block">{{ item.date }}</div>
+                                    </div>
+                                    <div class="exp-subtitle">{{ item.dept }}</div>
+                                    <div class="exp-meta">{{ item.position }}</div>
+                                    <div class="exp-date-badge d-block d-sm-none mt-2 w-auto d-inline-block">{{ item.date }}</div>
                                 </div>
-                                <div class="small text-secondary">{{ item.dept }}</div>
-                                <div class="small text-muted">{{ item.position }}</div>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
+                    {% endif %}
 
-            <!-- Experience -->
-            {% if site.data.profile.experience %}
-            <div class="col-lg-6">
-                <h6 class="section-title">
-                    <i class="fas fa-briefcase"></i> Experience
-                </h6>
-                <div class="list-group list-group-flush">
-                    {% for item in site.data.profile.experience %}
-                    <div class="list-group-item px-0 border-0 py-2">
-                        <div class="d-flex align-items-start">
-                            {% if item.logo %}
-                            <img src="{{ item.logo | relative_url }}" class="mr-3 p-1 border rounded bg-white" style="width: 42px; height: 42px; object-fit: contain;">
-                            {% endif %}
-                            <div class="flex-grow-1">
-                                <div class="d-flex justify-content-between">
-                                    <span class="font-weight-bold text-dark">{{ item.name }}</span>
-                                    <small class="text-muted text-nowrap ml-2">{{ item.date }}</small>
+                    <!-- Experience -->
+                    {% if site.data.profile.experience %}
+                    <div class="col-lg-6 mb-5">
+                        <div class="card-header-simple px-0 pt-0">
+                            <div class="card-header-title"><i class="fas fa-briefcase"></i> Experience</div>
+                        </div>
+                        <div>
+                            {% for item in site.data.profile.experience %}
+                            <div class="media exp-list-item">
+                                {% if item.logo %}
+                                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="exp-logo align-self-start">
+                                {% endif %}
+                                <div class="media-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="exp-title">{{ item.name }}</div>
+                                        <div class="exp-date-badge d-none d-sm-block">{{ item.date }}</div>
+                                    </div>
+                                    <div class="exp-subtitle">{{ item.dept }}</div>
+                                    <div class="exp-meta">{{ item.position }}</div>
+                                    <div class="exp-date-badge d-block d-sm-none mt-2 w-auto d-inline-block">{{ item.date }}</div>
                                 </div>
-                                <div class="small text-secondary">{{ item.dept }}</div>
-                                <div class="small text-muted">{{ item.position }}</div>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
+                    {% endif %}
 
-        </div>
-        
-        <!-- Awards (Optional, Full Width below) -->
-        {% if site.data.profile.awards %}
-        <div class="mt-4 pt-3 border-top">
-             <h6 class="section-title">
-                <i class="fas fa-trophy"></i> Honors & Awards
-            </h6>
-            <div class="row">
-                {% for item in site.data.profile.awards %}
-                <div class="col-md-6 mb-2">
-                    <div class="d-flex small">
-                        <i class="fas fa-award text-warning mr-2 mt-1"></i>
-                        <span class="flex-grow-1">{{ item.name }}</span>
-                        <span class="text-muted ml-2 text-right text-nowrap" style="min-width: 60px;">{{ item.date }}</span>
+                    <!-- Awards -->
+                    {% if site.data.profile.awards %}
+                    <div class="col-lg-6 mb-4">
+                        <div class="card-header-simple px-0 pt-0">
+                            <div class="card-header-title"><i class="fas fa-trophy"></i> Honors & Awards</div>
+                        </div>
+                        <div class="pt-2">
+                            {% for item in site.data.profile.awards %}
+                            <div class="d-flex align-items-start py-2 border-bottom border-light">
+                                <div class="mr-3 mt-1"><i class="fas fa-award award-icon"></i></div>
+                                <div class="flex-grow-1">
+                                    <div class="text-dark small font-weight-bold">{{ item.name }}</div>
+                                </div>
+                                <div class="text-muted small text-mono ml-2 no-break">{{ item.date }}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
+                    {% endif %}
+
                 </div>
-                {% endfor %}
             </div>
         </div>
-        {% endif %}
     </div>
 </div>

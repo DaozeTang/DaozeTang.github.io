@@ -1,74 +1,162 @@
-<div class="academic-card">
-    <div class="card-body">
-        <div class="row align-items-center">
-            
-            <!-- Left: Text Info -->
-            <div class="col-md-8 order-2 order-md-1">
-                <div class="d-flex align-items-baseline mb-2">
-                    <h1 class="h2 mb-0 mr-3 text-dark font-weight-bold">
-                        {{ site.data.profile.primary_name }} 
-                    </h1>
-                    <span class="text-muted font-weight-light">{{ site.data.profile.secondary_name }}</span>
-                </div>
+<style>
+    .profile-img {
+        width: 100%;
+        max-width: 240px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease;
+    }
+    .profile-img:hover { transform: scale(1.02); }
+    
+    .position-badge {
+        display: inline-flex;
+        align-items: center;
+        background: #f8f9fa;
+        color: var(--text-secondary);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        border: 1px solid #e9ecef;
+        margin: 0 6px 6px 0;
+    }
+    .position-badge img { height: 16px; margin-right: 6px; }
+    
+    .social-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        margin: 0 6px 8px 0;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        background: transparent;
+        transition: all 0.2s;
+    }
+    .social-btn:hover { background: #f1f3f5; color: var(--primary-color); transform: translateY(-2px); }
+    .social-btn i { margin-right: 6px; font-size: 1.1em; }
+    
+    .btn-cv {
+        background-color: rgba(0, 123, 255, 0.08);
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+    .btn-cv:hover { background-color: var(--primary-color); color: #fff; }
+</style>
 
-                <!-- Badges / Positions -->
-                <div class="mb-3">
-                    {% for position in site.data.profile.positions %}
-                    <div class="badge badge-light border text-wrap text-left font-weight-normal mr-1 mb-1 p-2" style="font-size: 0.9rem; color: #495057;">
-                        {% if position.logo %}
-                        <img src="{{ position.logo | relative_url }}" style="height: 16px; margin-right: 4px; vertical-align: text-bottom;" alt=""/>
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div class="card academic-card">
+            <div class="card-body card-body-simple p-4 p-md-5">
+                <div class="row align-items-start">
+                    
+                    <div class="col-md-8 order-2 order-md-1">
+                        <div class="mb-3">
+                            <h1 class="h2 d-inline-block mr-3 mb-0" style="color: var(--text-main);">{{ site.data.profile.primary_name }}</h1>
+                            <span class="text-muted font-weight-light">{{ site.data.profile.secondary_name }}</span>
+                        </div>
+
+                        <div class="mb-4">
+                            {% for position in site.data.profile.positions %}
+                            <div class="position-badge">
+                                {% if position.logo %}<img src="{{ position.logo | relative_url }}" alt="Logo"/>{% endif %}
+                                {{ position.name }}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="text-secondary mb-4 text-justify">
+                            {{ site.data.profile.short_bio }}
+                        </div>
+
+                        {% if site.data.profile.cv_link %}
+                        <div class="mb-4">
+                            <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}" class="social-btn btn-cv">
+                                <i class="fas fa-file-alt"></i> Curriculum Vitae
+                            </a>
+                        </div>
                         {% endif %}
-                        {{ position.name }}
                     </div>
-                    {% endfor %}
-                </div>
 
-                <!-- Bio -->
-                <div class="text-muted mb-4" style="text-align: justify; font-size: 0.95rem;">
-                    {{ site.data.profile.short_bio }}
-                </div>
-
-                <!-- Social & Action Buttons -->
-                <div class="d-flex flex-wrap align-items-center">
-                    {% if site.data.profile.cv_link %}
-                    <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}" class="btn btn-sm btn-outline-primary mr-3 mb-2 rounded-pill px-3">
-                        <i class="fas fa-file-alt mr-1"></i> CV
-                    </a>
+                    {% if site.data.profile.portrait_url %}
+                    <div class="col-md-4 order-1 order-md-2 mb-4 mb-md-0 text-center text-md-right">
+                        <img src="{{ site.data.profile.portrait_url | relative_url }}" class="profile-img" alt="{{ site.data.profile.primary_name }}">
+                    </div>
                     {% endif %}
+                </div>
 
-                    <div class="social-links mb-2">
-                        {% if site.data.profile.email %}
-                        <a href="mailto:{{ site.data.profile.email | encode_email }}" class="text-muted mr-3" title="Email"><i class="fas fa-envelope fa-lg"></i></a>
-                        {% endif %}
-                        
-                        {% if site.data.profile.gscholar %}
+                <hr class="my-4 border-light" />
+
+                <div class="d-flex flex-wrap">
+                    <a class="social-btn" href="mailto:{{ site.data.profile.email | encode_email }}">
+                        <i class="fas fa-envelope"></i> 
+                        <span class="d-none d-sm-inline text-mono">{{ site.data.profile.email | replace: "@", "(at)" }}</span>
+                        <span class="d-inline d-sm-none">Email</span>
+                    </a>
+
+                    {% if site.data.profile.gscholar %}
                         {% assign gscholar_url = site.data.profile.gscholar %}
                         {% unless gscholar_url contains 'scholar.google' %}
                             {% assign gscholar_url = 'https://scholar.google.com/citations?user=' | append: site.data.profile.gscholar %}
                         {% endunless %}
-                        <a target="_blank" href="{{ gscholar_url }}" class="text-muted mr-3" title="Google Scholar"><i class="fa-brands fa-google-scholar fa-lg"></i></a>
-                        {% endif %}
+                        <a class="social-btn" target="_blank" href="{{ gscholar_url }}">
+                            <i class="fa-brands fa-google-scholar"></i> Scholar
+                        </a>
+                    {% endif %}
+                    
+                    {% if site.data.profile.github %}
+                    <a class="social-btn" target="_blank" href="https://github.com/{{ site.data.profile.github }}">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    {% endif %}
 
-                        {% if site.data.profile.github %}
-                        <a target="_blank" href="https://github.com/{{ site.data.profile.github }}" class="text-muted mr-3" title="GitHub"><i class="fa-brands fa-github fa-lg"></i></a>
-                        {% endif %}
-                        
-                        <!-- Add other icons as needed following the same pattern -->
-                    </div>
+                    {% if site.data.profile.wechat_qrcode %}
+                    <a class="social-btn cursor-pointer" data-toggle="modal" data-target="#modal-wechat">
+                        <i class="fa-brands fa-weixin text-success"></i> WeChat
+                    </a>
+                    {% endif %}
+
+                    {% if site.data.profile.twitter %}
+                    <a class="social-btn" target="_blank" href="https://twitter.com/{{ site.data.profile.twitter }}">
+                        <i class="fa-brands fa-twitter text-info"></i> Twitter
+                    </a>
+                    {% endif %}
+
+                    {% if site.data.profile.linkedin %}
+                    <a class="social-btn" target="_blank" href="https://www.linkedin.com/in/{{ site.data.profile.linkedin }}">
+                        <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
+                    </a>
+                    {% endif %}
+
+                    {% if site.data.profile.orcid %}
+                    <a class="social-btn" target="_blank" href="https://orcid.org/{{ site.data.profile.orcid }}">
+                        <i class="fa-brands fa-orcid text-success"></i> ORCID
+                    </a>
+                    {% endif %}
+                    
+                    {% if site.data.profile.laboratory %}
+                    <a class="social-btn" target="_blank" href="{{ site.data.profile.laboratory }}">
+                        <i class="fa-solid fa-flask-vial"></i> Lab
+                    </a>
+                    {% endif %}
                 </div>
             </div>
-
-            <!-- Right: Portrait -->
-            {% if site.data.profile.portrait_url %}
-            <div class="col-md-4 order-1 order-md-2 mb-4 mb-md-0 text-center">
-                <img 
-                    src="{{ site.data.profile.portrait_url | relative_url }}" 
-                    class="img-fluid rounded shadow-sm object-cover" 
-                    style="max-height: 200px; width: auto;"
-                    alt="{{ site.data.profile.primary_name }}">
-            </div>
-            {% endif %}
-            
         </div>
     </div>
 </div>
+
+{% if site.data.profile.wechat_qrcode %}
+<div class="modal fade" id="modal-wechat" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-body text-center p-4">
+                <button type="button" class="close position-absolute" style="right: 15px; top: 10px;" data-dismiss="modal">&times;</button>
+                <h6 class="mb-3 font-weight-bold">WeChat ID</h6>
+                <img src="{{ site.data.profile.wechat_qrcode | relative_url }}" class="img-fluid rounded mb-2" alt="WeChat QR">
+                {% if site.data.profile.wechat_prompt %}
+                <p class="text-muted small mb-0">{{ site.data.profile.wechat_prompt }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

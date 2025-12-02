@@ -1,24 +1,27 @@
+<style>
+    .pub-view-all {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        transition: color 0.2s;
+    }
+    .pub-view-all:hover { color: var(--primary-color); }
+</style>
+
 {% assign publications = include.publications %}
 
-<div class="academic-card">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="section-title mb-0 border-bottom-0 pb-0">
-                {% if include.title %}
-                    {{ include.title }}
-                {% else %}
-                    <i class="fas fa-book-open"></i> Publications
-                {% endif %}
-            </h6>
-            <a href="{{ 'publications' | relative_url }}" class="small text-muted hover-primary">
-                View All <i class="fas fa-angle-right"></i>
-            </a>
+<div class="academic-card my-4">
+    <div class="card-header-simple">
+        <div class="card-header-title">
+            {% if include.title %}{{ include.title }}{% else %}<i class="fas fa-book-open"></i> Selected Publications{% endif %}
         </div>
-        
-        <div class="mt-2">
-            {% for item in publications limit:include.limit %}
-                {% include widgets/publication_item.html item=item %}    
-            {% endfor %}
-        </div>
+        <a class="pub-view-all" href="{{ 'publications' | relative_url }}">
+            View all <i class="fas fa-angle-right ml-1"></i>
+        </a>
+    </div>
+    
+    <div class="card-body card-body-simple pt-2">
+        {% for item in publications limit:include.limit %}
+            {% include widgets/publication_item.html item=item %}    
+        {% endfor %}
     </div>
 </div>

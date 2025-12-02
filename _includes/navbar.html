@@ -1,42 +1,21 @@
-<nav class="navbar navbar-expand-md fixed-top navbar-light navbar-blur p-0">
-    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %} py-2">
-        
-        <a class="navbar-brand font-weight-bold" href="{{ '/' | relative_url }}">
-            {{ site.data.profile.navbar_name }}
+<nav class="navbar navbar-expand-sm fixed-top my-3 p-0">
+    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %} academic-nav-card py-2 px-3">
+        <a class="navbar-brand text-dark" href="{{ '/' | relative_url }}">
+            <strong>{{ site.data.profile.navbar_name }}</strong>
         </a>
         
-        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="mr-1">Menu</span> <i class="fas fa-chevron-down small"></i>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto align-items-center">
                 {% for item in site.data.navigation.pages %}
                 <li class="nav-item {% if item.name == page.navbar_title %}active{% endif %}">
-                    <a class="nav-link px-3" href="{{ item.url | relative_url }}">
-                        {{ item.name }}
-                        {% if item.name == page.navbar_title %}<span class="sr-only">(current)</span>{% endif %}
-                    </a>
+                    <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>
                 </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 </nav>
-
-<style>
-    /* 局部微调：导航项选中状态 */
-    .navbar-nav .nav-item.active .nav-link {
-        color: var(--primary-color) !important;
-        background: rgba(0, 123, 255, 0.05);
-        border-radius: 6px;
-        font-weight: 600;
-    }
-    .navbar-nav .nav-link {
-        color: #555;
-        font-weight: 500;
-    }
-    .navbar-nav .nav-link:hover {
-        color: var(--primary-color);
-    }
-</style>

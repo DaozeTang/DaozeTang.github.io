@@ -1,40 +1,53 @@
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<div class="academic-card">
-    <div class="card-body">
-        <h6 class="section-title">
-            <i class="fas fa-rss"></i> News
-        </h6>
-        
-        <div class="news-scroll-wrapper" style="max-height: 300px; overflow-y: auto; padding-right: 5px;">
-            {% for year in news_by_year %}
-            <div class="row mb-3">
-                <div class="col-auto">
-                    <span class="badge badge-light border text-muted">{{ year.name }}</span>
-                </div>
-                <div class="col pl-0">
-                    <ul class="list-unstyled mb-0">
-                        {% for item in year.items %}
-                        <li class="mb-2 d-flex align-items-baseline">
-                            <i class="fas fa-caret-right text-muted mr-2 small"></i>
-                            <div>
-                                <span class="text-dark small">{{ item.title }}</span>
-                                <small class="text-muted ml-2 text-nowrap">({{ item.date | date: "%b %d" }})</small>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
+<style>
+    .news-scroll {
+        max-height: 380px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+    .news-scroll::-webkit-scrollbar { width: 4px; }
+    .news-scroll::-webkit-scrollbar-track { background: transparent; }
+    .news-scroll::-webkit-scrollbar-thumb { background: #dee2e6; border-radius: 4px; }
+    .news-scroll::-webkit-scrollbar-thumb:hover { background: #adb5bd; }
+
+    .news-year { font-weight: 700; color: var(--primary-color); width: 45px; }
+    .news-row { padding: 6px 0; border-bottom: 1px dashed #f1f3f5; }
+    .news-row:last-child { border: none; }
+    .news-link { color: var(--text-main); transition: color 0.2s; }
+    .news-link:hover { color: var(--primary-color); }
+    .news-date { font-size: 0.8rem; color: var(--text-muted); background: #f8f9fa; padding: 1px 6px; border-radius: 4px; }
+</style>
+
+<div class="row mt-3">
+    <div class="col">
+        <div class="academic-card">
+            <div class="card-header-simple">
+                <div class="card-header-title">
+                    <i class="fas fa-rss text-danger"></i> News
                 </div>
             </div>
-            {% endfor %}
+            
+            <div class="card-body card-body-simple news-scroll">
+                {% for year in news_by_year %}
+                <div class="d-flex {% unless forloop.first %}mt-4{% endunless %}">
+                    <div class="news-year mr-3">{{ year.name }}</div>
+                    <div class="flex-grow-1">
+                        {% for item in year.items %}
+                        <div class="d-flex align-items-baseline news-row">
+                            <i class="fas fa-caret-right text-muted mr-2 small"></i>
+                            <div class="flex-grow-1 small">
+                                <span class="news-link">{{ item.title }}</span>
+                            </div>
+                            <div class="news-date text-mono ml-2 no-break">
+                                {{ item.date | date: "%b %d" }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
-
-<style>
-    /* Webkit scrollbar beautification */
-    .news-scroll-wrapper::-webkit-scrollbar { width: 4px; }
-    .news-scroll-wrapper::-webkit-scrollbar-track { background: transparent; }
-    .news-scroll-wrapper::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
-    .news-scroll-wrapper::-webkit-scrollbar-thumb:hover { background: #bbb; }
-</style>
