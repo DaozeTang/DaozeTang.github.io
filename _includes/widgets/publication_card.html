@@ -1,21 +1,21 @@
 {% assign publications = include.publications %}
 
-<div class="card publication-card mb-3">
+<div class="card hover-effect">
     <div class="card-body">
-        <h6 class="pub-header">
-            <div class="d-flex align-items-center">
+        <h6 class="section-title justify-content-between">
+            <span>
                 {% if include.title %}
                     {{ include.title }}
                 {% else %}
                     <i class="fas fa-book-open"></i> Selected Publications
                 {% endif %}
-            </div>
-            <a class="small font-weight-bold" href="{{ 'publications' | relative_url }}">
-                View All <i class="fas fa-arrow-right ml-1"></i>
+            </span>
+            <a href="{{ 'publications' | relative_url }}" class="text-small font-weight-normal text-muted">
+                View all <i class="fas fa-angle-right"></i>
             </a>
         </h6>
         
-        <div class="mt-2">
+        <div class="mt-4">
             {% for item in publications limit:include.limit %}
                 {% include widgets/publication_item.html item=item %}    
             {% endfor %}

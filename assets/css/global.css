@@ -1,49 +1,41 @@
 @charset "utf-8";
 
-/* === Global Design System === */
+/* === Design System Variables === */
 :root {
-    /* Color Palette */
-    --primary-color: #0066cc;       /* 学术蓝，沉稳专业 */
+    --primary-color: #007bff;       /* 主色调：学术蓝 */
     --primary-hover: #0056b3;
-    --text-main: #2c3e50;           /* 主要文字 */
-    --text-secondary: #6c757d;      /* 次要文字 */
-    --bg-light: #f8f9fa;
+    --text-main: #2c3e50;           /* 主要文字：深灰蓝 */
+    --text-secondary: #6c757d;      /* 次要文字：灰色 */
+    --bg-body: #f8f9fa;             /* 背景色：极淡的灰 */
+    --bg-card: #ffffff;
     --border-color: #e9ecef;
-    
-    /* Spacing & Layout */
-    --card-radius: 8px;             /* 统一圆角，比之前的12px更紧凑干练 */
-    --card-padding: 1.5rem;         /* 统一卡片内边距 */
-    --element-spacing: 1rem;        /* 元素间距 */
-    
-    /* Effects */
-    --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-    --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    --nav-blur-bg: rgba(255, 255, 255, 0.95);
-    
-    /* Transitions */
-    --transition-fast: all 0.2s ease-in-out;
-    --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --radius-lg: 12px;              /* 大圆角 */
+    --radius-sm: 6px;               /* 小圆角 */
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-hover: 0 8px 24px rgba(0,0,0,0.08);
+    --font-base: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-    font-weight: 400;
+    font-family: var(--font-base);
+    background-color: var(--bg-body);
     color: var(--text-main);
-    padding-top: 4.5rem; /* 略微减小顶部留白 */
-    background-color: #fcfcfc;
+    font-weight: 400;
+    padding-top: 5rem; /* 为固定的 Navbar 留出空间 */
     line-height: 1.6;
 }
 
-/* Typography Overrides */
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+/* === Typography & Utilities === */
+h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
-    letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
+    color: var(--text-main);
 }
 
 a {
     color: var(--primary-color);
-    transition: var(--transition-fast);
+    transition: all 0.2s ease;
+    text-decoration: none;
 }
 
 a:hover {
@@ -51,81 +43,92 @@ a:hover {
     text-decoration: none;
 }
 
-/* === Unified Card Style === */
-.card, .academic-nav-card, .academic-footer-card, 
-.profile-card, .news-card, .experience-card, .publication-card, .comments-card {
-    border: 1px solid rgba(0,0,0,0.06) !important;
-    border-radius: var(--card-radius) !important;
-    box-shadow: var(--card-shadow) !important;
-    background-color: #fff;
-    transition: var(--transition-base);
-    overflow: hidden;
+/* 通用卡片样式 - 核心美化逻辑 */
+.card {
+    border: none !important;
+    background-color: var(--bg-card);
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 1.5rem; /* 卡片间距更紧凑 */
 }
 
-/* Card Hover Effect (Applied globally) */
-.profile-card:hover, .news-card:hover, 
-.experience-card:hover, .publication-card:hover, .comments-card:hover {
+/* 统一的卡片悬浮效果 */
+.hover-effect:hover {
     transform: translateY(-3px);
-    box-shadow: var(--card-hover-shadow) !important;
-    border-color: rgba(0,0,0,0.03) !important;
+    box-shadow: var(--shadow-hover) !important;
 }
 
+/* 卡片内部紧凑化 */
 .card-body {
-    padding: var(--card-padding) !important;
+    padding: 1.5rem !important; /* 从原本的 p-4/p-5 缩小到 1.5rem */
 }
 
-/* Unified Section Header (For components) */
-.section-header, .news-header, .pub-header, .comments-header {
+@media (min-width: 768px) {
+    .card-body {
+        padding: 2rem !important; /* 桌面端稍微宽一点 */
+    }
+}
+
+/* 统一的 Section 标题样式 */
+.section-title {
+    font-size: 1.1rem;
     font-weight: 700;
-    font-size: 1.05rem;
     color: var(--text-main);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 0.8rem;
     margin-bottom: 1.2rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
-.section-header i, .news-header i, .pub-header i, .comments-header i {
+.section-title i {
     color: var(--primary-color);
     margin-right: 0.6rem;
     width: 20px;
     text-align: center;
-    opacity: 0.9;
 }
 
-/* === Utilities === */
-.rounded-xl { border-radius: var(--card-radius) !important; }
-.text-small { font-size: 0.875rem; }
-.text-xs { font-size: 0.75rem; }
-
-/* Scrollbar Beautification */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
-
-/* Helper classes */
-.badge-light-soft {
-    background-color: rgba(0, 0, 0, 0.04);
-    color: var(--text-secondary);
-    border: 1px solid transparent;
-}
-
-/* Navigation specific */
+/* === Navbar Customizations === */
 .academic-nav-card {
-    background-color: var(--nav-blur-bg);
-    backdrop-filter: blur(12px); 
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    padding: 0.5rem 1rem !important; /* 更紧凑的导航栏 */
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border-radius: var(--radius-lg);
 }
 
-/* Footer specific */
+.navbar-nav .nav-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem !important;
+    border-radius: var(--radius-sm);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-item.active .nav-link {
+    color: var(--primary-color);
+    background-color: rgba(0, 123, 255, 0.08);
+}
+
+/* === Footer === */
 .academic-footer-card {
-    padding: 1rem !important;
+    background-color: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-secondary);
 }
 
-/* Publication & Image Helpers */
-.img-fluid { max-width: 100%; height: auto; }
-.lazy { background-color: #f8f9fa; }
+/* === Helpers === */
+.text-small { font-size: 0.85rem; }
+.text-muted { color: var(--text-secondary) !important; }
+.rounded-xl { border-radius: var(--radius-lg) !important; }
+.no-break { white-space: nowrap; }
+
+/* 懒加载占位 */
+img.lazy {
+    background-color: #f1f3f5;
+    transition: opacity 0.3s;
+}

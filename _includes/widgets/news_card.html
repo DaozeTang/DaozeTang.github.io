@@ -1,65 +1,25 @@
-<!-- Compact News Card -->
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<style>
-    .news-scroll-container {
-        max-height: 380px; /* 略微减小高度 */
-        overflow-y: auto;
-        padding-right: 5px; /* 防止滚动条遮挡文字 */
-    }
-    .news-item {
-        padding: 6px 0;
-        border-bottom: 1px dashed var(--border-color);
-        font-size: 0.9rem;
-        display: flex;
-        align-items: baseline;
-    }
-    .news-item:last-child { border-bottom: none; }
-    
-    .news-date-badge {
-        font-size: 0.75rem;
-        font-family: monospace;
-        color: var(--text-secondary);
-        background-color: var(--bg-light);
-        padding: 1px 6px;
-        border-radius: 4px;
-        margin-left: auto; /* 日期靠右 */
-        white-space: nowrap;
-    }
-    .news-year {
-        font-weight: 700;
-        font-size: 0.9rem;
-        color: var(--primary-color);
-        width: 45px;
-        flex-shrink: 0;
-    }
-</style>
-
-<div class="row mb-3">
-    <div class="col">
-        <div class="news-card">
-            <div class="card-body pt-3 pb-3 px-3"> <!-- 紧凑内边距 -->
-                <h6 class="news-header mt-1 mb-3">
-                    <span><i class="fas fa-rss"></i> News</span>
-                </h6>
-                
-                <div class="news-scroll-container">
-                    {% for year in news_by_year %}
-                    <div class="mb-3">
-                        <div class="d-flex">
-                            <div class="news-year">{{ year.name }}</div>
-                            <div class="w-100">
-                                {% for item in year.items %}
-                                <div class="news-item">
-                                    <span class="mr-2" style="color: var(--text-main);">{{ item.title }}</span>
-                                    <span class="news-date-badge">{{ item.date | date: "%b %d" }}</span>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
+<div class="card hover-effect">
+    <div class="card-body">
+        <h6 class="section-title">
+            <span><i class="fas fa-rss"></i> News</span>
+        </h6>
+        
+        <div style="max-height: 200px; overflow-y: auto; padding-right: 10px;" class="custom-scrollbar">
+            <div class="list-group list-group-flush">
+                {% for year in news_by_year %}
+                    {% for item in year.items %}
+                    <div class="list-group-item px-0 py-2 border-0 d-flex align-items-baseline">
+                        <span class="badge badge-light border text-secondary mr-3 font-weight-normal" style="min-width: 60px;">
+                            {{ item.date | date: "%b %d" }}
+                        </span>
+                        <span class="text-small text-dark">
+                            {{ item.title }}
+                        </span>
                     </div>
                     {% endfor %}
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
