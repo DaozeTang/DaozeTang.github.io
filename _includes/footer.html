@@ -1,36 +1,19 @@
 <footer class="mt-5 mb-4">
-    <!-- 检查页面是否定义了自定义容器类，否则使用默认的 container-lg -->
     <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
         <div class="row justify-content-center">
             <div class="col-12">
-                <!-- 使用 academic-card 作为基础，footer-card 作为特定样式修饰 -->
                 <div class="academic-card footer-card">
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        
-                        <!-- 左侧：版权信息 -->
                         <div class="small">
                             <span class="fw-bold">&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.</span>
                             <span class="text-muted ms-1 d-none d-sm-inline">All rights reserved.</span>
                         </div>
-
-                        <!-- 右侧：更新时间与功能按钮 -->
                         <div class="d-flex align-items-center gap-3">
                             <div class="text-mono small text-muted">
                                 <span class="d-none d-sm-inline">Last updated:</span> 
                                 {{ "now" | date: "%b %Y" }}
                             </div>
-                            
-                            <!-- 分隔竖线 -->
                             <div class="vr text-muted opacity-25 d-none d-sm-block" style="height: 16px;"></div>
-
-                            <!-- 回到顶部按钮 (使用内联 SVG 确保无需外部字体库) -->
-                            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="back-to-top" aria-label="Back to top">
-                                <span>Top</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="12" y1="19" x2="12" y2="5"></line>
-                                    <polyline points="5 12 12 5 19 12"></polyline>
-                                </svg>
-                            </button>
                         </div>
                     </div>
                 </div>
