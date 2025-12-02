@@ -1,58 +1,40 @@
-<!-- News Card: 紧凑型新闻列表 -->
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<style>
-    .news-scroll-box {
-        max-height: 320px; /* 限制高度，内容多时滚动 */
-        overflow-y: auto;
-        padding-right: 10px; /* 防止滚动条遮挡文字 */
-    }
-    
-    /* 自定义细滚动条 */
-    .news-scroll-box::-webkit-scrollbar { width: 4px; }
-    .news-scroll-box::-webkit-scrollbar-track { background: transparent; }
-    .news-scroll-box::-webkit-scrollbar-thumb { background: #dee2e6; border-radius: 4px; }
-    .news-scroll-box::-webkit-scrollbar-thumb:hover { background: #adb5bd; }
-
-    .news-list-item {
-        padding: 6px 0;
-        font-size: 0.95rem;
-        border-bottom: 1px dashed #f1f3f5;
-        display: flex;
-        align-items: baseline;
-    }
-    
-    .news-date-badge {
-        font-family: monospace;
-        color: var(--text-muted);
-        font-size: 0.85rem;
-        margin-right: 12px;
-        white-space: nowrap;
-        min-width: 85px; /* 对齐日期 */
-    }
-</style>
-
-<div class="row">
-    <div class="col-12">
-        <div class="academic-card">
-            <div class="academic-card-body pt-4">
-                <h6 class="section-title">
-                    <i class="fas fa-rss"></i> News
-                </h6>
-                
-                <div class="news-scroll-box">
-                    {% for year in news_by_year %}
+<div class="academic-card">
+    <div class="card-body">
+        <h6 class="section-title">
+            <i class="fas fa-rss"></i> News
+        </h6>
+        
+        <div class="news-scroll-wrapper" style="max-height: 300px; overflow-y: auto; padding-right: 5px;">
+            {% for year in news_by_year %}
+            <div class="row mb-3">
+                <div class="col-auto">
+                    <span class="badge badge-light border text-muted">{{ year.name }}</span>
+                </div>
+                <div class="col pl-0">
+                    <ul class="list-unstyled mb-0">
                         {% for item in year.items %}
-                        <div class="news-list-item">
-                            <span class="news-date-badge">{{ item.date | date: "%b %d, %Y" }}</span>
-                            <span style="color: var(--text-main);">
-                                {{ item.title }}
-                            </span>
-                        </div>
+                        <li class="mb-2 d-flex align-items-baseline">
+                            <i class="fas fa-caret-right text-muted mr-2 small"></i>
+                            <div>
+                                <span class="text-dark small">{{ item.title }}</span>
+                                <small class="text-muted ml-2 text-nowrap">({{ item.date | date: "%b %d" }})</small>
+                            </div>
+                        </li>
                         {% endfor %}
-                    {% endfor %}
+                    </ul>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>
+
+<style>
+    /* Webkit scrollbar beautification */
+    .news-scroll-wrapper::-webkit-scrollbar { width: 4px; }
+    .news-scroll-wrapper::-webkit-scrollbar-track { background: transparent; }
+    .news-scroll-wrapper::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+    .news-scroll-wrapper::-webkit-scrollbar-thumb:hover { background: #bbb; }
+</style>

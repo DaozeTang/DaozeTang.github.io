@@ -4,33 +4,41 @@ title : Homepage
 navbar_title: Home
 ---
 
-<!-- 1. Profile Section -->
-{% include widgets/profile_card.html %}
+<!-- Main Container: Centered Single Column Layout -->
+<div class="row justify-content-center">
+    <!-- 调整 col-lg-10 或 col-xl-9 来控制页面宽度，使其更像单栏阅读模式 -->
+    <div class="col-12 col-lg-10 col-xl-9">
+        
+        <!-- 1. Profile Section -->
+        {% include widgets/profile_card.html %}
 
-<!-- 2. News Section -->
-{% if site.data.display.homepage.show_news %}
-    {% assign count_news = site.news | size %}
-    {% if count_news > 0 %}
-        {% include widgets/news_card.html limit=site.data.display.homepage.num_news %}
-    {% endif %}
-{% endif %}
+        <!-- 2. News Section -->
+        {% if site.data.display.homepage.show_news %}
+            {% assign count_news = site.news | size %}
+            {% if count_news > 0 %}
+                {% include widgets/news_card.html limit=site.data.display.homepage.num_news %}
+            {% endif %}
+        {% endif %}
 
-<!-- 3. Experience Section -->
-{% if site.data.display.homepage.show_experience %}
-    {% include widgets/experience_card.html %}
-{% endif %}
+        <!-- 3. Experience Section -->
+        {% if site.data.display.homepage.show_experience %}
+            {% include widgets/experience_card.html %}
+        {% endif %}
 
-<!-- 4. Selected Publications -->
-{% if site.data.display.homepage.show_selected_publications %}
-    {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
-    {% 
-        include widgets/publication_card.html 
-        publications=pubs
-        title='<i class="fas fa-star"></i> Selected Publications'
-    %}
-{% endif %}
+        <!-- 4. Selected Publications -->
+        {% if site.data.display.homepage.show_selected_publications %}
+            {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
+            {% 
+                include widgets/publication_card.html 
+                publications=pubs
+                title='<i class="fas fa-star"></i> Selected Publications'
+            %}
+        {% endif %}
 
-<!-- 5. Comments Section -->
-{% if site.data.display.homepage.show_comments %}
-    {% include widgets/comments.html %}
-{% endif %}
+        <!-- 5. Comments Section -->
+        {% if site.data.display.homepage.show_comments %}
+            {% include widgets/comments.html %}
+        {% endif %}
+        
+    </div>
+</div>
