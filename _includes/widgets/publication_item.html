@@ -6,8 +6,8 @@
             {% if item.cover %}
             <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
             {% else %}
-            <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 100px;">
-                <i class="fas fa-file-alt fa-2x"></i>
+            <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 90px;">
+                <i class="fas fa-file-alt fa-2x opacity-50"></i>
             </div>
             {% endif %}
         </div>
@@ -28,7 +28,7 @@
             <div class="pub-abstract">{{ item.abstract }}</div>
             {% endif %}
             
-            <div class="mt-2 d-flex flex-wrap">
+            <div class="mt-2">
                 {% for link in item.links %}
                     {% if link[1].url %}
                         <a class="btn-pub-link" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">{{ link[0] }}</a>
