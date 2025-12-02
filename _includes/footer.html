@@ -1,14 +1,12 @@
-<footer class="footer-minimal">
+<footer class="footer-simple">
     <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
         <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="footer-text">
-                    <div>
-                        &copy; {{ "now" | date: "%Y" }} <span class="font-weight-bold">{{ site.data.profile.primary_name }}</span>.
-                    </div>
-                    <div class="text-mono small">
-                        <i class="fas fa-history mr-1"></i> Updated: {{ "now" | date: "%b %Y" }}
-                    </div>
+            <div class="col-12 text-center">
+                <div class="mb-2">
+                    &copy; {{ "now" | date: "%Y" }} <span class="font-weight-bold text-dark">{{ site.data.profile.primary_name }}</span>.
+                </div>
+                <div class="small text-muted font-italic">
+                    Last updated: {{ "now" | date: "%B %d, %Y" }}
                 </div>
             </div>
         </div>
