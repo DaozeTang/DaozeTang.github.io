@@ -1,27 +1,61 @@
-<div class="row">
-    <div class="col-12">
-        <div class="academic-card">
+<!-- Compact Experience Card -->
+<style>
+    .exp-list-item {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.03);
+    }
+    .exp-list-item:last-child { border-bottom: none; }
+    
+    .exp-logo-sm {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 2px;
+        margin-right: 12px;
+    }
+    .exp-main-text { font-weight: 600; font-size: 0.95rem; color: var(--text-main); line-height: 1.2; }
+    .exp-sub-text { font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px; }
+    .exp-date-capsule {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        background: var(--bg-light);
+        padding: 1px 8px;
+        border-radius: 10px;
+        white-space: nowrap;
+    }
+    .award-row {
+        padding: 6px 0;
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+<div class="row mb-3">
+    <div class="col">
+        <div class="experience-card">
             <div class="card-body">
                 <div class="row">
-                    <!-- Education -->
-                    {% if site.data.profile.education %}
-                    <div class="col-md-6 mb-4 mb-md-0">
-                        <h6 class="section-header">
-                            <i class="fas fa-user-graduate"></i> Education
-                        </h6>
-                        <div class="list-group list-group-flush">
-                            {% for item in site.data.profile.education %}
-                            <div class="list-group-item px-0 border-0 d-flex align-items-start pb-3">
-                                {% if item.logo %}
-                                <img src="{{ item.logo | relative_url }}" class="mr-3 rounded border p-1" style="width: 42px; height: 42px; object-fit: contain;">
-                                {% endif %}
-                                <div class="w-100">
+                    
+                    <!-- Experience -->
+                    {% if site.data.profile.experience %}
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <h6 class="section-header"><span class="d-flex align-items-center"><i class="fas fa-briefcase"></i> Experience</span></h6>
+                        <div class="list-unstyled">
+                            {% for item in site.data.profile.experience %}
+                            <div class="media exp-list-item">
+                                {% if item.logo %}<img src="{{ item.logo | relative_url }}" class="exp-logo-sm align-self-start">{% endif %}
+                                <div class="media-body">
                                     <div class="d-flex justify-content-between align-items-baseline">
-                                        <h6 class="mb-0 font-weight-bold text-dark small">{{ item.name }}</h6>
-                                        <small class="text-muted ml-2 no-break">{{ item.date }}</small>
+                                        <div class="exp-main-text">{{ item.name }}</div>
+                                        <div class="exp-date-capsule d-none d-sm-block">{{ item.date }}</div>
                                     </div>
-                                    <div class="small text-secondary">{{ item.dept }}</div>
-                                    <div class="small text-muted font-italic">{{ item.position }}</div>
+                                    <div class="exp-sub-text">{{ item.position }}</div>
+                                    <div class="exp-sub-text font-italic">{{ item.dept }}</div>
+                                    <div class="exp-date-capsule d-block d-sm-none mt-1 w-auto d-inline-block">{{ item.date }}</div>
                                 </div>
                             </div>
                             {% endfor %}
@@ -29,52 +63,42 @@
                     </div>
                     {% endif %}
 
-                    <!-- Experience -->
-                    {% if site.data.profile.experience %}
-                    <div class="col-md-6">
-                        <h6 class="section-header">
-                            <i class="fas fa-briefcase"></i> Experience
-                        </h6>
-                        <div class="list-group list-group-flush">
-                            {% for item in site.data.profile.experience %}
-                            <div class="list-group-item px-0 border-0 d-flex align-items-start pb-3">
-                                {% if item.logo %}
-                                <img src="{{ item.logo | relative_url }}" class="mr-3 rounded border p-1" style="width: 42px; height: 42px; object-fit: contain;">
-                                {% endif %}
-                                <div class="w-100">
+                    <!-- Education -->
+                    {% if site.data.profile.education %}
+                    <div class="col-lg-6">
+                        <h6 class="section-header"><span class="d-flex align-items-center"><i class="fas fa-graduation-cap"></i> Education</span></h6>
+                        <div class="list-unstyled">
+                            {% for item in site.data.profile.education %}
+                            <div class="media exp-list-item">
+                                {% if item.logo %}<img src="{{ item.logo | relative_url }}" class="exp-logo-sm align-self-start">{% endif %}
+                                <div class="media-body">
                                     <div class="d-flex justify-content-between align-items-baseline">
-                                        <h6 class="mb-0 font-weight-bold text-dark small">{{ item.name }}</h6>
-                                        <small class="text-muted ml-2 no-break">{{ item.date }}</small>
+                                        <div class="exp-main-text">{{ item.name }}</div>
+                                        <div class="exp-date-capsule d-none d-sm-block">{{ item.date }}</div>
                                     </div>
-                                    <div class="small text-secondary">{{ item.dept }}</div>
-                                    <div class="small text-muted font-italic">{{ item.position }}</div>
+                                    <div class="exp-sub-text">{{ item.dept }}</div>
+                                    <div class="exp-sub-text">{{ item.position }}</div>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
+
+                        <!-- Awards nested in same column or separate if needed -->
+                        {% if site.data.profile.awards %}
+                        <h6 class="section-header mt-4"><span class="d-flex align-items-center"><i class="fas fa-trophy"></i> Awards</span></h6>
+                        <div>
+                            {% for item in site.data.profile.awards %}
+                            <div class="award-row border-bottom border-light">
+                                <span class="text-dark"><i class="fas fa-angle-right text-muted mr-2 small"></i>{{ item.name }}</span>
+                                <span class="text-muted small font-italic ml-2">{{ item.date }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                     </div>
                     {% endif %}
+                    
                 </div>
-                
-                <!-- Awards (Optional Section below) -->
-                {% if site.data.profile.awards %}
-                <div class="mt-4 pt-3 border-top">
-                    <h6 class="section-header">
-                        <i class="fas fa-trophy"></i> Honors & Awards
-                    </h6>
-                    <div class="row">
-                        {% for item in site.data.profile.awards %}
-                        <div class="col-md-6 mb-2">
-                            <div class="d-flex align-items-center small">
-                                <i class="fas fa-star text-warning mr-2"></i>
-                                <span class="text-dark mr-auto">{{ item.name }}</span>
-                                <span class="text-muted ml-2">{{ item.date }}</span>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endif %}
             </div>
         </div>
     </div>

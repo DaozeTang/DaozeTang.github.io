@@ -1,42 +1,41 @@
 @charset "utf-8";
 
-/* === 1. Design Variables === */
+/* === Global Design System === */
 :root {
     /* Color Palette */
-    --primary-color: #007bff;
-    --secondary-color: #6c757d;
-    --text-main: #2c3e50;
-    --text-muted: #6c757d;
-    --bg-color: #f8f9fa;
-    --card-bg: #ffffff;
-    --hover-bg: rgba(0, 123, 255, 0.05);
+    --primary-color: #0066cc;       /* 学术蓝，沉稳专业 */
+    --primary-hover: #0056b3;
+    --text-main: #2c3e50;           /* 主要文字 */
+    --text-secondary: #6c757d;      /* 次要文字 */
+    --bg-light: #f8f9fa;
+    --border-color: #e9ecef;
     
     /* Spacing & Layout */
-    --card-radius: 12px;
-    --card-padding: 1.5rem; /* Compact padding */
-    --section-gap: 1.5rem;
+    --card-radius: 8px;             /* 统一圆角，比之前的12px更紧凑干练 */
+    --card-padding: 1.5rem;         /* 统一卡片内边距 */
+    --element-spacing: 1rem;        /* 元素间距 */
     
-    /* Shadows & Effects */
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-    --shadow-hover: 0 8px 24px rgba(0,0,0,0.08);
+    /* Effects */
+    --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    --nav-blur-bg: rgba(255, 255, 255, 0.95);
+    
+    /* Transitions */
+    --transition-fast: all 0.2s ease-in-out;
     --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    
-    /* Navbar */
-    --nav-blur: 12px;
-    --nav-bg: rgba(255, 255, 255, 0.85);
 }
 
-/* === 2. Base Typography === */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
     font-weight: 400;
     color: var(--text-main);
-    background-color: var(--bg-color);
-    padding-top: 5rem;
+    padding-top: 4.5rem; /* 略微减小顶部留白 */
+    background-color: #fcfcfc;
     line-height: 1.6;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-weight: 700;
     letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
@@ -44,98 +43,89 @@ h1, h2, h3, h4, h5, h6 {
 
 a {
     color: var(--primary-color);
-    text-decoration: none;
-    transition: var(--transition-base);
+    transition: var(--transition-fast);
 }
 
 a:hover {
+    color: var(--primary-hover);
     text-decoration: none;
-    opacity: 0.8;
 }
 
-/* === 3. Component Utilities === */
-
-/* Unified Card Style */
-.academic-card {
-    background: var(--card-bg);
-    border-radius: var(--card-radius);
-    border: 1px solid rgba(0,0,0,0.03);
-    box-shadow: var(--shadow-sm);
+/* === Unified Card Style === */
+.card, .academic-nav-card, .academic-footer-card, 
+.profile-card, .news-card, .experience-card, .publication-card, .comments-card {
+    border: 1px solid rgba(0,0,0,0.06) !important;
+    border-radius: var(--card-radius) !important;
+    box-shadow: var(--card-shadow) !important;
+    background-color: #fff;
     transition: var(--transition-base);
     overflow: hidden;
-    margin-bottom: var(--section-gap);
 }
 
-.academic-card:hover {
+/* Card Hover Effect (Applied globally) */
+.profile-card:hover, .news-card:hover, 
+.experience-card:hover, .publication-card:hover, .comments-card:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
+    box-shadow: var(--card-hover-shadow) !important;
+    border-color: rgba(0,0,0,0.03) !important;
 }
 
 .card-body {
     padding: var(--card-padding) !important;
 }
 
-/* Section Header */
-.section-header {
-    font-size: 1.1rem;
+/* Unified Section Header (For components) */
+.section-header, .news-header, .pub-header, .comments-header {
     font-weight: 700;
+    font-size: 1.05rem;
     color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.8rem;
     margin-bottom: 1.2rem;
-    border-bottom: 2px solid #f1f3f5;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
-.section-header i {
-    margin-right: 0.6rem;
+.section-header i, .news-header i, .pub-header i, .comments-header i {
     color: var(--primary-color);
+    margin-right: 0.6rem;
+    width: 20px;
+    text-align: center;
     opacity: 0.9;
 }
 
-/* Unified Badge/Button Style */
-.badge-link {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.25rem 0.6rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    background-color: rgba(0, 123, 255, 0.08);
-    border-radius: 6px;
-    margin-right: 0.4rem;
-    margin-bottom: 0.4rem;
-    transition: var(--transition-base);
+/* === Utilities === */
+.rounded-xl { border-radius: var(--card-radius) !important; }
+.text-small { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+
+/* Scrollbar Beautification */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+/* Helper classes */
+.badge-light-soft {
+    background-color: rgba(0, 0, 0, 0.04);
+    color: var(--text-secondary);
     border: 1px solid transparent;
 }
 
-.badge-link:hover {
-    background-color: var(--primary-color);
-    color: #fff;
-    transform: translateY(-1px);
+/* Navigation specific */
+.academic-nav-card {
+    background-color: var(--nav-blur-bg);
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.5rem 1rem !important; /* 更紧凑的导航栏 */
 }
 
-.badge-link i {
-    margin-right: 4px;
+/* Footer specific */
+.academic-footer-card {
+    padding: 1rem !important;
 }
 
-/* Utility Classes */
-.text-justify { text-align: justify; }
-.no-break { white-space: nowrap; }
-.cursor-pointer { cursor: pointer; }
-
-/* Image Lazy Loading */
-img.lazy {
-    background-color: #f8f9fa;
-    transition: opacity 0.3s ease-in;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-    :root {
-        --card-padding: 1.2rem;
-    }
-    body {
-        padding-top: 4rem;
-    }
-}
+/* Publication & Image Helpers */
+.img-fluid { max-width: 100%; height: auto; }
+.lazy { background-color: #f8f9fa; }

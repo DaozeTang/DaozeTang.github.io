@@ -4,29 +4,32 @@ title : Homepage
 navbar_title: Home
 ---
 
-<!-- Profile Section -->
+<!-- Profile Section (Full Width Top) -->
 {% include widgets/profile_card.html %}
 
 <div class="row">
-    <!-- Main Content Column (Experience & Pubs) -->
-    <div class="col-lg-8 col-12">
+    <!-- Main Content: Experience & Pubs (Left 8) -->
+    <div class="col-lg-8 col-12 pr-lg-2">
         
-        {% if site.data.display.homepage.show_selected_publications %}
-            {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
-            {% include widgets/publication_card.html publications=pubs title='<i class="fas fa-star"></i> Selected Publications' %}
-        {% endif %}
-        
+        <!-- Experience First (Usually good to show status) -->
         {% if site.data.display.homepage.show_experience %}
             {% include widgets/experience_card.html %}
         {% endif %}
         
+        <!-- Publications -->
+        {% if site.data.display.homepage.show_selected_publications %}
+            {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
+            {% include widgets/publication_card.html publications=pubs title='<span><i class="fas fa-star"></i> Selected Publications</span>' %}
+        {% endif %}
+        
+        <!-- Comments -->
         {% if site.data.display.homepage.show_comments %}
             {% include widgets/comments.html %}
         {% endif %}
     </div>
 
-    <!-- Sidebar Column (News) -->
-    <div class="col-lg-4 col-12">
+    <!-- Sidebar: News (Right 4) -->
+    <div class="col-lg-4 col-12 pl-lg-2">
         {% if site.data.display.homepage.show_news %}
             {% assign count_news = site.news | size %}
             {% if count_news > 0 %}
@@ -34,6 +37,9 @@ navbar_title: Home
             {% endif %}
         {% endif %}
         
-        <!-- Optional: Twitter Timeline or other sidebar widgets could go here -->
+        <!-- Placeholder for Twitter or other widgets -->
+        <div class="d-none d-lg-block mt-3 text-center text-muted small">
+            <!-- Optional Sidebar Footer Content -->
+        </div>
     </div>
 </div>

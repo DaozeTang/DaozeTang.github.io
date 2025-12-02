@@ -1,28 +1,24 @@
 {% assign publications = include.publications %}
 
-<div class="row">
-    <div class="col-12">
-        <div class="academic-card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-                    <h6 class="section-header mb-0 border-0 pb-0">
-                        {% if include.title %}
-                            {{ include.title }}
-                        {% else %}
-                            <i class="fas fa-book-open"></i> Selected Publications
-                        {% endif %}
-                    </h6>
-                    <a class="small text-muted font-weight-bold" href="{{ 'publications' | relative_url }}">
-                        View All <i class="fas fa-angle-right ml-1"></i>
-                    </a>
-                </div>
-                
-                <div class="publications-list">
-                    {% for item in publications limit:include.limit %}
-                        {% include widgets/publication_item.html item=item %}    
-                    {% endfor %}
-                </div>
+<div class="card publication-card mb-3">
+    <div class="card-body">
+        <h6 class="pub-header">
+            <div class="d-flex align-items-center">
+                {% if include.title %}
+                    {{ include.title }}
+                {% else %}
+                    <i class="fas fa-book-open"></i> Selected Publications
+                {% endif %}
             </div>
+            <a class="small font-weight-bold" href="{{ 'publications' | relative_url }}">
+                View All <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </h6>
+        
+        <div class="mt-2">
+            {% for item in publications limit:include.limit %}
+                {% include widgets/publication_item.html item=item %}    
+            {% endfor %}
         </div>
     </div>
 </div>

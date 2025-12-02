@@ -1,57 +1,105 @@
 {% assign item = include.item %}
 
-<div class="pub-item py-3 border-bottom" style="border-color: #f1f3f5 !important;">
-    <div class="row">
-        <!-- Image / Visual -->
-        {% if item.cover or item.id %}
-        <div class="col-md-3 col-sm-12 mb-3 mb-md-0">
-            <div class="rounded overflow-hidden border" style="max-height: 140px;">
-                {% if item.cover %}
-                <img data-src="{{ item.cover | relative_url }}" 
-                     class="lazy w-100 h-100" 
-                     style="object-fit: cover; object-position: top center;"
-                     src="{{ '/assets/images/empty_300x200.png' | relative_url }}" 
-                     alt="{{ item.title }}">
-                {% else %}
-                <svg class="w-100 h-100 bg-light text-muted" viewBox="0 0 300 200" style="min-height:100px;">
-                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20">Pub</text>
-                </svg>
-                {% endif %}
-            </div>
-        </div>
+<style>
+    .pub-row {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .pub-row:last-child { border-bottom: none; }
+    
+    /* 紧凑的封面图 */
+    .pub-cover-wrapper {
+        width: 140px; /* 固定宽度 */
+        flex-shrink: 0;
+        margin-right: 16px;
+    }
+    .pub-cover-img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.08);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .pub-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-main);
+        line-height: 1.3;
+        margin-bottom: 4px;
+    }
+    
+    .pub-authors {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+    }
+    
+    .pub-venue {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        font-style: italic;
+        margin-bottom: 6px;
+    }
+    .pub-venue strong { color: var(--text-main); font-weight: 600; font-style: normal; }
+    
+    /* 极简链接按钮 */
+    .pub-link-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        border: 1px solid rgba(0, 102, 204, 0.2);
+        padding: 1px 8px;
+        border-radius: 4px;
+        margin-right: 6px;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    .pub-link-badge:hover {
+        background-color: var(--primary-color);
+        color: #fff;
+        text-decoration: none;
+    }
+</style>
+
+<div class="pub-row d-flex">
+    <!-- Desktop Image -->
+    <div class="d-none d-sm-block pub-cover-wrapper">
+        {% if item.cover %}
+        <img data-src="{{ item.cover | relative_url }}" class="lazy pub-cover-img" src="{{ '/assets/images/empty_300x200.png' | relative_url }}" alt="{{ item.title }}">
+        {% else %}
+        <div class="pub-cover-img bg-light d-flex align-items-center justify-content-center text-muted small" style="height: 90px;">No Image</div>
         {% endif %}
+    </div>
 
-        <!-- Content -->
-        <div class="{% if item.cover or item.id %}col-md-9{% else %}col-12{% endif %} col-sm-12">
-            <!-- Title -->
-            <h6 class="mb-1 text-dark font-weight-bold" style="font-size: 1.05rem; line-height: 1.4;">
-                {{ item.title }}
-            </h6>
-            
-            <!-- Authors -->
-            <div class="mb-2 small text-muted">
-                {% include widgets/author_list.html authors=item.authors %}
-            </div>
+    <!-- Content -->
+    <div class="flex-grow-1">
+        <div class="pub-title">{{ item.title }}</div>
+        
+        <div class="pub-authors">
+            {% include widgets/author_list.html authors=item.authors %}
+        </div>
+        
+        <div class="pub-venue">
+            {{ item.pub_pre }} <strong>{{ item.pub }}</strong> {{ item.pub_post }}
+            {% if item.pub_date %}<span class="text-muted ml-1">({{ item.pub_date }})</span>{% endif %}
+        </div>
 
-            <!-- Venue -->
-            <div class="mb-2 small">
-                <span class="badge badge-light border text-secondary font-weight-normal mr-1">
-                    {{ item.pub_date | default: "Preprint" }}
-                </span>
-                <span class="font-italic text-dark">{{ item.pub }}</span>
-                {% if item.pub_pre %}{{ item.pub_pre }}{% endif %}
-            </div>
-
-            <!-- Links (Badges) -->
-            <div class="d-flex flex-wrap mt-2">
-                {% for link in item.links %}
-                    {% assign link_url = link[1].url | default: link[1] %}
-                    {% assign link_target = link[1].target | default: '_blank' %}
-                    <a target="{{ link_target }}" href="{{ link_url }}" class="badge-link">
-                        {{ link[0] }}
-                    </a>
-                {% endfor %}
-            </div>
+        <!-- Abstract (Optional, usually hidden in compact mode unless clicked, but here simplified) -->
+        {% if item.abstract and include.show_abstract %}
+        <p class="small text-muted mt-1 mb-1 text-justify" style="font-size: 0.85rem;">{{ item.abstract | truncate: 200 }}</p>
+        {% endif %}
+        
+        <!-- Links -->
+        <div class="mt-2">
+            {% for link in item.links %}
+                {% if link[1].url %}
+                    <a class="pub-link-badge" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">{{ link[0] }}</a>
+                {% else %}
+                    <a class="pub-link-badge" target="_blank" href="{{ link[1] }}">{{ link[0] }}</a>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 </div>

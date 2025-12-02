@@ -1,76 +1,132 @@
-<div class="row">
+<!-- Compact Profile Card -->
+<style>
+    .profile-position-badge {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        background: transparent;
+        padding: 0;
+        margin-right: 15px;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+    .profile-position-badge img {
+        height: 16px;
+        margin-right: 6px;
+        opacity: 0.8;
+    }
+    .social-icon-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        color: var(--text-secondary);
+        background-color: #f8f9fa;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+        transition: all 0.2s;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+    .social-icon-link:hover {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+    }
+    .profile-cv-btn {
+        font-size: 0.85rem;
+        padding: 6px 16px;
+        border-radius: 20px;
+        background-color: rgba(0, 102, 204, 0.1);
+        color: var(--primary-color);
+        font-weight: 600;
+        display: inline-block;
+        margin-top: 8px;
+    }
+    .profile-cv-btn:hover {
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+<div class="row mb-3">
     <div class="col-12">
-        <div class="academic-card profile-card">
+        <div class="profile-card">
             <div class="card-body">
-                <div class="row align-items-center">
+                <div class="row align-items-start">
                     
                     <!-- Left: Info -->
-                    <div class="col-md-8 order-2 order-md-1">
-                        <div class="d-flex align-items-end mb-3">
-                            <h1 class="h2 mb-0 mr-3 font-weight-bold" style="color: var(--text-main);">
-                                {{ site.data.profile.primary_name }}
+                    <div class="col-md-9 order-2 order-md-1">
+                        <div class="d-flex align-items-baseline mb-2">
+                            <h1 class="h3 mb-0 mr-3" style="color: var(--text-main);">
+                                {{ site.data.profile.primary_name }} 
                             </h1>
-                            <span class="text-muted small pb-1">{{ site.data.profile.secondary_name }}</span>
+                            <span class="text-muted small font-weight-light">{{ site.data.profile.secondary_name }}</span>
                         </div>
 
                         <!-- Positions -->
                         <div class="mb-3">
                             {% for position in site.data.profile.positions %}
-                            <div class="d-flex align-items-center text-secondary mb-1">
-                                {% if position.logo %}
-                                <img src="{{ position.logo | relative_url }}" alt="logo" style="height: 18px; margin-right: 8px; opacity: 0.8;">
-                                {% endif %}
-                                <span class="small">{{ position.name }}</span>
+                            <div class="profile-position-badge">
+                                {% if position.logo %}<img src="{{ position.logo | relative_url }}" alt="logo"/>{% endif %}
+                                {{ position.name }}
                             </div>
                             {% endfor %}
                         </div>
 
                         <!-- Bio -->
-                        <div class="text-muted mb-4 small text-justify" style="line-height: 1.7;">
+                        <div class="mb-3 text-muted" style="font-size: 0.95rem; line-height: 1.6;">
                             {{ site.data.profile.short_bio }}
                         </div>
 
-                        <!-- Social Actions -->
+                        <!-- Social & CV -->
                         <div class="d-flex flex-wrap align-items-center">
+                            <!-- CV Button -->
                             {% if site.data.profile.cv_link %}
-                            <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}" class="badge-link">
-                                <i class="fas fa-file-alt"></i> CV
-                            </a>
-                            {% endif %}
-                            
-                            <a href="mailto:{{ site.data.profile.email | encode_email }}" class="badge-link">
-                                <i class="fas fa-envelope"></i> Email
-                            </a>
-
-                            {% if site.data.profile.gscholar %}
-                            {% assign gs_url = site.data.profile.gscholar %}
-                            {% unless gs_url contains 'scholar.google' %}
-                                {% assign gs_url = 'https://scholar.google.com/citations?user=' | append: site.data.profile.gscholar %}
-                            {% endunless %}
-                            <a target="_blank" href="{{ gs_url }}" class="badge-link">
-                                <i class="fas fa-graduation-cap"></i> Scholar
+                            <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}" class="profile-cv-btn mr-4 mb-2">
+                                <i class="fas fa-file-alt mr-1"></i> CV
                             </a>
                             {% endif %}
 
-                            {% if site.data.profile.github %}
-                            <a target="_blank" href="https://github.com/{{ site.data.profile.github }}" class="badge-link">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                            {% endif %}
+                            <!-- Icons -->
+                            <div class="d-flex flex-wrap">
+                                <a class="social-icon-link" href="mailto:{{ site.data.profile.email | encode_email }}" title="Email"><i class="fas fa-envelope"></i></a>
+                                
+                                {% if site.data.profile.gscholar %}
+                                    {% assign gs_url = site.data.profile.gscholar %}
+                                    {% unless gs_url contains 'scholar.google' %}{% assign gs_url = 'https://scholar.google.com/citations?user=' | append: gs_url %}{% endunless %}
+                                    <a class="social-icon-link" target="_blank" href="{{ gs_url }}" title="Google Scholar"><i class="fa-brands fa-google-scholar"></i></a>
+                                {% endif %}
+                                
+                                {% if site.data.profile.github %}
+                                <a class="social-icon-link" target="_blank" href="https://github.com/{{ site.data.profile.github }}" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                                {% endif %}
+                                
+                                {% if site.data.profile.linkedin %}
+                                <a class="social-icon-link" target="_blank" href="https://www.linkedin.com/in/{{ site.data.profile.linkedin }}" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                                {% endif %}
+                                
+                                {% if site.data.profile.twitter %}
+                                <a class="social-icon-link" target="_blank" href="https://twitter.com/{{ site.data.profile.twitter }}" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                                {% endif %}
 
-                            <!-- Add other social links as needed following the pattern above -->
+                                {% if site.data.profile.wechat_qrcode %}
+                                <a class="social-icon-link" style="cursor: pointer;" data-toggle="modal" data-target="#modal-wechat" title="WeChat"><i class="fa-brands fa-weixin"></i></a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Right: Avatar -->
+                    <!-- Right: Portrait -->
                     {% if site.data.profile.portrait_url %}
-                    <div class="col-md-4 order-1 order-md-2 text-center mb-4 mb-md-0">
-                        <div class="d-inline-block position-relative">
-                            <img src="{{ site.data.profile.portrait_url | relative_url }}" 
-                                 class="img-fluid rounded-circle shadow-sm" 
-                                 style="width: 180px; height: 180px; object-fit: cover; border: 4px solid #fff;"
-                                 alt="Portrait">
-                        </div>
+                    <div class="col-md-3 order-1 order-md-2 mb-3 mb-md-0 text-center text-md-right">
+                        <img src="{{ site.data.profile.portrait_url | relative_url }}" 
+                             class="rounded shadow-sm" 
+                             style="width: 140px; height: 140px; object-fit: cover; border: 3px solid #fff;"
+                             alt="Portrait">
                     </div>
                     {% endif %}
                 </div>
@@ -78,3 +134,18 @@
         </div>
     </div>
 </div>
+
+<!-- WeChat Modal -->
+{% if site.data.profile.wechat_qrcode %}
+<div class="modal fade" id="modal-wechat" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: var(--card-radius);">
+            <div class="modal-body text-center p-4">
+                <h6 class="mb-3 font-weight-bold">WeChat ID</h6>
+                <img src="{{ site.data.profile.wechat_qrcode | relative_url }}" class="img-fluid rounded mb-2">
+                {% if site.data.profile.wechat_prompt %}<p class="text-muted small mb-0">{{ site.data.profile.wechat_prompt }}</p>{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
