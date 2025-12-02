@@ -1,257 +1,119 @@
-<!-- 
-    Optimized Profile Card Template 
-    Features: Modern styling, hover effects, better mobile responsiveness, and clean typography.
--->
-<style>
-    /* 局部样式优化，不影响全局 CSS */
-    .profile-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 12px; /* 更圆润的边角 */
-        overflow: hidden;
-    }
-    
-    .profile-card:hover {
-        transform: translateY(-5px); /* 鼠标悬停轻微上浮 */
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
-    }
-
-    .profile-name {
-        font-weight: 700;
-        letter-spacing: -0.5px;
-        color: #2c3e50;
-    }
-
-    .profile-secondary-name {
-        font-weight: 300;
-        color: #7f8c8d;
-        font-size: 0.8em;
-    }
-
-    .profile-img-container img {
-        transition: transform 0.3s ease;
-        object-fit: cover;
-    }
-    
-    .profile-img-container:hover img {
-        transform: scale(1.02);
-    }
-
-    .position-badge {
-        background-color: #f8f9fa;
-        color: #495057;
-        border: 1px solid #e9ecef;
-        padding: 5px 10px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        display: inline-flex;
-        align-items: center;
-        margin-bottom: 6px;
-        margin-right: 5px;
-    }
-
-    .position-badge img.inline-badge {
-        height: 16px;
-        margin-right: 6px;
-        vertical-align: middle;
-    }
-
-    .social-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: #555;
-        background: transparent;
-        border: 1px solid transparent;
-        padding: 6px 12px;
-        border-radius: 6px;
-        margin-right: 8px;
-        margin-bottom: 8px;
-        text-decoration: none !important;
-        transition: all 0.2s;
-        font-size: 0.9rem;
-    }
-
-    .social-btn:hover {
-        background-color: #f1f3f5;
-        color: #007bff; /* 主题色 hover */
-        transform: translateY(-2px);
-    }
-
-    .social-btn i {
-        margin-right: 6px;
-        font-size: 1.1em;
-    }
-
-    /* 针对不同链接类型的微调颜色 (可选) */
-    .social-btn.email-btn:hover { color: #d93025; background-color: #fce8e6; }
-    .social-btn.gscholar-btn:hover { color: #4285f4; background-color: #e8f0fe; }
-    .social-btn.github-btn:hover { color: #333; background-color: #e2e2e2; }
-    .social-btn.cv-btn {
-        background-color: #e7f5ff;
-        color: #0056b3;
-        font-weight: 600;
-        border: 1px solid #d0ebff;
-    }
-    .social-btn.cv-btn:hover {
-        background-color: #d0ebff;
-    }
-</style>
-
+<!-- Profile Card: Clean, Compact, Unified -->
 <div class="row justify-content-center">
-    <div class="col-lg-12"> <!-- 如果需要卡片不那么宽，可以改为 col-lg-10 -->
-        <div class="card border-0 shadow-sm bg-white profile-card mb-4">
-            <div class="card-body p-4 p-md-5">
+    <div class="col-12">
+        <div class="academic-card">
+            <div class="card-body-compact">
                 <div class="row">
                     
-                    <!-- Left Column: Text Info -->
+                    <!-- Left: Info -->
                     <div class="col-md-8 order-2 order-md-1">
-                        
-                        <!-- Name Section -->
-                        <div class="d-flex align-items-baseline mb-3">
-                            <h1 class="h2 profile-name mb-0 mr-3">
+                        <!-- Name & Subtitle -->
+                        <div class="mb-3">
+                            <h1 class="profile-name">
                                 {{ site.data.profile.primary_name }} 
                             </h1>
-                            <span class="profile-secondary-name">{{ site.data.profile.secondary_name }}</span>
-                            
-                            <!-- Mobile only: Small avatar next to name if needed, usually cleaner without it strictly inline -->
-                            {% if site.data.profile.portrait_url %}
-                            <div class="ml-auto d-md-none d-flex align-items-center">
-                                <a target="_blank" href="{{ site.data.profile.portrait_url | relative_url }}">
-                                    <img src="{{ site.data.profile.portrait_url | relative_url }}" class="rounded-circle shadow-sm" style="height: 50px; width: 50px; object-fit: cover;" alt="Portrait">
-                                </a>
-                            </div>
-                            {% endif %}
+                            <span class="profile-subtitle">{{ site.data.profile.secondary_name }}</span>
                         </div>
 
-                        <!-- Positions Section (Styled as Badges/List) -->
-                        <div class="text-profile-position mb-3">
+                        <!-- Positions -->
+                        <div class="mb-3">
                             {% for position in site.data.profile.positions %}
                             <div class="position-badge">
-                                {% if position.logo -%}
-                                <img src="{{ position.logo | relative_url }}" alt="Logo" class="inline-badge"/>
-                                {%- endif %}
+                                {% if position.logo %}
+                                <img src="{{ position.logo | relative_url }}" alt="Logo"/>
+                                {% endif %}
                                 {{ position.name }}
                             </div>
                             {% endfor %}
                         </div>
 
-                        <!-- Bio Section -->
-                        <div class="text-profile-bio text-muted" {% if site.data.profile.short_bio_text_justify %}style="text-align: justify;"{% endif %}>
+                        <!-- Bio -->
+                        <div class="profile-bio text-muted mb-4" {% if site.data.profile.short_bio_text_justify %}style="text-align: justify;"{% endif %}>
                             {{ site.data.profile.short_bio }}
                         </div>
-
-                        <!-- CV Link (Prominent) -->
+                        
+                        <!-- CV Button -->
                         {% if site.data.profile.cv_link %}
-                        <div class="mt-3">
-                            <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}" class="social-btn cv-btn">
+                        <div>
+                            <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}" class="social-btn" style="background-color: #e7f5ff; color: #007bff; border-color: #d0ebff;">
                                 <i class="fas fa-file-alt"></i> Curriculum Vitae
                             </a>
                         </div>
                         {% endif %}
                     </div>
 
-                    <!-- Right Column: Portrait (Desktop) -->
+                    <!-- Right: Portrait -->
                     {% if site.data.profile.portrait_url %}
-                    <div class="col-md-4 order-1 order-md-2 mb-4 mb-md-0 d-none d-md-flex justify-content-center align-items-start profile-img-container">
+                    <div class="col-md-4 order-1 order-md-2 mb-4 mb-md-0 d-flex justify-content-center justify-content-md-end align-items-start">
                         <img 
                             src="{{ site.data.profile.portrait_url | relative_url }}" 
                             class="img-fluid rounded shadow-sm" 
-                            style="max-height: 220px; border: 4px solid #fff;"
-                            data-toggle="tooltip" 
-                            data-placement="top" 
-                            alt="{{ site.data.profile.primary_name }}"
-                            title="{{ site.data.profile.portrait_caption }}">
+                            style="max-width: 200px; max-height: 220px; object-fit: cover; border: 3px solid #fff;"
+                            alt="{{ site.data.profile.primary_name }}">
                     </div>
                     {% endif %}
                 </div>
 
-                <hr class="my-4" style="border-top: 1px dashed #e9ecef;" />
+                <hr class="my-4" style="border-top: 1px dashed #e9ecef;">
 
-                <!-- Footer: Social Links Grid -->
-                <div class="row">
-                    <div class="col d-flex flex-wrap align-items-center">
-                        
-                        <!-- Email -->
-                        <a class="social-btn email-btn" href="mailto:{{ site.data.profile.email | encode_email }}">
-                            <i class="fas fa-envelope"></i> 
-                            <span class="d-none d-sm-inline">{{ site.data.profile.email | replace: "@", "(at)" }}</span>
-                            <span class="d-inline d-sm-none">Email</span>
-                        </a>
+                <!-- Social Links -->
+                <div class="d-flex flex-wrap align-items-center">
+                    <a class="social-btn" href="mailto:{{ site.data.profile.email | encode_email }}">
+                        <i class="fas fa-envelope"></i> {{ site.data.profile.email | replace: "@", "(at)" }}
+                    </a>
 
-                        <!-- Google Scholar -->
-                        {% if site.data.profile.gscholar %}
-                            {%- if site.data.profile.gscholar contains 'scholar.google' -%}
-                            {%- assign gscholar_url = site.data.profile.gscholar -%}
-                            {%- else -%}
-                            {%- assign gscholar_url = 'https://scholar.google.com/citations?user=' | append: site.data.profile.gscholar -%}
-                            {%- endif -%}
-                            <a class="social-btn gscholar-btn" target="_blank" href="{{ gscholar_url }}">
-                                <i class="fa-brands fa-google-scholar"></i> Scholar
-                            </a>
-                        {% endif %}
-                        
-                        <!-- GitHub -->
-                        {% if site.data.profile.github %}
-                        <a class="social-btn github-btn" target="_blank" href="https://github.com/{{ site.data.profile.github }}">
-                            <i class="fa-brands fa-github"></i> GitHub
+                    {% if site.data.profile.gscholar %}
+                        {% assign gscholar_url = site.data.profile.gscholar %}
+                        {% unless gscholar_url contains 'scholar.google' %}
+                            {% assign gscholar_url = 'https://scholar.google.com/citations?user=' | append: site.data.profile.gscholar %}
+                        {% endunless %}
+                        <a class="social-btn" target="_blank" href="{{ gscholar_url }}">
+                            <i class="fa-brands fa-google-scholar"></i> Scholar
                         </a>
-                        {% endif %}
+                    {% endif %}
+                    
+                    {% if site.data.profile.github %}
+                    <a class="social-btn" target="_blank" href="https://github.com/{{ site.data.profile.github }}">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    {% endif %}
 
-                        <!-- WeChat -->
-                        {% if site.data.profile.wechat_qrcode %}
-                        <a class="social-btn" style="cursor: pointer;" data-toggle="modal" data-target="#modal-wechat">
-                            <i class="fa-brands fa-weixin" style="color: #07c160;"></i> WeChat
-                        </a>
-                        {% endif %}
+                    {% if site.data.profile.wechat_qrcode %}
+                    <a class="social-btn" style="cursor: pointer;" data-toggle="modal" data-target="#modal-wechat">
+                        <i class="fa-brands fa-weixin text-success"></i> WeChat
+                    </a>
+                    {% endif %}
 
-                        <!-- Twitter/X -->
-                        {% if site.data.profile.twitter %}
-                        <a class="social-btn" target="_blank" href="https://twitter.com/{{ site.data.profile.twitter }}">
-                            <i class="fa-brands fa-twitter" style="color: #1da1f2;"></i> Twitter
-                        </a>
-                        {% endif %}
+                    {% if site.data.profile.twitter %}
+                    <a class="social-btn" target="_blank" href="https://twitter.com/{{ site.data.profile.twitter }}">
+                        <i class="fa-brands fa-twitter" style="color: #1da1f2;"></i> Twitter
+                    </a>
+                    {% endif %}
 
-                        <!-- LinkedIn -->
-                        {% if site.data.profile.linkedin %}
-                        <a class="social-btn" target="_blank" href="https://www.linkedin.com/in/{{ site.data.profile.linkedin }}">
-                            <i class="fa-brands fa-linkedin" style="color: #0077b5;"></i> LinkedIn
-                        </a>
-                        {% endif %}
+                    {% if site.data.profile.linkedin %}
+                    <a class="social-btn" target="_blank" href="https://www.linkedin.com/in/{{ site.data.profile.linkedin }}">
+                        <i class="fa-brands fa-linkedin" style="color: #0077b5;"></i> LinkedIn
+                    </a>
+                    {% endif %}
 
-                        <!-- ORCID -->
-                        {% if site.data.profile.orcid %}
-                        <a class="social-btn" target="_blank" href="https://orcid.org/{{ site.data.profile.orcid }}">
-                            <i class="fa-brands fa-orcid" style="color: #a6ce39;"></i> ORCID
-                        </a>
-                        {% endif %}
-
-                        <!-- Blog -->
-                        {% if site.data.profile.blog %}
-                        <a class="social-btn" target="_blank" href="{{ site.data.profile.blog }}">
-                            <i class="fa-solid fa-rss"></i> Blog
-                        </a>
-                        {% endif %}
-
-                        <!-- Laboratory -->
-                        {% if site.data.profile.laboratory %}
-                        <a class="social-btn" target="_blank" href="{{ site.data.profile.laboratory }}">
-                            <i class="fa-solid fa-flask-vial"></i> Lab
-                        </a>
-                        {% endif %}
-                    </div>
+                    {% if site.data.profile.orcid %}
+                    <a class="social-btn" target="_blank" href="https://orcid.org/{{ site.data.profile.orcid }}">
+                        <i class="fa-brands fa-orcid" style="color: #a6ce39;"></i> ORCID
+                    </a>
+                    {% endif %}
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </div>
 
-<!-- WeChat Modal (Kept functionality same, slightly cleaner structure) -->
+<!-- WeChat Modal -->
 {% if site.data.profile.wechat_qrcode %}
 <div class="modal fade" id="modal-wechat" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content border-0 shadow-lg">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
             <div class="modal-header border-0 pb-0">
-                <h6 class="modal-title">WeChat ID</h6>
+                <h6 class="modal-title font-weight-bold">WeChat ID</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -259,9 +121,7 @@
             <div class="modal-body text-center">
                 <img src="{{ site.data.profile.wechat_qrcode | relative_url }}" class="img-fluid rounded shadow-sm mb-3">
                 {% if site.data.profile.wechat_prompt %}
-                <p class="text-muted small mb-0">
-                    {{ site.data.profile.wechat_prompt }}
-                </p>
+                <p class="text-muted small mb-0">{{ site.data.profile.wechat_prompt }}</p>
                 {% endif %}
             </div>
         </div>

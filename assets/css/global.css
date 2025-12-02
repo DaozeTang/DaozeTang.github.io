@@ -1,164 +1,192 @@
 @charset "utf-8";
-body {
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    padding-top: 5.0rem;
-}
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-    font-weight: 700;
-}
-
-.card {
-    border-radius: 0.8rem!important;
-}
-
-.card-img-overlay {
-    border-radius: 0.8rem!important;
-}
-
-.rounded-xl {
-    border-radius: 0.8rem!important;
-}
-
-.rounded-xl-bottom {
-    border-bottom-right-radius: 0.8rem !important;
-    border-bottom-left-radius: 0.8rem !important;
-}
-
-.rounded-xl-top {
-    border-top-left-radius: 0.8rem !important;
-    border-top-right-radius: 0.8rem !important;
-}
-
-
-.text-profile-position {
-    font-weight: 400;
-}
-
-.text-profile-bio {
-    /* font-family: "Raleway"; */
-    font-weight: 400;
-}
-
-.navbar {
-    opacity: 0.95;
-}
-
-.inline-badge {
-    height: 16px;
-    vertical-align: -10%;
-    margin-right: 2px;
-    line-break: unset;
-}
-
-.no-break {
-    white-space: nowrap;
-}
-
-.cover-image {
-    width: 180px;
-    max-height: 120px;
-}
-
-.abstract-body {
-    min-height: 100px;
-}
-
-img.lazy {
-    background-image: url('images/loading.gif');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: 50px 50px;
-    min-height: 80px;
-}
-
-div.lazy {
-    background-image: url('images/loading.gif');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: 50px 50px;
-    min-height: 80px;
-}
-
-.badge-publication {
-    font-size: 100%;
-}
-
-.email-text {
-    font-family: Source Code Pro, monospace;
-}
-
-/* === Academic Theme Customizations === */
-
+/* === 1. Global Variables & Reset === */
 :root {
-    /* 你可以在这里修改高亮颜色 */
-    --hover-bg-color: rgba(0, 0, 0, 0.05);
-    --active-text-color: #007bff; 
-    --nav-blur-bg: rgba(255, 255, 255, 0.9);
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --dark-text: #2c3e50;
+    --light-bg: #f8f9fa;
+    --card-radius: 12px;
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    --card-hover-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    --transition-speed: 0.3s;
+    --nav-blur-bg: rgba(255, 255, 255, 0.85);
 }
 
-/* 导航栏卡片样式：毛玻璃 + 柔和阴影 */
+body {
+    font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    padding-top: 5.5rem; /* 稍微增加顶部间距以适应 Navbar */
+    background-color: #fdfdfd; /* 极淡的灰背景，突出卡片白底 */
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 700; color: var(--dark-text); }
+a { color: var(--primary-color); transition: color 0.2s; }
+a:hover { color: #0056b3; text-decoration: none; }
+
+/* === 2. Unified Academic Card System === */
+/* 所有组件（Profile, News, Pubs等）都应包含此相关类 */
+
+/* 基础卡片容器 */
+.academic-card {
+    background: #fff;
+    border-radius: var(--card-radius);
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: var(--card-shadow);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    overflow: hidden;
+    margin-bottom: 1.5rem; /* 统一卡片间距 */
+}
+
+/* 鼠标悬停动效：统一的上浮效果 */
+.academic-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-hover-shadow) !important;
+}
+
+/* 统一的 Section 标题样式 */
+.section-header {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--dark-text);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f1f3f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 允许右侧放 View All */
+}
+
+/* 标题前的图标 */
+.section-header i {
+    margin-right: 10px;
+    color: var(--primary-color);
+    width: 24px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+/* 卡片内部紧凑排版 */
+.card-body-compact {
+    padding: 1.5rem !important; /* 替换原本过于宽大的 p-5 */
+}
+
+@media (min-width: 768px) {
+    .card-body-compact {
+        padding: 2rem !important;
+    }
+}
+
+/* === 3. Component: Navbar Customization === */
+.navbar {
+    padding: 0.5rem 0;
+}
+
 .academic-nav-card {
     background-color: var(--nav-blur-bg);
-    /* 核心：背景模糊效果 */
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px);
-    
-    /* 边框和阴影 */
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
-    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-radius: var(--card-radius);
 }
 
-/* 导航链接样式优化 */
 .navbar-nav .nav-link {
     font-size: 0.95rem;
     font-weight: 500;
-    color: #555; /* 默认深灰色，不要纯黑 */
-    padding: 0.5rem 0.8rem !important;
+    color: #555;
+    padding: 0.5rem 1rem !important;
     border-radius: 6px;
-    margin: 0 2px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s;
 }
 
-/* 鼠标悬停效果 */
-.navbar-nav .nav-link:hover {
-    color: var(--active-text-color);
-    background-color: var(--hover-bg-color);
-    transform: translateY(-1px); /* 轻微上浮 */
-}
-
-/* 当前选中页面状态 */
+.navbar-nav .nav-link:hover,
 .navbar-nav .nav-item.active .nav-link {
-    color: var(--active-text-color);
-    font-weight: 600;
+    color: var(--primary-color);
     background-color: rgba(0, 123, 255, 0.08);
 }
 
-/* 移动端菜单按钮美化 */
 .navbar-toggler {
-    border: none !important;
-    outline: none !important;
-    font-size: 0.85rem !important;
-    padding: 0.4rem 0.8rem !important;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 6px;
-    color: #666;
-    display: flex;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+/* === 4. Component: Profile Specifics === */
+.profile-name { font-size: 2rem; letter-spacing: -0.5px; margin-bottom: 0.2rem; }
+.profile-subtitle { font-weight: 300; color: #7f8c8d; font-size: 0.9rem; }
+.profile-bio { color: #555; line-height: 1.6; }
+
+/* 社交按钮统一风格 */
+.social-btn {
+    display: inline-flex;
     align-items: center;
-}
-
-/* 页脚卡片样式 */
-.academic-footer-card {
-    background-color: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.02) !important;
-}
-
-/* 页脚文字大小调整 */
-.academic-footer-card .small {
+    justify-content: center;
+    color: #555;
+    background: #fff;
+    border: 1px solid #e9ecef;
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin: 0 8px 8px 0;
     font-size: 0.85rem;
-    line-height: 1.5;
+    transition: all 0.2s;
 }
+
+.social-btn:hover {
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.social-btn i { margin-right: 6px; }
+
+/* 职位 Badge */
+.position-badge {
+    background-color: #f1f3f5;
+    color: #495057;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    margin: 0 6px 6px 0;
+    border: 1px solid transparent;
+}
+.position-badge img { height: 16px; margin-right: 6px; }
+
+/* === 5. Component: News Scrollbar === */
+.news-scroll-container {
+    max-height: 320px; /* 稍微调小高度使其更紧凑 */
+    overflow-y: auto;
+    padding-right: 5px;
+}
+.news-scroll-container::-webkit-scrollbar { width: 5px; }
+.news-scroll-container::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px; }
+.news-scroll-container::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 3px; }
+
+/* === 6. Component: Publications & Experience === */
+.badge-links a {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: #e7f1ff;
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+.badge-links a:hover { background-color: var(--primary-color); color: #fff; }
+
+.exp-logo {
+    width: 48px; height: 48px; object-fit: contain;
+    padding: 4px; background: #fff;
+    border: 1px solid #e9ecef; border-radius: 8px;
+    margin-right: 15px;
+}
+
+/* === 7. Utilities === */
+.lazy { background: #f8f9fa url('images/loading.gif') no-repeat center; background-size: 20px; }
+.rounded-xl { border-radius: var(--card-radius) !important; }
+.no-break { white-space: nowrap; }

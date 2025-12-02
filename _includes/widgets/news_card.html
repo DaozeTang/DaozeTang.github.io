@@ -1,141 +1,32 @@
-<!-- 
-    Optimized News Card Template 
-    Features: Timeline-style layout, scrolling support for long lists, and modern typography.
--->
+<!-- News Card -->
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<style>
-    /* 保持卡片风格一致 */
-    .news-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 12px;
-        overflow: hidden;
-        border: none;
-    }
-    
-    .news-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
-    }
-
-    /* 标题样式 */
-    .news-header {
-        font-weight: 700;
-        font-size: 1.1rem;
-        color: #2c3e50;
-        padding: 20px 25px 15px; /* 调整内边距 */
-        border-bottom: 2px solid #f1f3f5;
-        margin-bottom: 0;
-        background: #fff;
-    }
-    
-    .news-header i {
-        margin-right: 10px;
-        color: #e74c3c; /* 使用红色系代表 News/RSS，或者改为 #007bff 保持统一 */
-    }
-
-    /* 滚动区域控制 */
-    .news-scroll-container {
-        max-height: 400px; /* 限制最大高度，超过则滚动 */
-        overflow-y: auto;
-        padding: 15px 25px 25px;
-    }
-
-    /* 美化滚动条 (Webkit browsers) */
-    .news-scroll-container::-webkit-scrollbar {
-        width: 6px;
-    }
-    .news-scroll-container::-webkit-scrollbar-track {
-        background: #f1f1f1; 
-        border-radius: 4px;
-    }
-    .news-scroll-container::-webkit-scrollbar-thumb {
-        background: #ccc; 
-        border-radius: 4px;
-    }
-    .news-scroll-container::-webkit-scrollbar-thumb:hover {
-        background: #bbb; 
-    }
-
-    /* 年份样式 */
-    .news-year-label {
-        font-size: 1rem;
-        font-weight: 700;
-        color: #495057;
-        margin-top: 5px;
-        min-width: 50px; /* 保证年份对齐 */
-    }
-
-    /* 新闻条目样式 */
-    .news-item-row {
-        padding: 8px 0;
-        border-bottom: 1px dashed #f1f3f5;
-    }
-    
-    .news-item-row:last-child {
-        border-bottom: none;
-    }
-
-    .news-title {
-        color: #333;
-        font-size: 0.95rem;
-        line-height: 1.5;
-    }
-    
-    .news-title a {
-        color: #007bff;
-        text-decoration: none;
-    }
-    
-    .news-title a:hover {
-        text-decoration: underline;
-    }
-
-    .news-date {
-        font-size: 0.85rem;
-        color: #adb5bd;
-        white-space: nowrap;
-        background-color: #f8f9fa;
-        padding: 2px 8px;
-        border-radius: 4px;
-        margin-left: 10px;
-        font-family: monospace; /* 等宽字体显示日期更有科技感 */
-    }
-    
-    /* 装饰性小点 */
-    .news-bullet {
-        color: #adb5bd;
-        margin-right: 8px;
-        font-size: 0.8em;
-    }
-</style>
-
-<div class="row mt-3">
-    <div class="col">
-        <div class="card bg-white shadow-sm news-card">
-            <h6 class="news-header">
-                <i class="fas fa-rss"></i> News
-            </h6>
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="academic-card">
+            <!-- Header -->
+            <div class="px-4 pt-4 pb-2">
+                <h6 class="section-header mb-0 border-0">
+                    <span><i class="fas fa-rss" style="color: #e74c3c;"></i> News</span>
+                </h6>
+            </div>
             
-            <div class="news-scroll-container">
+            <!-- Scrollable Content -->
+            <div class="news-scroll-container px-4 pb-4">
                 {% for year in news_by_year %}
-                <div class="media {% if not_first %}mt-4{% endif %}">
-                    {% assign not_first = true %}
-                    
-                    <!-- 左侧年份 -->
-                    <div class="mr-3 news-year-label">
+                <div class="media mt-3">
+                    <div class="mr-3 font-weight-bold text-secondary" style="min-width: 45px;">
                         {{ year.name }}
                     </div>
-                    
-                    <!-- 右侧内容列表 -->
                     <div class="media-body">
                         {% for item in year.items %}
-                        <div class="d-flex align-items-baseline news-item-row">
-                            <i class="fas fa-angle-right news-bullet"></i>
-                            <div class="news-title flex-grow-1">
+                        <div class="d-flex align-items-baseline mb-2">
+                            <i class="fas fa-angle-right text-muted small mr-2"></i>
+                            <div class="flex-grow-1 small text-dark">
                                 {{ item.title }}
+                                <a href="{{ item.url | relative_url }}" class="ml-1 text-primary"></a>
                             </div>
-                            <div class="news-date no-break">
+                            <div class="small text-muted bg-light rounded px-2 no-break ml-2" style="font-family: monospace;">
                                 {{ item.date | date: "%b %d" }}
                             </div>
                         </div>

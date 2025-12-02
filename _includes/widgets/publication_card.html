@@ -1,92 +1,25 @@
-<!-- 
-    Optimized Publication Card Template 
-    Style matched with Experience Card for consistent UI.
--->
-<style>
-    /* 复用 Experience Card 的核心样式以保持一致性 */
-    .publication-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 12px;
-        overflow: hidden;
-        border: none;
-    }
-    
-    .publication-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
-    }
-
-    /* 标题样式 */
-    .pub-header {
-        font-weight: 700;
-        font-size: 1.1rem;
-        color: #2c3e50;
-        border-bottom: 2px solid #f1f3f5;
-        padding-bottom: 10px;
-        margin-bottom: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .pub-header-title {
-        display: flex;
-        align-items: center;
-    }
-
-    .pub-header i {
-        margin-right: 12px;
-        color: #007bff; /* 主题色 */
-        font-size: 1.1em;
-        width: 24px;
-        text-align: center;
-    }
-
-    .pub-view-all {
-        font-size: 0.85rem;
-        font-weight: normal;
-        color: #6c757d;
-        text-decoration: none;
-        transition: color 0.2s;
-    }
-    
-    .pub-view-all:hover {
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    /* 列表容器微调 */
-    .pub-list {
-        margin: 0 -10px; /* 抵消 item 的负边距，实现边缘对齐 */
-    }
-</style>
-
+<!-- Publication Card -->
 {% assign publications = include.publications %}
 
-<div class="card bg-white shadow-sm publication-card my-4">
-    <div class="card-body p-4 p-md-5">
-        <h6 class="pub-header">
-            <div class="pub-header-title">
+<div class="academic-card my-4">
+    <div class="card-body-compact">
+        <div class="section-header">
+            <span>
                 {% if include.title %}
                     {{ include.title }}
                 {% else %}
                     <i class="fas fa-book-open"></i> Selected Publications
                 {% endif %}
-            </div>
-            <a class="pub-view-all" href="{{ 'publications' | relative_url }}">
+            </span>
+            <a class="small font-weight-bold" href="{{ 'publications' | relative_url }}">
                 View all <i class="fas fa-angle-double-right"></i>
             </a>
-        </h6>
-        
-        <div class="pub-list">
-            {% for item in publications limit:include.limit %}
-                {% include widgets/publication_item.html item=item first=false last=false %}    
-            {% endfor %}
         </div>
-
-        <!-- 底部备用链接，如果上面已有View all，这个可以根据需要保留或隐藏 -->
-        <div class="text-right mt-3 d-none">
-            <a href="{{ 'publications' | relative_url }}" class="small">All publications <i class="fas fa-angle-double-right"></i></a>
+        
+        <div class="mt-2">
+            {% for item in publications limit:include.limit %}
+                {% include widgets/publication_item.html item=item %}    
+            {% endfor %}
         </div>
     </div>
 </div>
