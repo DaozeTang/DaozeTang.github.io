@@ -9,11 +9,11 @@
     --color-border: #e5e7eb;
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: "JetBrains Mono", source-code-pro, Menlo, monospace;
-    --radius-card: 12px; /* 加大圆角以增强卡片感 */
+    --radius-card: 12px; /* 稍微增加圆角使其更柔和 */
     --radius-btn: 6px;
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
     --transition: all 0.2s ease-in-out;
 }
 
@@ -23,7 +23,7 @@ body {
     font-family: var(--font-sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    padding-top: 1rem; /* 调整顶部间距适配悬浮导航 */
+    padding-top: 1rem; /* 减少body顶部padding，因为navbar现在是悬浮的 */
 }
 
 a {
@@ -43,41 +43,40 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5rem;
 }
 
-/* 核心卡片样式 */
+/* 基础卡片样式 */
 .academic-card {
     background: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-card);
     transition: var(--transition);
-    height: 100%;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
+    position: relative;
 }
 
+/* 鼠标悬停效果 - 仅对具有 hover-effect 类的卡片或默认 academic-card 生效 */
 .academic-card:hover {
     border-color: var(--color-accent);
     box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
 }
 
-/* 导航栏卡片特定样式 */
-.navbar-card {
-    padding: 0.8rem 1.5rem;
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.95);
-    display: flex;
-    align-items: center;
+/* 导航栏特定样式重写 */
+.navbar {
+    padding: 0; /* 重置默认padding */
 }
 
-/* 覆盖 Bootstrap 默认 Navbar 样式以适应卡片设计 */
-.navbar {
-    border: none;
-    margin-bottom: 0;
+/* 悬浮导航栏卡片 */
+.navbar-card {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px);
+    padding: 0.8rem 1.5rem !important; /* 更舒适的内边距 */
+    border: 1px solid var(--color-border) !important;
+    box-shadow: var(--shadow-sm);
 }
 
 .navbar-brand {
     font-weight: 800;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: var(--color-text-main) !important;
     letter-spacing: -0.02em;
 }
@@ -99,21 +98,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar-toggler {
     border: none;
-    padding: 0.5rem;
-    color: var(--color-text-main);
-    border-radius: var(--radius-btn);
-}
-
-.navbar-toggler:hover {
-    background: rgba(0,0,0,0.05);
+    padding: 0.25rem 0.5rem;
+    color: var(--color-text-secondary);
 }
 
 /* 页脚卡片样式 */
 .footer-card {
     padding: 1.5rem 2rem;
-    color: var(--color-text-muted);
     background: #fff;
-    margin-top: 2rem;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
 }
 
 .profile-img {
@@ -177,7 +171,6 @@ h1, h2, h3, h4, h5, h6 {
     border-color: var(--color-accent);
 }
 
-/* 其他组件保持原样 */
 .exp-list-item {
     display: grid;
     grid-template-columns: 48px 1fr;
