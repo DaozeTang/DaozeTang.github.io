@@ -1,18 +1,11 @@
-<footer class="mt-5 pb-4">
+<footer class="site-footer">
     <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
-        <div class="academic-footer-card py-3 px-4 text-center">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
-                    <div class="small text-secondary font-weight-500">
-                        <span>&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.</span>
-                        <span class="ml-1 text-muted font-weight-normal">Powered by Jekyll.</span>
-                    </div>
-                </div>
-                <div class="col-md-6 text-center text-md-right">
-                    <div class="small text-muted text-mono">
-                        Last updated: {{ "now" | date: "%b %Y" }}
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
+                &copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.
+            </div>
+            <div class="col-md-6 text-center text-md-right text-muted font-weight-light">
+                Last updated: {{ "now" | date: "%B %Y" }}
             </div>
         </div>
     </div>
