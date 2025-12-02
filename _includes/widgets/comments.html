@@ -3,11 +3,7 @@
         <div class="academic-card">
             <div class="card-header-simple">
                 <div class="card-header-title">
-                    {% if include.title %}
-                        {{ include.title }}
-                    {% else %}
-                        <i class="fas fa-comments text-info"></i> Comments
-                    {% endif %}
+                    {% if include.title %}{{ include.title }}{% else %}<i class="fas fa-comments"></i> Comments{% endif %}
                 </div>
             </div>
             <div class="card-body card-body-simple">

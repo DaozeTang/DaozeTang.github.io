@@ -3,18 +3,14 @@
 <div class="academic-card my-4">
     <div class="card-header-simple">
         <div class="card-header-title">
-            {% if include.title %}
-                {{ include.title }}
-            {% else %}
-                <i class="fas fa-book text-primary"></i> Selected Publications
-            {% endif %}
+            {% if include.title %}{{ include.title }}{% else %}<i class="fas fa-book-open"></i> Selected Publications{% endif %}
         </div>
         <a class="pub-view-all" href="{{ 'publications' | relative_url }}">
-            View all <i class="fas fa-angle-right ml-1 small"></i>
+            View all <i class="fas fa-arrow-right ml-1 small"></i>
         </a>
     </div>
     
-    <div class="card-body card-body-simple pt-0 pb-2">
+    <div class="card-body card-body-simple pt-2">
         {% for item in publications limit:include.limit %}
             {% include widgets/publication_item.html item=item %}    
         {% endfor %}
