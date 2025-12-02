@@ -1,21 +1,21 @@
-<div class="sticky-top" style="z-index: 1030; margin-bottom: 1.5rem;">
-    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
+<div class="sticky-top my-3" style="z-index: 1030;">
+    <div class="container-xl">
         <div class="row justify-content-center">
             <div class="col-12">
-                <nav class="navbar navbar-expand-sm academic-card navbar-card">
-                    <a class="navbar-brand" href="{{ '/' | relative_url }}">
-                        {  { site.data.profile.navbar_name }}
+                <nav class="navbar navbar-expand-sm academic-card navbar-card p-2 p-md-3">
+                    <a class="navbar-brand ml-2 ml-md-3" href="{{ '/' | relative_url }}">
+                        {{ site.data.profile.navbar_name }}
                     </a>
                     
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-bars"></i>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ml-auto align-items-center">
+                        <ul class="navbar-nav ml-auto align-items-center mr-2 mr-md-3">
                             {% for item in site.data.navigation.pages %}
                             <li class="nav-item {% if item.name == page.navbar_title %}active{% endif %}">
-                                <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>
+                                <a class="nav-link px-3" href="{{ item.url | relative_url }}">{{ item.name }}</a>
                             </li>
                             {% endfor %}
                         </ul>

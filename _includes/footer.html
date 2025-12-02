@@ -1,14 +1,14 @@
-<footer class="mt-4 mb-4">
-    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
+<footer class="mt-auto mb-4">
+    <div class="container-xl">
         <div class="row justify-content-center">
             <div class="col-12">
-                <div class="academic-card footer-card">
+                <div class="academic-card footer-card py-3 px-4">
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <div>
-                            <span>&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.</span>
+                        <div class="font-weight-bold text-secondary" style="font-size: 0.9rem;">
+                            &copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}
                         </div>
-                        <div class="text-mono small">
-                            Updated: {{ "now" | date: "%b %Y" }}
+                        <div class="text-muted small" style="font-family: var(--font-mono);">
+                            Last updated: {{ "now" | date: "%b %Y" }}
                         </div>
                     </div>
                 </div>
