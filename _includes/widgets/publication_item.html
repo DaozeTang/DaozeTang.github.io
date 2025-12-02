@@ -2,17 +2,22 @@
 
 <div class="pub-item">
     <div class="row">
-        <div class="col-md-3 col-xl-2 d-none d-md-block">
+        <!-- Cover Image -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block">
             {% if item.cover %}
-            <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
+            <img data-src="{{ item.cover | relative_url }}" 
+                 alt="{{ item.title }}" 
+                 class="lazy pub-cover" 
+                 src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
             {% else %}
-            <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 90px;">
-                <i class="fas fa-file-alt fa-2x opacity-50"></i>
+            <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 100px; opacity: 0.5;">
+                <i class="fas fa-file-alt fa-2x"></i>
             </div>
             {% endif %}
         </div>
 
-        <div class="col-md-9 col-xl-10">
+        <!-- Content -->
+        <div class="col-md-9 col-lg-10">
             <div class="pub-title">{{ item.title }}</div>
             
             <div class="pub-authors">
@@ -21,20 +26,22 @@
 
             <div class="pub-venue">
                 {{ item.pub_pre }} <strong>{{ item.pub }}</strong> {{ item.pub_post }} 
-                {% if item.pub_date %}<span class="ml-1">{{ item.pub_date }}</span>{% endif %}
+                {% if item.pub_date %}
+                    <span class="text-muted ml-1">&bull; {{ item.pub_date }}</span>
+                {% endif %}
             </div>
 
             {% if item.abstract %}
-            <div class="pub-abstract">{{ item.abstract }}</div>
+            <div class="pub-abstract d-none d-lg-block">{{ item.abstract }}</div>
             {% endif %}
             
-            <div class="mt-2">
+            <div class="mt-2 d-flex flex-wrap">
                 {% for link in item.links %}
-                    {% if link[1].url %}
-                        <a class="btn-pub-link" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">{{ link[0] }}</a>
-                    {% else %}
-                        <a class="btn-pub-link" target="_blank" href="{{ link[1] }}">{{ link[0] }}</a>
-                    {% endif %}
+                    {% assign url = link[1].url | default: link[1] %}
+                    {% assign target = link[1].target | default: "_blank" %}
+                    <a class="btn-pub-link" target="{{ target }}" href="{{ url }}">
+                        {{ link[0] }}
+                    </a>
                 {% endfor %}
             </div>
         </div>

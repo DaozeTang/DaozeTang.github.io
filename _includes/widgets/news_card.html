@@ -1,7 +1,7 @@
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<div class="row mt-3">
-    <div class="col">
+<div class="row mt-4">
+    <div class="col-12">
         <div class="academic-card">
             <div class="card-header-simple">
                 <div class="card-header-title">
@@ -12,15 +12,14 @@
             <div class="card-body card-body-simple news-scroll">
                 {% for year in news_by_year %}
                 <div class="d-flex {% unless forloop.first %}mt-3{% endunless %}">
-                    <div class="news-year mr-2">{{ year.name }}</div>
-                    <div class="flex-grow-1">
+                    <div class="news-year">{{ year.name }}</div>
+                    <div class="flex-grow-1 pl-2 border-left border-light">
                         {% for item in year.items %}
-                        <div class="d-flex align-items-baseline news-row">
-                            <i class="fas fa-caret-right text-muted mr-2 small"></i>
-                            <div class="flex-grow-1 small">
+                        <div class="news-row">
+                            <div class="flex-grow-1">
                                 <span class="news-link">{{ item.title }}</span>
                             </div>
-                            <div class="news-date ml-2 no-break">
+                            <div class="news-date">
                                 {{ item.date | date: "%b %d" }}
                             </div>
                         </div>
