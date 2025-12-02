@@ -1,4 +1,7 @@
 <div class="my-3 p-3 bg-white shadow-sm rounded-xl">
+        <h6 class="border-bottom border-gray p-0 mb-0">
+                {% if include.title %}{{ include.title }}{% else %}<i class="fas fa-star"></i> Comments{% endif %} 
+        </h6>
         <script src="https://giscus.app/client.js"
                 data-repo="DaozeTang/DaozeTang.github.io"
                 data-repo-id="R_kgDOQbw9EA"
