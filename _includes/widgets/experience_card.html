@@ -1,51 +1,73 @@
-<div class="section-container">
-    <div class="row">
+<div class="academic-card h-100">
+    <div class="card-body-simple">
+        
+        <!-- Education Section -->
         {% if site.data.profile.education %}
-        <div class="col-lg-6 mb-4">
-            <div class="section-header">
-                <h3 class="section-title">Education</h3>
-            </div>
-            
+        <section class="mb-5">
+            <h5 class="mb-4 font-weight-bold text-dark border-bottom pb-2">
+                <i class="fas fa-user-graduate mr-2 text-primary"></i> Education
+            </h5>
             {% for item in site.data.profile.education %}
-            <div class="exp-item">
+            <article class="exp-item">
                 {% if item.logo %}
-                <img src="{{ item.logo | relative_url }}" alt="Logo" class="exp-logo">
+                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="exp-logo">
                 {% endif %}
                 <div class="exp-content">
                     <div class="exp-header">
                         <div class="exp-title">{{ item.name }}</div>
-                        <div class="exp-period">{{ item.date }}</div>
+                        <span class="exp-date">{{ item.date }}</span>
                     </div>
-                    <div class="exp-org">{{ item.dept }}</div>
-                    <div class="exp-desc">{{ item.position }}</div>
+                    <div class="exp-subtitle">{{ item.dept }}</div>
+                    <div class="exp-meta">{{ item.position }}</div>
                 </div>
-            </div>
+            </article>
             {% endfor %}
-        </div>
+        </section>
         {% endif %}
 
+        <!-- Experience Section -->
         {% if site.data.profile.experience %}
-        <div class="col-lg-6 mb-4">
-            <div class="section-header">
-                <h3 class="section-title">Experience</h3>
-            </div>
-            
+        <section class="mb-5">
+            <h5 class="mb-4 font-weight-bold text-dark border-bottom pb-2">
+                <i class="fas fa-briefcase mr-2 text-primary"></i> Experience
+            </h5>
             {% for item in site.data.profile.experience %}
-            <div class="exp-item">
+            <article class="exp-item">
                 {% if item.logo %}
-                <img src="{{ item.logo | relative_url }}" alt="Logo" class="exp-logo">
+                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="exp-logo">
                 {% endif %}
                 <div class="exp-content">
                     <div class="exp-header">
                         <div class="exp-title">{{ item.name }}</div>
-                        <div class="exp-period">{{ item.date }}</div>
+                        <span class="exp-date">{{ item.date }}</span>
                     </div>
-                    <div class="exp-org">{{ item.dept }}</div>
-                    <div class="exp-desc">{{ item.position }}</div>
+                    <div class="exp-subtitle">{{ item.dept }}</div>
+                    <div class="exp-meta">{{ item.position }}</div>
                 </div>
-            </div>
+            </article>
             {% endfor %}
-        </div>
+        </section>
         {% endif %}
+
+        <!-- Awards Section -->
+        {% if site.data.profile.awards %}
+        <section>
+            <h5 class="mb-4 font-weight-bold text-dark border-bottom pb-2">
+                <i class="fas fa-trophy mr-2 text-warning"></i> Honors & Awards
+            </h5>
+            <ul class="list-unstyled">
+                {% for item in site.data.profile.awards %}
+                <li class="d-flex justify-content-between align-items-center py-2 mb-1 border-bottom border-light">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-award text-warning mr-3 opacity-75"></i>
+                        <span class="font-weight-500 text-body">{{ item.name }}</span>
+                    </div>
+                    <span class="text-mono small text-muted">{{ item.date }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
     </div>
 </div>

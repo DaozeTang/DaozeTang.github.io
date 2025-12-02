@@ -1,11 +1,17 @@
-<footer class="site-footer">
+<footer class="mt-auto">
     <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
-        <div class="row">
-            <div class="col-md-6 text-center text-md-left mb-2 mb-md-0">
-                &copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.
-            </div>
-            <div class="col-md-6 text-center text-md-right text-muted font-weight-light">
-                Last updated: {{ "now" | date: "%B %Y" }}
+        <div class="academic-footer-card">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-left px-4">
+                
+                <div class="mb-2 mb-md-0">
+                    <span class="font-weight-bold">&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.</span>
+                    <span class="d-block d-md-inline ml-md-2">Powered by Jekyll.</span>
+                </div>
+
+                <div class="text-mono small">
+                    Last updated: {{ "now" | date: "%b %Y" }}
+                </div>
+                
             </div>
         </div>
     </div>

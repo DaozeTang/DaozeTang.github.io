@@ -1,75 +1,96 @@
-<div class="section-container mt-4">
-    <div class="row align-items-center">
-        <!-- Text Column -->
-        <div class="col-md-8 order-2 order-md-1">
-            <div class="mb-3">
-                <h1 class="profile-name">{{ site.data.profile.primary_name }}</h1>
-                <div class="profile-role">{{ site.data.profile.secondary_name }}</div>
-            </div>
+<div class="academic-card">
+    <div class="card-body-simple">
+        <div class="profile-section">
+            
+            <!-- Information Column -->
+            <div class="order-2 order-md-1">
+                <header class="mb-4">
+                    <h1 class="display-5 font-weight-bold mb-1">{{ site.data.profile.primary_name }}</h1>
+                    <div class="h5 text-muted font-weight-normal">{{ site.data.profile.secondary_name }}</div>
+                </header>
 
-            <!-- Positions -->
-            <div class="mb-4">
-                {% for position in site.data.profile.positions %}
-                <span class="badge-role">
-                    {% if position.logo %}
-                    <img src="{{ position.logo | relative_url }}" alt="logo" style="height: 12px; margin-right: 4px; vertical-align: -1px;">
-                    {% endif %}
-                    {{ position.name }}
-                </span>
-                {% endfor %}
-            </div>
+                <div class="mb-4">
+                    {% for position in site.data.profile.positions %}
+                    <span class="position-badge">
+                        {% if position.logo %}
+                            <img src="{{ position.logo | relative_url }}" alt="Logo">
+                        {% endif %}
+                        {{ position.name }}
+                    </span>
+                    {% endfor %}
+                </div>
 
-            <div class="profile-bio text-justify">
-                {{ site.data.profile.short_bio }}
-            </div>
+                <div class="text-body mb-5" style="font-size: 1.05rem; max-width: 65ch;">
+                    {{ site.data.profile.short_bio }}
+                </div>
 
-            <!-- Social Links -->
-            <div class="social-links">
-                {% if site.data.profile.cv_link %}
-                <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}" class="btn-social primary">
-                    CV
-                </a>
-                {% endif %}
-                
-                <a class="btn-social" href="mailto:{{ site.data.profile.email | encode_email }}">
-                    <i class="fas fa-envelope"></i> Email
-                </a>
-
-                {% if site.data.profile.gscholar %}
-                    {% assign gscholar_url = site.data.profile.gscholar %}
-                    {% unless gscholar_url contains 'scholar.google' %}
-                        {% assign gscholar_url = 'https://scholar.google.com/citations?user=' | append: site.data.profile.gscholar %}
-                    {% endunless %}
-                    <a class="btn-social" target="_blank" href="{{ gscholar_url }}">
-                        <i class="fa-brands fa-google-scholar"></i> Scholar
+                <!-- Social Links -->
+                <div class="d-flex flex-wrap">
+                    {% if site.data.profile.cv_link %}
+                    <a href="{{ site.data.profile.cv_link | relative_url }}" target="_blank" class="social-btn btn-cv">
+                        <i class="fas fa-file-alt mr-2"></i> CV
                     </a>
-                {% endif %}
-                
-                {% if site.data.profile.github %}
-                <a class="btn-social" target="_blank" href="https://github.com/{{ site.data.profile.github }}">
-                    <i class="fa-brands fa-github"></i> GitHub
-                </a>
-                {% endif %}
+                    {% endif %}
+                    
+                    <a href="mailto:{{ site.data.profile.email | encode_email }}" class="social-btn">
+                        <i class="fas fa-envelope mr-2"></i> Email
+                    </a>
 
-                {% if site.data.profile.twitter %}
-                <a class="btn-social" target="_blank" href="https://twitter.com/{{ site.data.profile.twitter }}">
-                    <i class="fa-brands fa-x-twitter"></i>
-                </a>
-                {% endif %}
+                    {% if site.data.profile.gscholar %}
+                        {% assign gscholar_url = site.data.profile.gscholar %}
+                        {% unless gscholar_url contains 'scholar.google' %}
+                            {% assign gscholar_url = 'https://scholar.google.com/citations?user=' | append: site.data.profile.gscholar %}
+                        {% endunless %}
+                        <a href="{{ gscholar_url }}" target="_blank" class="social-btn">
+                            <i class="fa-brands fa-google-scholar mr-2"></i> Scholar
+                        </a>
+                    {% endif %}
+                    
+                    {% if site.data.profile.github %}
+                    <a href="https://github.com/{{ site.data.profile.github }}" target="_blank" class="social-btn">
+                        <i class="fa-brands fa-github mr-2"></i> GitHub
+                    </a>
+                    {% endif %}
 
-                {% if site.data.profile.linkedin %}
-                <a class="btn-social" target="_blank" href="https://www.linkedin.com/in/{{ site.data.profile.linkedin }}">
-                    <i class="fa-brands fa-linkedin-in"></i>
-                </a>
+                    {% if site.data.profile.twitter %}
+                    <a href="https://twitter.com/{{ site.data.profile.twitter }}" target="_blank" class="social-btn">
+                        <i class="fa-brands fa-twitter mr-2"></i> Twitter
+                    </a>
+                    {% endif %}
+                    
+                    {% if site.data.profile.linkedin %}
+                    <a href="https://www.linkedin.com/in/{{ site.data.profile.linkedin }}" target="_blank" class="social-btn">
+                        <i class="fa-brands fa-linkedin mr-2"></i> LinkedIn
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Image Column -->
+            <div class="order-1 order-md-2 text-center text-md-right mb-4 mb-md-0">
+                {% if site.data.profile.portrait_url %}
+                <img src="{{ site.data.profile.portrait_url | relative_url }}" alt="{{ site.data.profile.primary_name }}" class="profile-img">
                 {% endif %}
             </div>
-        </div>
 
-        <!-- Avatar Column -->
-        {% if site.data.profile.portrait_url %}
-        <div class="col-md-4 order-1 order-md-2 mb-4 mb-md-0">
-            <img src="{{ site.data.profile.portrait_url | relative_url }}" class="profile-avatar" alt="{{ site.data.profile.primary_name }}">
         </div>
-        {% endif %}
     </div>
 </div>
+
+<!-- WeChat Modal (Optional) -->
+{% if site.data.profile.wechat_qrcode %}
+<div class="modal fade" id="modal-wechat" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+            <div class="modal-body text-center p-4">
+                <button type="button" class="close position-absolute" style="right: 15px; top: 10px;" data-dismiss="modal">&times;</button>
+                <h6 class="mb-3 font-weight-bold">WeChat ID</h6>
+                <img src="{{ site.data.profile.wechat_qrcode | relative_url }}" class="img-fluid rounded mb-2" alt="WeChat QR">
+                {% if site.data.profile.wechat_prompt %}
+                <p class="text-muted small mb-0">{{ site.data.profile.wechat_prompt }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

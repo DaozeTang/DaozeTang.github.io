@@ -1,23 +1,25 @@
-<nav class="navbar navbar-expand-sm fixed-top academic-nav">
+<nav class="navbar navbar-expand-sm fixed-top p-0">
     <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
-        <a class="navbar-brand nav-brand" href="{{ '/' | relative_url }}">
-            {{ site.data.profile.navbar_name }}
-        </a>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" style="background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 30 30\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'rgba(0, 0, 0, 0.5)\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 7h22M4 15h22M4 23h22\'/%3E%3C/svg%3E');"></span>
-        </button>
+        <div class="academic-nav-card d-flex align-items-center justify-content-between py-2 px-4 w-100">
+            
+            <a class="navbar-brand" href="{{ '/' | relative_url }}">
+                {{ site.data.profile.navbar_name }}
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto align-items-center">
-                {% for item in site.data.navigation.pages %}
-                <li class="nav-item">
-                    <a class="nav-link nav-link-custom {% if item.name == page.navbar_title %}active{% endif %}" href="{{ item.url | relative_url }}">
-                        {{ item.name }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    {% for item in site.data.navigation.pages %}
+                    <li class="nav-item {% if item.name == page.navbar_title %}active{% endif %}">
+                        <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
         </div>
     </div>
 </nav>
