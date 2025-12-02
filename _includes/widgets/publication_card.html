@@ -1,25 +1,28 @@
-<!-- Publication Card -->
 {% assign publications = include.publications %}
 
-<div class="academic-card my-4">
-    <div class="card-body-compact">
-        <div class="section-header">
-            <span>
-                {% if include.title %}
-                    {{ include.title }}
-                {% else %}
-                    <i class="fas fa-book-open"></i> Selected Publications
-                {% endif %}
-            </span>
-            <a class="small font-weight-bold" href="{{ 'publications' | relative_url }}">
-                View all <i class="fas fa-angle-double-right"></i>
-            </a>
-        </div>
-        
-        <div class="mt-2">
-            {% for item in publications limit:include.limit %}
-                {% include widgets/publication_item.html item=item %}    
-            {% endfor %}
+<div class="row">
+    <div class="col-12">
+        <div class="academic-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                    <h6 class="section-header mb-0 border-0 pb-0">
+                        {% if include.title %}
+                            {{ include.title }}
+                        {% else %}
+                            <i class="fas fa-book-open"></i> Selected Publications
+                        {% endif %}
+                    </h6>
+                    <a class="small text-muted font-weight-bold" href="{{ 'publications' | relative_url }}">
+                        View All <i class="fas fa-angle-right ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="publications-list">
+                    {% for item in publications limit:include.limit %}
+                        {% include widgets/publication_item.html item=item %}    
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

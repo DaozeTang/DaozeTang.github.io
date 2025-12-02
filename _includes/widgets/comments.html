@@ -1,17 +1,16 @@
-<!-- Comments Section -->
-<div class="row mt-4">
+<div class="row">
     <div class="col-12">
         <div class="academic-card">
-            <div class="card-body-compact">
+            <div class="card-body">
                 <h6 class="section-header">
                     {% if include.title %}
-                        <span>{{ include.title }}</span>
+                        {{ include.title }}
                     {% else %}
-                        <span><i class="fas fa-comments"></i> Comments</span>
+                        <i class="fas fa-comments"></i> Comments
                     {% endif %}
                 </h6>
 
-                <div class="comments-container mt-3">
+                <div class="mt-4">
                     <script src="https://giscus.app/client.js"
                             data-repo="DaozeTang/DaozeTang.github.io"
                             data-repo-id="R_kgDOQbw9EA"

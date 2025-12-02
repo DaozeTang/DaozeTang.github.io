@@ -1,40 +1,53 @@
-<!-- News Card -->
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<div class="row mt-4">
+<div class="row">
     <div class="col-12">
         <div class="academic-card">
-            <!-- Header -->
-            <div class="px-4 pt-4 pb-2">
-                <h6 class="section-header mb-0 border-0">
-                    <span><i class="fas fa-rss" style="color: #e74c3c;"></i> News</span>
+            <div class="card-body">
+                <h6 class="section-header">
+                    <i class="fas fa-rss"></i> News
                 </h6>
-            </div>
-            
-            <!-- Scrollable Content -->
-            <div class="news-scroll-container px-4 pb-4">
-                {% for year in news_by_year %}
-                <div class="media mt-3">
-                    <div class="mr-3 font-weight-bold text-secondary" style="min-width: 45px;">
-                        {{ year.name }}
-                    </div>
-                    <div class="media-body">
-                        {% for item in year.items %}
-                        <div class="d-flex align-items-baseline mb-2">
-                            <i class="fas fa-angle-right text-muted small mr-2"></i>
-                            <div class="flex-grow-1 small text-dark">
-                                {{ item.title }}
-                                <a href="{{ item.url | relative_url }}" class="ml-1 text-primary"></a>
-                            </div>
-                            <div class="small text-muted bg-light rounded px-2 no-break ml-2" style="font-family: monospace;">
-                                {{ item.date | date: "%b %d" }}
-                            </div>
-                        </div>
+                
+                <div class="news-container" style="max-height: 300px; overflow-y: auto; padding-right: 5px;">
+                    <ul class="list-unstyled mb-0">
+                        {% for year in news_by_year %}
+                            {% for item in year.items %}
+                            <li class="media mb-3 pb-2 border-bottom border-light">
+                                <span class="badge badge-light border text-secondary mr-3 font-weight-normal" style="min-width: 60px;">
+                                    {{ item.date | date: "%b %d" }}
+                                </span>
+                                <div class="media-body small">
+                                    <span class="font-weight-bold text-dark mr-1">{{ item.date | date: "%Y" }}:</span>
+                                    {{ item.title }}
+                                </div>
+                            </li>
+                            {% endfor %}
                         {% endfor %}
-                    </div>
+                    </ul>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    /* Custom Scrollbar for News */
+    .news-container::-webkit-scrollbar {
+        width: 4px;
+    }
+    .news-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    .news-container::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 4px;
+    }
+    .news-container::-webkit-scrollbar-thumb:hover {
+        background: #ccc;
+    }
+    .media:last-child {
+        border-bottom: none !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+</style>

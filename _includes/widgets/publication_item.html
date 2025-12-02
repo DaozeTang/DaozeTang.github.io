@@ -1,50 +1,57 @@
 {% assign item = include.item %}
 
-<div class="row py-3 border-bottom" style="border-color: #f8f9fa !important;">
-    <!-- Cover Image (Responsive) -->
-    <div class="col-md-3 col-lg-2 mb-3 mb-md-0">
-        {%- if item.cover -%}
-        <div class="rounded shadow-sm overflow-hidden" style="border: 1px solid #e9ecef;">
-            <img data-src="{{ item.cover | relative_url }}" 
-                 alt="{{ item.title }}" 
-                 class="lazy w-100 d-block" 
-                 style="object-fit: cover; min-height: 80px;"
-                 src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
-        </div>
-        {%- else -%}
-        <div class="rounded shadow-sm overflow-hidden w-100 bg-light d-flex align-items-center justify-content-center text-muted" style="height: 100px; border: 1px solid #e9ecef;">
-            <i class="fas fa-file-alt fa-2x"></i>
-        </div>
-        {%- endif -%}
-    </div>
-
-    <!-- Content -->
-    <div class="col-md-9 col-lg-10">
-        <h5 class="mb-1 text-dark font-weight-bold" style="font-size: 1.05rem;">{{ item.title }}</h5>
-        
-        <div class="mb-1 text-secondary small">
-            {% include widgets/author_list.html authors=item.authors %}
-        </div>
-
-        <div class="mb-2 small text-muted">
-            <span class="text-dark font-weight-bold font-italic">{{ item.pub }}</span> 
-            {{ item.pub_date }}
-        </div>
-
-        {% if item.abstract %}
-        <p class="small text-muted mb-2 text-truncate-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-            {{ item.abstract }}
-        </p>
-        {% endif %}
-        
-        <div class="badge-links">
-            {% for link in item.links %}
-                {% if link[1].url %}
-                    <a target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">{{ link[0] }}</a>
+<div class="pub-item py-3 border-bottom" style="border-color: #f1f3f5 !important;">
+    <div class="row">
+        <!-- Image / Visual -->
+        {% if item.cover or item.id %}
+        <div class="col-md-3 col-sm-12 mb-3 mb-md-0">
+            <div class="rounded overflow-hidden border" style="max-height: 140px;">
+                {% if item.cover %}
+                <img data-src="{{ item.cover | relative_url }}" 
+                     class="lazy w-100 h-100" 
+                     style="object-fit: cover; object-position: top center;"
+                     src="{{ '/assets/images/empty_300x200.png' | relative_url }}" 
+                     alt="{{ item.title }}">
                 {% else %}
-                    <a target="_blank" href="{{ link[1] }}">{{ link[0] }}</a>
+                <svg class="w-100 h-100 bg-light text-muted" viewBox="0 0 300 200" style="min-height:100px;">
+                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20">Pub</text>
+                </svg>
                 {% endif %}
-            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Content -->
+        <div class="{% if item.cover or item.id %}col-md-9{% else %}col-12{% endif %} col-sm-12">
+            <!-- Title -->
+            <h6 class="mb-1 text-dark font-weight-bold" style="font-size: 1.05rem; line-height: 1.4;">
+                {{ item.title }}
+            </h6>
+            
+            <!-- Authors -->
+            <div class="mb-2 small text-muted">
+                {% include widgets/author_list.html authors=item.authors %}
+            </div>
+
+            <!-- Venue -->
+            <div class="mb-2 small">
+                <span class="badge badge-light border text-secondary font-weight-normal mr-1">
+                    {{ item.pub_date | default: "Preprint" }}
+                </span>
+                <span class="font-italic text-dark">{{ item.pub }}</span>
+                {% if item.pub_pre %}{{ item.pub_pre }}{% endif %}
+            </div>
+
+            <!-- Links (Badges) -->
+            <div class="d-flex flex-wrap mt-2">
+                {% for link in item.links %}
+                    {% assign link_url = link[1].url | default: link[1] %}
+                    {% assign link_target = link[1].target | default: '_blank' %}
+                    <a target="{{ link_target }}" href="{{ link_url }}" class="badge-link">
+                        {{ link[0] }}
+                    </a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
