@@ -7,7 +7,7 @@ navbar_title: Home
 <!-- 1. Profile Section -->
 {% include widgets/profile_card.html %}
 
-<!-- 2. News Section (Optional) -->
+<!-- 2. News Section -->
 {% if site.data.display.homepage.show_news %}
     {% assign count_news = site.news | size %}
     {% if count_news > 0 %}
@@ -15,7 +15,7 @@ navbar_title: Home
     {% endif %}
 {% endif %}
 
-<!-- 3. Experience Section (Optional) -->
+<!-- 3. Experience Section -->
 {% if site.data.display.homepage.show_experience %}
     {% include widgets/experience_card.html %}
 {% endif %}
@@ -30,7 +30,7 @@ navbar_title: Home
     %}
 {% endif %}
 
-<!-- 5. Comments Section (Optional) -->
+<!-- 5. Comments Section -->
 {% if site.data.display.homepage.show_comments %}
     {% include widgets/comments.html %}
 {% endif %}

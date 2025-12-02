@@ -1,78 +1,121 @@
-<div class="row justify-content-center">
+<!-- Profile Card: 个人信息核心区域 -->
+<style>
+    .profile-avatar {
+        width: 100%;
+        max-width: 240px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        object-fit: cover;
+    }
+    
+    .social-btn-compact {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        margin: 0 8px 8px 0;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    
+    .social-btn-compact:hover {
+        background: #fff;
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0,123,255,0.15);
+    }
+    
+    .social-btn-compact i { margin-right: 6px; }
+
+    .position-item {
+        display: block;
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+    }
+</style>
+
+<div class="row">
     <div class="col-12">
-        <div class="card hover-effect profile-card">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    
-                    <!-- Left: Text Info -->
+        <div class="academic-card">
+            <div class="academic-card-body">
+                <div class="row">
+                    <!-- 左侧：文字信息 -->
                     <div class="col-md-8 order-2 order-md-1">
-                        <div class="d-flex align-items-baseline mb-2">
-                            <h1 class="mb-0 mr-3" style="font-size: 2rem;">
+                        <!-- 姓名 -->
+                        <div class="d-flex align-items-end mb-3">
+                            <h1 class="mb-0 mr-3" style="font-weight: 800; color: var(--text-main);">
                                 {{ site.data.profile.primary_name }}
                             </h1>
-                            <span class="text-muted font-weight-light">{{ site.data.profile.secondary_name }}</span>
+                            <span class="text-muted pb-1" style="font-weight: 300;">
+                                {{ site.data.profile.secondary_name }}
+                            </span>
                         </div>
 
-                        <!-- Positions -->
-                        <div class="mb-3">
+                        <!-- 职位列表 -->
+                        <div class="mb-4">
                             {% for position in site.data.profile.positions %}
-                            <div class="d-inline-flex align-items-center mr-3 mb-2 px-2 py-1 bg-light rounded border text-small text-secondary">
+                            <div class="position-item">
                                 {% if position.logo %}
-                                <img src="{{ position.logo | relative_url }}" alt="Logo" style="height: 16px; margin-right: 6px;" />
+                                <img src="{{ position.logo | relative_url }}" style="height: 18px; margin-right: 6px; vertical-align: text-bottom;">
                                 {% endif %}
                                 {{ position.name }}
                             </div>
                             {% endfor %}
                         </div>
 
-                        <!-- Bio -->
-                        <div class="text-muted mb-4" style="text-align: justify;">
+                        <!-- 简介 Bio -->
+                        <div class="text-secondary mb-4" style="text-align: justify;">
                             {{ site.data.profile.short_bio }}
                         </div>
 
-                        <!-- Buttons Row -->
-                        <div class="d-flex flex-wrap align-items-center">
+                        <!-- 社交/链接按钮组 -->
+                        <div class="d-flex flex-wrap">
+                            <!-- CV 特别按钮 -->
                             {% if site.data.profile.cv_link %}
-                            <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}" class="btn btn-sm btn-outline-primary mr-2 mb-2">
-                                <i class="fas fa-file-alt mr-1"></i> CV
+                            <a target="_blank" href="{{ site.data.profile.cv_link | relative_url }}" class="social-btn-compact" style="color: #fff; background-color: var(--primary-color); border-color: var(--primary-color);">
+                                <i class="fas fa-file-alt"></i> CV
                             </a>
                             {% endif %}
                             
-                            <a href="mailto:{{ site.data.profile.email | encode_email }}" class="btn btn-sm btn-light mr-2 mb-2 text-secondary">
-                                <i class="fas fa-envelope mr-1"></i> Email
+                            <!-- Email -->
+                            <a class="social-btn-compact" href="mailto:{{ site.data.profile.email | encode_email }}">
+                                <i class="fas fa-envelope"></i> Email
                             </a>
 
+                            <!-- Scholar -->
                             {% if site.data.profile.gscholar %}
-                                {% assign gs_link = site.data.profile.gscholar %}
-                                {% unless gs_link contains 'http' %}
-                                    {% assign gs_link = 'https://scholar.google.com/citations?user=' | append: site.data.profile.gscholar %}
-                                {% endunless %}
-                                <a target="_blank" href="{{ gs_link }}" class="btn btn-sm btn-light mr-2 mb-2 text-secondary">
-                                    <i class="ai ai-google-scholar mr-1"></i> Scholar
-                                </a>
+                            <a class="social-btn-compact" target="_blank" href="{{ site.data.profile.gscholar }}">
+                                <i class="fa-brands fa-google-scholar"></i> Scholar
+                            </a>
                             {% endif %}
 
+                            <!-- Github -->
                             {% if site.data.profile.github %}
-                            <a target="_blank" href="https://github.com/{{ site.data.profile.github }}" class="btn btn-sm btn-light mr-2 mb-2 text-secondary">
-                                <i class="fab fa-github mr-1"></i> GitHub
+                            <a class="social-btn-compact" target="_blank" href="https://github.com/{{ site.data.profile.github }}">
+                                <i class="fa-brands fa-github"></i> GitHub
                             </a>
                             {% endif %}
                             
-                            <!-- More social icons if needed (Icon only for compactness) -->
-                            {% if site.data.profile.twitter %}
-                            <a target="_blank" href="https://twitter.com/{{ site.data.profile.twitter }}" class="btn btn-sm btn-light mr-2 mb-2 text-secondary" title="Twitter">
-                                <i class="fab fa-twitter"></i>
+                            <!-- 其他链接 (可按需添加) -->
+                            {% if site.data.profile.linkedin %}
+                            <a class="social-btn-compact" target="_blank" href="https://www.linkedin.com/in/{{ site.data.profile.linkedin }}">
+                                <i class="fa-brands fa-linkedin"></i> LinkedIn
                             </a>
                             {% endif %}
                         </div>
                     </div>
 
-                    <!-- Right: Portrait -->
+                    <!-- 右侧：头像 (Desktop) -->
                     {% if site.data.profile.portrait_url %}
-                    <div class="col-md-4 order-1 order-md-2 mb-4 mb-md-0 text-center text-md-right">
+                    <div class="col-md-4 order-1 order-md-2 mb-4 mb-md-0 d-flex justify-content-center align-items-start">
                         <img src="{{ site.data.profile.portrait_url | relative_url }}" 
-                             class="img-fluid rounded shadow-sm" 
-                             style="max-width: 200px; width: 100%; object-fit: cover;" 
+                             class="profile-avatar" 
                              alt="{{ site.data.profile.primary_name }}">
                     </div>
                     {% endif %}
