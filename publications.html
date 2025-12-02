@@ -6,116 +6,36 @@ body_attr: >-
   data-spy="scroll" data-target="#navbar-year" data-offset="100"
 ---
 
-<!-- 添加自定义样式美化页面，不影响全局 CSS -->
-<style>
-    /* 平滑滚动 */
-    html {
-        scroll-behavior: smooth;
-    }
-
-    /* 年份标题样式 */
-    .year-heading {
-        position: relative;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-        font-weight: 700;
-        color: #343a40;
-        border-bottom: 2px solid #f8f9fa;
-        display: flex;
-        align-items: center;
-    }
-
-    /* 论文数量徽标 */
-    .paper-count {
-        font-size: 0.6em;
-        background-color: #e9ecef;
-        color: #495057;
-        padding: 4px 8px;
-        border-radius: 12px;
-        margin-left: 10px;
-        vertical-align: middle;
-        font-weight: normal;
-    }
-
-    /* 论文容器卡片美化 */
-    .publication-card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        border: 1px solid rgba(0,0,0,0.05);
-        overflow: hidden; /* 确保圆角内的内容不溢出 */
-    }
-
-    .publication-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.08) !important;
-    }
-
-    /* 侧边栏导航样式重写 */
-    #navbar-year {
-        border-left: 2px solid #e9ecef;
-        padding-left: 0;
-    }
-
-    #navbar-year .nav-link {
-        color: #6c757d;
-        padding: 5px 20px;
-        font-size: 0.95rem;
-        border-left: 2px solid transparent;
-        margin-left: -2px; /* 为了覆盖父级的边框 */
-        transition: all 0.2s;
-    }
-
-    #navbar-year .nav-link:hover {
-        color: #007bff; /* 使用 Bootstrap 主色，也可改为您主题的颜色 */
-        background-color: transparent;
-    }
-
-    #navbar-year .nav-link.active {
-        color: #007bff;
-        font-weight: bold;
-        border-left-color: #007bff;
-        background-color: transparent; /* 移除默认的蓝色背景，改用左侧线条指示 */
-    }
-</style>
-
 {% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
 
-<div class="row g-5"> <!-- g-5 增加列间距 -->
-    
-    <!-- 主要内容区域：调整为 col-lg-9 以获得更好比例 -->
+<div class="row g-5">
     <div class="col-12 col-lg-9">
         {% for year in pubs_by_year %}
             {% assign num_papers = year.items | size %}
             
-            <!-- 年份标题：增加 id 用于锚点定位 -->
-            <h2 class="pt-5 year-heading" id="year-{{ year.name }}">
+            <h2 class="year-heading" id="year-{{ year.name }}">
                 {{ year.name }}
-                <span class="paper-count" title="{{ num_papers }} papers in {{ year.name }}">{{ num_papers }}</span>
+                <span class="paper-count">{{ num_papers }}</span>
             </h2>
 
-            <!-- 内容容器：增加 publication-card 类 -->
-            <div class="my-3 bg-white shadow-sm rounded-lg publication-card">
-                {% for item in year.items %}
-                    <!-- 
-                       注意：这里保留了您的 include 逻辑。
-                       如果您想调整列表项内部的样式（如字体大小、行间距），
-                       需要修改 _includes/widgets/publication_item.html 文件。
-                    -->
-                    {% include widgets/publication_item.html item=item hide_bottom_border=forloop.last first=forloop.first last=forloop.last %}
-                {% endfor %}
+            <div class="academic-card">
+                <div class="card-body card-body-simple pt-0 pb-0">
+                    {% for item in year.items %}
+                        {% include widgets/publication_item.html item=item %}
+                    {% endfor %}
+                </div>
             </div>
         {% endfor %}
     </div>
 
-    <!-- 侧边栏导航区域：调整为 col-lg-3 -->
     <div class="col-12 col-lg-3 d-none d-lg-block">
-        <div class="sticky-top" style="top: 100px; z-index: 1000;">
-            <h5 class="text-uppercase text-muted mb-3" style="font-size: 0.85rem; letter-spacing: 1px; padding-left: 20px;">Timeline</h5>
-            <nav id="navbar-year" class="nav flex-column">
+        <div class="sticky-top pt-5" style="top: 80px; z-index: 10;">
+            <h5 class="text-uppercase text-muted mb-3 font-weight-bold" style="font-size: 0.8rem; letter-spacing: 1px; padding-left: 1rem;">Timeline</h5>
+            <nav id="navbar-year" class="nav flex-column timeline-nav">
                 {% for year in pubs_by_year %}
                     <a class="nav-link" href="#year-{{ year.name }}">{{ year.name }}</a>
                 {% endfor %}
             </nav>
         </div>
     </div>
-
 </div>

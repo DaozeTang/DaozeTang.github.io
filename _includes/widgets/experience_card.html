@@ -1,65 +1,29 @@
-<style>
-    .exp-list-item {
-        padding: 1rem 0;
-        border-bottom: 1px dashed var(--border-color);
-        transition: background-color 0.2s;
-    }
-    .exp-list-item:last-child { border-bottom: none; }
-    .exp-list-item:hover { background-color: rgba(0,0,0,0.01); }
-
-    .exp-logo {
-        width: 52px;
-        height: 52px;
-        object-fit: contain;
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 4px;
-        margin-right: 1rem;
-    }
-    
-    .exp-title { font-size: 1rem; font-weight: 600; color: var(--text-main); margin-bottom: 2px; }
-    .exp-subtitle { font-size: 0.9rem; color: var(--text-secondary); }
-    .exp-meta { font-size: 0.85rem; color: var(--text-muted); }
-    .exp-date-badge {
-        font-size: 0.75rem;
-        background: #f1f3f5;
-        color: var(--text-secondary);
-        padding: 2px 8px;
-        border-radius: 4px;
-        white-space: nowrap;
-        font-family: var(--font-mono);
-    }
-    
-    .award-icon { color: #f1c40f; width: 24px; text-align: center; }
-</style>
-
-<div class="row mt-4">
+<div class="row">
     <div class="col-12">
         <div class="academic-card">
             <div class="card-body card-body-simple">
                 <div class="row" data-masonry='{"percentPosition": true }'>
                     
-                    <!-- Education -->
                     {% if site.data.profile.education %}
-                    <div class="col-lg-6 mb-5">
-                        <div class="card-header-simple px-0 pt-0">
-                            <div class="card-header-title"><i class="fas fa-graduation-cap"></i> Education</div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-graduation-cap text-primary mr-2"></i>
+                            <h5 class="mb-0">Education</h5>
                         </div>
                         <div>
                             {% for item in site.data.profile.education %}
-                            <div class="media exp-list-item">
+                            <div class="exp-list-item">
                                 {% if item.logo %}
-                                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="exp-logo align-self-start">
+                                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="exp-logo">
                                 {% endif %}
-                                <div class="media-body">
+                                <div class="exp-content">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div class="exp-title">{{ item.name }}</div>
-                                        <div class="exp-date-badge d-none d-sm-block">{{ item.date }}</div>
+                                        <div class="exp-date d-none d-sm-block">{{ item.date }}</div>
                                     </div>
                                     <div class="exp-subtitle">{{ item.dept }}</div>
                                     <div class="exp-meta">{{ item.position }}</div>
-                                    <div class="exp-date-badge d-block d-sm-none mt-2 w-auto d-inline-block">{{ item.date }}</div>
+                                    <div class="exp-date d-block d-sm-none mt-2 w-auto d-inline-block">{{ item.date }}</div>
                                 </div>
                             </div>
                             {% endfor %}
@@ -67,26 +31,26 @@
                     </div>
                     {% endif %}
 
-                    <!-- Experience -->
                     {% if site.data.profile.experience %}
-                    <div class="col-lg-6 mb-5">
-                        <div class="card-header-simple px-0 pt-0">
-                            <div class="card-header-title"><i class="fas fa-briefcase"></i> Experience</div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-briefcase text-primary mr-2"></i>
+                            <h5 class="mb-0">Experience</h5>
                         </div>
                         <div>
                             {% for item in site.data.profile.experience %}
-                            <div class="media exp-list-item">
+                            <div class="exp-list-item">
                                 {% if item.logo %}
-                                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="exp-logo align-self-start">
+                                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="exp-logo">
                                 {% endif %}
-                                <div class="media-body">
+                                <div class="exp-content">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div class="exp-title">{{ item.name }}</div>
-                                        <div class="exp-date-badge d-none d-sm-block">{{ item.date }}</div>
+                                        <div class="exp-date d-none d-sm-block">{{ item.date }}</div>
                                     </div>
                                     <div class="exp-subtitle">{{ item.dept }}</div>
                                     <div class="exp-meta">{{ item.position }}</div>
-                                    <div class="exp-date-badge d-block d-sm-none mt-2 w-auto d-inline-block">{{ item.date }}</div>
+                                    <div class="exp-date d-block d-sm-none mt-2 w-auto d-inline-block">{{ item.date }}</div>
                                 </div>
                             </div>
                             {% endfor %}
@@ -94,20 +58,18 @@
                     </div>
                     {% endif %}
 
-                    <!-- Awards -->
                     {% if site.data.profile.awards %}
                     <div class="col-lg-6 mb-4">
-                        <div class="card-header-simple px-0 pt-0">
-                            <div class="card-header-title"><i class="fas fa-trophy"></i> Honors & Awards</div>
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="fas fa-trophy text-primary mr-2"></i>
+                            <h5 class="mb-0">Honors & Awards</h5>
                         </div>
-                        <div class="pt-2">
+                        <div class="pt-1">
                             {% for item in site.data.profile.awards %}
-                            <div class="d-flex align-items-start py-2 border-bottom border-light">
-                                <div class="mr-3 mt-1"><i class="fas fa-award award-icon"></i></div>
-                                <div class="flex-grow-1">
-                                    <div class="text-dark small font-weight-bold">{{ item.name }}</div>
-                                </div>
-                                <div class="text-muted small text-mono ml-2 no-break">{{ item.date }}</div>
+                            <div class="award-item">
+                                <div class="mr-3"><i class="fas fa-award text-warning"></i></div>
+                                <div class="flex-grow-1 font-weight-500 text-dark">{{ item.name }}</div>
+                                <div class="text-muted small text-mono ml-3">{{ item.date }}</div>
                             </div>
                             {% endfor %}
                         </div>

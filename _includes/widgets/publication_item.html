@@ -1,62 +1,7 @@
 {% assign item = include.item %}
 
-<style>
-    .pub-item {
-        padding: 1.25rem 0;
-        border-bottom: 1px solid var(--border-color);
-    }
-    .pub-item:last-child { border-bottom: none; }
-    
-    .pub-cover {
-        width: 100%;
-        border-radius: 6px;
-        border: 1px solid #e9ecef;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-        transition: transform 0.2s;
-    }
-    .pub-item:hover .pub-cover { transform: scale(1.02); }
-    
-    .pub-title { font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem; line-height: 1.3; }
-    .pub-authors { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.4rem; }
-    .pub-venue { font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 0.6rem; }
-    .pub-venue strong { color: var(--text-secondary); font-style: normal; font-weight: 600; }
-    
-    .pub-abstract {
-        font-size: 0.85rem;
-        color: #868e96;
-        background: #f8f9fa;
-        padding: 8px 12px;
-        border-radius: 6px;
-        margin-bottom: 8px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .btn-pub-link {
-        display: inline-block;
-        padding: 2px 8px;
-        margin-right: 6px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--primary-color);
-        background-color: rgba(0, 123, 255, 0.08);
-        border-radius: 4px;
-        text-decoration: none;
-        transition: all 0.2s;
-        border: 1px solid transparent;
-    }
-    .btn-pub-link:hover {
-        background-color: var(--primary-color);
-        color: #fff;
-        text-decoration: none;
-    }
-</style>
-
 <div class="pub-item">
     <div class="row">
-        <!-- Cover Image (Desktop) -->
         <div class="col-md-3 col-xl-2 d-none d-md-block">
             {% if item.cover %}
             <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
@@ -67,7 +12,6 @@
             {% endif %}
         </div>
 
-        <!-- Content -->
         <div class="col-md-9 col-xl-10">
             <div class="pub-title">{{ item.title }}</div>
             
@@ -84,7 +28,7 @@
             <div class="pub-abstract">{{ item.abstract }}</div>
             {% endif %}
             
-            <div class="mt-2">
+            <div class="mt-2 d-flex flex-wrap">
                 {% for link in item.links %}
                     {% if link[1].url %}
                         <a class="btn-pub-link" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">{{ link[0] }}</a>

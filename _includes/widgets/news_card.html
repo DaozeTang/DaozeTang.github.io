@@ -1,51 +1,27 @@
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<style>
-    .news-scroll {
-        max-height: 380px;
-        overflow-y: auto;
-        padding-right: 5px;
-    }
-    .news-scroll::-webkit-scrollbar { width: 4px; }
-    .news-scroll::-webkit-scrollbar-track { background: transparent; }
-    .news-scroll::-webkit-scrollbar-thumb { background: #dee2e6; border-radius: 4px; }
-    .news-scroll::-webkit-scrollbar-thumb:hover { background: #adb5bd; }
-
-    .news-year { font-weight: 700; color: var(--primary-color); width: 45px; }
-    .news-row { padding: 6px 0; border-bottom: 1px dashed #f1f3f5; }
-    .news-row:last-child { border: none; }
-    .news-link { color: var(--text-main); transition: color 0.2s; }
-    .news-link:hover { color: var(--primary-color); }
-    .news-date { font-size: 0.8rem; color: var(--text-muted); background: #f8f9fa; padding: 1px 6px; border-radius: 4px; }
-</style>
-
-<div class="row mt-3">
-    <div class="col">
+<div class="row">
+    <div class="col-12">
         <div class="academic-card">
             <div class="card-header-simple">
                 <div class="card-header-title">
-                    <i class="fas fa-rss text-danger"></i> News
+                    <i class="fas fa-rss"></i> News
                 </div>
             </div>
             
             <div class="card-body card-body-simple news-scroll">
                 {% for year in news_by_year %}
-                <div class="d-flex {% unless forloop.first %}mt-4{% endunless %}">
-                    <div class="news-year mr-3">{{ year.name }}</div>
-                    <div class="flex-grow-1">
-                        {% for item in year.items %}
-                        <div class="d-flex align-items-baseline news-row">
-                            <i class="fas fa-caret-right text-muted mr-2 small"></i>
-                            <div class="flex-grow-1 small">
-                                <span class="news-link">{{ item.title }}</span>
-                            </div>
-                            <div class="news-date text-mono ml-2 no-break">
-                                {{ item.date | date: "%b %d" }}
-                            </div>
+                    {% for item in year.items %}
+                    <div class="news-row">
+                        <div class="news-year">{{ year.name }}</div>
+                        <div class="flex-grow-1 pl-2">
+                            {{ item.title }}
                         </div>
-                        {% endfor %}
+                        <div class="news-date">
+                            {{ item.date | date: "%b %d" }}
+                        </div>
                     </div>
-                </div>
+                    {% endfor %}
                 {% endfor %}
             </div>
         </div>
