@@ -1,12 +1,11 @@
-<footer class="py-5 mt-5 border-top" style="border-color: var(--border-light) !important;">
-    <div class="container-lg">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-secondary small">
+<footer class="academic-footer-card">
+    <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="mb-2 mb-md-0">
-                &copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}. 
-                <span class="text-tertiary">All rights reserved.</span>
+                <span>&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}</span>
             </div>
-            <div class="text-tertiary font-mono">
-                Updated: {{ "now" | date: "%b %Y" }}
+            <div class="font-mono text-tertiary" style="font-size: 0.75rem;">
+                Last updated: {{ "now" | date: "%b %Y" }}
             </div>
         </div>
     </div>

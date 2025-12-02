@@ -1,40 +1,35 @@
 {% assign item = include.item %}
 
-<div class="pub-item">
-    <div class="pub-cover-wrapper d-none d-md-block">
+<article class="pub-item">
+    <div class="pub-cover-wrapper">
         {% if item.cover %}
         <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
         {% else %}
-        <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 100px; border-style: dashed;">
-            <i class="fas fa-file-alt fa-2x opacity-20"></i>
+        <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 100px;">
+            <i class="far fa-file-alt fa-2x opacity-25"></i>
         </div>
         {% endif %}
     </div>
 
-    <div class="flex-grow-1">
-        <div class="mb-1">
-            <span class="font-bold text-primary" style="font-size: 1.05rem;">{{ item.title }}</span>
-        </div>
+    <div class="pub-details">
+        <div class="pub-title">{{ item.title }}</div>
         
-        <div class="mb-2 text-secondary" style="font-size: 0.95rem;">
+        <div class="pub-authors">
             {% include widgets/author_list.html authors=item.authors %}
         </div>
 
-        <div class="mb-3 small">
-            <span class="font-bold text-dark">{{ item.pub }}</span>
-            {% if item.pub_date %}
-            <span class="text-quaternary mx-1">&middot;</span>
-            <span class="text-tertiary font-mono">{{ item.pub_date }}</span>
-            {% endif %}
+        <div class="pub-venue">
+            {{ item.pub_pre }} <strong>{{ item.pub }}</strong> {{ item.pub_post }} 
+            {% if item.pub_date %}<span class="text-tertiary"> · {{ item.pub_date }}</span>{% endif %}
         </div>
 
         {% if item.abstract %}
-        <div class="text-secondary small mb-3 p-3 bg-subtle rounded" style="font-style: italic; line-height: 1.5;">
+        <div class="small text-secondary mb-3 pl-3 border-left" style="font-style: italic;">
             {{ item.abstract }}
         </div>
         {% endif %}
         
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap gap-2">
             {% for link in item.links %}
                 {% if link[1].url %}
                     <a class="btn-pub-link" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}">
@@ -48,4 +43,4 @@
             {% endfor %}
         </div>
     </div>
-</div>
+</article>

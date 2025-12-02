@@ -1,53 +1,74 @@
-<div class="row mt-4">
+<section class="row">
     <div class="col-12">
         <div class="academic-card">
-            <div class="card-body card-body-simple">
+            <div class="card-body-simple">
                 <div class="row">
-                    <!-- Education -->
                     {% if site.data.profile.education %}
-                    <div class="col-md-6 mb-5 mb-md-0">
-                        <h3 class="h5 mb-4 px-3">Education</h3>
-                        <div class="px-3">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="mb-4 d-flex align-items-center gap-2">
+                            <i class="fas fa-graduation-cap text-tertiary"></i>
+                            <h3 class="h6 mb-0 text-uppercase text-tertiary" style="letter-spacing: 0.05em;">Education</h3>
+                        </div>
+                        <div class="pl-3 border-left" style="border-color: var(--border-light) !important;">
                             {% for item in site.data.profile.education %}
-                            <div class="timeline-item">
+                            <div class="timeline-item border-0 pl-0 mb-4 position-relative">
                                 {% if item.logo %}
-                                <img src="{{ item.logo | relative_url }}" alt="Logo" class="timeline-logo">
+                                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="timeline-logo">
                                 {% endif %}
-                                <div class="font-bold text-primary">{{ item.name }}</div>
-                                <div class="small text-secondary mb-1">{{ item.dept }}</div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="small text-tertiary">{{ item.position }}</span>
-                                    <span class="small font-mono text-quaternary">{{ item.date }}</span>
-                                </div>
+                                
+                                <div class="exp-title">{{ item.name }}</div>
+                                <div class="exp-subtitle">{{ item.dept }}</div>
+                                <div class="exp-meta">{{ item.position }}</div>
+                                <div class="font-mono text-tertiary small mt-1">{{ item.date }}</div>
                             </div>
                             {% endfor %}
                         </div>
                     </div>
                     {% endif %}
 
-                    <!-- Experience -->
                     {% if site.data.profile.experience %}
-                    <div class="col-md-6">
-                        <h3 class="h5 mb-4 px-3">Experience</h3>
-                        <div class="px-3">
+                    <div class="col-lg-6">
+                        <div class="mb-4 d-flex align-items-center gap-2">
+                            <i class="fas fa-briefcase text-tertiary"></i>
+                            <h3 class="h6 mb-0 text-uppercase text-tertiary" style="letter-spacing: 0.05em;">Experience</h3>
+                        </div>
+                        <div class="pl-3 border-left" style="border-color: var(--border-light) !important;">
                             {% for item in site.data.profile.experience %}
-                            <div class="timeline-item">
+                            <div class="timeline-item border-0 pl-0 mb-4 position-relative">
                                 {% if item.logo %}
-                                <img src="{{ item.logo | relative_url }}" alt="Logo" class="timeline-logo">
+                                <img src="{{ item.logo | relative_url }}" alt="{{ item.name }}" class="timeline-logo">
                                 {% endif %}
-                                <div class="font-bold text-primary">{{ item.name }}</div>
-                                <div class="small text-secondary mb-1">{{ item.dept }}</div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="small text-tertiary">{{ item.position }}</span>
-                                    <span class="small font-mono text-quaternary">{{ item.date }}</span>
-                                </div>
+                                
+                                <div class="exp-title">{{ item.name }}</div>
+                                <div class="exp-subtitle">{{ item.dept }}</div>
+                                <div class="exp-meta">{{ item.position }}</div>
+                                <div class="font-mono text-tertiary small mt-1">{{ item.date }}</div>
                             </div>
                             {% endfor %}
                         </div>
                     </div>
                     {% endif %}
                 </div>
+
+                {% if site.data.profile.awards %}
+                <div class="mt-5">
+                    <div class="mb-3 d-flex align-items-center gap-2">
+                        <i class="fas fa-trophy text-tertiary"></i>
+                        <h3 class="h6 mb-0 text-uppercase text-tertiary" style="letter-spacing: 0.05em;">Honors & Awards</h3>
+                    </div>
+                    <div class="row">
+                        {% for item in site.data.profile.awards %}
+                        <div class="col-md-6 mb-2">
+                            <div class="d-flex align-items-center justify-content-between p-2 rounded hover-bg-subtle">
+                                <span class="font-weight-500" style="font-size: 0.95rem;">{{ item.name }}</span>
+                                <span class="font-mono text-tertiary small">{{ item.date }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
-</div>
+</section>

@@ -1,17 +1,23 @@
 <nav class="academic-nav-card">
     <div class="navbar-inner">
-        <a class="font-bold text-primary" style="font-size: 1.1rem;" href="{{ '/' | relative_url }}">
+        <a class="navbar-brand font-bold text-primary" href="{{ '/' | relative_url }}" style="font-size: 1.1rem;">
             {{ site.data.profile.navbar_name }}
         </a>
         
         <div class="d-flex align-items-center">
-            <ul class="nav d-flex" style="list-style: none; margin: 0; padding: 0; gap: 4px;">
-                {% for item in site.data.navigation.pages %}
-                <li class="nav-item {% if item.name == page.navbar_title %}active{% endif %}">
-                    <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
+            <button class="navbar-toggler d-md-none border-0 bg-transparent" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                <i class="fas fa-bars text-secondary"></i>
+            </button>
+
+            <div class="collapse navbar-collapse d-md-flex" id="navbarResponsive">
+                <ul class="navbar-nav d-flex flex-row gap-2 m-0 p-0 list-unstyled">
+                    {% for item in site.data.navigation.pages %}
+                    <li class="nav-item {% if item.name == page.navbar_title %}active{% endif %}">
+                        <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 </nav>

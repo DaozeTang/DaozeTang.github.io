@@ -1,29 +1,31 @@
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<div class="row mt-4">
+<section class="row mt-4">
     <div class="col-12">
         <div class="academic-card">
             <div class="card-header-simple">
-                <span class="card-header-title">News</span>
+                <div class="card-header-title">News</div>
             </div>
             
-            <div class="card-body card-body-simple" style="max-height: 400px; overflow-y: auto;">
+            <div class="card-body-simple news-scroll">
                 {% for year in news_by_year %}
-                <div class="mb-4 last:mb-0">
-                    <div class="text-tertiary font-bold mb-2" style="font-size: 0.85rem;">{{ year.name }}</div>
-                    {% for item in year.items %}
-                    <div class="news-row">
-                        <div class="text-tertiary font-mono mr-3" style="font-size: 0.8rem; min-width: 50px;">
-                            {{ item.date | date: "%b %d" }}
+                <div class="mb-4">
+                    <div class="font-bold text-tertiary mb-2" style="font-size: 0.85rem;">{{ year.name }}</div>
+                    <div>
+                        {% for item in year.items %}
+                        <div class="news-row">
+                            <div class="flex-grow-1">
+                                <a href="{{ item.url | default: '#' }}" class="text-primary">{{ item.title }}</a>
+                            </div>
+                            <div class="news-date">
+                                {{ item.date | date: "%b %d" }}
+                            </div>
                         </div>
-                        <div class="flex-grow-1 text-primary" style="font-size: 0.95rem;">
-                            {{ item.title }}
-                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-</div>
+</section>

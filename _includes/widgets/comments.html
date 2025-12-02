@@ -1,12 +1,13 @@
-<div class="row mt-4">
+<section class="row mt-5">
     <div class="col-12">
         <div class="academic-card">
             <div class="card-header-simple">
-                <span class="card-header-title">Comments</span>
+                <div class="card-header-title">
+                    {% if include.title %}{{ include.title }}{% else %}Discussion{% endif %}
+                </div>
             </div>
-            <div class="card-body card-body-simple">
+            <div class="card-body-simple">
                 <div class="comments-container">
-                    <!-- Giscus logic remains same, just wrapper styled -->
                     <script src="https://giscus.app/client.js"
                             data-repo="DaozeTang/DaozeTang.github.io"
                             data-repo-id="R_kgDOQbw9EA"
@@ -27,4 +28,4 @@
             </div>
         </div>
     </div>
-</div>
+</section>
