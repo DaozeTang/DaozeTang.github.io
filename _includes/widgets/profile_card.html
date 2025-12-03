@@ -12,12 +12,14 @@
                             {{ site.data.profile.secondary_name }}
                         </div>
 
-                        {% for position in site.data.profile.positions %}
-                        <div class="position-badge">
-                            {% if position.logo %}<img src="{{ position.logo | relative_url }}" alt="Logo"/>{% endif %}
-                            {{ position.name }}
+                        <div class="profile-badges-group">
+                            {% for position in site.data.profile.positions %}
+                            <div class="position-badge">
+                                {% if position.logo %}<img src="{{ position.logo | relative_url }}" alt="Logo"/>{% endif %}
+                                {{ position.name }}
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
 
                     <div class="text-secondary mb-4 text-justify" style="font-size: 1.05rem; line-height: 1.7;">
