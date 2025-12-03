@@ -83,6 +83,11 @@
                 {% if site.data.profile.portrait_url %}
                 <div class="col-md-4 order-1 order-md-2 mb-4 mb-md-0 text-center">
                     <img src="{{ site.data.profile.portrait_url | relative_url }}" class="profile-img shadow-sm" alt="{{ site.data.profile.primary_name }}">
+                    {% if site.data.profile.portrait_caption %}
+                    <div class="profile-caption">
+                        {{ site.data.profile.portrait_caption }}
+                    </div>
+                    {% endif %}
                 </div>
                 {% endif %}
             </div>

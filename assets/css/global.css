@@ -209,6 +209,14 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: var(--shadow-md);
 }
 
+.profile-caption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
 .position-badge {
     display: inline-flex;
     align-items: center;
