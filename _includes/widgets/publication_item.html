@@ -22,6 +22,10 @@
             <div class="pub-venue">
                 {{ item.pub_pre }} <strong>{{ item.pub }}</strong> {{ item.pub_post }} 
                 {% if item.pub_date %}<span class="text-muted ml-1">, {{ item.pub_date }}</span>{% endif %}
+                
+                {% if item.semantic_scholar_id %}
+                <span class="ml-1" data-semantic-scholar-id="{{ item.semantic_scholar_id }}"></span>
+                {% endif %}
             </div>
 
             {% if item.abstract %}
