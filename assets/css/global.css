@@ -215,6 +215,13 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.4;
 }
 
+.profile-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
 .position-badge {
     display: inline-flex;
     align-items: center;
