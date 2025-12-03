@@ -5,23 +5,24 @@
         <div class="academic-card">
             <div class="card-header-simple">
                 <div class="card-header-title">
-                    <i class="fas fa-rss"></i> News
+                    <i class="fas fa-rss"></i> Recent News
                 </div>
             </div>
             
             <div class="card-body-simple news-scroll">
                 {% for year in news_by_year %}
-                <div class="news-group mb-3">
                     {% for item in year.items %}
                     <div class="news-row">
-                        <div class="news-year">{{ item.date | date: "%Y" }}</div>
-                        <div class="news-date">{{ item.date | date: "%b %d" }}</div>
-                        <div class="flex-grow-1">
-                            <span class="news-link">{{ item.title }}</span>
+                        <div class="news-badge">
+                            <span class="news-badge-month">{{ item.date | date: "%b" }}</span>
+                            <span class="news-badge-day">{{ item.date | date: "%d" }}</span>
+                            <span class="news-badge-year">{{ item.date | date: "%Y" }}</span>
+                        </div>
+                        <div class="news-content">
+                            <span class="news-title">{{ item.title }}</span>
                         </div>
                     </div>
                     {% endfor %}
-                </div>
                 {% endfor %}
             </div>
         </div>
