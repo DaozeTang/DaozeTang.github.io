@@ -1,4 +1,4 @@
-<footer class="mt-5 mb-4">
+<footer class="mt-4 mb-3">
     <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
         <div class="row justify-content-center">
             <div class="col-12">
@@ -8,12 +8,6 @@
                             <span class="fw-bold">&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.</span>
                             <span class="ms-1 opacity-75 d-none d-sm-inline">All rights reserved.</span>
                         </div>
-
-                        <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" aria-label="Back to top">
-                            <span>Back to Top</span>
-                            <i class="fas fa-arrow-up"></i>
-                        </button>
-
                         <div class="d-flex align-items-center gap-2 small text-muted font-monospace">
                             <span class="d-none d-sm-inline">Updated:</span> 
                             <span class="badge bg-light text-dark border">{{ "now" | date: "%b %Y" }}</span>
