@@ -6,8 +6,8 @@
             {% if item.cover %}
             <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
             {% else %}
-            <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 80px; border-style: dashed;">
-                <i class="fas fa-file-alt opacity-50"></i>
+            <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 100px; border-style: dashed;">
+                <i class="fas fa-file-alt fa-2x opacity-50"></i>
             </div>
             {% endif %}
         </div>
@@ -20,11 +20,16 @@
             </div>
 
             <div class="pub-venue">
-                {{ item.pub_pre }} <strong>{{ item.pub }}</strong> {{ item.pub_post }} 
-                {% if item.pub_date %}<span class="text-muted ml-1">, {{ item.pub_date }}</span>{% endif %}
+                {% if item.pub_pre %}{{ item.pub_pre }}{% endif %}
+                <strong>{{ item.pub }}</strong>
+                {% if item.pub_post %}{{ item.pub_post }}{% endif %}
+                
+                {% if item.pub_date %}
+                <span class="text-muted small"> • {{ item.pub_date }}</span>
+                {% endif %}
                 
                 {% if item.semantic_scholar_id %}
-                <span class="ml-1" data-semantic-scholar-id="{{ item.semantic_scholar_id }}"></span>
+                <span class="ml-2" data-semantic-scholar-id="{{ item.semantic_scholar_id }}"></span>
                 {% endif %}
             </div>
 

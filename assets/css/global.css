@@ -528,8 +528,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .pub-item {
-    padding: 1.5rem 0;
+    padding: 2rem 0;
     border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.2s ease;
+}
+
+.pub-item:last-child {
+    border-bottom: none;
 }
 
 .pub-cover {
@@ -542,16 +547,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .pub-item:hover .pub-cover {
     border-color: var(--color-accent);
-    transform: scale(1.02) rotate(1deg);
+    transform: scale(1.02);
     box-shadow: var(--shadow-md);
 }
 
 .pub-title {
     font-weight: 700;
     color: var(--color-text-main);
-    font-size: 1.1rem;
-    line-height: 1.4;
-    margin-bottom: 0.4rem;
+    font-size: 1.25rem;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
     transition: color 0.2s;
 }
 
@@ -560,26 +565,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .pub-authors {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--color-text-secondary);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
     line-height: 1.6;
 }
 
 .pub-venue {
     font-size: 0.85rem;
     color: var(--color-text-secondary);
-    font-style: italic;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .pub-venue strong {
     color: var(--color-accent);
     font-weight: 600;
+    background: rgba(59, 130, 246, 0.08);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border: 1px solid rgba(59, 130, 246, 0.1);
     font-style: normal;
-    background: rgba(59, 130, 246, 0.1);
-    padding: 2px 6px;
-    border-radius: 4px;
 }
 
 .pub-abstract {
@@ -596,16 +608,15 @@ h1, h2, h3, h4, h5, h6 {
 .btn-pub-link {
     display: inline-flex;
     align-items: center;
-    font-size: 0.7rem;
-    font-weight: 700;
+    font-size: 0.8rem;
+    font-weight: 600;
     color: var(--color-text-secondary);
     border: 1px solid var(--color-border);
-    padding: 0.3rem 0.8rem;
-    border-radius: 6px;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
     margin-right: 0.6rem;
-    margin-top: 0.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+    text-transform: capitalize;
     background: #fff;
     transition: var(--transition-smooth);
     box-shadow: var(--shadow-sm);
