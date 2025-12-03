@@ -100,19 +100,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-wrapper {
-    z-index: 50;
-    transition: z-index 0.3s step-end;
-}
-
-.navbar-wrapper.navbar-scrolled {
-    z-index: 1030;
+    position: relative;
+    margin-bottom: 1rem;
 }
 
 .navbar-card {
     padding: 0.4rem 0.8rem;
     border-radius: var(--radius-card);
     background: rgba(255, 255, 255, 0.9);
-    margin: 0 0 1rem 0;
+    margin: 0;
     display: flex;
     align-items: center;
     box-shadow: var(--shadow-sm);
@@ -122,12 +118,6 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-card:hover {
     transform: translateY(-1px);
     box-shadow: var(--shadow-hover);
-}
-
-.navbar-wrapper.navbar-scrolled .navbar-card {
-    box-shadow: var(--shadow-hover);
-    background: rgba(255, 255, 255, 0.95);
-    border-color: rgba(59, 130, 246, 0.3);
 }
 
 .navbar-brand {
