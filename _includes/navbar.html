@@ -2,7 +2,7 @@
     <div class="{% if page.container_class %}{{ page.container_class }}{% else %}container-lg{% endif %}">
         <div class="row justify-content-center">
             <div class="col-12">
-                <nav class="navbar navbar-expand-sm academic-card navbar-card">
+                <nav id="navbar-card" class="navbar navbar-expand-sm academic-card navbar-card">
                     <a class="navbar-brand" href="{{ '/' | relative_url }}">
                         {{ site.data.profile.navbar_name }}
                     </a>
@@ -25,3 +25,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const navbar = document.getElementById("navbar-card");
+        
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 20) {
+                navbar.classList.add("nav-scrolled");
+            } else {
+                navbar.classList.remove("nav-scrolled");
+            }
+        });
+    });
+</script>
