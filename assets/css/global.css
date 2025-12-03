@@ -215,11 +215,12 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.4;
 }
 
+/* MODIFIED: Changed layout to column to stack secondary name and badges vertically */
 .profile-badges {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column; /* Stack vertically */
+    align-items: flex-start; /* Align to the left */
+    justify-content: flex-start;
     gap: 10px;
     width: 100%;
 }
