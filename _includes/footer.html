@@ -3,17 +3,20 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="academic-card footer-card">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <div class="small">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div class="small text-secondary">
                             <span class="fw-bold">&copy; {{ "now" | date: "%Y" }} {{ site.data.profile.primary_name }}.</span>
-                            <span class="text-muted ms-1 d-none d-sm-inline">All rights reserved.</span>
+                            <span class="ms-1 opacity-75 d-none d-sm-inline">All rights reserved.</span>
                         </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="text-mono small text-muted">
-                                <span class="d-none d-sm-inline">Last updated:</span> 
-                                {{ "now" | date: "%b %Y" }}
-                            </div>
-                            <div class="vr text-muted opacity-25 d-none d-sm-block" style="height: 16px;"></div>
+
+                        <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" aria-label="Back to top">
+                            <span>Back to Top</span>
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+
+                        <div class="d-flex align-items-center gap-2 small text-muted font-monospace">
+                            <span class="d-none d-sm-inline">Updated:</span> 
+                            <span class="badge bg-light text-dark border">{{ "now" | date: "%b %Y" }}</span>
                         </div>
                     </div>
                 </div>

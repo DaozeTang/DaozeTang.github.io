@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .back-to-top {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.85rem;
