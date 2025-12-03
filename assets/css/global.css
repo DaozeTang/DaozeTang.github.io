@@ -27,7 +27,7 @@ body {
     font-family: var(--font-sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    padding-top: 1.5rem;
+    padding-top: 0.5rem;
     padding-bottom: 2rem;
     background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
     background-size: 32px 32px;
@@ -112,7 +112,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.4rem 0.8rem;
     border-radius: var(--radius-card);
     background: rgba(255, 255, 255, 0.9);
-    margin: 0.5rem 0 1rem 0;
+    margin: 0 0 1rem 0;
     display: flex;
     align-items: center;
     box-shadow: var(--shadow-sm);
