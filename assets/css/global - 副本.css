@@ -9,9 +9,9 @@
     --color-border: rgba(229, 231, 235, 0.6);
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: "JetBrains Mono", source-code-pro, Menlo, monospace;
-    --radius-card: 6px;
-    --radius-btn: 6px;
-    --radius-pill: 6px;
+    --radius-card: 16px;
+    --radius-btn: 8px;
+    --radius-pill: 9999px;
     --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.025);
     --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
@@ -189,7 +189,7 @@ h1, h2, h3, h4, h5, h6 {
     white-space: nowrap;
     background: rgba(0,0,0,0.03);
     padding: 2px 6px;
-    border-radius: var(--radius-btn);
+    border-radius: 4px;
 }
 
 .exp-subtitle {
@@ -233,7 +233,7 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     background: rgba(251, 191, 36, 0.1);
     color: #d97706;
-    border-radius: var(--radius-btn);
+    border-radius: 8px;
     margin-right: 0.75rem;
 }
 
@@ -451,7 +451,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .news-scroll::-webkit-scrollbar-thumb {
     background-color: rgba(209, 213, 219, 0.6);
-    border-radius: var(--radius-btn);
+    border-radius: 20px;
 }
 
 .news-scroll::-webkit-scrollbar-thumb:hover {
@@ -463,7 +463,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: flex-start;
     gap: 14px;
     padding: 10px 12px;
-    border-radius: var(--radius-card);
+    border-radius: 10px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     border-bottom: 1px solid rgba(243, 244, 246, 0.8);
     margin-bottom: 6px;
@@ -489,7 +489,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 6px 4px;
     background: rgba(59, 130, 246, 0.06);
     border: 1px solid rgba(59, 130, 246, 0.12);
-    border-radius: var(--radius-btn);
+    border-radius: 8px;
     color: var(--color-accent);
     line-height: 1;
     flex-shrink: 0;
@@ -553,7 +553,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .pub-cover {
     width: 100%;
-    border-radius: var(--radius-card);
+    border-radius: 8px;
     border: 1px solid var(--color-border);
     transition: var(--transition-spring);
     box-shadow: var(--shadow-sm);
@@ -600,7 +600,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     background: rgba(59, 130, 246, 0.08);
     padding: 4px 10px;
-    border-radius: var(--radius-btn);
+    border-radius: 999px;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -627,7 +627,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-text-secondary);
     border: 1px solid var(--color-border);
     padding: 0.4rem 1rem;
-    border-radius: var(--radius-btn);
+    border-radius: 999px;
     margin-right: 0.6rem;
     margin-top: 0.5rem;
     text-transform: capitalize;
