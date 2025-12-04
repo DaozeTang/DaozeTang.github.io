@@ -14,37 +14,39 @@
                 </div>
                 {% endif %}
 
-                <div class="row text-center">
-                    <div class="col-md-4 mb-4 mb-md-0">
-                        <div class="p-3 h-100 d-flex flex-column justify-content-center align-items-center">
-                            <div class="mb-2" style="font-size: 2.5rem; font-weight: 700; color: var(--color-accent); line-height: 1.2;">
-                                {{ site.data.team.member_count | default: "0" }}
-                            </div>
-                            <div class="text-secondary font-weight-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.05em;">
-                                Team Members
-                            </div>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-user-graduate stat-bg-icon"></i>
+                        <div class="stat-value">
+                            {{ site.data.team.member_count | default: "0" }}
+                        </div>
+                        <div class="stat-label">
+                            Team Members
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-4 mb-md-0">
-                        <div class="p-3 h-100 d-flex flex-column justify-content-center align-items-center" style="border-left: 1px solid rgba(0,0,0,0.05); border-right: 1px solid rgba(0,0,0,0.05);">
-                            <div class="mb-2" style="font-size: 2.5rem; font-weight: 700; color: var(--color-accent); line-height: 1.2;">
-                                {{ site.data.team.project_count | default: "0" }}
-                            </div>
-                            <div class="text-secondary font-weight-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.05em;">
-                                Projects Completed
-                            </div>
+                    <div class="stat-item">
+                        <i class="fas fa-project-diagram stat-bg-icon"></i>
+                        <div class="stat-value">
+                            {{ site.data.team.project_count | default: "0" }}
+                        </div>
+                        <div class="stat-label">
+                            Projects Completed
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="p-3 h-100 d-flex flex-column justify-content-center align-items-center">
-                            <div class="mb-2" style="font-size: 2.5rem; font-weight: 700; color: var(--color-accent); line-height: 1.2;">
-                                {{ site.data.team.total_funding | default: "$0" }}
+                    <div class="stat-item">
+                        <i class="fas fa-hand-holding-usd stat-bg-icon"></i>
+                        <div class="funding-group">
+                            <div class="funding-main">
+                                <span class="stat-prefix">&gt;</span>¥{{ site.data.team.total_funding_rmb | default: site.data.team.total_funding | default: "0" }}
                             </div>
-                            <div class="text-secondary font-weight-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.05em;">
-                                Total Funding
+                            <div class="funding-sub">
+                                <span class="stat-prefix">≈</span>${{ site.data.team.total_funding_usd | default: site.data.team.total_funding | divided_by: 7 | default: "0" }} (USD)
                             </div>
+                        </div>
+                        <div class="stat-label mt-2">
+                            Total Funding
                         </div>
                     </div>
                 </div>
