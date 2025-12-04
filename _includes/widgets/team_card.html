@@ -39,7 +39,7 @@
                         <i class="fas fa-hand-holding-usd stat-bg-icon"></i>
                         <div class="funding-group">
                             <div class="funding-main">
-                                <span class="stat-prefix">&gt;</span>¥{{ site.data.team.total_funding_rmb | default: site.data.team.total_funding | default: "0" }}
+                                &gt;¥{{ site.data.team.total_funding_rmb | default: site.data.team.total_funding | default: "0" }}
                             </div>
                             <div class="funding-sub">
                                 <span class="stat-prefix">≈</span>${{ site.data.team.total_funding_usd | default: site.data.team.total_funding | divided_by: 7 | default: "0" }} (USD)
