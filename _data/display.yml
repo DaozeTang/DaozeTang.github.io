@@ -4,6 +4,7 @@ homepage:
   show_selected_publications: true
   num_news: 10
   show_comments: true
+  show_team_summary: true
 
 footer_text: >-
   You only look once.
