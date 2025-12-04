@@ -22,6 +22,10 @@ navbar_title: Home
     {% include widgets/publication_card.html publications=pubs title='<i class="fas fa-star"></i> Selected Publications' %}
 {% endif %}
 
+{% if site.data.display.homepage.show_team_summary %}
+    {% include widgets/team_card.html %}
+{% endif %}
+
 {% if site.data.display.homepage.show_comments %}
     {% include widgets/comments.html title='<i class="fas fa-comments"></i> Discussion' %}
 {% endif %}
