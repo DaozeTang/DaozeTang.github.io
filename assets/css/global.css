@@ -174,12 +174,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .funding-main {
-    font-size: 2.25rem;
+    font-size: 1.8rem;
     font-weight: 800;
-    line-height: 1.1;
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-text-main) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--color-accent);
+    line-height: 1.2;
 }
 
 .funding-sub {
