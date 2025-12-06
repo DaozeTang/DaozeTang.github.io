@@ -2,9 +2,9 @@
 # Team Overview (用于首页卡片和团队页顶部介绍)
 # -----------------------------------------------------------------------------
 description: >
-  以下内容用于测试团队介绍页效果！
+  Established in 2022, our team is a dynamic, student-led research collective characterized by cross-institutional and interdisciplinary collaboration. Our members represent diverse educational stages and academic backgrounds. We are united by a shared commitment to exploring scientific frontiers, achieving excellence in academic competitions, and fostering the academic and professional development of our members.
 
-member_count: 12
+member_count: 10
 project_count: 8
 total_funding: 100000          # 默认为人民币单位，并自动计算美元金额
 #total_funding_rmb: "500万"     # 单独用于显示人民币金额
