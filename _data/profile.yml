@@ -24,7 +24,7 @@ blog: https://blog.dztang.net/
 short_bio_text_justify: false
 short_bio: >-
   <p>
-  Hello. I am Daoze Tang, an incoming Master’s student in Computer Science and Technology at <a href="https://www.cau.edu.cn/" target="_blank">China Agricultural University</a>. Currently, I am in the final stages of completing my Bachelor of Engineering in Internet of Things Engineering at <a href="https://www.hrbcu.edu.cn/" target="_blank">Harbin University of Commerce</a>.
+  Hello. I am Daoze Tang, an incoming Master’s student in Computer Science and Technology at <a href="{{ 'team' | relative_url }}" target="_blank">China Agricultural University</a>. Currently, I am in the final stages of completing my Bachelor of Engineering in Internet of Things Engineering at <a href="https://www.hrbcu.edu.cn/" target="_blank">Harbin University of Commerce</a>.
   </p>
   <p>
   My research interests lie broadly within Computer Science, with a primary focus on Computer Vision, specifically Object Detection. I am passionate about developing efficient algorithms and exploring robust visual recognition systems.
