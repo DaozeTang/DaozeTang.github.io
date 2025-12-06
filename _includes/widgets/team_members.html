@@ -1,0 +1,93 @@
+<div class="academic-card">
+    <div class="card-header-simple">
+        <div class="card-header-title">
+            <i class="fas fa-users"></i> Team Members
+        </div>
+    </div>
+    
+    <div class="card-body-simple">
+        {% if site.data.team.principal_investigator %}
+        <h5 class="team-section-title">Principal Investigator</h5>
+        <div class="row mb-5">
+            {% for member in site.data.team.principal_investigator %}
+            <div class="col-md-12">
+                <div class="team-pi-card">
+                    <div class="team-pi-img-wrapper">
+                        {% if member.avatar %}
+                        <img src="{{ member.avatar | relative_url }}" alt="{{ member.name }}">
+                        {% else %}
+                        <div class="team-avatar-placeholder pi-size"><i class="fas fa-user"></i></div>
+                        {% endif %}
+                    </div>
+                    <div class="team-pi-content">
+                        <h3 class="team-member-name">{{ member.name }}</h3>
+                        <div class="team-member-role text-accent">{{ member.role }}</div>
+                        <p class="team-member-bio">{{ member.bio }}</p>
+                        <div class="team-social-links">
+                            {% if member.email %}
+                            <a href="mailto:{{ member.email }}" title="Email"><i class="fas fa-envelope"></i></a>
+                            {% endif %}
+                            {% if member.website %}
+                            <a href="{{ member.website }}" target="_blank" title="Website"><i class="fas fa-globe"></i></a>
+                            {% endif %}
+                            {% if member.cv %}
+                            <a href="{{ member.cv | relative_url }}" target="_blank" title="CV"><i class="fas fa-file-alt"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if site.data.team.members %}
+        <h5 class="team-section-title">Research Group</h5>
+        <div class="row">
+            {% for member in site.data.team.members %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="team-member-card">
+                    <div class="team-avatar-wrapper">
+                        {% if member.avatar %}
+                        <img src="{{ member.avatar | relative_url }}" alt="{{ member.name }}">
+                        {% else %}
+                        <div class="team-avatar-placeholder"><i class="fas fa-user"></i></div>
+                        {% endif %}
+                    </div>
+                    <div class="team-member-info">
+                        <div class="team-member-name">{{ member.name }}</div>
+                        <div class="team-member-role">{{ member.role }}</div>
+                        <div class="team-social-links small mt-2">
+                            {% if member.email %}
+                            <a href="mailto:{{ member.email }}"><i class="fas fa-envelope"></i></a>
+                            {% endif %}
+                            {% if member.website %}
+                            <a href="{{ member.website }}" target="_blank"><i class="fas fa-link"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% if site.data.team.alumni %}
+        <div class="mt-4 pt-4 border-top">
+            <h5 class="team-section-title text-muted">Alumni</h5>
+            <div class="row">
+                {% for member in site.data.team.alumni %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-user-graduate text-muted mr-2"></i>
+                        <span class="font-weight-bold mr-2">{{ member.name }}</span>
+                        <span class="text-secondary small">({{ member.period }})</span>
+                        <span class="text-muted small ml-auto">{{ member.next_move }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>

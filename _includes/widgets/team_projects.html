@@ -1,0 +1,62 @@
+<div class="academic-card">
+    <div class="card-header-simple">
+        <div class="card-header-title">
+            <i class="fas fa-project-diagram"></i> Research Projects
+        </div>
+    </div>
+    
+    <div class="card-body-simple">
+        <div class="project-list">
+            {% for project in site.data.team.projects %}
+            <div class="project-item">
+                <div class="row">
+                    <div class="col-md-3 mb-3 mb-md-0">
+                        <div class="project-img-wrapper">
+                            {% if project.image %}
+                            <img src="{{ project.image | relative_url }}" alt="{{ project.title }}">
+                            {% else %}
+                            <div class="project-placeholder">
+                                <i class="fas fa-microscope"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="project-title">{{ project.title }}</h5>
+                            {% if project.status %}
+                            <span class="badge badge-light border text-secondary">{{ project.status }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="project-meta mb-2">
+                            {% if project.period %}
+                            <span class="mr-3"><i class="far fa-calendar-alt mr-1"></i> {{ project.period }}</span>
+                            {% endif %}
+                            {% if project.role %}
+                            <span><i class="fas fa-user-tag mr-1"></i> {{ project.role }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="project-desc text-justify">
+                            {{ project.description }}
+                        </div>
+                        {% if project.tags %}
+                        <div class="project-tags mt-2">
+                            {% for tag in project.tags %}
+                            <span class="project-tag">#{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% if project.url %}
+                        <div class="mt-2">
+                            <a href="{{ project.url }}" class="btn-pub-link btn-sm pl-0" style="border:none; background:none; padding-left:0;">
+                                Learn more <i class="fas fa-arrow-right small ml-1"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
