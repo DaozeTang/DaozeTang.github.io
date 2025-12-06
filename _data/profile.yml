@@ -30,7 +30,7 @@ short_bio: >-
   My research interests lie broadly within Computer Science, with a primary focus on Computer Vision, specifically Object Detection. I am passionate about developing efficient algorithms and exploring robust visual recognition systems.
   </p>
   <p>
-  Beyond my individual research, I am deeply committed to academic community building. I established and currently lead a student research group dedicated to mentoring motivated peers, fostering collaborative inquiry, and organizing teams for high-level academic competitions.
+  Beyond my individual research, I am deeply committed to academic community building. I established and currently lead <a href="{{ 'team' | relative_url }}">a student research group</a> dedicated to mentoring motivated peers, fostering collaborative inquiry, and organizing teams for high-level academic competitions.
   </p>
   <p>
   Outside of the lab, I find inspiration in the arts. I am an avid guitarist and enjoy exploring diverse literature.
