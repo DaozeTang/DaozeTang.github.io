@@ -9,3 +9,5 @@ pages:
   url: /publications
 # - name: Showcase
 #   url: /showcase
+- name: Team
+  url: /team

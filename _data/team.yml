@@ -1,3 +1,125 @@
-member_count: 10
+# -----------------------------------------------------------------------------
+# Team Overview (用于首页卡片和团队页顶部介绍)
+# -----------------------------------------------------------------------------
+description: >
+  以下内容用于测试团队介绍页效果！
+  
+  我们的研究团队专注于人工智能与计算机视觉的前沿探索。我们致力于开发高效、鲁棒的算法，
+  以解决现实世界中的复杂问题。实验室目前拥有多名充满激情的博士生和硕士生，
+  并在顶级会议（CVPR, ICCV, NeurIPS）上发表了多篇论文。
+
+member_count: 12
 project_count: 8
-total_funding: 100000
+total_funding: 100000          # 默认为人民币单位，并自动计算美元金额
+#total_funding_rmb: "500万"     # 单独用于显示人民币金额
+#total_funding_usd: "700k"      # 单独用于显示美元金额
+
+# -----------------------------------------------------------------------------
+# Principal Investigator (负责人)
+# -----------------------------------------------------------------------------
+principal_investigator:
+  - name: "张三 教授"
+    role: "实验室负责人 / 博士生导师"
+    bio: >
+      张三教授于2015年获得麻省理工学院博士学位。他的主要研究方向包括深度学习、
+      计算机视觉和机器人技术。他曾获得多个国际会议的最佳论文奖，并担任CVPR和ICCV的领域主席。
+    avatar: "assets/images/team/pi_avatar.jpg"  # 建议尺寸: 400x400
+    email: "zhangsan@university.edu.cn"
+    website: "https://zhangsan.github.io"
+    cv: "assets/pdfs/cv_zhangsan.pdf"
+
+# -----------------------------------------------------------------------------
+# Research Group Members (团队成员)
+# -----------------------------------------------------------------------------
+members:
+  - name: "李四"
+    role: "博士研究生 (2021级)"
+    avatar: "assets/images/team/member_1.jpg"
+    email: "lisi@university.edu.cn"
+    website: "https://lisi.github.io"
+  
+  - name: "王五"
+    role: "博士研究生 (2022级)"
+    avatar: "assets/images/team/member_2.jpg"
+    email: "wangwu@university.edu.cn"
+    website: "#"
+  
+  - name: "赵六"
+    role: "硕士研究生 (2023级)"
+    avatar: ""  # 如果为空，会显示默认图标
+    email: "zhaoliu@university.edu.cn"
+    website: "#"
+
+  - name: "孙七"
+    role: "科研助理"
+    avatar: "assets/images/team/member_3.jpg"
+    email: "sunqi@university.edu.cn"
+
+# -----------------------------------------------------------------------------
+# Alumni (校友/毕业生)
+# -----------------------------------------------------------------------------
+alumni:
+  - name: "周八 (博士)"
+    period: "2018 - 2022"
+    next_move: "目前就职于: 华为诺亚方舟实验室"
+  
+  - name: "吴九 (硕士)"
+    period: "2020 - 2023"
+    next_move: "目前就职于: 腾讯 AI Lab"
+
+# -----------------------------------------------------------------------------
+# Projects (科研项目)
+# -----------------------------------------------------------------------------
+projects:
+  - title: "基于深度学习的大规模城市三维重建"
+    status: "进行中" # Ongoing / Completed
+    period: "2023.01 - 2026.12"
+    role: "主持 (PI)"
+    description: >
+      本项目旨在利用多源数据（卫星图像、街景图像、LiDAR点云）进行城市级别的
+      高精度三维重建。我们提出了一种新的神经辐射场（NeRF）表示方法，显著提高了
+      渲染速度和几何精度。
+    tags: 
+      - 3D Vision
+      - NeRF
+      - Urban Computing
+    image: "assets/images/projects/project_city.jpg" # 建议比例 16:9
+    url: "https://project-page-link.com"
+
+  - title: "自动驾驶场景下的多模态感知研究"
+    status: "已结题"
+    period: "2020.01 - 2023.12"
+    role: "合作主持 (Co-PI)"
+    description: >
+      该项目研究了在极端天气条件下，如何融合视觉和雷达数据以实现鲁棒的物体检测。
+      项目成果已应用于某知名车企的辅助驾驶系统中。
+    tags: 
+      - Autonomous Driving
+      - Sensor Fusion
+    image: "" # 为空时显示默认图标
+    url: "#"
+
+# -----------------------------------------------------------------------------
+# Funding (资助列表)
+# -----------------------------------------------------------------------------
+funding:
+  - title: "面向开放环境的鲁棒视觉感知理论与方法"
+    code: "No. 62000000"
+    agency: "国家自然科学基金 (NSFC) 面上项目"
+    period: "2024 - 2027"
+    amount: "¥ 560,000"
+    logo: "assets/images/logos/nsfc.png" # 可选，放资助机构Logo
+
+  - title: "下一代人工智能基础模型研究"
+    code: "2023-ABC-123"
+    agency: "科技部重点研发计划"
+    period: "2023 - 2026"
+    amount: "¥ 2,000,000"
+    logo: ""
+
+  - title: "高校青年教师科研启动基金"
+    code: "Uni-2022-001"
+    agency: "XX大学"
+    period: "2022 - 2024"
+    amount: "¥ 300,000"
+    logo: ""
