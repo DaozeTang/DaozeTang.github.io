@@ -77,6 +77,12 @@
                         </a>
                         {% endif %}
                         
+                        {% if site.data.profile.blog %}
+                        <a class="social-btn" target="_blank" href="{{ site.data.profile.blog }}">
+                            <i class="fa-solid fa-blog"></i> Blog
+                        </a>
+                        {% endif %}
+
                         {% if site.data.profile.laboratory %}
                         <a class="social-btn" target="_blank" href="{{ site.data.profile.laboratory }}">
                             <i class="fa-solid fa-flask-vial"></i> Lab
