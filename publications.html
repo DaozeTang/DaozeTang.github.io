@@ -14,16 +14,18 @@ body_attr: >-
             {% assign num_papers = year.items | size %}
             
             <div id="year-{{ year.name }}" class="year-section mb-4">
-                <h2 class="year-heading">
-                    {{ year.name }}
-                    <span class="paper-count">{{ num_papers }}</span>
-                </h2>
+                <div class="year-card">
+                    <h2 class="year-heading">
+                        {{ year.name }}
+                        <span class="paper-count">{{ num_papers }}</span>
+                    </h2>
 
-                <div class="academic-card">
-                    <div class="card-body-simple pt-0 pb-0">
-                        {% for item in year.items %}
-                            {% include widgets/publication_item.html item=item %}
-                        {% endfor %}
+                    <div class="academic-card">
+                        <div class="card-body-simple pt-0 pb-0">
+                            {% for item in year.items %}
+                                {% include widgets/publication_item.html item=item %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -32,12 +34,14 @@ body_attr: >-
 
     <div class="col-12 col-lg-3 d-none d-lg-block">
         <div class="sticky-sidebar">
-            <h5 class="timeline-title">Timeline</h5>
-            <nav id="navbar-year" class="nav flex-column timeline-nav">
-                {% for year in pubs_by_year %}
-                    <a class="nav-link" href="#year-{{ year.name }}">{{ year.name }}</a>
-                {% endfor %}
-            </nav>
+            <div class="timeline-card">
+                <h5 class="timeline-title">Timeline</h5>
+                <nav id="navbar-year" class="nav flex-column timeline-nav">
+                    {% for year in pubs_by_year %}
+                        <a class="nav-link" href="#year-{{ year.name }}">{{ year.name }}</a>
+                    {% endfor %}
+                </nav>
+            </div>
         </div>
     </div>
 </div>
