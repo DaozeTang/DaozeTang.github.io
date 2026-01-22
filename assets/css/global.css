@@ -131,7 +131,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1.5rem 1.5rem 2rem;
     box-shadow: var(--shadow-sm);
     position: relative;
-    transition: var(--transition-spring);
 }
 
 .year-card .year-heading {
@@ -150,15 +149,6 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: var(--radius-card);
     padding: 1.25rem;
     box-shadow: var(--shadow-sm);
-    transition: var(--transition-spring);
-}
-
-.year-card.is-active,
-.timeline-card.is-active {
-    border-color: var(--color-accent-outline);
-    box-shadow: var(--shadow-hover), var(--shadow-glow);
-    transform: translateY(-4px);
-    background: var(--color-surface-strong);
 }
 
 .academic-card:hover {
