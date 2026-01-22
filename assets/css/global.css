@@ -554,8 +554,14 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-left: 0.4rem;
+    margin: 0 0.1rem;
     transition: var(--transition-smooth);
+}
+
+.theme-toggle-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .theme-toggle:hover,
