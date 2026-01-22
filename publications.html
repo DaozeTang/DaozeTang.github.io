@@ -45,38 +45,3 @@ body_attr: >-
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const timelineCard = document.querySelector(".timeline-card");
-        const timelineNav = document.getElementById("navbar-year");
-        const yearSections = document.querySelectorAll(".year-section");
-
-        if (!timelineNav || yearSections.length === 0) {
-            return;
-        }
-
-        const updateActiveCards = () => {
-            const activeLink = timelineNav.querySelector(".nav-link.active");
-            const activeId = activeLink ? activeLink.getAttribute("href").slice(1) : null;
-
-            yearSections.forEach((section) => {
-                const card = section.querySelector(".year-card");
-                const isActive = section.id === activeId;
-                if (card) {
-                    card.classList.toggle("is-active", isActive);
-                }
-            });
-
-            if (timelineCard) {
-                timelineCard.classList.toggle("is-active", Boolean(activeId));
-            }
-        };
-
-        updateActiveCards();
-        document.body.addEventListener("activate.bs.scrollspy", updateActiveCards);
-        timelineNav.addEventListener("click", () => {
-            window.setTimeout(updateActiveCards, 0);
-        });
-    });
-</script>
