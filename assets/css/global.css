@@ -544,26 +544,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .theme-toggle {
-    border: 1px solid var(--color-border-strong);
-    background: linear-gradient(135deg, var(--color-surface-strong), var(--color-surface));
-    color: var(--color-text-main);
-    width: 2.2rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    color: var(--color-text-secondary);
+    padding: 0.3rem 0.75rem;
+    min-width: 2.2rem;
     height: 2.2rem;
-    border-radius: 50%;
+    border-radius: var(--radius-btn);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-left: 0.4rem;
     transition: var(--transition-smooth);
-    box-shadow: var(--shadow-sm), 0 0 0 1px var(--color-accent-outline);
 }
 
 .theme-toggle:hover,
 .theme-toggle:focus {
     color: var(--color-accent);
-    background: var(--color-surface-strong);
+    background: var(--color-accent-soft);
     transform: translateY(-1px);
     border-color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
 }
 
 .theme-toggle i {
