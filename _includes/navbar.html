@@ -18,6 +18,11 @@
                                 <a class="nav-link" href="{{ item.url | relative_url }}">{{ item.name }}</a>
                             </li>
                             {% endfor %}
+                            <li class="nav-item">
+                                <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+                                    <i class="fas fa-moon" aria-hidden="true"></i>
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -29,6 +34,26 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const navbar = document.getElementById("navbar-card");
+        const themeToggle = document.getElementById("theme-toggle");
+        const themeIcon = themeToggle ? themeToggle.querySelector("i") : null;
+        const storedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        const applyTheme = (theme) => {
+            document.documentElement.setAttribute("data-theme", theme);
+            if (themeIcon) {
+                themeIcon.className = theme === "dark" ? "fas fa-sun" : "fas fa-moon";
+            }
+            if (themeToggle) {
+                themeToggle.setAttribute("aria-pressed", theme === "dark");
+                themeToggle.setAttribute(
+                    "aria-label",
+                    theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+                );
+            }
+        };
+
+        applyTheme(storedTheme || (prefersDark ? "dark" : "light"));
         
         window.addEventListener("scroll", function () {
             if (window.scrollY > 20) {
@@ -37,5 +62,13 @@
                 navbar.classList.remove("nav-scrolled");
             }
         });
+
+        if (themeToggle) {
+            themeToggle.addEventListener("click", function () {
+                const nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+                localStorage.setItem("theme", nextTheme);
+                applyTheme(nextTheme);
+            });
+        }
     });
 </script>
