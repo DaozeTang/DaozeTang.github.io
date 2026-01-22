@@ -803,7 +803,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .pub-authors .text-body {
-    color: inherit;
+    color: var(--color-text-secondary) !important;
+}
+
+.pub-authors mark {
+    background: var(--color-accent-soft);
+    color: var(--color-text-secondary);
+    padding: 0 0.35rem;
+    border-radius: 999px;
 }
 
 .pub-venue {
