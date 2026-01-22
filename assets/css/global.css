@@ -4,6 +4,9 @@
     --color-surface: rgba(255, 255, 255, 0.72);
     --color-surface-strong: #fcfdff;
     --color-surface-muted: rgba(236, 239, 244, 0.7);
+    --color-navbar: rgba(252, 253, 255, 0.92);
+    --color-navbar-scrolled: rgba(252, 253, 255, 0.7);
+    --color-footer: rgba(252, 253, 255, 0.82);
     --color-text-main: #1f2430;
     --color-text-secondary: #4c5568;
     --color-text-muted: #8a93a4;
@@ -28,6 +31,33 @@
     --transition-spring: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease;
     --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --glass-blur: blur(16px);
+}
+
+[data-theme="dark"] {
+    --color-bg: #0f141b;
+    --color-card: rgba(20, 26, 36, 0.88);
+    --color-surface: rgba(21, 28, 38, 0.78);
+    --color-surface-strong: rgba(27, 36, 49, 0.95);
+    --color-surface-muted: rgba(17, 23, 31, 0.75);
+    --color-navbar: rgba(19, 26, 36, 0.9);
+    --color-navbar-scrolled: rgba(18, 24, 33, 0.7);
+    --color-footer: rgba(19, 26, 36, 0.85);
+    --color-text-main: #eef2f7;
+    --color-text-secondary: #c3cbd9;
+    --color-text-muted: #8893a6;
+    --color-accent: #7da0d8;
+    --color-accent-hover: #9bb6ea;
+    --color-accent-soft: rgba(125, 160, 216, 0.15);
+    --color-accent-outline: rgba(125, 160, 216, 0.3);
+    --color-border: rgba(72, 84, 104, 0.6);
+    --color-border-strong: rgba(92, 106, 128, 0.9);
+    --color-grid: rgba(72, 84, 104, 0.45);
+    --color-warning-soft: rgba(199, 159, 54, 0.2);
+    --color-warning: #d3a24c;
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.45), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.35);
+    --shadow-glow: 0 0 20px rgba(125, 160, 216, 0.2);
 }
 
 body {
@@ -410,7 +440,7 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-card {
     padding: 0.4rem 0.8rem;
     border-radius: var(--radius-card);
-    background: rgba(252, 253, 255, 0.92);
+    background: var(--color-navbar);
     margin: 0;
     display: flex;
     align-items: center;
@@ -422,7 +452,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-card.nav-scrolled {
-    background: rgba(252, 253, 255, 0.7);
+    background: var(--color-navbar-scrolled);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -465,8 +495,34 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: var(--radius-btn);
 }
 
+.theme-toggle {
+    border: none;
+    background: var(--color-surface);
+    color: var(--color-text-main);
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.4rem;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus {
+    color: var(--color-accent);
+    background: var(--color-surface-strong);
+    transform: translateY(-1px);
+}
+
+.theme-toggle i {
+    font-size: 0.95rem;
+}
+
 .footer-card {
-    background: rgba(252, 253, 255, 0.82) !important;
+    background: var(--color-footer) !important;
     backdrop-filter: var(--glass-blur);
     border: 1px solid var(--color-border);
     padding: 0.75rem 1rem;
