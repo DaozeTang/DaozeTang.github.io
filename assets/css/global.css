@@ -1032,13 +1032,6 @@ h1, h2, h3, h4, h5, h6 {
     font-style: normal;
 }
 
-.badge-publication {
-    border-radius: var(--radius-card);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
 .pub-abstract {
     font-size: 0.9rem;
     color: var(--color-text-secondary);
