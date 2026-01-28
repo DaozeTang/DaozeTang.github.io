@@ -749,6 +749,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0.75rem;
 }
 
+.badge-publication {
+    border-radius: var(--radius-card) !important;
+}
+
 .position-badge {
     display: inline-flex;
     align-items: center;
