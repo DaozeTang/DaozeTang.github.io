@@ -74,6 +74,39 @@ body {
     background-size: 32px 32px;
 }
 
+.page-main {
+    padding: 0.5rem 0 2.5rem;
+}
+
+.page-section {
+    margin-top: 2.5rem;
+}
+
+.page-header {
+    margin: 2rem 0 1.5rem;
+    padding: 1.75rem 2rem;
+    border-radius: calc(var(--radius-card) + 6px);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.page-header-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+.page-header-subtitle {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    max-width: 620px;
+}
+
 .bg-light,
 .bg-white {
     background-color: var(--color-surface-strong) !important;
@@ -91,6 +124,10 @@ body {
 
 .text-muted {
     color: var(--color-text-muted) !important;
+}
+
+.text-accent {
+    color: var(--color-accent) !important;
 }
 
 a {
@@ -151,6 +188,33 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: var(--shadow-sm);
 }
 
+.timeline-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.timeline-nav .nav-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-btn);
+    padding: 0.35rem 0.75rem;
+    transition: var(--transition-smooth);
+    margin-bottom: 0.35rem;
+}
+
+.timeline-nav .nav-link:hover,
+.timeline-nav .nav-link.active {
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+}
+
+.sticky-sidebar {
+    position: sticky;
+    top: 6.5rem;
+}
+
 .academic-card:hover {
     border-color: var(--color-accent-outline);
     box-shadow: var(--shadow-hover), var(--shadow-glow);
@@ -184,6 +248,26 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-body-simple {
     padding: 1.75rem;
+}
+
+.pub-view-all {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    background: var(--color-surface-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 0.35rem 0.9rem;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.pub-view-all:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
 }
 
 .stat-grid {
@@ -445,6 +529,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
+    .page-header {
+        padding: 1.25rem 1.5rem;
+    }
+
+    .page-header-title {
+        font-size: 1.6rem;
+    }
+
     .timeline-wrapper {
         padding-left: 1.5rem;
         margin-left: 0;
@@ -626,6 +718,57 @@ h1, h2, h3, h4, h5, h6 {
     transition: var(--transition-spring);
 }
 
+.profile-name {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+}
+
+.profile-secondary {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.profile-bio {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+}
+
+.profile-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.profile-badges-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.position-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-strong);
+    border: 1px solid var(--color-border);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    box-shadow: var(--shadow-sm);
+}
+
+.position-badge img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
 .profile-caption {
     margin-top: 0.75rem;
     font-size: 0.9rem;
@@ -797,6 +940,24 @@ h1, h2, h3, h4, h5, h6 {
     padding: 2rem 0;
     border-bottom: 1px solid var(--color-border);
     transition: background-color 0.2s ease;
+}
+
+.year-heading {
+    font-size: 1.5rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.paper-count {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent-outline);
 }
 
 .pub-item:last-child {
@@ -1112,6 +1273,34 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 6px;
     margin-bottom: 4px;
     font-weight: 500;
+}
+
+.showcase-group-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 2.5rem 0 1.25rem;
+}
+
+.showcase-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-spring);
+}
+
+.showcase-card:hover {
+    border-color: var(--color-accent-outline);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.prompt-container {
+    width: auto;
+    max-width: 680px;
+    padding: 0 15px;
+    margin: 0 auto;
 }
 
 /* Funding Table */
