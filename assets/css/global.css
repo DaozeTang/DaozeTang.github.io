@@ -953,12 +953,11 @@ h1, h2, h3, h4, h5, h6 {
 .paper-count {
     font-size: 0.75rem;
     font-weight: 700;
-    padding: 0.35rem 0.65rem;
-    border-radius: var(--radius-card);
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-pill);
     background: var(--color-accent-soft);
     color: var(--color-accent);
     border: 1px solid var(--color-accent-outline);
-    box-shadow: var(--shadow-sm);
 }
 
 .pub-item:last-child {
