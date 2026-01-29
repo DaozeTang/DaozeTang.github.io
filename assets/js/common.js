@@ -1,6 +1,6 @@
 // aHR0cHM6Ly9naXRodWIuY29tL2x1b3N0MjYvYWNhZGVtaWMtaG9tZXBhZ2U=
-$(function () {
-    lazyLoadOptions = {
+window.initializeCommonScripts = function () {
+    const lazyLoadOptions = {
         scrollDirection: 'vertical',
         effect: 'fadeIn',
         effectTime: 300,
@@ -14,29 +14,36 @@ $(function () {
                 element.css('background-image', 'none');
                 element.css('min-height', '0');
             } else if (element.is('div')) {
-                // set the style to background-size: cover; 
+                // set the style to background-size: cover;
                 element.css('background-size', 'cover');
                 element.css('background-position', 'center');
             }
         }
-    }
+    };
 
     $('img.lazy, div.lazy:not(.always-load)').Lazy({visibleOnly: true, ...lazyLoadOptions});
     $('div.lazy.always-load').Lazy({visibleOnly: false, ...lazyLoadOptions});
 
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
 
-    var $grid = $('.grid').masonry({
-        "percentPosition": true,
-        "itemSelector": ".grid-item",
-        "columnWidth": ".grid-sizer"
-    });
-    // layout Masonry after each image loads
-    $grid.imagesLoaded().progress(function () {
-        $grid.masonry('layout');
-    });
+    const $grid = $('.grid');
+    if ($grid.length) {
+        $grid.masonry({
+            "percentPosition": true,
+            "itemSelector": ".grid-item",
+            "columnWidth": ".grid-sizer"
+        });
+        // layout Masonry after each image loads
+        $grid.imagesLoaded().progress(function () {
+            $grid.masonry('layout');
+        });
 
-    $(".lazy").on("load", function () {
-        $grid.masonry('layout');
-    });
-})
+        $(".lazy").on("load", function () {
+            $grid.masonry('layout');
+        });
+    }
+};
+
+$(function () {
+    window.initializeCommonScripts();
+});
