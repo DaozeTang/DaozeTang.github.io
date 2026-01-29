@@ -112,18 +112,11 @@ drawBubble = function (svg, bubbleInfo) {
     }
 }
 
-window.renderBubbleVisualHashes = function () {
-    var canvases = document.querySelectorAll(".bubble-visual-hash");
-    canvases.forEach(function (canvas) {
-        var hash = canvas.getAttribute("data-bubble-visual-hash");
-        var width = canvas.viewBox.baseVal.width;
-        var height = canvas.viewBox.baseVal.height;
-        var bubbleInfo = createBubbleInfo(createHashGroupForString(hash), 8, width, height);
-        while (canvas.firstChild) {
-            canvas.removeChild(canvas.firstChild);
-        }
-        drawBubble(canvas, bubbleInfo);
-    });
-};
-
-window.renderBubbleVisualHashes();
+var canvases = document.querySelectorAll(".bubble-visual-hash");
+canvases.forEach(function (canvas) {
+    var hash = canvas.getAttribute("data-bubble-visual-hash");
+    var width = canvas.viewBox.baseVal.width;
+    var height = canvas.viewBox.baseVal.height;
+    var bubbleInfo = createBubbleInfo(createHashGroupForString(hash), 8, width, height);
+    drawBubble(canvas, bubbleInfo);
+});
