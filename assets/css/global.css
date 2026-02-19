@@ -62,18 +62,6 @@
     --shadow-glow: 0 0 20px rgba(125, 160, 216, 0.2);
 }
 
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(circle at 12% 18%, rgba(74, 111, 165, 0.12), transparent 30%),
-                radial-gradient(circle at 82% 15%, rgba(138, 163, 201, 0.16), transparent 26%),
-                radial-gradient(circle at 50% 100%, rgba(74, 111, 165, 0.08), transparent 28%);
-    z-index: -1;
-}
-
 body {
     background-color: var(--color-bg);
     color: var(--color-text-main);
@@ -161,7 +149,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .academic-card {
-    background: linear-gradient(165deg, var(--color-card) 0%, var(--color-surface) 100%);
+    background: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-card);
     transition: var(--transition-spring);
@@ -237,9 +225,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-header-simple {
     padding: 1rem 1.25rem;
-    position: sticky;
-    top: 0;
-    z-index: 3;
     border-bottom: 1px solid var(--color-border);
     display: flex;
     justify-content: space-between;
@@ -581,10 +566,6 @@ h1, h2, h3, h4, h5, h6 {
         gap: 0.85rem;
     }
 
-    .profile-quick-stats {
-        grid-template-columns: 1fr;
-    }
-
     .funding-main {
         font-size: 1.4rem;
     }
@@ -725,74 +706,6 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-accent);
     background: rgba(74, 111, 165, 0.06);
     transform: translateY(-1px);
-}
-
-
-.profile-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-size: 0.73rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent);
-    font-weight: 700;
-}
-
-.profile-quick-stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
-}
-
-.quick-stat-item {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-btn);
-    padding: 0.7rem 0.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.quick-stat-value {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--color-accent);
-    line-height: 1;
-}
-
-.quick-stat-label {
-    font-size: 0.72rem;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-}
-
-.profile-shortcuts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-}
-
-.profile-shortcuts a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    background: var(--color-surface-muted);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-pill);
-    padding: 0.35rem 0.75rem;
-}
-
-.profile-shortcuts a:hover {
-    color: var(--color-accent);
-    border-color: var(--color-accent-outline);
-    background: var(--color-accent-soft);
 }
 
 .profile-img {
