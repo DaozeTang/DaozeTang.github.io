@@ -3,11 +3,11 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="academic-card footer-card">
-                    <div class="footer-inner w-100">
-                        <div class="footer-text small text-secondary">
+                    <div class="d-flex align-items-center w-100">
+                        <div class="w-50 text-start small text-secondary">
                             {{ site.data.display.footer_text }}
                         </div>
-                        <div class="footer-meta small text-muted font-monospace">
+                        <div class="w-50 d-flex justify-content-end align-items-center gap-2 small text-muted font-monospace">
                             <span class="d-none d-sm-inline">Updated:</span> 
                             <span class="badge bg-light text-dark border">{{ "now" | date: "%b %Y" }}</span>
                         </div>
