@@ -1,6 +1,6 @@
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<div class="row page-section">
+<div class="row page-section" {% if include.section_id %}id="{{ include.section_id }}"{% endif %}>
     <div class="col-12">
         <div class="academic-card">
             <div class="card-header-simple">

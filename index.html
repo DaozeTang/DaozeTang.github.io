@@ -9,17 +9,17 @@ navbar_title: Home
 {% if site.data.display.homepage.show_news %}
     {% assign count_news = site.news | size %}
     {% if count_news > 0 %}
-        {% include widgets/news_card.html limit=site.data.display.homepage.num_news %}
+        {% include widgets/news_card.html limit=site.data.display.homepage.num_news section_id="latest-news" %}
     {% endif %}
 {% endif %}
 
 {% if site.data.display.homepage.show_experience %}
-    {% include widgets/experience_card.html %}
+    {% include widgets/experience_card.html section_id="education-experience" %}
 {% endif %}
 
 {% if site.data.display.homepage.show_selected_publications %}
     {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
-    {% include widgets/publication_card.html publications=pubs title='<i class="fas fa-star"></i> Selected Publications' %}
+    {% include widgets/publication_card.html publications=pubs title='<i class="fas fa-star"></i> Selected Publications' section_id="selected-publications" %}
 {% endif %}
 
 {% if site.data.display.homepage.show_team_summary %}
