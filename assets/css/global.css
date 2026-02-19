@@ -20,7 +20,7 @@
     --color-grid: rgba(199, 205, 215, 0.55);
     --color-warning-soft: rgba(199, 159, 54, 0.16);
     --color-warning: #b07a24;
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: "JetBrains Mono", source-code-pro, Menlo, monospace;
     --radius-card: 12px;
     --radius-btn: 8px;
@@ -62,18 +62,75 @@
     --shadow-glow: 0 0 20px rgba(125, 160, 216, 0.2);
 }
 
+
+html {
+    font-size: 16px;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     background-color: var(--color-bg);
     color: var(--color-text-main);
     font-family: var(--font-sans);
-    line-height: 1.58;
-    font-size: 0.98rem;
+    line-height: 1.72;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
     -webkit-font-smoothing: antialiased;
     padding-top: 1rem;
     padding-bottom: 2rem;
     background-image: radial-gradient(var(--color-grid) 1px, transparent 1px);
     background-size: 32px 32px;
 }
+
+
+p,
+li,
+dd {
+    color: var(--color-text-secondary);
+    line-height: 1.78;
+}
+
+p {
+    margin-bottom: 0.95rem;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+h1 {
+    font-size: clamp(1.9rem, 3.1vw, 2.35rem);
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: clamp(1.45rem, 2.4vw, 1.8rem);
+    line-height: 1.26;
+}
+
+h3 {
+    font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+    line-height: 1.34;
+}
+
+h4,
+h5,
+h6 {
+    line-height: 1.4;
+}
+
+.page-main .academic-card,
+.page-main .year-card,
+.page-main .timeline-card,
+.page-main .showcase-card,
+.page-main .profile-card,
+.page-main .team-member-card,
+.page-main .project-item,
+.page-main .pub-item {
+    font-size: 0.985rem;
+}
+
 
 .page-main {
     padding: 0.35rem 0 2.25rem;
@@ -467,7 +524,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .exp-subtitle {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     color: var(--color-text-secondary);
     margin-top: 0.2rem;
     font-weight: 500;
@@ -530,6 +587,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
+    body {
+        font-size: 0.97rem;
+        line-height: 1.68;
+    }
+
+    p,
+    li,
+    dd {
+        line-height: 1.72;
+    }
+
     .page-header {
         padding: 1.1rem 1.3rem;
     }
@@ -942,9 +1010,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .news-title {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     color: var(--color-text-secondary);
-    line-height: 1.45;
+    line-height: 1.6;
     display: block;
     transition: color 0.2s;
 }
@@ -1009,10 +1077,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .pub-authors {
-    font-size: 0.9rem;
+    font-size: 0.93rem;
     color: var(--color-text-secondary);
-    margin-bottom: 0.6rem;
-    line-height: 1.6;
+    margin-bottom: 0.7rem;
+    line-height: 1.72;
 }
 
 .pub-authors .text-body {
@@ -1050,13 +1118,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .pub-abstract {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     color: var(--color-text-secondary);
     background: var(--color-surface-muted);
     padding: 1rem;
     border-radius: var(--radius-btn);
     margin: 0.8rem 0;
-    line-height: 1.6;
+    line-height: 1.75;
     border-left: 3px solid var(--color-accent);
 }
 
@@ -1147,10 +1215,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .team-member-bio {
-    font-size: 0.9rem;
+    font-size: 0.94rem;
     color: var(--color-text-secondary);
     margin-bottom: 1rem;
-    line-height: 1.6;
+    line-height: 1.72;
 }
 
 /* Team Member Cards */
@@ -1275,9 +1343,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .project-desc {
-    font-size: 0.9rem;
+    font-size: 0.93rem;
     color: var(--color-text-secondary);
-    line-height: 1.6;
+    line-height: 1.72;
 }
 
 .project-tag {
