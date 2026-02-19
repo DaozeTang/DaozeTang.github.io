@@ -2,13 +2,16 @@
 layout: default
 title : Publications
 navbar_title: Publications
+subtitle: Explore journal articles, conference papers, and preprints.
 body_attr: >-
   data-spy="scroll" data-target="#navbar-year" data-offset="100"
 ---
 
 {% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
 
-<div class="row mt-4">
+{% include widgets/page_header.html subtitle=page.subtitle %}
+
+<div class="row page-section">
     <div class="col-12 col-lg-9">
         {% for year in pubs_by_year %}
             {% assign num_papers = year.items | size %}
