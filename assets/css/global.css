@@ -73,40 +73,6 @@ body {
     padding-bottom: 2rem;
     background-image: radial-gradient(var(--color-grid) 1px, transparent 1px);
     background-size: 32px 32px;
-    overflow-x: hidden;
-}
-
-body::before,
-body::after {
-    content: "";
-    position: fixed;
-    width: 420px;
-    height: 420px;
-    border-radius: 50%;
-    filter: blur(90px);
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0.35;
-}
-
-body::before {
-    background: rgba(74, 111, 165, 0.28);
-    top: -120px;
-    right: -120px;
-}
-
-body::after {
-    background: rgba(113, 131, 175, 0.2);
-    bottom: -160px;
-    left: -140px;
-}
-
-[data-theme="dark"] body::before {
-    background: rgba(134, 169, 232, 0.2);
-}
-
-[data-theme="dark"] body::after {
-    background: rgba(84, 109, 150, 0.26);
 }
 
 .page-main {
@@ -196,20 +162,6 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-backdrop-filter: var(--glass-blur);
 }
 
-.academic-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.22) 45%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.45s ease;
-    pointer-events: none;
-}
-
-.academic-card:hover::after {
-    opacity: 1;
-}
-
 .year-card {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -262,10 +214,6 @@ h1, h2, h3, h4, h5, h6 {
 .sticky-sidebar {
     position: sticky;
     top: 6.5rem;
-}
-
-.year-section {
-    scroll-margin-top: 7.2rem;
 }
 
 .academic-card:hover {
@@ -944,16 +892,6 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
-.news-title a {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-color: transparent;
-}
-
-.news-title a:hover {
-    text-decoration-color: currentColor;
-}
-
 .news-badge {
     display: flex;
     flex-direction: column;
@@ -1145,17 +1083,6 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--color-accent);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
 }
 
 /* =========================================
