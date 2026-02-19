@@ -7,4 +7,4 @@ homepage:
   show_team_summary: true
 
 footer_text: >-
-  You only look once.
+  <code>assert smoking is False, "Cigarettes are a drug, not a feature."</code>
