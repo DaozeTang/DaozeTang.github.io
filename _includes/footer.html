@@ -8,8 +8,11 @@
                             {{ site.data.display.footer_text }}
                         </div>
                         <div class="w-50 d-flex justify-content-end align-items-center gap-2 small text-muted font-monospace">
-                            <span class="d-none d-sm-inline">Updated:</span> 
+                            <span class="d-none d-sm-inline">Updated:</span>
                             <span class="badge bg-light text-dark border">{{ "now" | date: "%b %Y" }}</span>
+                            <button type="button" class="back-to-top" aria-label="Back to top">
+                                <i class="fas fa-arrow-up"></i> Top
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -17,3 +20,13 @@
         </div>
     </div>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const backToTopButton = document.querySelector('.back-to-top');
+        if (!backToTopButton) return;
+        backToTopButton.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+</script>
