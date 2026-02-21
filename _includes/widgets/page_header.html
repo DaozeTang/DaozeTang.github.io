@@ -1,0 +1,6 @@
+<div class="page-header">
+    <h1 class="page-header-title">{{ include.title | default: page.title }}</h1>
+    {% if include.subtitle %}
+        <p class="page-header-subtitle">{{ include.subtitle }}</p>
+    {% endif %}
+</div>
