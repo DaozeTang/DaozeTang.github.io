@@ -751,8 +751,21 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.75rem 1rem;
     color: var(--color-text-secondary);
     margin-top: 1rem;
-    display: flex;
-    align-items: center;
+}
+
+.footer-content {
+    gap: 0.75rem;
+}
+
+.footer-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.footer-updated {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    margin-left: auto;
 }
 
 .back-to-top {
