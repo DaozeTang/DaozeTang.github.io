@@ -2,8 +2,8 @@
 title:          "CORE-Net: A cross-modal orthogonal representation enhancement network for low-altitude multispectral object detection"
 date:           2025-12-29 00:00:00 +0800
 selected:       False
-# pub:            "PLOS ONE"
-pub_pre:        "Accepted by PLOS ONE"
+pub:            "PLOS ONE"
+# pub_pre:        "Accepted by PLOS ONE"
 # pub_post:       'Accepted by PLOS ONE'
 # pub_last:       '<span class="badge badge-pill badge-publication badge-success">Spotlight</span>'
 # pub_date:       "2025"
