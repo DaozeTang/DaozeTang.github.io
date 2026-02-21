@@ -3,8 +3,8 @@ title:          "CORE-Net: A cross-modal orthogonal representation enhancement n
 date:           2025-12-29 00:00:00 +0800
 selected:       False
 # pub:            "PLOS ONE"
-# pub_pre:        "Submitted to "
-pub_post:       'Accepted by PLOS ONE'
+pub_pre:        "Accepted by PLOS ONE"
+# pub_post:       'Accepted by PLOS ONE'
 # pub_last:       '<span class="badge badge-pill badge-publication badge-success">Spotlight</span>'
 # pub_date:       "2025"
 # semantic_scholar_id: a8ff80e9762384cf55e05e65610458c0a05fd41a  # use this to retrieve citation count
