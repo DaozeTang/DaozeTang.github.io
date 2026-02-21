@@ -232,10 +232,19 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
 }
 
-.year-card .academic-card {
+.year-publications-list {
+    display: grid;
+    gap: 0.9rem;
     margin-top: 0.5rem;
+}
+
+.year-card .publication-entry-card {
     box-shadow: var(--shadow-hover);
     transform: translateY(6px);
+}
+
+.year-card .publication-entry-card .pub-item {
+    border-bottom: none;
 }
 
 .timeline-card {
