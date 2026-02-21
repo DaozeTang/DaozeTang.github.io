@@ -23,13 +23,15 @@ body_attr: >-
                         <span class="paper-count">{{ num_papers }}</span>
                     </h2>
 
-                    <div class="academic-card">
-                        <div class="card-body-simple pt-0 pb-0">
-                            {% for item in year.items %}
-                                {% include widgets/publication_item.html item=item %}
-                            {% endfor %}
+                    <div class="year-publications-list">
+                        {% for item in year.items %}
+                            <div class="academic-card publication-entry-card">
+                                <div class="card-body-simple pt-0 pb-0">
+                                    {% include widgets/publication_item.html item=item %}
+                                </div>
+                            </div>
+                        {% endfor %}
                         </div>
-                    </div>
                 </div>
             </div>
         {% endfor %}
