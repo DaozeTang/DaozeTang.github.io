@@ -9,8 +9,6 @@ body_attr: >-
 
 {% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
 
-{% include widgets/page_header.html subtitle=page.subtitle %}
-
 <div class="row page-section">
     <div class="col-12 col-lg-9">
         {% for year in pubs_by_year %}
