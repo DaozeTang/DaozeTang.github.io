@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="{{ site.data.profile.short_bio | strip_html | normalize_whitespace | truncatewords: 30 }}">
+    <meta name="author" content="{{ site.data.profile.primary_name }}">
     <title>{{ page.title }} - {{ site.data.profile.navbar_name }}</title>
 
     <!-- Stylesheets -->
