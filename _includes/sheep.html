@@ -1,0 +1,281 @@
+<style>
+    /* ==================== 小羊核心逻辑样式 ==================== */
+    
+    /* 1. 追踪器：负责全屏幕跟随鼠标 (固定定位) */
+    #sheep-tracker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        z-index: 5; /* 处于背景(0)之上，内容层(10)之下 */
+        pointer-events: none; /* 不阻挡鼠标点击 */
+    }
+
+    /* 2. 翻转器：负责控制小羊面朝左还是朝右 */
+    #sheep-flipper {
+        position: absolute;
+        /* 将中心点放在小羊底部中心 */
+        transform-origin: 40px 80px; 
+        transition: transform 0.2s ease;
+    }
+
+    /* 3. 蹦跳器：负责处理蹦跳动画 */
+    #sheep-bouncer {
+        position: absolute;
+        left: -40px; /* 居中偏移 */
+        top: -80px;  /* 居中偏移 */
+        width: 80px;
+        height: 80px;
+    }
+
+    /* ==================== SVG 小羊部位动画 ==================== */
+
+    /* 走路时腿部摆动 */
+    .is-moving .leg1, .is-moving .leg3 {
+        animation: swing 0.25s infinite alternate ease-in-out;
+    }
+    .is-moving .leg2, .is-moving .leg4 {
+        animation: swing 0.25s infinite alternate-reverse ease-in-out;
+    }
+
+    @keyframes swing {
+        0% { transform: rotate(-15deg); }
+        100% { transform: rotate(15deg); }
+    }
+
+    /* 走路时身体蹦跳 */
+    .is-moving #sheep-bouncer {
+        animation: bounce 0.25s infinite alternate cubic-bezier(0.5, 0.05, 1, 0.5);
+    }
+
+    @keyframes bounce {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-12px); }
+    }
+
+    /* 走路时阴影缩放 */
+    .is-moving .sheep-shadow {
+        animation: shadow-scale 0.25s infinite alternate cubic-bezier(0.5, 0.05, 1, 0.5);
+    }
+
+    @keyframes shadow-scale {
+        0% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(0.5); opacity: 0.4; }
+    }
+
+    /* 走路时耳朵摆动 (新增) */
+    .is-moving .ear-front-group {
+        animation: ear-flap 0.25s infinite alternate ease-in-out;
+    }
+    .is-moving .ear-back-group {
+        animation: ear-flap-rev 0.25s infinite alternate ease-in-out;
+    }
+    @keyframes ear-flap {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(15deg); }
+    }
+    @keyframes ear-flap-rev {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(-15deg); }
+    }
+
+    /* 停下时的吃草/呼吸动画 */
+    .is-idle .head {
+        animation: graze 3s infinite ease-in-out;
+    }
+
+    @keyframes graze {
+        0%, 100% { transform: rotate(0deg) translateY(0); }
+        20% { transform: rotate(15deg) translateY(5px); }
+        50% { transform: rotate(20deg) translateY(6px); }
+        80% { transform: rotate(5deg) translateY(2px); }
+    }
+
+    /* 眨眼动画 */
+    .eye-blink {
+        transform-origin: center;
+        animation: blink 4s infinite;
+    }
+
+    @keyframes blink {
+        0%, 46%, 48%, 100% { transform: scaleY(1); }
+        47% { transform: scaleY(0.1); }
+    }
+</style>
+
+<!-- 小羊核心 DOM 结构 -->
+<!-- Tracker 负责全屏幕 X/Y 位移 -->
+<div id="sheep-tracker">
+    <!-- Flipper 负责左右翻转 (scaleX) -->
+    <div id="sheep-flipper">
+        <!-- Bouncer 负责上下蹦跳，内部包裹 SVG -->
+        <div id="sheep-bouncer" class="is-idle">
+            
+            <!-- 纯 SVG 绘制的小羊 -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%" style="overflow: visible;">
+                <defs>
+                    <!-- 更柔和可爱的阴影 -->
+                    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                        <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#64748b" flood-opacity="0.3"/>
+                    </filter>
+                    <!-- 新增：真实的径向渐变地面阴影 -->
+                    <radialGradient id="ground-shadow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#1e293b" stop-opacity="0.6" />
+                        <stop offset="30%" stop-color="#1e293b" stop-opacity="0.3" />
+                        <stop offset="100%" stop-color="#1e293b" stop-opacity="0" />
+                    </radialGradient>
+                </defs>
+          
+                <!-- 底部阴影 (使用径向渐变，中心深边缘浅，位置稍稍上移贴合脚底) -->
+                <ellipse cx="50" cy="86" rx="32" ry="6" fill="url(#ground-shadow)" class="sheep-shadow" transform-origin="50px 86px" />
+          
+                <!-- 四条腿 (恢复为圆润的深褐色短腿) -->
+                <g stroke-width="8" stroke-linecap="round">
+                    <!-- 后腿 -->
+                    <line x1="36" y1="66" x2="36" y2="81" class="leg leg1" stroke="#2e1a17" transform-origin="36px 66px" />
+                    <line x1="60" y1="66" x2="60" y2="81" class="leg leg3" stroke="#2e1a17" transform-origin="60px 66px" />
+                    <!-- 前腿 -->
+                    <line x1="46" y1="68" x2="46" y2="84" class="leg leg2" stroke="#3e2723" transform-origin="46px 68px" />
+                    <line x1="70" y1="68" x2="70" y2="84" class="leg leg4" stroke="#3e2723" transform-origin="70px 68px" />
+                </g>
+          
+                <!-- 小尾巴 (稍微放大一点更蓬松) -->
+                <circle cx="22" cy="54" r="10" fill="#ffffff" filter="url(#shadow)" />
+
+                <!-- 蓬松的羊毛身体 (由多个无边框圆组成，像云朵) -->
+                <g fill="#ffffff" filter="url(#shadow)">
+                    <circle cx="36" cy="46" r="18" />
+                    <circle cx="52" cy="36" r="22" />
+                    <circle cx="68" cy="46" r="18" />
+                    <circle cx="30" cy="58" r="14" />
+                    <circle cx="46" cy="62" r="16" />
+                    <circle cx="60" cy="62" r="16" />
+                    <circle cx="74" cy="56" r="14" />
+                    <!-- 中心填补空隙 -->
+                    <circle cx="52" cy="52" r="18" />
+                </g>
+          
+                <!-- 羊头 (恢复为经典圆脸普通眼睛，无多余装饰) -->
+                <g class="head" transform-origin="75px 50px">
+                    <!-- 后面的耳朵 (左耳) -->
+                    <g class="ear-back-group" style="transform-origin: 64px 48px;">
+                        <ellipse cx="64" cy="48" rx="8" ry="3.5" fill="#3e2723" transform="rotate(-25 64 48)" />
+                    </g>
+                    
+                    <!-- 脸部 (简单的深色脸盘) -->
+                    <ellipse cx="78" cy="50" rx="13" ry="15" fill="#3e2723" />
+
+                    <!-- 优化后的“歪嘴笑”：使用简洁可爱的白色弧线，看起来更友好调皮 -->
+                    <path d="M 78 58 Q 82 61 86 56" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.9" />
+
+                    <!-- 最经典的普通眼睛 (白眼球+黑瞳孔) -->
+                    <g class="eye-blink" style="transform-origin: 78px 50px;">
+                        <!-- 左眼 -->
+                        <circle cx="72" cy="49" r="3" fill="#ffffff" />
+                        <circle cx="73" cy="49" r="1.5" fill="#000000" />
+                        <!-- 右眼 -->
+                        <circle cx="84" cy="49" r="3" fill="#ffffff" />
+                        <circle cx="85" cy="49" r="1.5" fill="#000000" />
+                    </g>
+
+                    <!-- 前面的耳朵 (右耳) -->
+                    <g class="ear-front-group" style="transform-origin: 92px 50px;">
+                        <ellipse cx="92" cy="50" rx="8" ry="3.5" fill="#3e2723" transform="rotate(25 92 50)" />
+                    </g>
+
+                    <!-- 头顶的羊毛帽 (适度缩小，不再喧宾夺主) -->
+                    <g fill="#ffffff" filter="url(#shadow)">
+                        <circle cx="78" cy="38" r="9" />
+                        <circle cx="70" cy="41" r="6" />
+                        <circle cx="86" cy="41" r="6" />
+                    </g>
+                </g>
+            </svg>
+
+        </div>
+    </div>
+</div>
+
+<!-- 交互逻辑 -->
+<script>
+    // 获取DOM元素
+    const tracker = document.getElementById('sheep-tracker');
+    const flipper = document.getElementById('sheep-flipper');
+    const bouncer = document.getElementById('sheep-bouncer');
+
+    // 状态变量
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let sheepX = window.innerWidth / 2;
+    let sheepY = window.innerHeight / 2;
+    let isMoving = false;
+    let facingRight = true;
+
+    // 监听鼠标移动
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // 监听触摸屏幕 (兼容移动端)
+    window.addEventListener('touchmove', (e) => {
+        if(e.touches.length > 0) {
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        }
+    });
+
+    // 主渲染循环
+    function render() {
+        // 1. 先判断朝向：基于小羊当前平滑位置与鼠标的相对距离，增加死区避免频繁闪烁
+        if (mouseX > sheepX + 15 && !facingRight) {
+            facingRight = true;
+        } else if (mouseX < sheepX - 15 && facingRight) {
+            facingRight = false;
+        }
+
+        // 2. 计算目标位置：让小羊目标点始终在光标的左侧或右侧
+        const targetX = mouseX + (facingRight ? -40 : 40);
+        const targetY = mouseY + 30;
+
+        // 3. 计算当前小羊位置与目标位置的距离
+        const dx = targetX - sheepX;
+        const dy = targetY - sheepY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // 如果距离大于 2 像素，小羊开始移动追赶
+        if (distance > 2) {
+            if (!isMoving) {
+                isMoving = true;
+                bouncer.classList.remove('is-idle');
+                bouncer.classList.add('is-moving');
+            }
+            
+            // 缓动算法 (Lerp)，让移动更平滑自然
+            // 追击速度系数，越小越慢
+            sheepX += dx * 0.06;
+            sheepY += dy * 0.06;
+        } else {
+            // 距离很近，停下来
+            if (isMoving) {
+                isMoving = false;
+                bouncer.classList.remove('is-moving');
+                bouncer.classList.add('is-idle');
+            }
+        }
+
+        // 更新 DOM 样式
+        // 直接应用平滑计算后的 sheepX/Y，不再产生位移突变
+        tracker.style.transform = `translate(${sheepX}px, ${sheepY}px)`;
+
+        // 设置小羊的翻转 (1为右，-1为左)
+        flipper.style.transform = `scaleX(${facingRight ? 1 : -1})`;
+
+        // 循环调用下一帧
+        requestAnimationFrame(render);
+    }
+
+    // 启动动画
+    render();
+</script>
