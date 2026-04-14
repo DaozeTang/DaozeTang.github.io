@@ -1,5 +1,28 @@
 <style>
     /* ==================== 小羊核心逻辑样式 ==================== */
+    :root {
+        --sheep-wool: #ffffff;
+        --sheep-skin: #3e2723;
+        --sheep-leg-back: #2e1a17;
+        --sheep-leg-front: #3e2723;
+        --sheep-eye-bg: #ffffff;
+        --sheep-eye-pupil: #000000;
+        --sheep-mouth: #ffffff;
+        --sheep-shadow-flood: #64748b;
+        --sheep-ground-shadow: #1e293b;
+    }
+
+    [data-theme="dark"] {
+        --sheep-wool: #a8a6a2;
+        --sheep-skin: #2a1f1d;
+        --sheep-leg-back: #1a1211;
+        --sheep-leg-front: #2a1f1d;
+        --sheep-eye-bg: #d4d4d4;
+        --sheep-eye-pupil: #000000;
+        --sheep-mouth: #d4d4d4;
+        --sheep-shadow-flood: #111111;
+        --sheep-ground-shadow: #0a0a0a;
+    }
     
     /* 1. 追踪器：负责全屏幕跟随鼠标 (固定定位) */
     #sheep-tracker {
@@ -117,13 +140,13 @@
                 <defs>
                     <!-- 更柔和可爱的阴影 -->
                     <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-                        <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#64748b" flood-opacity="0.3"/>
+                        <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="var(--sheep-shadow-flood)" flood-opacity="0.3"/>
                     </filter>
                     <!-- 新增：真实的径向渐变地面阴影 -->
                     <radialGradient id="ground-shadow" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stop-color="#1e293b" stop-opacity="0.6" />
-                        <stop offset="30%" stop-color="#1e293b" stop-opacity="0.3" />
-                        <stop offset="100%" stop-color="#1e293b" stop-opacity="0" />
+                        <stop offset="0%" stop-color="var(--sheep-ground-shadow)" stop-opacity="0.6" />
+                        <stop offset="30%" stop-color="var(--sheep-ground-shadow)" stop-opacity="0.3" />
+                        <stop offset="100%" stop-color="var(--sheep-ground-shadow)" stop-opacity="0" />
                     </radialGradient>
                 </defs>
           
@@ -133,18 +156,18 @@
                 <!-- 四条腿 (恢复为圆润的深褐色短腿) -->
                 <g stroke-width="8" stroke-linecap="round">
                     <!-- 后腿 -->
-                    <line x1="36" y1="66" x2="36" y2="81" class="leg leg1" stroke="#2e1a17" transform-origin="36px 66px" />
-                    <line x1="60" y1="66" x2="60" y2="81" class="leg leg3" stroke="#2e1a17" transform-origin="60px 66px" />
+                    <line x1="36" y1="66" x2="36" y2="81" class="leg leg1" stroke="var(--sheep-leg-back)" transform-origin="36px 66px" />
+                    <line x1="60" y1="66" x2="60" y2="81" class="leg leg3" stroke="var(--sheep-leg-back)" transform-origin="60px 66px" />
                     <!-- 前腿 -->
-                    <line x1="46" y1="68" x2="46" y2="84" class="leg leg2" stroke="#3e2723" transform-origin="46px 68px" />
-                    <line x1="70" y1="68" x2="70" y2="84" class="leg leg4" stroke="#3e2723" transform-origin="70px 68px" />
+                    <line x1="46" y1="68" x2="46" y2="84" class="leg leg2" stroke="var(--sheep-leg-front)" transform-origin="46px 68px" />
+                    <line x1="70" y1="68" x2="70" y2="84" class="leg leg4" stroke="var(--sheep-leg-front)" transform-origin="70px 68px" />
                 </g>
           
                 <!-- 小尾巴 (稍微放大一点更蓬松) -->
-                <circle cx="22" cy="54" r="10" fill="#ffffff" filter="url(#shadow)" />
+                <circle cx="22" cy="54" r="10" fill="var(--sheep-wool)" filter="url(#shadow)" />
 
                 <!-- 蓬松的羊毛身体 (由多个无边框圆组成，像云朵) -->
-                <g fill="#ffffff" filter="url(#shadow)">
+                <g fill="var(--sheep-wool)" filter="url(#shadow)">
                     <circle cx="36" cy="46" r="18" />
                     <circle cx="52" cy="36" r="22" />
                     <circle cx="68" cy="46" r="18" />
@@ -160,32 +183,32 @@
                 <g class="head" transform-origin="75px 50px">
                     <!-- 后面的耳朵 (左耳) -->
                     <g class="ear-back-group" style="transform-origin: 64px 48px;">
-                        <ellipse cx="64" cy="48" rx="8" ry="3.5" fill="#3e2723" transform="rotate(-25 64 48)" />
+                        <ellipse cx="64" cy="48" rx="8" ry="3.5" fill="var(--sheep-skin)" transform="rotate(-25 64 48)" />
                     </g>
                     
                     <!-- 脸部 (简单的深色脸盘) -->
-                    <ellipse cx="78" cy="50" rx="13" ry="15" fill="#3e2723" />
+                    <ellipse cx="78" cy="50" rx="13" ry="15" fill="var(--sheep-skin)" />
 
                     <!-- 优化后的“歪嘴笑”：使用简洁可爱的白色弧线，看起来更友好调皮 -->
-                    <path d="M 78 58 Q 82 61 86 56" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.9" />
+                    <path d="M 78 58 Q 82 61 86 56" fill="none" stroke="var(--sheep-mouth)" stroke-width="2" stroke-linecap="round" opacity="0.9" />
 
                     <!-- 最经典的普通眼睛 (白眼球+黑瞳孔) -->
                     <g class="eye-blink" style="transform-origin: 78px 50px;">
                         <!-- 左眼 -->
-                        <circle cx="72" cy="49" r="3" fill="#ffffff" />
-                        <circle cx="73" cy="49" r="1.5" fill="#000000" />
+                        <circle cx="72" cy="49" r="3" fill="var(--sheep-eye-bg)" />
+                        <circle cx="73" cy="49" r="1.5" fill="var(--sheep-eye-pupil)" />
                         <!-- 右眼 -->
-                        <circle cx="84" cy="49" r="3" fill="#ffffff" />
-                        <circle cx="85" cy="49" r="1.5" fill="#000000" />
+                        <circle cx="84" cy="49" r="3" fill="var(--sheep-eye-bg)" />
+                        <circle cx="85" cy="49" r="1.5" fill="var(--sheep-eye-pupil)" />
                     </g>
 
                     <!-- 前面的耳朵 (右耳) -->
                     <g class="ear-front-group" style="transform-origin: 92px 50px;">
-                        <ellipse cx="92" cy="50" rx="8" ry="3.5" fill="#3e2723" transform="rotate(25 92 50)" />
+                        <ellipse cx="92" cy="50" rx="8" ry="3.5" fill="var(--sheep-skin)" transform="rotate(25 92 50)" />
                     </g>
 
                     <!-- 头顶的羊毛帽 (适度缩小，不再喧宾夺主) -->
-                    <g fill="#ffffff" filter="url(#shadow)">
+                    <g fill="var(--sheep-wool)" filter="url(#shadow)">
                         <circle cx="78" cy="38" r="9" />
                         <circle cx="70" cy="41" r="6" />
                         <circle cx="86" cy="41" r="6" />
