@@ -9,7 +9,7 @@ pub:            "PLOS One"
 pub_date:       "2024"
 semantic_scholar_id: 1b48f24986dee8b191b58c2e6171b934d48c1513  # use this to retrieve citation count
 abstract: >-
-  Proposed <strong>LCFF-Net</strong>, a computationally efficient algorithm that significantly improves tiny target detection performance in UAV imagery through improved cross-scale feature fusion. The model outperforms state-of-the-art baselines in both accuracy and inference speed, offering a robust solution for real-time aerial applications.
+  This work proposes an improved, lightweight algorithm, LCFF-Net, designed to enhance the extraction of tiny target features and optimize the use of computational resources, and presents different scale versions of the LCFF-Net algorithm to suit various deployment environments.
 # abstract: >-
 #   Photo by Pineapple Supply Co. on Unsplash. Please put a tldr (too-long-didnt-read, 1~2 sentences) of your publication here. It is not recommended to put the actual abstract here because it is usually too long to fit in. $\LaTeX$ is supported. $a=b+c$.
 cover:          /assets/images/covers/LCFF-Net.png

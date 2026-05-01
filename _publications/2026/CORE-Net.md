@@ -9,7 +9,7 @@ pub:            "PLOS One"
 pub_date:       "2026"
 semantic_scholar_id: 2a7384c413d8d3c7cec3c8531143aad4d42a345a  # use this to retrieve citation count
 abstract: >-
-  Proposed <strong>CORE-Net</strong>, a efficient dual-branch architecture for multispectral (RGB-IR) object detection that circumvents the heavy computational overhead of traditional cross-modal fusion paradigms. This framework demonstrates superior accuracy and robust performance in low-illumination environments, rendering it well-suited for deployment on resource-constrained edge devices.
+  Diverging from conventional heavy-fusion paradigms, the CORE-Net framework adopts a dual-branch architecture integrated with a streamlined Cross-modal Concatenation Network Framework (CCNF), which achieves efficient feature integration while substantially reducing model complexity.
 # abstract: >-
 #   Photo by Pineapple Supply Co. on Unsplash. Please put a tldr (too-long-didnt-read, 1~2 sentences) of your publication here. It is not recommended to put the actual abstract here because it is usually too long to fit in. $\LaTeX$ is supported. $a=b+c$.
 cover:          /assets/images/covers/CORE-Net.png
