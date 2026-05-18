@@ -13,7 +13,7 @@ semanticScholarIds.forEach(id => {
     const cacheKey = `semanticScholarCitationCount:${id}`;
     const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
-        const { _, timestamp } = JSON.parse(cachedData);
+        const { timestamp } = JSON.parse(cachedData);
         // If cached data is older than 1 hour, consider it uncached
         if (Date.now() - timestamp > 1 * 60 * 60 * 1000) {
             uncachedSemanticScholarIds.push(id);
@@ -45,13 +45,12 @@ if (uncachedSemanticScholarIds.length > 0) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            ids: Array.from(semanticScholarIds)
+            ids: uncachedSemanticScholarIds
         })
     }).then(response => {
         return response.json();
     }).then(data => {
         data.forEach(paper => {
-            console.log(paper);
             // Cache citation count data
             const cacheKey = `semanticScholarCitationCount:${paper.paperId}`;
             const cacheData = {
