@@ -595,23 +595,19 @@ img {
 }
 
 .profile-name {
-    display: inline-block;
-    width: fit-content;
-    max-width: 100%;
-    height: auto;
     margin-bottom: var(--space-1);
-    overflow: visible;
     background: linear-gradient(135deg, var(--color-gradient-text-1), var(--color-gradient-text-2), var(--color-gradient-text-3));
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
     font-family: var(--font-display);
-    font-size: clamp(2.35rem, 5vw, 3.45rem);
-    line-height: 1.18;
-    letter-spacing: -0.045em;
-    white-space: normal;
-    overflow-wrap: break-word;
+    font-size: clamp(1.5rem, 7vw, 3.45rem);
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: visible;
 }
 
 .profile-secondary {
