@@ -4,9 +4,9 @@
     <div class="row no-gutters">
         <div class="col-md-3 col-xl-2 d-none d-md-block pr-md-4">
             {% if item.cover %}
-            <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover" src="{{ '/assets/images/empty_300x200.png' | relative_url }}">
+            <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy pub-cover" src="{{ '/assets/images/placeholders/empty-300x200.png' | relative_url }}">
             {% else %}
-            <div class="pub-cover bg-light d-flex align-items-center justify-content-center text-muted" style="height: 100px; border-style: dashed;">
+            <div class="pub-cover pub-cover-placeholder d-flex align-items-center justify-content-center text-muted">
                 <i class="fas fa-file-alt fa-2x opacity-50"></i>
             </div>
             {% endif %}
