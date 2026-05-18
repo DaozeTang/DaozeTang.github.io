@@ -602,12 +602,12 @@ img {
     color: transparent;
     -webkit-text-fill-color: transparent;
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 7vw, 3.45rem);
-    line-height: 1.15;
-    letter-spacing: -0.035em;
-    white-space: nowrap;
+    font-size: clamp(2.35rem, 5vw, 3.45rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    display: block;
+    width: 100%;
     max-width: 100%;
-    overflow: visible;
 }
 
 .profile-secondary {
