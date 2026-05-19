@@ -660,7 +660,7 @@ img {
     -webkit-text-fill-color: transparent;
     font-family: var(--font-display);
     font-size: clamp(2.35rem, 5vw, 3.45rem);
-    line-height: 1.2;
+    line-height: 1.25;
     letter-spacing: -0.02em;
     display: block;
     width: 100%;
