@@ -23,27 +23,11 @@
         {%- assign mark = "" -%}
     {%- endif -%}
 
-    {%- assign info = site.data.authors[key] -%}
-
-    {%- if info['name'] -%}
-        {%- assign name = info['name'] -%}
-    {%- else -%}
-        {%- assign name = key -%}
-    {%- endif -%}
-
-    {%- if info['bold'] == true -%}
-        {%- assign display_name = name | append: mark | prepend: "<strong>" | append: "</strong>" -%}
-    {%- else -%}
-        {%- assign display_name = name | append: mark -%}
-    {%- endif -%}
+    {%- assign display_name = key | append: mark -%}
     
-    {%- if info['url'] -%}
-        <a class="text-body" target="_blank" href="{{ info['url'] }}">{{ display_name }}</a>{%- if forloop.index < authors.size -%}, {% endif -%}
-    {%- else -%}
-        <span class="text-body">
-            {{ display_name }}{%- if forloop.index < authors.size -%}, {% endif -%}
-        </span>
-    {%- endif -%}
+    <span class="text-body">
+        {{ display_name }}{%- if forloop.index < authors.size -%}, {% endif -%}
+    </span>
 
 {%- endfor -%}
 
