@@ -5,31 +5,59 @@
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     
+    var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    /* Theme: light → dark → system ------------------------------------ */
     var themeToggle = document.getElementById("theme-toggle");
     var THEME_COLORS = { light: "#f7f4ec", dark: "#14120e" };
+    var MODE_ORDER = ["light", "dark", "system"];
+    var MODE_ICONS = {
+        light: "fas fa-sun",
+        dark: "fas fa-moon",
+        system: "fas fa-circle-half-stroke",
+    };
+    var MODE_LABELS = {
+        light: "Theme: light (click for dark)",
+        dark: "Theme: dark (click to follow system)",
+        system: "Theme: follow system (click for light)",
+    };
 
-    function syncToggle() {
-        if (!themeToggle) return;
-        var isDark = root.getAttribute("data-theme") === "dark";
-        var icon = themeToggle.querySelector("i");
-        if (icon) icon.className = isDark ? "fas fa-sun" : "fas fa-moon";
-        themeToggle.setAttribute("aria-pressed", String(isDark));
-        themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+    function currentMode() {
+        return root.getAttribute("data-theme-mode") || "system";
+    }
+
+    function appliedTheme(mode) {
+        return mode === "system" ? (darkQuery.matches ? "dark" : "light") : mode;
+    }
+
+    function applyMode(mode) {
+        var theme = appliedTheme(mode);
+        root.setAttribute("data-theme", theme);
+        root.setAttribute("data-theme-mode", mode);
+
+        var meta = document.getElementById("meta-theme-color");
+        if (meta) meta.setAttribute("content", THEME_COLORS[theme]);
+
+        if (themeToggle) {
+            var icon = themeToggle.querySelector("i");
+            if (icon) icon.className = MODE_ICONS[mode];
+            themeToggle.setAttribute("aria-label", MODE_LABELS[mode]);
+            themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
+        }
     }
 
     if (themeToggle) {
         themeToggle.addEventListener("click", function () {
-            var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-            try { localStorage.setItem("theme", next); } catch (e) {  }
-            root.setAttribute("data-theme", next);
-
-            var meta = document.getElementById("meta-theme-color");
-            if (meta) meta.setAttribute("content", THEME_COLORS[next]);
-
-            syncToggle();
+            var next = MODE_ORDER[(MODE_ORDER.indexOf(currentMode()) + 1) % MODE_ORDER.length];
+            try { localStorage.setItem("theme", next); } catch (e) { /* private mode */ }
+            applyMode(next);
         });
-        syncToggle();
+        applyMode(currentMode());
     }
+
+    darkQuery.addEventListener("change", function () {
+        if (currentMode() === "system") applyMode("system");
+    });
 
     
     var topbar = document.getElementById("topbar");

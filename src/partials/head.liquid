@@ -14,12 +14,17 @@
 
 <script>
     (function () {
-        var theme = "light";
+        var mode = "system";
         try {
             var stored = localStorage.getItem("theme");
-            theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            if (stored === "light" || stored === "dark" || stored === "system") mode = stored;
         } catch (e) {}
-        document.documentElement.setAttribute("data-theme", theme);
+        var theme = mode === "system"
+            ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+            : mode;
+        var root = document.documentElement;
+        root.setAttribute("data-theme", theme);
+        root.setAttribute("data-theme-mode", mode);
         var meta = document.getElementById("meta-theme-color");
         if (meta) meta.setAttribute("content", theme === "dark" ? "#14120e" : "#f7f4ec");
     })();
