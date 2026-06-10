@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% assign headMinimal = true %}
+    {% include "head" %}
+</head>
+<body class="prompt-body">
+    <div class="canvas-glow" aria-hidden="true"></div>
+    <div class="canvas-grain" aria-hidden="true"></div>
+    <main role="main">
+        <div class="prompt-container">
+            {{ content }}
+        </div>
+    </main>
+</body>
+</html>

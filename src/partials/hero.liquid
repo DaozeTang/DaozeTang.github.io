@@ -1,0 +1,60 @@
+<section class="hero" id="about">
+    <div class="hero-grid">
+        <div class="hero-text">
+            {% if profile.status and profile.status != "" %}
+            <div>
+                <span class="profile-status">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    {{ profile.status }}
+                </span>
+            </div>
+            {% endif %}
+
+            <h1 class="hero-name">{{ profile.primary_name }}<span class="hero-period">.</span></h1>
+
+            {% if profile.secondary_name and profile.secondary_name != "" %}
+            <p class="hero-secondary">{{ profile.secondary_name }}</p>
+            {% endif %}
+
+            <div class="hero-positions">
+                {% for position in profile.positions %}
+                <span class="position-badge">
+                    {% if position.logo %}<img src="{{ position.logo }}" alt="" loading="lazy">{% endif %}
+                    {{ position.name }}
+                </span>
+                {% endfor %}
+            </div>
+
+            <div class="hero-bio{% if profile.short_bio_text_justify %} text-justify{% endif %}">
+                {{ profile.short_bio }}
+            </div>
+
+            {% include "social-links" %}
+        </div>
+
+        {% if profile.portrait_url %}
+        <div class="hero-side">
+            <figure class="hero-portrait">
+                <div class="portrait-frame">
+                    <img src="{{ profile.portrait_url }}" class="profile-img" alt="{{ profile.primary_name }}">
+                </div>
+
+                {% if profile.portrait_caption %}
+                <figcaption class="portrait-caption">{{ profile.portrait_caption }}</figcaption>
+                {% endif %}
+            </figure>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% if profile.wechat_qrcode %}
+<dialog class="site-dialog" id="modal-wechat">
+    <button type="button" class="dialog-close" data-dialog-close aria-label="Close">&times;</button>
+    <h6>WeChat ID</h6>
+    <img src="{{ profile.wechat_qrcode }}" alt="WeChat QR code">
+    {% if profile.wechat_prompt %}
+    <p class="stat-sub">{{ profile.wechat_prompt }}</p>
+    {% endif %}
+</dialog>
+{% endif %}

@@ -1,0 +1,46 @@
+- key: cv_link
+  label: CV
+  icon: fas fa-file-alt
+  url: "{value}"
+  primary: true
+
+- key: email
+  label: Email
+  icon: fas fa-envelope
+  url: "mailto:{value}"
+  encode: true
+
+- key: gscholar
+  label: Scholar
+  icon: fa-brands fa-google-scholar
+  url: "https://scholar.google.com/citations?user={value}"
+
+- key: github
+  label: GitHub
+  icon: fa-brands fa-github
+  url: "https://github.com/{value}"
+
+- key: orcid
+  label: ORCID
+  icon: fa-brands fa-orcid
+  url: "https://orcid.org/{value}"
+
+- key: blog
+  label: Blog
+  icon: fa-solid fa-blog
+  url: "{value}"
+
+- key: linkedin
+  label: LinkedIn
+  icon: fa-brands fa-linkedin
+  url: "https://www.linkedin.com/in/{value}"
+
+- key: twitter
+  label: Twitter
+  icon: fa-brands fa-twitter
+  url: "https://twitter.com/{value}"
+
+- key: laboratory
+  label: Lab
+  icon: fa-solid fa-flask-vial
+  url: "{value}"

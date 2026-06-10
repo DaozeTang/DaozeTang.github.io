@@ -1,0 +1,65 @@
+primary_name: "Daoze Tang"
+secondary_name: ""
+navbar_name: "Daoze Tang"
+
+status: ""
+
+positions:
+- name: Incoming M.Eng. Student · CAU
+  logo: /assets/images/institutions/cau-logo.png
+- name: B.Eng. Candidate · HUC
+  logo: /assets/images/institutions/huc-logo.png
+
+email: "tdz@s.hrbcu.edu.cn"
+cv_link: /assets/documents/cv.pdf
+gscholar: 9AQVTHMAAAAJ
+github: DaozeTang
+orcid: 0009-0003-0001-0049
+blog: https://blog.dztang.net/
+
+short_bio_text_justify: false
+short_bio: >-
+  <p>
+  Hello. I am Daoze Tang, an incoming Master's student in Computer Science and Technology at <a href="https://www.cau.edu.cn/" target="_blank"><b>China Agricultural University</b></a>, where I will be supervised by <a href="https://faculty.cau.edu.cn/lx_7543/list.htm" target="_blank"><b>Prof. Xiang Li</b></a>. Currently, I am in the final stages of completing my Bachelor of Engineering degree in Internet of Things (IoT) Engineering at <a href="https://www.hrbcu.edu.cn/" target="_blank"><b>Harbin University of Commerce</b></a>.
+  </p>
+  <p>
+  My research interests lie broadly within the field of Computer Science, with a primary focus on <b>Computer Vision</b>, particularly Object Detection. I am dedicated to developing efficient algorithms and exploring robust visual recognition systems.
+  </p>
+  <p>
+  Beyond individual research, I founded and currently lead a student research group dedicated to fostering motivated peers and organizing teams to participate in academic competitions.
+  </p>
+  <p>
+  Outside the laboratory, I draw inspiration from the arts. I am a guitarist and enjoy exploring diverse literary genres.
+  </p>
+  <p>
+  I am actively seeking academic collaborations, joint doctoral training programs, and prospective Ph.D. positions. If you are interested in my research or potential collaboration, please feel free to contact me.
+  </p>
+
+portrait_url: /assets/images/profile/daoze-tang.jpg
+portrait_caption: >-
+  Daoze Tang, China, 2022. Photograph by Yue Sun.
+
+education:
+- name: China Agricultural University
+  logo: /assets/images/institutions/cau-logo.png
+  position: >- 
+    Master of Engineering in Computer Science and Technology
+  date: Sep. 2026 - Jul. 2029
+- name: Harbin University of Commerce
+  logo: /assets/images/institutions/huc-logo.png
+  position: Bachelor of Engineering in Internet of Things Engineering
+  date: Sep. 2022 - Jul. 2026
+
+experience:
+- name: Huazhong University of Science and Technology
+  logo: /assets/images/institutions/hust-logo.png
+  position: Research Intern
+  date: Jul. 2025 - Aug. 2025
+
+awards:
+- name: National Scholarship
+  date: 2025
+- name: Merit Student of Heilongjiang Province
+  date: 2023, 2025
+- name: First Prize, National College Student Market Survey and Analysis Competition
+  date: 2025

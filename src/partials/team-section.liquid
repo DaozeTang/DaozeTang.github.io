@@ -1,0 +1,46 @@
+{% assign funding_rmb = team.total_funding_rmb | default: team.total_funding | default: 0 %}
+{% if team.total_funding_usd %}
+    {% assign funding_usd_k = team.total_funding_usd | divided_by: 1000 %}
+{% else %}
+    {% assign funding_usd_k = funding_rmb | divided_by: 7000 %}
+{% endif %}
+
+<section class="section" id="team">
+    <header class="section-head">
+        <span class="section-index" aria-hidden="true"></span>
+        <h2 class="section-title">The Team<span class="title-dot">.</span></h2>
+        <span class="section-rule" aria-hidden="true"></span>
+    </header>
+
+    <div class="team-grid">
+        {% if team.description %}
+        <div class="team-description">
+            {{ team.description }}
+        </div>
+        {% endif %}
+
+        <div class="stat-grid">
+            <div class="stat-item">
+                <div class="stat-value">
+                    <span data-count-to="{{ team.member_count | default: 0 }}">{{ team.member_count | default: 0 }}</span><span class="stat-affix">+</span>
+                </div>
+                <div class="stat-label">Team members</div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-value">
+                    <span data-count-to="{{ team.project_count | default: 0 }}">{{ team.project_count | default: 0 }}</span>
+                </div>
+                <div class="stat-label">Projects completed</div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-value">
+                    <span class="stat-affix">&yen;</span><span data-count-to="{{ funding_rmb }}">{{ funding_rmb }}</span><span class="stat-affix">+</span>
+                </div>
+                <div class="stat-sub">&asymp; US${{ funding_usd_k }}K</div>
+                <div class="stat-label">Total funding</div>
+            </div>
+        </div>
+    </div>
+</section>

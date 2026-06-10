@@ -1,0 +1,135 @@
+:root {
+    color-scheme: light;
+
+    --bg: #f7f4ec;
+    --bg-alt: #efeadf;
+    --card: #fffdf7;
+    --surface: #f1ede2;
+    --surface-2: #e7e1d2;
+    --glass-bg: rgba(252, 250, 243, 0.78);
+
+    --ink: #1d1a14;
+    --ink-2: #4c4639;
+    --ink-3: #837b69;
+    --ghost: rgba(29, 26, 20, 0.07);
+    --on-accent: #fffdf7;
+
+    --accent: #c03a1d;
+    --accent-deep: #9a2c13;
+    --accent-bright: #e25433;
+    --accent-soft: rgba(192, 58, 29, 0.085);
+    --accent-softer: rgba(192, 58, 29, 0.05);
+    --accent-line: rgba(192, 58, 29, 0.32);
+
+    --blue: #28457e;
+    --blue-bright: #3a5da6;
+    --blue-soft: rgba(40, 69, 126, 0.09);
+
+    --gold: #a3761b;
+    --gold-soft: rgba(163, 118, 27, 0.12);
+
+    --ok: #2e6b46;
+    --ok-soft: rgba(46, 107, 70, 0.10);
+
+    --line: rgba(29, 26, 20, 0.12);
+    --line-soft: rgba(29, 26, 20, 0.07);
+    --line-strong: rgba(29, 26, 20, 0.24);
+    --dot: rgba(29, 26, 20, 0.065);
+    --glow-1: rgba(192, 58, 29, 0.06);
+    --glow-2: rgba(40, 69, 126, 0.055);
+
+    --shadow-sm: 0 1px 2px rgba(36, 30, 18, 0.05), 0 3px 10px rgba(36, 30, 18, 0.05);
+    --shadow-md: 0 8px 26px rgba(36, 30, 18, 0.10);
+    --shadow-lg: 0 22px 56px rgba(36, 30, 18, 0.16);
+    --ring: 0 0 0 3px rgba(192, 58, 29, 0.22);
+
+    --font-display: "Fraunces", "Source Serif 4", Georgia, serif;
+    --font-serif: "Source Serif 4", Georgia, serif;
+    --font-sans: "Inter", "Noto Sans SC", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+    --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Consolas, monospace;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-7: 2rem;
+    --space-8: 2.5rem;
+    --space-9: 3.5rem;
+    --space-10: 5rem;
+
+    --radius-sm: 0.4rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1.15rem;
+    --radius-xl: 1.75rem;
+    --radius-pill: 999px;
+
+    --ease-spring: cubic-bezier(0.34, 1.45, 0.45, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --t-fast: 160ms var(--ease-smooth);
+    --t-med: 260ms var(--ease-smooth);
+    --t-spring: transform 420ms var(--ease-spring), box-shadow 300ms var(--ease-smooth),
+        border-color 220ms var(--ease-smooth), background-color 220ms var(--ease-smooth),
+        color 220ms var(--ease-smooth);
+
+    --glass: blur(16px) saturate(160%);
+
+    --shell-max: 71rem;
+    --header-h: 4rem;
+
+    --pulse-from: 0 0 0 0 rgba(192, 58, 29, 0.45);
+    --pulse-mid: 0 0 0 0.55rem rgba(192, 58, 29, 0);
+    --pulse-to: 0 0 0 0 rgba(192, 58, 29, 0);
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --bg: #14120e;
+    --bg-alt: #1a1813;
+    --card: #1d1a15;
+    --surface: #252119;
+    --surface-2: #2f2a20;
+    --glass-bg: rgba(24, 22, 17, 0.78);
+
+    --ink: #f1ebdd;
+    --ink-2: #c9c1ad;
+    --ink-3: #918a77;
+    --ghost: rgba(241, 235, 221, 0.06);
+    --on-accent: #16130d;
+
+    --accent: #ff6a45;
+    --accent-deep: #ff8a6b;
+    --accent-bright: #ff7e5c;
+    --accent-soft: rgba(255, 106, 69, 0.12);
+    --accent-softer: rgba(255, 106, 69, 0.07);
+    --accent-line: rgba(255, 106, 69, 0.38);
+
+    --blue: #93aede;
+    --blue-bright: #aabfe8;
+    --blue-soft: rgba(147, 174, 222, 0.13);
+
+    --gold: #d9ab51;
+    --gold-soft: rgba(217, 171, 81, 0.14);
+
+    --ok: #7cc49a;
+    --ok-soft: rgba(124, 196, 154, 0.13);
+
+    --line: rgba(241, 235, 221, 0.13);
+    --line-soft: rgba(241, 235, 221, 0.07);
+    --line-strong: rgba(241, 235, 221, 0.26);
+    --dot: rgba(241, 235, 221, 0.05);
+    --glow-1: rgba(255, 106, 69, 0.07);
+    --glow-2: rgba(147, 174, 222, 0.05);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 3px 10px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 8px 26px rgba(0, 0, 0, 0.38);
+    --shadow-lg: 0 22px 56px rgba(0, 0, 0, 0.5);
+    --ring: 0 0 0 3px rgba(255, 106, 69, 0.28);
+
+    --pulse-from: 0 0 0 0 rgba(255, 106, 69, 0.45);
+    --pulse-mid: 0 0 0 0.55rem rgba(255, 106, 69, 0);
+    --pulse-to: 0 0 0 0 rgba(255, 106, 69, 0);
+}

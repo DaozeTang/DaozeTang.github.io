@@ -1,0 +1,119 @@
+.social-btn,
+.btn-pub-link,
+.pub-view-all,
+.btn-ink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background: var(--card);
+    color: var(--ink-2);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--t-spring);
+}
+
+.social-btn {
+    padding: 0.62rem 1.1rem;
+    font-size: 0.84rem;
+}
+
+.social-btn i {
+    font-size: 0.9em;
+    color: var(--accent);
+    transition: transform var(--t-med);
+}
+
+.social-btn:hover {
+    border-color: var(--accent-line);
+    color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.social-btn:hover i {
+    transform: scale(1.15) rotate(-6deg);
+}
+
+.social-btn-primary {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+}
+
+.social-btn-primary i {
+    color: var(--accent-bright);
+}
+
+.social-btn-primary:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-ink {
+    padding: 0.85rem 1.6rem;
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 0.9rem;
+}
+
+.btn-ink:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-ghost {
+    background: transparent;
+}
+
+.btn-pub-link {
+    padding: 0.4rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.btn-pub-link::after {
+    content: "↗";
+    font-size: 0.85em;
+    color: var(--accent);
+    transition: transform var(--t-med);
+}
+
+.btn-pub-link:hover {
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+}
+
+.btn-pub-link:hover::after {
+    transform: translate(2px, -2px);
+}
+
+.pub-view-all {
+    padding: 0.55rem 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.pub-view-all:hover {
+    border-color: var(--accent-line);
+    color: var(--accent-deep);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}

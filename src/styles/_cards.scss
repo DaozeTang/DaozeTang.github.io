@@ -1,0 +1,53 @@
+.panel {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+}
+
+.site-dialog {
+    margin: auto;
+    padding: var(--space-7);
+    max-width: 20rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.site-dialog::backdrop {
+    background: rgba(12, 10, 6, 0.55);
+    backdrop-filter: blur(4px);
+}
+
+.site-dialog img {
+    margin: 0 auto var(--space-3);
+    border-radius: var(--radius-md);
+}
+
+.site-dialog h6 {
+    margin-bottom: var(--space-4);
+    font-size: 1rem;
+}
+
+.dialog-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.8rem;
+    border: 0;
+    background: transparent;
+    color: var(--ink-3);
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.dialog-close:hover {
+    color: var(--accent);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

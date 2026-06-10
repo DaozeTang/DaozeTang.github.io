@@ -1,0 +1,43 @@
+<article class="pub-item">
+    <div class="pub-media">
+        {% if item.data.cover %}
+        <img src="{{ item.data.cover }}" alt="{{ item.data.title | strip_html }}" class="pub-cover" loading="lazy" decoding="async">
+        {% else %}
+        <div class="pub-cover-placeholder">
+            <i class="fas fa-file-lines" aria-hidden="true"></i>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="pub-body">
+        <h3 class="pub-title">{{ item.data.title }}</h3>
+
+        <p class="pub-authors">
+            {% assign authors = item.data.authors %}
+            {% include "author-list" %}
+        </p>
+
+        <p class="pub-venue">
+            <strong>{{ item.data.venue }}</strong>
+            <span class="mono">&middot; {{ item.date | date: "%Y" }}</span>
+            {% if item.data.semantic_scholar_id %}
+            <span data-semantic-scholar-id="{{ item.data.semantic_scholar_id }}"></span>
+            {% endif %}
+            {% if item.data.highlight %}
+            <span class="tag tag-gold">{{ item.data.highlight }}</span>
+            {% endif %}
+        </p>
+
+        {% if item.data.abstract %}
+        <p class="pub-abstract">{{ item.data.abstract }}</p>
+        {% endif %}
+
+        {% if item.data.links %}
+        <div class="pub-links">
+            {% for link in item.data.links %}
+            <a class="btn-pub-link" target="_blank" rel="noopener" href="{{ link[1] }}">{{ link[0] }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</article>

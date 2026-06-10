@@ -1,0 +1,33 @@
+{% assign newsLimit = display.homepage.num_news | default: 999 %}
+{% assign shown = 0 %}
+
+<section class="section" id="news">
+    <header class="section-head">
+        <span class="section-index" aria-hidden="true"></span>
+        <h2 class="section-title">News<span class="title-dot">.</span></h2>
+        <span class="section-rule" aria-hidden="true"></span>
+    </header>
+
+    <ol class="news-list">
+        {% for group in collections.newsByYear %}
+        {% if shown < newsLimit %}
+        <li class="news-year-marker" aria-hidden="true">
+            <span class="news-year-label">{{ group.year }}</span>
+        </li>
+        {% endif %}
+        {% for item in group.items %}
+        {% if shown < newsLimit %}
+        <li class="news-item">
+            <time class="news-date" datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: "%b %d" }}</time>
+            <span class="news-node" aria-hidden="true"></span>
+            <div class="news-text">
+                {{ item.data.title }}
+                {%- if item.data.badge %} <span class="tag tag-accent">{{ item.data.badge }}</span>{% endif %}
+            </div>
+        </li>
+        {% assign shown = shown | plus: 1 %}
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </ol>
+</section>

@@ -1,0 +1,311 @@
+.pub-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.pub-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: clamp(1.2rem, 3vw, 2rem);
+    padding: clamp(1.4rem, 3vw, 2rem) 0;
+}
+
+.pub-item + .pub-item {
+    border-top: 1px solid var(--line-soft);
+}
+
+.pub-media {
+    position: relative;
+    overflow: hidden;
+    align-self: start;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    transition: var(--t-spring);
+}
+
+.pub-item:hover .pub-media {
+    border-color: var(--line-strong);
+    transform: translateY(-3px) rotate(-0.5deg);
+    box-shadow: var(--shadow-md);
+}
+
+.pub-cover {
+    width: 100%;
+    aspect-ratio: 1.5;
+    object-fit: cover;
+    transition: transform 700ms var(--ease-out);
+}
+
+.pub-item:hover .pub-cover {
+    transform: scale(1.045);
+}
+
+.pub-cover-placeholder {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    aspect-ratio: 1.5;
+    color: var(--ink-3);
+    font-size: 1.4rem;
+}
+
+.pub-title {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-display);
+    font-size: 1.18rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    color: var(--ink);
+    transition: color var(--t-fast);
+}
+
+.pub-item:hover .pub-title {
+    color: var(--accent-deep);
+}
+
+.pub-authors {
+    margin: 0 0 var(--space-2);
+    color: var(--ink-2);
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.pub-authors .text-body {
+    color: var(--ink-2);
+}
+
+.pub-authors b {
+    color: var(--ink);
+    font-weight: 650;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-line);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+}
+
+.pub-authors mark {
+    display: inline;
+    padding: 0;
+    background: transparent;
+    color: var(--ink-3);
+    font-size: 0.78rem;
+    font-style: italic;
+}
+
+.pub-venue {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem 0.55rem;
+    margin: 0 0 var(--space-3);
+    color: var(--ink-3);
+    font-size: 0.84rem;
+}
+
+.pub-venue strong {
+    color: var(--blue);
+    font-weight: 650;
+    font-size: 0.9rem;
+}
+
+.pub-abstract {
+    max-width: 46rem;
+    margin: 0 0 var(--space-4);
+    color: var(--ink-2);
+    font-family: var(--font-serif);
+    font-size: 0.94rem;
+    line-height: 1.7;
+}
+
+.pub-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.pubs-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 11rem;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+    padding-top: clamp(1.6rem, 4vw, 2.6rem);
+}
+
+.year-section {
+    position: relative;
+    scroll-margin-top: calc(var(--header-h) + 2.5rem);
+}
+
+.year-section + .year-section {
+    margin-top: clamp(2.4rem, 6vw, 4rem);
+}
+
+.year-head {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
+}
+
+.year-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--ink);
+}
+
+.year-count {
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.year-count b {
+    color: var(--accent);
+    font-weight: 650;
+}
+
+.year-rule {
+    flex: 1 1 auto;
+    height: 1px;
+    background: var(--line);
+    transform: translateY(-0.4rem);
+}
+
+.year-ghost {
+    position: absolute;
+    top: -2.2rem;
+    right: -0.5rem;
+    z-index: -1;
+    color: var(--ghost);
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 16vw, 11rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.pubs-rail {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+}
+
+.rail-label {
+    margin-bottom: var(--space-3);
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.rail-nav {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--line);
+}
+
+.rail-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: 0.45rem 0 0.45rem 1rem;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: var(--t-fast);
+}
+
+.rail-link::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: transparent;
+    transition: var(--t-fast);
+}
+
+.rail-link:hover {
+    color: var(--ink);
+}
+
+.rail-link .rail-count {
+    font-size: 0.68rem;
+    color: var(--ink-3);
+    opacity: 0.7;
+}
+
+.rail-link.active {
+    color: var(--accent);
+}
+
+.rail-link.active::before {
+    background: var(--accent);
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.22em 0.7em;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+    vertical-align: middle;
+    white-space: nowrap;
+    transition: var(--t-fast);
+}
+
+.tag-accent {
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+}
+
+.tag-gold {
+    border-color: var(--gold);
+    background: var(--gold-soft);
+    color: var(--gold);
+}
+
+.tag-gold::before {
+    content: "\2605";
+    font-size: 0.85em;
+}
+
+a.tag-cite {
+    color: var(--ink-2);
+}
+
+a.tag-cite:hover {
+    border-color: var(--accent-line);
+    color: var(--accent-deep);
+    transform: translateY(-1px);
+}
+
+a.tag-cite i {
+    font-size: 0.95em;
+}

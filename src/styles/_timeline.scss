@@ -1,0 +1,186 @@
+.bg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.8rem, 4vw, 3rem);
+}
+
+.bg-col-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.bg-col-head i {
+    color: var(--accent);
+    font-size: 0.78rem;
+}
+
+.timeline-wrapper {
+    position: relative;
+    margin-left: var(--space-2);
+    padding-left: var(--space-7);
+    border-left: 1px dashed var(--line-strong);
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: var(--space-6);
+}
+
+.timeline-item:last-child {
+    padding-bottom: var(--space-2);
+}
+
+.timeline-marker {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * var(--space-7) - 1.35rem);
+    display: grid;
+    place-items: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    transition: var(--t-spring);
+}
+
+.timeline-item:hover .timeline-marker {
+    border-color: var(--accent-line);
+    transform: scale(1.08);
+}
+
+.timeline-marker img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+
+.icon-placeholder {
+    color: var(--ink-3);
+    font-size: 0.95rem;
+}
+
+.timeline-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.2rem var(--space-3);
+    margin-bottom: 0.2rem;
+}
+
+.exp-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.exp-meta {
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.exp-subtitle {
+    color: var(--ink-3);
+    font-size: 0.85rem;
+}
+
+.exp-desc {
+    color: var(--ink-2);
+    font-family: var(--font-serif);
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.awards-block {
+    margin-top: clamp(2.2rem, 5vw, 3.2rem);
+}
+
+.award-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+}
+
+.award-card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    height: 100%;
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--card);
+    overflow: hidden;
+    transition: var(--t-spring);
+}
+
+.award-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #a3761b, transparent 70%);
+    opacity: 0;
+    transition: opacity var(--t-med);
+}
+
+[data-theme="dark"] .award-card::after {
+    background: linear-gradient(90deg, #d9ab51, transparent 70%);
+}
+
+.award-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.award-card:hover::after {
+    opacity: 1;
+}
+
+.award-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: var(--radius-pill);
+    background: var(--gold-soft);
+    color: var(--gold);
+    font-size: 0.95rem;
+}
+
+.award-title {
+    color: var(--ink);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.award-date {
+    margin-top: 0.3rem;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+}

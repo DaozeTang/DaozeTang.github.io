@@ -1,0 +1,16 @@
+<section class="section" id="selected-publications">
+    <header class="section-head">
+        <span class="section-index" aria-hidden="true"></span>
+        <h2 class="section-title">Selected Publications<span class="title-dot">.</span></h2>
+        <span class="section-rule" aria-hidden="true"></span>
+        <a class="section-action" href="/publications/">
+            View all <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+    </header>
+
+    <div class="pub-list">
+        {% for item in collections.selectedPublications %}
+            {% include "publication-item" %}
+        {% endfor %}
+    </div>
+</section>
