@@ -49,6 +49,10 @@ module.exports = function (eleventyConfig) {
             .join("")
     );
 
+    eleventyConfig.addFilter("toFixed", (value, digits = 2) =>
+        Number(value).toFixed(digits)
+    );
+
     eleventyConfig.addTemplateFormats("scss");
     eleventyConfig.addExtension("scss", {
         outputFileExtension: "css",

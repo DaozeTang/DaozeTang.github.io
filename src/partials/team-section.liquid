@@ -38,7 +38,7 @@
                 <div class="stat-value">
                     <span class="stat-affix">&yen;</span><span data-count-to="{{ funding_rmb }}">{{ funding_rmb }}</span><span class="stat-affix">+</span>
                 </div>
-                <div class="stat-sub">&asymp; US${{ funding_usd_k }}K</div>
+                <div class="stat-sub">&asymp; US${{ funding_usd_k | toFixed: 2 }}K</div>
                 <div class="stat-label">Total funding</div>
             </div>
         </div>
