@@ -1,17 +1,19 @@
 (function () {
     "use strict";
 
-    var API_BASE = "https://api.semanticscholar.org/graph/v1/paper/";
-    var PAPER_BASE = "https://www.semanticscholar.org/paper/";
+    var S2_API = "https://api.semanticscholar.org/graph/v1/paper/";
+    var S2_PAPER = "https://www.semanticscholar.org/paper/";
+    var OPENALEX_API = "https://api.openalex.org/works/doi:";
     var CACHE_PREFIX = "s2-citations:";
     var CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
     // The unauthenticated Semantic Scholar API is heavily rate-limited
-    // (frequent 429/503). Requests are sent one at a time with a gap,
-    // failures are retried with backoff, and stale cache is used as a
-    // last resort so a transient outage doesn't blank the chips.
+    // (frequent 429/503), so it often fails even with retries. Strategy:
+    // try S2 briefly, then fall back to OpenAlex (no practical rate
+    // limit), then to stale cache. Requests are serialized with a gap
+    // to play nice with S2's limiter.
     var REQUEST_GAP_MS = 1200;
-    var MAX_ATTEMPTS = 4;
+    var S2_ATTEMPTS = 2;
     var BACKOFF_BASE_MS = 2000;
 
     function readCache(id) {
@@ -42,35 +44,50 @@
         return new Promise(function (resolve) { setTimeout(resolve, ms); });
     }
 
-    function fetchOnce(id) {
-        return fetch(API_BASE + id + "?fields=citationCount").then(function (res) {
+    function getJson(url) {
+        return fetch(url).then(function (res) {
             if (!res.ok) throw new Error("HTTP " + res.status);
             return res.json();
-        }).then(function (data) {
+        });
+    }
+
+    function fetchS2(id, attempt) {
+        return getJson(S2_API + id + "?fields=citationCount").then(function (data) {
             var count = data && typeof data.citationCount === "number" ? data.citationCount : null;
+            if (count === null) throw new Error("Malformed response");
+            return count;
+        }).catch(function (err) {
+            if (attempt >= S2_ATTEMPTS) throw err;
+            var backoff = BACKOFF_BASE_MS * Math.pow(2, attempt - 1)
+                + Math.random() * 1000;
+            return sleep(backoff).then(function () {
+                return fetchS2(id, attempt + 1);
+            });
+        });
+    }
+
+    function fetchOpenAlex(doi) {
+        return getJson(OPENALEX_API + doi + "?select=cited_by_count").then(function (data) {
+            var count = data && typeof data.cited_by_count === "number" ? data.cited_by_count : null;
             if (count === null) throw new Error("Malformed response");
             return count;
         });
     }
 
-    function fetchWithRetry(id, attempt) {
-        return fetchOnce(id).catch(function (err) {
-            if (attempt >= MAX_ATTEMPTS) throw err;
-            var backoff = BACKOFF_BASE_MS * Math.pow(2, attempt - 1)
-                + Math.random() * 1000;
-            return sleep(backoff).then(function () {
-                return fetchWithRetry(id, attempt + 1);
-            });
+    function fetchCount(id, doi) {
+        return fetchS2(id, 1).catch(function (err) {
+            if (doi) return fetchOpenAlex(doi);
+            throw err;
         });
     }
 
     function renderChip(slot, id, count) {
         var chip = document.createElement("a");
         chip.className = "tag tag-cite";
-        chip.href = PAPER_BASE + id;
+        chip.href = S2_PAPER + id;
         chip.target = "_blank";
         chip.rel = "noopener";
-        chip.title = "Citation count via Semantic Scholar";
+        chip.title = "Citation count via Semantic Scholar / OpenAlex";
         chip.innerHTML = '<i class="ai ai-semanticscholar" aria-hidden="true"></i> ' +
             count + (count === 1 ? " citation" : " citations");
         slot.appendChild(chip);
@@ -85,6 +102,7 @@
     document.querySelectorAll("[data-semantic-scholar-id]").forEach(function (slot) {
         var id = slot.getAttribute("data-semantic-scholar-id");
         if (!id) return;
+        var doi = slot.getAttribute("data-doi");
 
         var cached = readCache(id);
         if (cached && cached.fresh) {
@@ -93,11 +111,11 @@
         }
 
         queue = queue.then(function () {
-            return fetchWithRetry(id, 1).then(function (count) {
+            return fetchCount(id, doi).then(function (count) {
                 writeCache(id, count);
                 maybeRender(slot, id, count);
             }).catch(function () {
-                // All retries failed: fall back to stale cache if any.
+                // Everything failed: fall back to stale cache if any.
                 if (cached) maybeRender(slot, id, cached.count);
             }).then(function () {
                 return sleep(REQUEST_GAP_MS);
