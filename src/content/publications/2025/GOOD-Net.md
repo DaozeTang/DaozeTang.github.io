@@ -3,7 +3,6 @@ title: "A global object-oriented dynamic network for low-altitude remote sensing
 date: 2025-05-30
 selected: true
 venue: "Scientific Reports"
-highlight: "Spotlight"
 semantic_scholar_id: a8ff80e9762384cf55e05e65610458c0a05fd41a
 cover: /assets/images/covers/GOOD-Net.png
 authors:
