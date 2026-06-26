@@ -9,7 +9,7 @@
 
     /* Theme: light → dark → system ------------------------------------ */
     var themeToggle = document.getElementById("theme-toggle");
-    var THEME_COLORS = { light: "#f7f4ec", dark: "#14120e" };
+    var THEME_COLORS = { light: "#eef1f8", dark: "#060912" };
     var MODE_ORDER = ["light", "dark", "system"];
     var MODE_ICONS = {
         light: "fas fa-sun",
@@ -195,4 +195,25 @@
             btn.addEventListener("click", function () { dialog.close(); });
         });
     });
+})();
+/* Pointer parallax on the aurora canvas — adds liquid depth ----------- */
+(function () {
+    var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches || !window.matchMedia("(pointer: fine)").matches) return;
+    var glow = document.querySelector(".canvas-glow");
+    if (!glow) return;
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+    function tick() {
+        cx += (tx - cx) * 0.06;
+        cy += (ty - cy) * 0.06;
+        glow.style.transform = "translate3d(" + (cx * 28).toFixed(2) + "px," + (cy * 28).toFixed(2) + "px,0)";
+        if (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005) {
+            raf = requestAnimationFrame(tick);
+        } else { raf = null; }
+    }
+    window.addEventListener("pointermove", function (e) {
+        tx = e.clientX / window.innerWidth - 0.5;
+        ty = e.clientY / window.innerHeight - 0.5;
+        if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
 })();

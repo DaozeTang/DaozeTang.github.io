@@ -10,7 +10,7 @@
 <meta property="og:description" content="{{ profile.short_bio | strip_html | strip_newlines | truncatewords: 30 }}">
 {% if profile.portrait_url %}<meta property="og:image" content="{{ profile.portrait_url }}">{% endif %}
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" id="meta-theme-color" content="#f7f4ec">
+<meta name="theme-color" id="meta-theme-color" content="#eef1f8">
 
 <script>
     (function () {
@@ -26,7 +26,7 @@
         root.setAttribute("data-theme", theme);
         root.setAttribute("data-theme-mode", mode);
         var meta = document.getElementById("meta-theme-color");
-        if (meta) meta.setAttribute("content", theme === "dark" ? "#14120e" : "#f7f4ec");
+        if (meta) meta.setAttribute("content", theme === "dark" ? "#060912" : "#eef1f8");
     })();
 </script>
 

@@ -1,6 +1,7 @@
 .pub-list {
     display: flex;
     flex-direction: column;
+    gap: var(--space-4);
 }
 
 .pub-item {
@@ -8,28 +9,62 @@
     display: grid;
     grid-template-columns: 13rem minmax(0, 1fr);
     gap: clamp(1.2rem, 3vw, 2rem);
-    padding: clamp(1.4rem, 3vw, 2rem) 0;
+    padding: clamp(1.3rem, 2.6vw, 1.7rem);
+    border: 1px solid var(--glass-edge);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    backdrop-filter: var(--glass);
+    -webkit-backdrop-filter: var(--glass);
+    box-shadow: var(--shadow-sm), var(--rim);
+    transition: var(--t-spring);
 }
 
-.pub-item + .pub-item {
-    border-top: 1px solid var(--line-soft);
+/* aurora accent bar that lights up on hover */
+.pub-item::before {
+    content: "";
+    position: absolute;
+    top: 1.4rem;
+    bottom: 1.4rem;
+    left: -1px;
+    width: 3px;
+    border-radius: var(--radius-pill);
+    background: var(--grad-aurora);
+    opacity: 0;
+    transition: opacity var(--t-med);
+}
+
+.pub-item:hover {
+    border-color: var(--accent-line);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md), 0 18px 44px rgba(79, 99, 255, 0.16), var(--rim);
+}
+
+.pub-item:hover::before {
+    opacity: 1;
 }
 
 .pub-media {
     position: relative;
     overflow: hidden;
     align-self: start;
-    border: 1px solid var(--line);
+    border: 1px solid var(--glass-edge);
     border-radius: var(--radius-md);
     background: var(--surface);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-sm), var(--rim);
     transition: var(--t-spring);
 }
 
+.pub-media::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 40%);
+    pointer-events: none;
+}
+
 .pub-item:hover .pub-media {
-    border-color: var(--line-strong);
-    transform: translateY(-3px) rotate(-0.5deg);
-    box-shadow: var(--shadow-md);
+    transform: scale(1.02);
 }
 
 .pub-cover {
@@ -40,7 +75,7 @@
 }
 
 .pub-item:hover .pub-cover {
-    transform: scale(1.045);
+    transform: scale(1.05);
 }
 
 .pub-cover-placeholder {
@@ -48,17 +83,21 @@
     place-items: center;
     width: 100%;
     aspect-ratio: 1.5;
-    color: var(--ink-3);
-    font-size: 1.4rem;
+    color: var(--accent);
+    font-size: 1.5rem;
+    background: var(--accent-softer);
+}
+
+.pub-body {
+    min-width: 0;
 }
 
 .pub-title {
     margin: 0 0 var(--space-2);
-    font-family: var(--font-display);
-    font-size: 1.18rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.35;
+    font-size: 1.2rem;
+    font-weight: 720;
+    letter-spacing: -0.018em;
+    line-height: 1.32;
     color: var(--ink);
     transition: color var(--t-fast);
 }
@@ -80,7 +119,7 @@
 
 .pub-authors b {
     color: var(--ink);
-    font-weight: 650;
+    font-weight: 680;
     text-decoration: underline;
     text-decoration-color: var(--accent-line);
     text-decoration-thickness: 2px;
@@ -108,7 +147,7 @@
 
 .pub-venue strong {
     color: var(--blue);
-    font-weight: 650;
+    font-weight: 680;
     font-size: 0.9rem;
 }
 
@@ -117,7 +156,7 @@
     margin: 0 0 var(--space-4);
     color: var(--ink-2);
     font-family: var(--font-serif);
-    font-size: 0.94rem;
+    font-size: 0.95rem;
     line-height: 1.7;
 }
 
@@ -149,7 +188,7 @@
     display: flex;
     align-items: baseline;
     gap: var(--space-4);
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-4);
 }
 
 .year-num {
@@ -171,22 +210,21 @@
 
 .year-count b {
     color: var(--accent);
-    font-weight: 650;
+    font-weight: 680;
 }
 
 .year-rule {
     flex: 1 1 auto;
     height: 1px;
-    background: var(--line);
+    background: linear-gradient(90deg, var(--line-strong), transparent);
     transform: translateY(-0.4rem);
 }
 
 .year-ghost {
     position: absolute;
-    top: -2.2rem;
+    top: -2.4rem;
     right: -0.5rem;
     z-index: -1;
-    color: var(--ghost);
     font-family: var(--font-display);
     font-size: clamp(6rem, 16vw, 11rem);
     font-weight: 800;
@@ -194,11 +232,24 @@
     line-height: 1;
     pointer-events: none;
     user-select: none;
+    background: linear-gradient(180deg, var(--accent-softer), transparent 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0.8;
 }
 
 .pubs-rail {
     position: sticky;
     top: calc(var(--header-h) + 2rem);
+    padding: var(--space-4);
+    border: 1px solid var(--glass-edge);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    backdrop-filter: var(--glass);
+    -webkit-backdrop-filter: var(--glass);
+    box-shadow: var(--shadow-sm), var(--rim);
 }
 
 .rail-label {
@@ -214,7 +265,7 @@
 .rail-nav {
     display: flex;
     flex-direction: column;
-    border-left: 1px solid var(--line);
+    gap: 0.15rem;
 }
 
 .rail-link {
@@ -223,27 +274,18 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-2);
-    padding: 0.45rem 0 0.45rem 1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
     color: var(--ink-3);
     font-family: var(--font-mono);
     font-size: 0.82rem;
-    font-weight: 500;
-    transition: var(--t-fast);
-}
-
-.rail-link::before {
-    content: "";
-    position: absolute;
-    left: -1px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: transparent;
+    font-weight: 600;
     transition: var(--t-fast);
 }
 
 .rail-link:hover {
     color: var(--ink);
+    background: var(--surface-2);
 }
 
 .rail-link .rail-count {
@@ -254,18 +296,16 @@
 
 .rail-link.active {
     color: var(--accent);
+    background: var(--accent-soft);
 }
 
-.rail-link.active::before {
-    background: var(--accent);
-}
-
+/* ===== Tags / chips ===== */
 .tag {
     display: inline-flex;
     align-items: center;
     gap: 0.35em;
-    padding: 0.22em 0.7em;
-    border: 1px solid var(--line);
+    padding: 0.24em 0.75em;
+    border: 1px solid var(--glass-edge);
     border-radius: var(--radius-pill);
     background: var(--surface);
     color: var(--ink-2);
@@ -276,6 +316,7 @@
     line-height: 1.6;
     vertical-align: middle;
     white-space: nowrap;
+    box-shadow: var(--rim);
     transition: var(--t-fast);
 }
 
@@ -286,7 +327,7 @@
 }
 
 .tag-gold {
-    border-color: var(--gold);
+    border-color: rgba(217, 149, 43, 0.4);
     background: var(--gold-soft);
     color: var(--gold);
 }

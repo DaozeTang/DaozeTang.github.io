@@ -13,19 +13,31 @@
 }
 
 .team-description::first-letter {
-    color: var(--accent);
     font-family: var(--font-display);
     font-size: 3.1em;
     font-weight: 700;
     float: left;
-    line-height: 0.85;
+    line-height: 0.82;
     padding-right: 0.12em;
     padding-top: 0.04em;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
+/* stats as a glass panel of figures */
 .stat-grid {
     display: flex;
     flex-direction: column;
+    padding: var(--space-6);
+    border: 1px solid var(--glass-edge);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    backdrop-filter: var(--glass);
+    -webkit-backdrop-filter: var(--glass);
+    box-shadow: var(--shadow-md), var(--rim);
 }
 
 .stat-item {
@@ -41,12 +53,16 @@
     padding-top: 0;
 }
 
+.stat-item:last-child {
+    padding-bottom: 0;
+}
+
 .stat-value {
     display: flex;
     align-items: baseline;
     gap: 0.15rem;
     font-family: var(--font-display);
-    font-size: clamp(2.2rem, 4.5vw, 3rem);
+    font-size: clamp(2.3rem, 4.5vw, 3.1rem);
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1.05;
@@ -55,9 +71,13 @@
 }
 
 .stat-affix {
-    color: var(--accent);
     font-size: 0.6em;
-    font-weight: 700;
+    font-weight: 800;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 .stat-sub {
@@ -79,7 +99,12 @@
 }
 
 .stat-label::before {
-    content: "—";
+    content: "";
+    display: inline-block;
+    width: 0.9rem;
+    height: 2px;
     margin-right: 0.5rem;
-    color: var(--accent);
+    vertical-align: middle;
+    border-radius: var(--radius-pill);
+    background: var(--grad-aurora);
 }

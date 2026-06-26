@@ -1,53 +1,91 @@
+/* =========================================================================
+   Liquid Glass · Aurora — design tokens
+   Cool, luminous, translucent. Shared verbatim by homepage + blog.
+   ========================================================================= */
+
 :root {
     color-scheme: light;
 
-    --bg: #f7f4ec;
-    --bg-alt: #efeadf;
-    --card: #fffdf7;
-    --surface: #f1ede2;
-    --surface-2: #e7e1d2;
-    --glass-bg: rgba(252, 250, 243, 0.78);
+    /* — Canvas — */
+    --bg: #eef1f8;
+    --bg-alt: #e6ebf6;
+    --bg-deep: #dde3f1;
 
-    --ink: #1d1a14;
-    --ink-2: #4c4639;
-    --ink-3: #837b69;
-    --ghost: rgba(29, 26, 20, 0.07);
-    --on-accent: #fffdf7;
+    /* — Glass surfaces — */
+    --card: rgba(255, 255, 255, 0.62);
+    --card-solid: #fbfcff;
+    --surface: rgba(255, 255, 255, 0.5);
+    --surface-2: rgba(236, 240, 250, 0.7);
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-strong: rgba(255, 255, 255, 0.72);
+    --glass-edge: rgba(255, 255, 255, 0.85);
+    --glass-inner: rgba(255, 255, 255, 0.45);
 
-    --accent: #c03a1d;
-    --accent-deep: #9a2c13;
-    --accent-bright: #e25433;
-    --accent-soft: rgba(192, 58, 29, 0.085);
-    --accent-softer: rgba(192, 58, 29, 0.05);
-    --accent-line: rgba(192, 58, 29, 0.32);
+    /* — Ink (cool slate) — */
+    --ink: #0f1422;
+    --ink-2: #3a4257;
+    --ink-3: #6c7793;
+    --ghost: rgba(16, 22, 40, 0.06);
+    --on-accent: #ffffff;
 
-    --blue: #28457e;
-    --blue-bright: #3a5da6;
-    --blue-soft: rgba(40, 69, 126, 0.09);
+    /* — Accent: electric indigo→blue — */
+    --accent: #4f63ff;
+    --accent-deep: #3b46d6;
+    --accent-bright: #6d83ff;
+    --accent-soft: rgba(79, 99, 255, 0.1);
+    --accent-softer: rgba(79, 99, 255, 0.055);
+    --accent-line: rgba(79, 99, 255, 0.34);
 
-    --gold: #a3761b;
-    --gold-soft: rgba(163, 118, 27, 0.12);
+    /* — Aurora spectrum — */
+    --violet: #8b5cf6;
+    --cyan: #1ec8e6;
+    --pink: #ec4faf;
+    --teal: #16c79a;
+    --blue: #2f6bff;
+    --blue-bright: #5d8bff;
+    --blue-soft: rgba(47, 107, 255, 0.1);
+    --gold: #d9952b;
+    --gold-soft: rgba(217, 149, 43, 0.14);
+    --ok: #18a87a;
+    --ok-soft: rgba(24, 168, 122, 0.12);
 
-    --ok: #2e6b46;
-    --ok-soft: rgba(46, 107, 70, 0.10);
+    /* — Aurora blob colors (background) — */
+    --aurora-1: rgba(79, 99, 255, 0.42);
+    --aurora-2: rgba(139, 92, 246, 0.38);
+    --aurora-3: rgba(30, 200, 230, 0.34);
+    --aurora-4: rgba(236, 79, 175, 0.26);
 
-    --line: rgba(29, 26, 20, 0.12);
-    --line-soft: rgba(29, 26, 20, 0.07);
-    --line-strong: rgba(29, 26, 20, 0.24);
-    --dot: rgba(29, 26, 20, 0.065);
-    --glow-1: rgba(192, 58, 29, 0.06);
-    --glow-2: rgba(40, 69, 126, 0.055);
+    /* — Lines & strokes — */
+    --line: rgba(20, 30, 60, 0.1);
+    --line-soft: rgba(20, 30, 60, 0.06);
+    --line-strong: rgba(20, 30, 60, 0.2);
+    --dot: rgba(20, 30, 60, 0.05);
 
-    --shadow-sm: 0 1px 2px rgba(36, 30, 18, 0.05), 0 3px 10px rgba(36, 30, 18, 0.05);
-    --shadow-md: 0 8px 26px rgba(36, 30, 18, 0.10);
-    --shadow-lg: 0 22px 56px rgba(36, 30, 18, 0.16);
-    --ring: 0 0 0 3px rgba(192, 58, 29, 0.22);
+    /* — Gradients — */
+    --grad-aurora: linear-gradient(120deg, #4f63ff 0%, #8b5cf6 42%, #1ec8e6 100%);
+    --grad-aurora-soft: linear-gradient(120deg, #6d83ff 0%, #a78bfa 50%, #5ad7ee 100%);
+    --grad-text: linear-gradient(110deg, #3b46d6 0%, #7c5cf6 48%, #1ba6cc 100%);
+    --grad-button: linear-gradient(135deg, #5a6dff 0%, #6d56f0 100%);
+    --grad-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 42%);
 
+    /* — Shadows (cool, layered) — */
+    --shadow-sm: 0 1px 2px rgba(28, 36, 68, 0.06), 0 4px 14px rgba(28, 36, 68, 0.07);
+    --shadow-md: 0 10px 34px rgba(28, 36, 68, 0.12), 0 2px 8px rgba(28, 36, 68, 0.06);
+    --shadow-lg: 0 28px 70px rgba(28, 36, 68, 0.2), 0 6px 18px rgba(28, 36, 68, 0.1);
+    --shadow-glow: 0 14px 40px rgba(79, 99, 255, 0.28);
+    --ring: 0 0 0 3px rgba(79, 99, 255, 0.32);
+
+    /* Specular highlight rim used on glass panels */
+    --rim: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    --rim-strong: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+
+    /* — Type — */
     --font-display: "Fraunces", "Source Serif 4", Georgia, serif;
     --font-serif: "Source Serif 4", Georgia, serif;
     --font-sans: "Inter", "Noto Sans SC", system-ui, -apple-system, "Helvetica Neue", sans-serif;
     --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Consolas, monospace;
 
+    /* — Spacing — */
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -59,77 +97,99 @@
     --space-9: 3.5rem;
     --space-10: 5rem;
 
-    --radius-sm: 0.4rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1.15rem;
-    --radius-xl: 1.75rem;
+    /* — Radii (squircle-leaning) — */
+    --radius-sm: 0.55rem;
+    --radius-md: 0.95rem;
+    --radius-lg: 1.4rem;
+    --radius-xl: 2.1rem;
     --radius-pill: 999px;
 
+    /* — Easing & motion — */
     --ease-spring: cubic-bezier(0.34, 1.45, 0.45, 1);
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --t-fast: 160ms var(--ease-smooth);
-    --t-med: 260ms var(--ease-smooth);
-    --t-spring: transform 420ms var(--ease-spring), box-shadow 300ms var(--ease-smooth),
-        border-color 220ms var(--ease-smooth), background-color 220ms var(--ease-smooth),
-        color 220ms var(--ease-smooth);
+    --t-med: 280ms var(--ease-smooth);
+    --t-spring: transform 460ms var(--ease-spring), box-shadow 320ms var(--ease-smooth),
+        border-color 240ms var(--ease-smooth), background-color 240ms var(--ease-smooth),
+        color 240ms var(--ease-smooth);
 
-    --glass: blur(16px) saturate(160%);
+    /* — Glass blur — */
+    --glass: blur(20px) saturate(180%);
+    --glass-deep: blur(34px) saturate(200%);
 
-    --shell-max: 71rem;
+    --shell-max: 72rem;
     --header-h: 4rem;
 
-    --pulse-from: 0 0 0 0 rgba(192, 58, 29, 0.45);
-    --pulse-mid: 0 0 0 0.55rem rgba(192, 58, 29, 0);
-    --pulse-to: 0 0 0 0 rgba(192, 58, 29, 0);
+    --pulse-from: 0 0 0 0 rgba(79, 99, 255, 0.5);
+    --pulse-mid: 0 0 0 0.6rem rgba(79, 99, 255, 0);
+    --pulse-to: 0 0 0 0 rgba(79, 99, 255, 0);
 }
 
 [data-theme="dark"] {
     color-scheme: dark;
 
-    --bg: #14120e;
-    --bg-alt: #1a1813;
-    --card: #1d1a15;
-    --surface: #252119;
-    --surface-2: #2f2a20;
-    --glass-bg: rgba(24, 22, 17, 0.78);
+    --bg: #060912;
+    --bg-alt: #0a0e1b;
+    --bg-deep: #03050c;
 
-    --ink: #f1ebdd;
-    --ink-2: #c9c1ad;
-    --ink-3: #918a77;
-    --ghost: rgba(241, 235, 221, 0.06);
-    --on-accent: #16130d;
+    --card: rgba(255, 255, 255, 0.055);
+    --card-solid: #0e1322;
+    --surface: rgba(255, 255, 255, 0.045);
+    --surface-2: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(18, 24, 42, 0.55);
+    --glass-strong: rgba(20, 27, 48, 0.72);
+    --glass-edge: rgba(255, 255, 255, 0.16);
+    --glass-inner: rgba(255, 255, 255, 0.06);
 
-    --accent: #ff6a45;
-    --accent-deep: #ff8a6b;
-    --accent-bright: #ff7e5c;
-    --accent-soft: rgba(255, 106, 69, 0.12);
-    --accent-softer: rgba(255, 106, 69, 0.07);
-    --accent-line: rgba(255, 106, 69, 0.38);
+    --ink: #eef2fc;
+    --ink-2: #b6c0da;
+    --ink-3: #7f8bab;
+    --ghost: rgba(238, 242, 252, 0.06);
+    --on-accent: #ffffff;
 
-    --blue: #93aede;
-    --blue-bright: #aabfe8;
-    --blue-soft: rgba(147, 174, 222, 0.13);
+    --accent: #7d92ff;
+    --accent-deep: #93a4ff;
+    --accent-bright: #9db0ff;
+    --accent-soft: rgba(125, 146, 255, 0.16);
+    --accent-softer: rgba(125, 146, 255, 0.09);
+    --accent-line: rgba(125, 146, 255, 0.4);
 
-    --gold: #d9ab51;
-    --gold-soft: rgba(217, 171, 81, 0.14);
+    --violet: #b69bff;
+    --cyan: #4fdcf2;
+    --pink: #ff79c6;
+    --teal: #4be3b8;
+    --blue: #7da0ff;
+    --blue-bright: #9db5ff;
+    --blue-soft: rgba(125, 160, 255, 0.16);
+    --gold: #f0b454;
+    --gold-soft: rgba(240, 180, 84, 0.16);
+    --ok: #45dca6;
+    --ok-soft: rgba(69, 220, 166, 0.14);
 
-    --ok: #7cc49a;
-    --ok-soft: rgba(124, 196, 154, 0.13);
+    --aurora-1: rgba(79, 99, 255, 0.5);
+    --aurora-2: rgba(139, 92, 246, 0.46);
+    --aurora-3: rgba(30, 200, 230, 0.36);
+    --aurora-4: rgba(236, 79, 175, 0.3);
 
-    --line: rgba(241, 235, 221, 0.13);
-    --line-soft: rgba(241, 235, 221, 0.07);
-    --line-strong: rgba(241, 235, 221, 0.26);
-    --dot: rgba(241, 235, 221, 0.05);
-    --glow-1: rgba(255, 106, 69, 0.07);
-    --glow-2: rgba(147, 174, 222, 0.05);
+    --line: rgba(238, 242, 252, 0.12);
+    --line-soft: rgba(238, 242, 252, 0.07);
+    --line-strong: rgba(238, 242, 252, 0.24);
+    --dot: rgba(238, 242, 252, 0.05);
 
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 3px 10px rgba(0, 0, 0, 0.25);
-    --shadow-md: 0 8px 26px rgba(0, 0, 0, 0.38);
-    --shadow-lg: 0 22px 56px rgba(0, 0, 0, 0.5);
-    --ring: 0 0 0 3px rgba(255, 106, 69, 0.28);
+    --grad-text: linear-gradient(110deg, #9db0ff 0%, #c2a8ff 48%, #6fe0f5 100%);
+    --grad-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 42%);
 
-    --pulse-from: 0 0 0 0 rgba(255, 106, 69, 0.45);
-    --pulse-mid: 0 0 0 0.55rem rgba(255, 106, 69, 0);
-    --pulse-to: 0 0 0 0 rgba(255, 106, 69, 0);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 12px 36px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 30px 76px rgba(0, 0, 0, 0.62), 0 6px 18px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 16px 48px rgba(109, 131, 255, 0.42);
+    --ring: 0 0 0 3px rgba(125, 146, 255, 0.4);
+
+    --rim: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    --rim-strong: inset 0 1px 0 rgba(255, 255, 255, 0.26), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+
+    --pulse-from: 0 0 0 0 rgba(125, 146, 255, 0.5);
+    --pulse-mid: 0 0 0 0.6rem rgba(125, 146, 255, 0);
+    --pulse-to: 0 0 0 0 rgba(125, 146, 255, 0);
 }

@@ -6,8 +6,8 @@
 
 .reveal-item {
     opacity: 0;
-    transform: translateY(1.6rem);
-    transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+    transform: translateY(1.8rem);
+    transition: opacity 760ms var(--ease-out), transform 760ms var(--ease-out);
     will-change: opacity, transform;
 }
 
@@ -19,7 +19,7 @@
 @keyframes rise-in {
     from {
         opacity: 0;
-        transform: translateY(1.2rem);
+        transform: translateY(1.4rem);
     }
     to {
         opacity: 1;
@@ -28,7 +28,7 @@
 }
 
 .hero .hero-text > * {
-    animation: rise-in 800ms var(--ease-out) backwards;
+    animation: rise-in 850ms var(--ease-out) backwards;
 }
 
 .hero .hero-text > *:nth-child(1) { animation-delay: 60ms; }
@@ -39,7 +39,30 @@
 .hero .hero-text > *:nth-child(6) { animation-delay: 460ms; }
 
 .hero .hero-side {
-    animation: rise-in 900ms var(--ease-out) 250ms backwards;
+    animation: rise-in 950ms var(--ease-out) 250ms backwards;
+}
+
+/* gentle float for the portrait / hero glass */
+@keyframes float-soft {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-0.55rem); }
+    100% { transform: translateY(0); }
+}
+
+/* shimmering gradient sweep, used on accents */
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.shimmer-text {
+    background: linear-gradient(110deg, var(--accent-deep) 20%, var(--violet) 40%, var(--cyan) 55%, var(--accent-deep) 75%);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: shimmer 7s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -58,5 +81,10 @@
     .reveal-item {
         opacity: 1;
         transform: none;
+    }
+
+    .canvas-glow::before,
+    .canvas-glow::after {
+        animation: none;
     }
 }
