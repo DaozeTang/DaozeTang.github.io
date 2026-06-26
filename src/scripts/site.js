@@ -206,7 +206,7 @@
     function tick() {
         cx += (tx - cx) * 0.06;
         cy += (ty - cy) * 0.06;
-        glow.style.transform = "translate3d(" + (cx * 28).toFixed(2) + "px," + (cy * 28).toFixed(2) + "px,0)";
+        glow.style.transform = "translate3d(" + (cx * 60).toFixed(2) + "px," + (cy * 60).toFixed(2) + "px,0)";
         if (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005) {
             raf = requestAnimationFrame(tick);
         } else { raf = null; }
