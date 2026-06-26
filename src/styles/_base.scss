@@ -47,27 +47,27 @@ body {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(38vmax 32vmax at 18% 12%, var(--aurora-1), transparent 60%),
-        radial-gradient(42vmax 36vmax at 84% 8%, var(--aurora-2), transparent 62%),
-        radial-gradient(36vmax 32vmax at 72% 88%, var(--aurora-3), transparent 60%),
-        radial-gradient(32vmax 28vmax at 8% 82%, var(--aurora-4), transparent 60%);
+        radial-gradient(40vmax 34vmax at 16% 10%, var(--aurora-1), transparent 60%),
+        radial-gradient(42vmax 36vmax at 86% 6%, var(--aurora-2), transparent 62%),
+        radial-gradient(38vmax 32vmax at 74% 86%, var(--aurora-3), transparent 60%),
+        radial-gradient(34vmax 30vmax at 6% 84%, var(--aurora-4), transparent 60%);
     animation: aurora-drift 22s var(--ease-smooth) infinite alternate;
     will-change: transform;
 }
 
 .canvas-glow::after {
     background:
-        radial-gradient(32vmax 28vmax at 62% 22%, var(--aurora-3), transparent 60%),
-        radial-gradient(36vmax 32vmax at 24% 64%, var(--aurora-2), transparent 62%),
-        radial-gradient(30vmax 26vmax at 90% 70%, var(--aurora-1), transparent 60%),
-        radial-gradient(26vmax 24vmax at 40% 40%, var(--aurora-4), transparent 62%);
+        radial-gradient(34vmax 30vmax at 60% 18%, var(--aurora-5), transparent 60%),
+        radial-gradient(38vmax 32vmax at 22% 60%, var(--aurora-6), transparent 62%),
+        radial-gradient(30vmax 26vmax at 92% 66%, var(--aurora-3), transparent 60%),
+        radial-gradient(28vmax 24vmax at 44% 42%, var(--aurora-2), transparent 62%);
     animation: aurora-drift-2 30s var(--ease-smooth) infinite alternate;
     opacity: 0.95;
     mix-blend-mode: screen;
 }
 
 [data-theme="light"] .canvas-glow {
-    opacity: 0.86;
+    opacity: 0.95;
 }
 
 [data-theme="dark"] .canvas-glow {

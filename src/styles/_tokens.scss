@@ -18,7 +18,7 @@
     --surface-2: rgba(236, 240, 250, 0.7);
     --glass-bg: linear-gradient(146deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.02) 46%, rgba(255, 255, 255, 0.12)), rgba(255, 255, 255, 0.48);
     --glass-strong: linear-gradient(146deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.05) 46%, rgba(255, 255, 255, 0.16)), rgba(255, 255, 255, 0.64);
-    --glass-edge: rgba(255, 255, 255, 0.85);
+    --glass-edge: rgba(120, 134, 202, 0.24);
     --glass-inner: rgba(255, 255, 255, 0.45);
 
     /* — Ink (cool slate) — */
@@ -28,34 +28,37 @@
     --ghost: rgba(16, 22, 40, 0.06);
     --on-accent: #ffffff;
 
-    /* — Accent: electric indigo→blue — */
-    --accent: #4f63ff;
-    --accent-deep: #3b46d6;
-    --accent-bright: #6d83ff;
-    --accent-soft: rgba(79, 99, 255, 0.1);
-    --accent-softer: rgba(79, 99, 255, 0.055);
-    --accent-line: rgba(79, 99, 255, 0.34);
+    /* — Accent: vivid azure (the rainbow comes from the aurora + gradients) — */
+    --accent: #3b6bff;
+    --accent-deep: #2348db;
+    --accent-bright: #5e8cff;
+    --accent-soft: rgba(59, 107, 255, 0.1);
+    --accent-softer: rgba(59, 107, 255, 0.055);
+    --accent-line: rgba(59, 107, 255, 0.34);
 
-    /* — Aurora spectrum — */
+    /* — Aurora spectrum (vivid, multi-hue) — */
     --violet: #8b5cf6;
-    --cyan: #1ec8e6;
-    --pink: #ec4faf;
-    --teal: #16c79a;
+    --cyan: #11b9d8;
+    --pink: #ec3f9e;
+    --teal: #10b894;
     --blue: #2f6bff;
     --blue-bright: #5d8bff;
     --blue-soft: rgba(47, 107, 255, 0.1);
-    --gold: #d9952b;
-    --gold-soft: rgba(217, 149, 43, 0.14);
-    --ok: #18a87a;
-    --ok-soft: rgba(24, 168, 122, 0.12);
+    --coral: #ff7a4d;
+    --gold: #e6961f;
+    --gold-soft: rgba(230, 150, 31, 0.15);
+    --ok: #12a877;
+    --ok-soft: rgba(18, 168, 119, 0.12);
 
-    /* — Aurora blob colors (background) — */
-    --aurora-1: rgba(79, 99, 255, 0.5);
-    --aurora-2: rgba(139, 92, 246, 0.46);
-    --aurora-3: rgba(30, 200, 230, 0.42);
-    --aurora-4: rgba(236, 79, 175, 0.32);
-    --aurora-blur: 58px;
-    --aurora-sat: 155%;
+    /* — Aurora blob colors — full spectrum: azure, violet, cyan, magenta, coral, mint — */
+    --aurora-1: rgba(56, 132, 246, 0.52);
+    --aurora-2: rgba(139, 92, 246, 0.48);
+    --aurora-3: rgba(34, 211, 238, 0.48);
+    --aurora-4: rgba(236, 79, 175, 0.44);
+    --aurora-5: rgba(255, 138, 92, 0.34);
+    --aurora-6: rgba(45, 212, 191, 0.42);
+    --aurora-blur: 56px;
+    --aurora-sat: 168%;
 
     /* — Lines & strokes — */
     --line: rgba(20, 30, 60, 0.1);
@@ -63,31 +66,33 @@
     --line-strong: rgba(20, 30, 60, 0.2);
     --dot: rgba(20, 30, 60, 0.05);
 
-    /* — Gradients — */
-    --grad-aurora: linear-gradient(120deg, #4f63ff 0%, #8b5cf6 42%, #1ec8e6 100%);
-    --grad-aurora-soft: linear-gradient(120deg, #6d83ff 0%, #a78bfa 50%, #5ad7ee 100%);
-    --grad-text: linear-gradient(110deg, #3b46d6 0%, #7c5cf6 48%, #1ba6cc 100%);
-    --grad-button: linear-gradient(135deg, #5a6dff 0%, #6d56f0 100%);
+    /* — Gradients (multi-hue, lively) — */
+    --grad-aurora: linear-gradient(120deg, #22d3ee 0%, #3b82f6 28%, #8b5cf6 56%, #ec4faf 82%, #ff8a5c 100%);
+    --grad-aurora-soft: linear-gradient(120deg, #5ad7ee 0%, #6d9bff 34%, #b79bff 62%, #ff9ec7 100%);
+    --grad-text: linear-gradient(110deg, #0c9fe0 0%, #5446e8 34%, #c026d3 68%, #f4427e 100%);
+    --grad-button: linear-gradient(135deg, #2f8bff 0%, #7c5cf6 50%, #ec4faf 100%);
     --grad-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 42%);
 
-    /* — Shadows (cool, layered) — */
-    --shadow-sm: 0 1px 2px rgba(28, 36, 68, 0.06), 0 4px 14px rgba(28, 36, 68, 0.07);
-    --shadow-md: 0 10px 34px rgba(28, 36, 68, 0.12), 0 2px 8px rgba(28, 36, 68, 0.06);
-    --shadow-lg: 0 28px 70px rgba(28, 36, 68, 0.2), 0 6px 18px rgba(28, 36, 68, 0.1);
-    --shadow-glow: 0 14px 40px rgba(79, 99, 255, 0.28);
-    --ring: 0 0 0 3px rgba(79, 99, 255, 0.32);
+    /* — Shadows (cool indigo-tinted, layered for real lift) — */
+    --shadow-sm: 0 1px 2px rgba(40, 38, 92, 0.07), 0 5px 16px rgba(72, 60, 152, 0.1);
+    --shadow-md: 0 12px 32px rgba(64, 54, 152, 0.17), 0 3px 10px rgba(40, 38, 92, 0.09);
+    --shadow-lg: 0 30px 70px rgba(58, 48, 142, 0.25), 0 8px 22px rgba(40, 38, 92, 0.13);
+    --shadow-glow: 0 16px 44px rgba(73, 110, 255, 0.34);
+    --ring: 0 0 0 3px rgba(59, 107, 255, 0.34);
 
-    /* Beveled, light-catching glass edge (top highlight + counter-edge + inner ring + soft top glow) */
+    /* Beveled, light-catching glass edge (bright top + counter-edge + ring + top glow + cool underglow) */
     --rim:
         inset 0 1.5px 0 -0.5px rgba(255, 255, 255, 0.95),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.14),
-        inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.5),
-        inset 0 9px 18px -13px rgba(255, 255, 255, 0.7);
+        inset 0 0 0 1px rgba(255, 255, 255, 0.45),
+        inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.6),
+        inset 0 9px 18px -13px rgba(255, 255, 255, 0.8),
+        inset 0 -13px 24px -17px rgba(70, 92, 200, 0.2);
     --rim-strong:
         inset 0 2px 0 -0.5px rgba(255, 255, 255, 1),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-        inset -1.5px -1.5px 2px -1px rgba(255, 255, 255, 0.6),
-        inset 0 11px 22px -13px rgba(255, 255, 255, 0.85);
+        inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+        inset -1.5px -1.5px 2px -1px rgba(255, 255, 255, 0.7),
+        inset 0 11px 22px -13px rgba(255, 255, 255, 0.9),
+        inset 0 -15px 26px -18px rgba(70, 92, 200, 0.24);
 
     /* — Type — */
     --font-display: "Fraunces", "Source Serif 4", Georgia, serif;
@@ -124,9 +129,9 @@
         border-color 240ms var(--ease-smooth), background-color 240ms var(--ease-smooth),
         color 240ms var(--ease-smooth);
 
-    /* — Glass blur (saturation + brightness so glass refracts & glows with the aurora) — */
-    --glass: blur(22px) saturate(210%) brightness(1.04);
-    --glass-deep: blur(40px) saturate(235%) brightness(1.06);
+    /* — Glass blur (high saturation + contrast so light glass refracts vivid colour) — */
+    --glass: blur(22px) saturate(235%) brightness(1.05) contrast(1.04);
+    --glass-deep: blur(40px) saturate(260%) brightness(1.07) contrast(1.05);
 
     --shell-max: 72rem;
     --header-h: 4rem;
@@ -172,24 +177,27 @@
     --blue: #7da0ff;
     --blue-bright: #9db5ff;
     --blue-soft: rgba(125, 160, 255, 0.16);
+    --coral: #ff9a6f;
     --gold: #f0b454;
     --gold-soft: rgba(240, 180, 84, 0.16);
     --ok: #45dca6;
     --ok-soft: rgba(69, 220, 166, 0.14);
 
-    --aurora-1: rgba(79, 99, 255, 0.58);
-    --aurora-2: rgba(139, 92, 246, 0.52);
-    --aurora-3: rgba(30, 200, 230, 0.44);
-    --aurora-4: rgba(236, 79, 175, 0.38);
+    --aurora-1: rgba(70, 110, 255, 0.6);
+    --aurora-2: rgba(150, 95, 255, 0.54);
+    --aurora-3: rgba(40, 210, 240, 0.48);
+    --aurora-4: rgba(255, 90, 190, 0.44);
+    --aurora-5: rgba(255, 130, 90, 0.34);
+    --aurora-6: rgba(50, 225, 200, 0.42);
     --aurora-blur: 70px;
-    --aurora-sat: 175%;
+    --aurora-sat: 185%;
 
     --line: rgba(238, 242, 252, 0.12);
     --line-soft: rgba(238, 242, 252, 0.07);
     --line-strong: rgba(238, 242, 252, 0.24);
     --dot: rgba(238, 242, 252, 0.05);
 
-    --grad-text: linear-gradient(110deg, #9db0ff 0%, #c2a8ff 48%, #6fe0f5 100%);
+    --grad-text: linear-gradient(110deg, #5fd2ee 0%, #8ea0ff 32%, #d59bff 62%, #ff9ec7 100%);
     --grad-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 42%);
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.4);
