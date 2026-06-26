@@ -1,0 +1,58 @@
+/* =========================================================================
+   Liquid Glass — real edge refraction
+   Warps the moving aurora through the glass via an SVG displacement map.
+   Gated by @supports, which Chromium & Firefox pass and Safari fails — so
+   Safari keeps the (still rich) frosted/beveled fallback instead of breaking.
+   ========================================================================= */
+
+@supports (backdrop-filter: url("#x")) or (-webkit-backdrop-filter: url("#x")) {
+    .topbar,
+    .panel,
+    .pub-item,
+    .pub-media,
+    .tool-card,
+    .award-card,
+    .pubs-rail,
+    .toc-panel,
+    .stat-grid,
+    .page-header-stat,
+    .post-item:hover,
+    .term-chip,
+    .search-dialog,
+    .site-dialog,
+    .footer-base {
+        -webkit-backdrop-filter: var(--glass) url(#liquid-distortion);
+        backdrop-filter: var(--glass) url(#liquid-distortion);
+    }
+
+    .topbar.nav-scrolled,
+    .site-dialog,
+    .search-dialog {
+        -webkit-backdrop-filter: var(--glass-deep) url(#liquid-distortion);
+        backdrop-filter: var(--glass-deep) url(#liquid-distortion);
+    }
+
+    /* stronger ripple while interacting — the glass feels liquid on hover */
+    .pub-item:hover,
+    .tool-card:hover,
+    .award-card:hover,
+    .term-chip:hover {
+        -webkit-backdrop-filter: var(--glass) url(#liquid-distortion-strong);
+        backdrop-filter: var(--glass) url(#liquid-distortion-strong);
+    }
+}
+
+/* A touch more spring + a brief settle, so lifts feel like liquid, not snapping */
+.pub-item,
+.tool-card,
+.award-card,
+.post-item,
+.term-chip,
+.position-badge,
+.social-btn,
+.timeline-marker,
+.pager-num {
+    transition: transform 520ms var(--ease-spring), box-shadow 360ms var(--ease-smooth),
+        border-color 240ms var(--ease-smooth), background-color 240ms var(--ease-smooth),
+        color 240ms var(--ease-smooth);
+}

@@ -268,3 +268,12 @@ code {
 ::-webkit-scrollbar-track {
     background: transparent;
 }
+
+/* SVG filter definitions are not visual content */
+.lq-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
