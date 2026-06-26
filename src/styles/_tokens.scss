@@ -11,20 +11,20 @@
     --bg-alt: #e6ebf6;
     --bg-deep: #dde3f1;
 
-    /* — Glass surfaces (convex domed gradients over a frosted base) — */
-    --card: linear-gradient(146deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.12)), rgba(255, 255, 255, 0.58);
+    /* — Glass surfaces (milky frosted base so text stays readable over the aurora) — */
+    --card: linear-gradient(146deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.08) 42%, rgba(255, 255, 255, 0.2)), rgba(255, 255, 255, 0.74);
     --card-solid: #fbfcff;
-    --surface: rgba(255, 255, 255, 0.5);
-    --surface-2: rgba(236, 240, 250, 0.7);
-    --glass-bg: linear-gradient(146deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.02) 46%, rgba(255, 255, 255, 0.12)), rgba(255, 255, 255, 0.48);
-    --glass-strong: linear-gradient(146deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.05) 46%, rgba(255, 255, 255, 0.16)), rgba(255, 255, 255, 0.64);
+    --surface: rgba(255, 255, 255, 0.64);
+    --surface-2: rgba(236, 240, 250, 0.8);
+    --glass-bg: linear-gradient(146deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.04) 46%, rgba(255, 255, 255, 0.14)), rgba(255, 255, 255, 0.58);
+    --glass-strong: linear-gradient(146deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0.18)), rgba(255, 255, 255, 0.74);
     --glass-edge: rgba(120, 134, 202, 0.24);
     --glass-inner: rgba(255, 255, 255, 0.45);
 
-    /* — Ink (cool slate) — */
-    --ink: #0f1422;
-    --ink-2: #3a4257;
-    --ink-3: #6c7793;
+    /* — Ink (cool slate, tuned for contrast over colourful glass) — */
+    --ink: #0b101c;
+    --ink-2: #313950;
+    --ink-3: #5d6883;
     --ghost: rgba(16, 22, 40, 0.06);
     --on-accent: #ffffff;
 
@@ -148,7 +148,7 @@
     --bg-alt: #0a0e1b;
     --bg-deep: #03050c;
 
-    --card: linear-gradient(146deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 42%, rgba(255, 255, 255, 0.05)), rgba(255, 255, 255, 0.055);
+    --card: linear-gradient(146deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 42%, rgba(255, 255, 255, 0.06)), rgba(22, 28, 48, 0.42);
     --card-solid: #0e1322;
     --surface: rgba(255, 255, 255, 0.045);
     --surface-2: rgba(255, 255, 255, 0.08);

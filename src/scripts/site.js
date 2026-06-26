@@ -217,3 +217,18 @@
         if (!raf) raf = requestAnimationFrame(tick);
     }, { passive: true });
 })();
+/* Cursor-tracked specular highlight on glass cards ------------------- */
+(function () {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var sel = ".pub-item, .tool-card, .post-item, .award-card, a.post-nav-card";
+    var cards = document.querySelectorAll(sel);
+    if (!cards.length) return;
+    cards.forEach(function (el) { el.classList.add("lq-glare"); });
+    document.addEventListener("pointermove", function (e) {
+        var t = e.target.closest ? e.target.closest(".lq-glare") : null;
+        if (!t) return;
+        var r = t.getBoundingClientRect();
+        t.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+        t.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+    }, { passive: true });
+})();

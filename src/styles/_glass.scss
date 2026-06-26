@@ -56,3 +56,55 @@
         border-color 240ms var(--ease-smooth), background-color 240ms var(--ease-smooth),
         color 240ms var(--ease-smooth);
 }
+
+/* =========================================================================
+   Realistic interaction — cursor-tracked specular + tactile press
+   ========================================================================= */
+
+/* Light follows the pointer across the glass (set via JS: --mx / --my) */
+.lq-glare {
+    --mx: 50%;
+    --my: 50%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .lq-glare:hover {
+        background:
+            radial-gradient(260px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.2), transparent 60%),
+            var(--card);
+    }
+
+    [data-theme="dark"] .lq-glare:hover {
+        background:
+            radial-gradient(300px circle at var(--mx) var(--my), rgba(170, 200, 255, 0.16), transparent 62%),
+            var(--card);
+    }
+}
+
+/* Tactile press — the glass depresses when clicked */
+.social-btn:active,
+.btn-ink:active,
+.btn-pub-link:active,
+.pub-view-all:active,
+.nav-link:active,
+.theme-toggle:active,
+.nav-burger:active,
+.post-chip:active,
+.tag:active,
+.term-chip:active,
+.pager-num:active,
+.pager-arrow:active,
+.section-action:active,
+.page-header-stat:active {
+    transform: translateY(0) scale(0.955);
+    transition-duration: 90ms;
+}
+
+.pub-item:active,
+.tool-card:active,
+.post-item:active,
+.award-card:active,
+a.post-nav-card:active {
+    transform: translateY(-1px) scale(0.993);
+    transition-duration: 120ms;
+}
