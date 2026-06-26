@@ -184,7 +184,7 @@
     transition: var(--t-spring);
 }
 
-/* glossy diagonal sheen sweeping the glass */
+/* static glossy edge gloss */
 .portrait-frame::before {
     content: "";
     position: absolute;
@@ -192,6 +192,25 @@
     z-index: 2;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 38%);
     pointer-events: none;
+}
+
+/* moving light reflection drifting across the glass */
+.portrait-frame::after {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: 0;
+    z-index: 3;
+    width: 42%;
+    height: 220%;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    filter: blur(8px);
+    animation: sheen-sweep 8.5s var(--ease-smooth) 1.5s infinite;
+}
+
+[data-theme="dark"] .portrait-frame::after {
+    background: linear-gradient(100deg, transparent, rgba(180, 205, 255, 0.3), transparent);
 }
 
 .hero-portrait:hover .portrait-frame {

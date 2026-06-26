@@ -50,10 +50,12 @@
     --ok-soft: rgba(24, 168, 122, 0.12);
 
     /* — Aurora blob colors (background) — */
-    --aurora-1: rgba(79, 99, 255, 0.42);
-    --aurora-2: rgba(139, 92, 246, 0.38);
-    --aurora-3: rgba(30, 200, 230, 0.34);
-    --aurora-4: rgba(236, 79, 175, 0.26);
+    --aurora-1: rgba(79, 99, 255, 0.5);
+    --aurora-2: rgba(139, 92, 246, 0.46);
+    --aurora-3: rgba(30, 200, 230, 0.42);
+    --aurora-4: rgba(236, 79, 175, 0.32);
+    --aurora-blur: 58px;
+    --aurora-sat: 155%;
 
     /* — Lines & strokes — */
     --line: rgba(20, 30, 60, 0.1);
@@ -114,9 +116,9 @@
         border-color 240ms var(--ease-smooth), background-color 240ms var(--ease-smooth),
         color 240ms var(--ease-smooth);
 
-    /* — Glass blur — */
-    --glass: blur(20px) saturate(180%);
-    --glass-deep: blur(34px) saturate(200%);
+    /* — Glass blur (saturation tuned so glass refracts the aurora) — */
+    --glass: blur(22px) saturate(210%);
+    --glass-deep: blur(38px) saturate(235%);
 
     --shell-max: 72rem;
     --header-h: 4rem;
@@ -167,10 +169,12 @@
     --ok: #45dca6;
     --ok-soft: rgba(69, 220, 166, 0.14);
 
-    --aurora-1: rgba(79, 99, 255, 0.5);
-    --aurora-2: rgba(139, 92, 246, 0.46);
-    --aurora-3: rgba(30, 200, 230, 0.36);
-    --aurora-4: rgba(236, 79, 175, 0.3);
+    --aurora-1: rgba(79, 99, 255, 0.58);
+    --aurora-2: rgba(139, 92, 246, 0.52);
+    --aurora-3: rgba(30, 200, 230, 0.44);
+    --aurora-4: rgba(236, 79, 175, 0.38);
+    --aurora-blur: 70px;
+    --aurora-sat: 175%;
 
     --line: rgba(238, 242, 252, 0.12);
     --line-soft: rgba(238, 242, 252, 0.07);

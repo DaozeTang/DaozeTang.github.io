@@ -8,7 +8,6 @@
     opacity: 0;
     transform: translateY(1.8rem);
     transition: opacity 760ms var(--ease-out), transform 760ms var(--ease-out);
-    will-change: opacity, transform;
 }
 
 .reveal-item.revealed {
@@ -65,6 +64,37 @@
     animation: shimmer 7s linear infinite;
 }
 
+/* slow specular sweep — light reflecting across a glass surface */
+@keyframes sheen-sweep {
+    0% { transform: translateX(-120%) rotate(8deg); opacity: 0; }
+    18% { opacity: 0.85; }
+    40% { opacity: 0; }
+    100% { transform: translateX(220%) rotate(8deg); opacity: 0; }
+}
+
+.glass-sheen {
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-sheen::after {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: 0;
+    width: 45%;
+    height: 220%;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    filter: blur(6px);
+    animation: sheen-sweep 9s var(--ease-smooth) infinite;
+    z-index: 3;
+}
+
+[data-theme="dark"] .glass-sheen::after {
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -83,6 +113,7 @@
         transform: none;
     }
 
+    .canvas-glow,
     .canvas-glow::before,
     .canvas-glow::after {
         animation: none;

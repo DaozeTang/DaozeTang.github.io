@@ -16,6 +16,7 @@
     backdrop-filter: var(--glass);
     -webkit-backdrop-filter: var(--glass);
     box-shadow: var(--shadow-sm), var(--rim);
+    overflow: hidden;
     transition: var(--t-spring);
 }
 
@@ -25,8 +26,9 @@
     position: absolute;
     top: 1.4rem;
     bottom: 1.4rem;
-    left: -1px;
+    left: 0;
     width: 3px;
+    z-index: 2;
     border-radius: var(--radius-pill);
     background: var(--grad-aurora);
     opacity: 0;
@@ -41,6 +43,30 @@
 
 .pub-item:hover::before {
     opacity: 1;
+}
+
+/* light reflection sweeping across the glass on hover */
+.pub-item::after {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: 0;
+    width: 40%;
+    height: 220%;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    filter: blur(7px);
+    opacity: 0;
+    transform: translateX(-140%) rotate(8deg);
+    z-index: 1;
+}
+
+[data-theme="dark"] .pub-item::after {
+    background: linear-gradient(100deg, transparent, rgba(180, 205, 255, 0.22), transparent);
+}
+
+.pub-item:hover::after {
+    animation: sheen-sweep 0.9s var(--ease-out) forwards;
 }
 
 .pub-media {
