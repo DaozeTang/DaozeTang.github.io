@@ -108,3 +108,29 @@ a.post-nav-card:active {
     transform: translateY(-1px) scale(0.993);
     transition-duration: 120ms;
 }
+
+/* =========================================================================
+   Small components — make chips, pills and tech tags refract like real glass
+   (they previously had a flat fill and no backdrop blur, so they looked plain)
+   ========================================================================= */
+.tag,
+.post-chip,
+.tool-tech-chip,
+.year-count,
+.rail-count {
+    -webkit-backdrop-filter: var(--glass);
+    backdrop-filter: var(--glass);
+}
+
+.tag,
+.post-chip,
+.tool-tech-chip {
+    box-shadow: var(--shadow-sm), var(--rim);
+}
+
+/* round nav buttons get the domed surface + edge so they read as glass too */
+.theme-toggle,
+.nav-burger,
+.nav-search-btn {
+    box-shadow: var(--shadow-sm), var(--rim);
+}
