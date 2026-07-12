@@ -1,0 +1,54 @@
+---
+layout: base.liquid
+title: Publications
+navTitle: Publications
+permalink: /publications/
+subtitle: >-
+  Journal articles, conference papers, and preprints — the written record of
+  what we've been exploring.
+---
+
+<header class="page-header">
+    <p class="page-header-kicker kicker">Index of papers</p>
+    <h1 class="page-header-title">Publications<span class="title-dot">.</span></h1>
+    <p class="page-header-subtitle">{{ subtitle }}</p>
+    <div class="page-header-meta">
+        <span class="page-header-stat"><i class="fas fa-book-open" aria-hidden="true"></i> {{ collections.publications.size }} papers</span>
+        {% for group in collections.publicationsByYear %}
+        <span class="page-header-stat">{{ group.year }} &middot; {{ group.items.size }}</span>
+        {% endfor %}
+    </div>
+</header>
+
+<div class="pubs-layout">
+    <div class="pubs-stream">
+        {% for group in collections.publicationsByYear %}
+        <section id="year-{{ group.year }}" class="year-section" data-year="{{ group.year }}">
+            <span class="year-ghost" aria-hidden="true">{{ group.year }}</span>
+            <header class="year-head">
+                <h2 class="year-num">{{ group.year }}</h2>
+                <span class="year-count"><b>{{ group.items.size }}</b> paper{% if group.items.size > 1 %}s{% endif %}</span>
+                <span class="year-rule" aria-hidden="true"></span>
+            </header>
+
+            <div class="pub-list">
+                {% for item in group.items %}
+                    {% include "publication-item" %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endfor %}
+    </div>
+
+    <aside class="pubs-rail" aria-label="Jump to year">
+        <div class="rail-label">Timeline</div>
+        <nav class="rail-nav" id="year-rail">
+            {% for group in collections.publicationsByYear %}
+            <a class="rail-link" href="#year-{{ group.year }}">
+                {{ group.year }}
+                <span class="rail-count">{{ group.items.size }}</span>
+            </a>
+            {% endfor %}
+        </nav>
+    </aside>
+</div>

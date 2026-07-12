@@ -1,0 +1,21 @@
+{
+  "name": "daozetang.github.io",
+  "version": "2.0.0",
+  "description": "Personal academic homepage of Daoze Tang",
+  "author": "Daoze Tang",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "js-yaml": "^4.1.0",
+    "sass": "^1.77.8"
+  }
+}

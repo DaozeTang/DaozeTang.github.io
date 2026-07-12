@@ -1,0 +1,24 @@
+---
+layout: base.liquid
+title: Homepage
+navTitle: Home
+permalink: /
+---
+
+{% include "hero" %}
+
+{% if display.homepage.show_news and collections.news.size > 0 %}
+    {% include "news-section" %}
+{% endif %}
+
+{% if display.homepage.show_selected_publications and collections.selectedPublications.size > 0 %}
+    {% include "selected-publications" %}
+{% endif %}
+
+{% if display.homepage.show_experience %}
+    {% include "background-section" %}
+{% endif %}
+
+{% if display.homepage.show_team_summary %}
+    {% include "team-section" %}
+{% endif %}

@@ -1,0 +1,127 @@
+@media (max-width: 1023.98px) {
+    .pubs-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pubs-rail {
+        display: none;
+    }
+}
+
+@media (max-width: 879.98px) {
+    .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-7);
+    }
+
+    .hero-side {
+        order: -1;
+    }
+
+    .hero-portrait {
+        max-width: 13.5rem;
+        margin: 0 auto;
+    }
+
+    .portrait-caption {
+        text-align: center;
+        padding-left: 0;
+        border-left: 0;
+        border-top: 2px solid var(--accent);
+        padding-top: var(--space-3);
+        max-width: 16rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .bg-grid,
+    .team-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .award-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat-item:first-child {
+        padding-top: var(--space-5);
+        border-top: 1px solid var(--line);
+    }
+}
+
+@media (max-width: 719.98px) {
+    .pub-item {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-4);
+    }
+
+    .pub-media {
+        max-width: 22rem;
+    }
+
+    .section-head {
+        flex-wrap: wrap;
+        row-gap: var(--space-1);
+    }
+
+    .section-rule {
+        display: none;
+    }
+
+    .section-action {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 559.98px) {
+    body {
+        font-size: 0.97rem;
+    }
+
+    .news-item,
+    .news-year-marker {
+        grid-template-columns: 1rem minmax(0, 1fr);
+    }
+
+    .news-list::before {
+        left: 0.31rem;
+    }
+
+    .news-date {
+        display: block;
+        grid-column: 2;
+        grid-row: 2;
+        padding: 0.15rem 0 0 var(--space-4);
+        text-align: left;
+    }
+
+    .news-node {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: baseline;
+        transform: translateY(0.2rem);
+    }
+
+    .news-text {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .news-year-label {
+        grid-column: 2;
+    }
+
+    .award-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .timeline-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-base {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

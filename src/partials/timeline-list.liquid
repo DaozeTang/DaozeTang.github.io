@@ -1,0 +1,21 @@
+<div class="timeline-wrapper">
+    {% for item in timelineItems %}
+    <div class="timeline-item">
+        <div class="timeline-marker">
+            {% if item.logo %}
+            <img src="{{ item.logo }}" alt="{{ item.name }}" loading="lazy">
+            {% else %}
+            <div class="icon-placeholder"><i class="fas {{ fallbackIcon | default: 'fa-circle' }}" aria-hidden="true"></i></div>
+            {% endif %}
+        </div>
+        <div class="timeline-content">
+            <div class="timeline-head">
+                <div class="exp-title">{{ item.name }}</div>
+                <div class="exp-meta">{{ item.date }}</div>
+            </div>
+            {% if item.dept %}<div class="exp-subtitle">{{ item.dept }}</div>{% endif %}
+            {% if item.position %}<div class="exp-desc">{{ item.position }}</div>{% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>

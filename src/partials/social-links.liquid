@@ -1,0 +1,26 @@
+<div class="profile-actions">
+    {%- for item in social -%}
+        {%- assign value = profile[item.key] -%}
+        {%- if value and value != "" -%}
+            {%- if item.encode -%}
+                {%- capture href -%}mailto:{{ value | encodeEmail }}{%- endcapture -%}
+            {%- else -%}
+                {%- assign value_head = value | slice: 0, 4 -%}
+                {%- if value_head == "http" -%}
+                    {%- assign href = value -%}
+                {%- else -%}
+                    {%- assign href = item.url | replace: "{value}", value -%}
+                {%- endif -%}
+            {%- endif -%}
+    <a class="social-btn{% if item.primary %} social-btn-primary{% endif %}" href="{{ href }}"{% unless item.encode %} target="_blank" rel="noopener"{% endunless %}>
+        <i class="{{ item.icon }}" aria-hidden="true"></i> {{ item.label }}
+    </a>
+        {%- endif -%}
+    {%- endfor -%}
+
+    {%- if profile.wechat_qrcode -%}
+    <button type="button" class="social-btn cursor-pointer" data-dialog-target="modal-wechat">
+        <i class="fa-brands fa-weixin" aria-hidden="true"></i> WeChat
+    </button>
+    {%- endif -%}
+</div>

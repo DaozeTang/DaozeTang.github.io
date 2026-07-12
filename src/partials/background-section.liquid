@@ -1,0 +1,52 @@
+<section class="section" id="background">
+    <header class="section-head">
+        <span class="section-index" aria-hidden="true"></span>
+        <h2 class="section-title">Background<span class="title-dot">.</span></h2>
+        <span class="section-rule" aria-hidden="true"></span>
+    </header>
+
+    <div class="bg-grid">
+        {% if profile.education %}
+        <div>
+            <div class="bg-col-head">
+                <i class="fas fa-graduation-cap" aria-hidden="true"></i> Education
+            </div>
+            {% assign timelineItems = profile.education %}
+            {% assign fallbackIcon = "fa-university" %}
+            {% include "timeline-list" %}
+        </div>
+        {% endif %}
+
+        {% if profile.experience %}
+        <div>
+            <div class="bg-col-head">
+                <i class="fas fa-briefcase" aria-hidden="true"></i> Experience
+            </div>
+            {% assign timelineItems = profile.experience %}
+            {% assign fallbackIcon = "fa-building" %}
+            {% include "timeline-list" %}
+        </div>
+        {% endif %}
+    </div>
+
+    {% if profile.awards %}
+    <div class="awards-block">
+        <div class="bg-col-head">
+            <i class="fas fa-medal" aria-hidden="true"></i> Honors &amp; Awards
+        </div>
+        <div class="award-grid">
+            {% for item in profile.awards %}
+            <div class="award-card">
+                <div class="award-icon">
+                    <i class="fas fa-award" aria-hidden="true"></i>
+                </div>
+                <div class="award-content">
+                    <div class="award-title">{{ item.name }}</div>
+                    <div class="award-date">{{ item.date }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</section>

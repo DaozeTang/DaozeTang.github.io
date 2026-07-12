@@ -1,0 +1,114 @@
+@supports (backdrop-filter: url("#x")) or (-webkit-backdrop-filter: url("#x")) {
+    .topbar,
+    .panel,
+    .pub-item,
+    .pub-media,
+    .tool-card,
+    .award-card,
+    .pubs-rail,
+    .toc-panel,
+    .stat-grid,
+    .post-item:hover,
+    .search-dialog,
+    .site-dialog,
+    .footer-base {
+        -webkit-backdrop-filter: var(--glass) url(#liquid-distortion);
+        backdrop-filter: var(--glass) url(#liquid-distortion);
+    }
+
+    .topbar.nav-scrolled,
+    .site-dialog,
+    .search-dialog {
+        -webkit-backdrop-filter: var(--glass-deep) url(#liquid-distortion);
+        backdrop-filter: var(--glass-deep) url(#liquid-distortion);
+    }
+
+    .pub-item:hover,
+    .tool-card:hover,
+    .award-card:hover {
+        -webkit-backdrop-filter: var(--glass) url(#liquid-distortion-strong);
+        backdrop-filter: var(--glass) url(#liquid-distortion-strong);
+    }
+}
+
+.pub-item,
+.tool-card,
+.award-card,
+.post-item,
+.term-chip,
+.position-badge,
+.social-btn,
+.timeline-marker,
+.pager-num {
+    transition: transform 520ms var(--ease-spring), box-shadow 360ms var(--ease-smooth),
+        border-color 240ms var(--ease-smooth), background-color 240ms var(--ease-smooth),
+        color 240ms var(--ease-smooth);
+}
+
+.lq-glare {
+    --mx: 50%;
+    --my: 50%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .lq-glare:hover {
+        background:
+            radial-gradient(260px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.16), transparent 62%),
+            var(--card);
+    }
+
+    [data-theme="dark"] .lq-glare:hover {
+        background: var(--card);
+    }
+}
+
+.social-btn:active,
+.btn-ink:active,
+.btn-pub-link:active,
+.pub-view-all:active,
+.nav-link:active,
+.theme-toggle:active,
+.nav-burger:active,
+.post-chip:active,
+.tag:active,
+.term-chip:active,
+.pager-num:active,
+.pager-arrow:active,
+.section-action:active,
+.page-header-stat:active {
+    transform: translateY(0) scale(0.955);
+    transition-duration: 90ms;
+}
+
+.pub-item:active,
+.tool-card:active,
+.post-item:active,
+.award-card:active,
+a.post-nav-card:active {
+    transform: translateY(-1px) scale(0.993);
+    transition-duration: 120ms;
+}
+
+.tag,
+.post-chip,
+.tool-tech-chip,
+.term-chip,
+.year-count,
+.rail-count,
+.page-header-stat,
+.section-action {
+    -webkit-backdrop-filter: var(--glass);
+    backdrop-filter: var(--glass);
+}
+
+.tag,
+.post-chip,
+.tool-tech-chip {
+    box-shadow: var(--rim-soft);
+}
+
+.theme-toggle,
+.nav-burger,
+.nav-search-btn {
+    box-shadow: var(--shadow-sm), var(--rim-soft);
+}

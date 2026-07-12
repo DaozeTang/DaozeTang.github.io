@@ -1,0 +1,25 @@
+<header class="site-header" id="site-header">
+    <div class="shell">
+        <nav class="topbar" id="topbar" aria-label="Main navigation">
+            <a class="brand" href="/">
+                <span class="brand-seal" aria-hidden="true">{{ profile.primary_name | slice: 0, 1 }}{{ profile.primary_name | split: " " | last | slice: 0, 1 }}</span>
+                <span class="brand-name">{{ profile.navbar_name }}</span>
+            </a>
+
+            <div class="nav-links" id="site-nav">
+                {% for item in navigation.pages %}
+                <a class="nav-link {% if item.name == navTitle %}active{% endif %}" href="{{ item.url }}">{{ item.name }}</a>
+                {% endfor %}
+            </div>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+                <button class="nav-burger" type="button" id="nav-burger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>

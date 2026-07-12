@@ -1,0 +1,142 @@
+.social-btn,
+.btn-pub-link,
+.pub-view-all,
+.btn-ink {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    border: 1px solid var(--glass-edge);
+    border-radius: var(--radius-pill);
+    background: var(--card);
+    backdrop-filter: var(--glass);
+    -webkit-backdrop-filter: var(--glass);
+    color: var(--ink-2);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm), var(--rim-soft);
+    transition: var(--t-spring);
+    overflow: hidden;
+}
+
+.social-btn {
+    padding: 0.65rem 1.15rem;
+    font-size: 0.84rem;
+}
+
+.social-btn i {
+    font-size: 0.9em;
+    color: var(--accent);
+    transition: transform var(--t-med);
+}
+
+.social-btn:hover {
+    border-color: var(--accent-line);
+    color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md), var(--rim-soft);
+}
+
+.social-btn:hover i {
+    transform: scale(1.18) rotate(-6deg);
+}
+
+.social-btn-primary {
+    border-color: transparent;
+    background: var(--grad-button);
+    color: #fff;
+    box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.social-btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--grad-sheen);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.social-btn-primary i {
+    color: #fff;
+}
+
+.social-btn-primary:hover {
+    color: #fff;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(64, 100, 240, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.btn-ink {
+    padding: 0.9rem 1.7rem;
+    border-color: transparent;
+    background: var(--grad-button);
+    color: #fff;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.btn-ink:hover {
+    color: #fff;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 18px 44px rgba(64, 100, 240, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.btn-ghost {
+    background: var(--card);
+    border-color: var(--glass-edge);
+    color: var(--ink-2);
+    box-shadow: var(--shadow-sm), var(--rim-soft);
+}
+
+.btn-ghost:hover {
+    border-color: var(--accent-line);
+    color: var(--accent-deep);
+}
+
+.btn-pub-link {
+    padding: 0.45rem 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.btn-pub-link::after {
+    content: "\2197";
+    font-size: 0.85em;
+    color: var(--accent);
+    transition: transform var(--t-med);
+}
+
+.btn-pub-link:hover {
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md), var(--rim-soft);
+}
+
+.btn-pub-link:hover::after {
+    transform: translate(2px, -2px);
+}
+
+.pub-view-all {
+    padding: 0.6rem 1.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.pub-view-all:hover {
+    border-color: var(--accent-line);
+    color: var(--accent-deep);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md), var(--rim-soft);
+}
