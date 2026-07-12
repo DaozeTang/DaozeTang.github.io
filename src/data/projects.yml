@@ -38,6 +38,10 @@ groups:
         role: Member
         funding:
           - National College Students' Innovation and Entrepreneurship Training Program
+      - title: "A Gas-Particulate Monitoring Robot for the Inverse Identification of Harmful Gas Particles in Large Open-Plan Apartments"
+        role: Member
+        funding:
+          - Heilongjiang Provincial College Students' Innovation and Entrepreneurship Training Program
 
   - year: "2023"
     items:
