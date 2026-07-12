@@ -6,7 +6,7 @@
     var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
     var themeToggle = document.getElementById("theme-toggle");
-    var THEME_COLORS = { light: "#eff1f7", dark: "#070a13" };
+    var THEME_COLORS = { light: "#fcf7f3", dark: "#18100c" };
     var MODE_ORDER = ["light", "dark", "system"];
     var MODE_ICONS = {
         light: "fas fa-sun",
