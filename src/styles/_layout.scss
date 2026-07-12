@@ -32,7 +32,7 @@
     letter-spacing: 0.04em;
     color: var(--accent-deep);
     padding: 0.25rem 0.55rem;
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-chip);
     background: var(--accent-soft);
 }
 
@@ -64,7 +64,7 @@
     align-items: center;
     gap: var(--space-2);
     padding: 0.4rem 0.9rem;
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-chip);
     border: 1px solid var(--glass-edge);
     background: var(--card);
     box-shadow: var(--rim-soft);
@@ -132,7 +132,7 @@
     gap: var(--space-2);
     padding: 0.4rem 0.95rem;
     border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-chip);
     background: var(--card);
     box-shadow: var(--rim-soft);
     color: var(--ink-2);

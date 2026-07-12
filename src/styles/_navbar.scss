@@ -15,7 +15,7 @@
     min-height: var(--header-h);
     padding: 0 var(--space-3) 0 var(--space-5);
     border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-lg);
     background: var(--glass-bg);
     backdrop-filter: var(--glass-deep);
     -webkit-backdrop-filter: var(--glass-deep);
@@ -93,7 +93,7 @@
     align-items: center;
     gap: 0.4em;
     padding: 0.45rem 0.9rem;
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-chip);
     color: var(--ink-2);
     font-family: var(--font-mono);
     font-size: 0.76rem;
