@@ -33,7 +33,7 @@
 .project-item:hover {
     border-color: var(--accent-line);
     transform: translateY(-4px);
-    box-shadow: var(--shadow-md), 0 16px 38px rgba(70, 104, 150, 0.14), var(--rim);
+    box-shadow: var(--shadow-md), 0 16px 38px rgba(30, 150, 215, 0.16), var(--rim);
 }
 
 .project-item:hover::before {
@@ -117,8 +117,8 @@
 }
 
 .role-advisor {
-    border-color: rgba(169, 109, 118, 0.36);
-    background: rgba(169, 109, 118, 0.1);
+    border-color: rgba(33, 181, 140, 0.36);
+    background: rgba(33, 181, 140, 0.1);
     color: var(--violet);
 }
 
@@ -127,8 +127,8 @@
 }
 
 .role-member {
-    border-color: rgba(67, 137, 124, 0.34);
-    background: rgba(67, 137, 124, 0.1);
+    border-color: rgba(23, 169, 166, 0.34);
+    background: rgba(23, 169, 166, 0.1);
     color: var(--teal);
 }
 
