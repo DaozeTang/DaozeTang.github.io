@@ -1,0 +1,18 @@
+<article class="project-item">
+    <div class="project-body">
+        <div class="project-head">
+            <h3 class="project-title">{{ item.title }}</h3>
+            {% if item.role %}
+            <span class="role-tag role-{{ item.role | downcase }}">{{ item.role }}</span>
+            {% endif %}
+        </div>
+
+        {% if item.funding and item.funding.size > 0 %}
+        <div class="project-funding">
+            {% for fund in item.funding %}
+            <span class="tag tag-gold">{{ fund }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</article>

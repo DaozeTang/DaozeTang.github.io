@@ -1,0 +1,55 @@
+# Research & innovation projects, grouped by year (newest first).
+# role: Advisor | Leader | Member
+# funding: list of grant/support programs (omit or leave empty if none)
+groups:
+  - year: "2026"
+    items:
+      - title: "A Multi-source Heterogeneous Data-Driven System for Dynamic Perception and Intelligent Governance of Digital-Economy Vitality"
+        role: Advisor
+      - title: "An Intelligent Product-Selection and Digital-Livestreaming Assistance System for E-commerce-Enabled Agricultural Support"
+        role: Advisor
+      - title: "A Low-Altitude Remote Sensing and Digital-Twin System for Ice-Flood and Ice-Regime Monitoring and Early Warning in Cold-Region River Basins"
+        role: Advisor
+      - title: "A UAV Autonomous-Inspection and Proactive Early-Warning System for External-Force Damage to Urban Power Transmission Lines"
+        role: Advisor
+      - title: "A Multi-source Remote Sensing and Spatiotemporal Causal-Inference System for Black-Soil Cropland Quality Monitoring and Conservation-Tillage Decision-Making"
+        role: Advisor
+      - title: "A UAV Remote Sensing-Driven System for Intelligent Loss Assessment and Risk Pricing in Cold-Region Agricultural Insurance"
+        role: Advisor
+
+  - year: "2025"
+    items:
+      - title: "A Low-Altitude Remote Sensing-Driven Smart City Management System"
+        role: Leader
+        funding:
+          - National College Students' Innovation and Entrepreneurship Training Program
+
+  - year: "2024"
+    items:
+      - title: "An AI and Machine-Vision Intelligent Crop-Harvesting Vehicle: A Case Study of Dongning Wood-Ear Mushrooms"
+        role: Leader
+        funding:
+          - National College Students' Innovation and Entrepreneurship Training Program
+      - title: "Smart Snow Investment: Financial Investment Strategy Research and Platform Development for Heilongjiang's Ice-and-Snow Economy in the Big-Data Era"
+        role: Member
+        funding:
+          - National College Students' Innovation and Entrepreneurship Training Program
+      - title: "Design and Implementation of a Computer-Vision-Based Mobility Aid for the Visually Impaired"
+        role: Member
+        funding:
+          - National College Students' Innovation and Entrepreneurship Training Program
+
+  - year: "2023"
+    items:
+      - title: "An IoT In-Vehicle Safety System Powered by Big-Data Models and Artificial Intelligence"
+        role: Leader
+        funding:
+          - National College Students' Innovation and Entrepreneurship Training Program
+          - Heilongjiang Provincial College Students' Entrepreneurship Support Program
+
+  - year: "2022"
+    items:
+      - title: "Spark and Wind: Practitioners of Rural Revitalization"
+        role: Member
+        funding:
+          - National College Students' Innovation and Entrepreneurship Training Program

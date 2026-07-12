@@ -1,0 +1,143 @@
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.project-item {
+    position: relative;
+    padding: clamp(1.15rem, 2.4vw, 1.5rem) clamp(1.3rem, 2.6vw, 1.7rem);
+    border: 1px solid var(--glass-edge);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    backdrop-filter: var(--glass);
+    -webkit-backdrop-filter: var(--glass);
+    box-shadow: var(--shadow-sm), var(--rim);
+    overflow: hidden;
+    transition: var(--t-spring);
+}
+
+.project-item::before {
+    content: "";
+    position: absolute;
+    top: clamp(1.15rem, 2.4vw, 1.5rem);
+    bottom: clamp(1.15rem, 2.4vw, 1.5rem);
+    left: 0;
+    width: 3px;
+    border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+    background: var(--accent-line);
+    opacity: 0;
+    transition: opacity var(--t-fast);
+}
+
+.project-item:hover {
+    border-color: var(--accent-line);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md), 0 16px 38px rgba(59, 107, 255, 0.13), var(--rim);
+}
+
+.project-item:hover::before {
+    opacity: 1;
+}
+
+.project-body {
+    min-width: 0;
+}
+
+.project-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-3);
+}
+
+.project-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.45;
+    color: var(--ink);
+    transition: color var(--t-fast);
+}
+
+.project-item:hover .project-title {
+    color: var(--accent-deep);
+}
+
+.project-funding {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+}
+
+.project-funding .tag {
+    white-space: normal;
+}
+
+/* Role tag — colour-coded by involvement */
+.role-tag {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.24em 0.75em;
+    border: 1px solid var(--glass-edge);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: var(--rim-soft);
+}
+
+.role-tag::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.82em;
+}
+
+.role-leader {
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+}
+
+.role-leader::before {
+    content: "\f521"; /* crown */
+}
+
+.role-advisor {
+    border-color: rgba(109, 71, 221, 0.36);
+    background: rgba(109, 71, 221, 0.1);
+    color: var(--violet);
+}
+
+.role-advisor::before {
+    content: "\f19d"; /* graduation cap */
+}
+
+.role-member {
+    border-color: rgba(13, 138, 104, 0.34);
+    background: rgba(13, 138, 104, 0.1);
+    color: var(--teal);
+}
+
+.role-member::before {
+    content: "\f0c0"; /* users */
+}
+
+@media (max-width: 559.98px) {
+    .project-title {
+        font-size: 1.02rem;
+    }
+}
