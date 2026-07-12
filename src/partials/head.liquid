@@ -10,7 +10,7 @@
 <meta property="og:description" content="{{ profile.short_bio | strip_html | strip_newlines | truncatewords: 30 }}">
 {% if profile.portrait_url %}<meta property="og:image" content="{{ profile.portrait_url }}">{% endif %}
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" id="meta-theme-color" content="#fcf7f3">
+<meta name="theme-color" id="meta-theme-color" content="#f9f7f6">
 
 <script>
     (function () {
@@ -26,7 +26,7 @@
         root.setAttribute("data-theme", theme);
         root.setAttribute("data-theme-mode", mode);
         var meta = document.getElementById("meta-theme-color");
-        if (meta) meta.setAttribute("content", theme === "dark" ? "#18100c" : "#fcf7f3");
+        if (meta) meta.setAttribute("content", theme === "dark" ? "#16110e" : "#f9f7f6");
         var rand = function (a, b) { return a + Math.random() * (b - a); };
         var t1 = rand(38, 52), t2 = rand(50, 68), th = rand(38, 52);
         var s = root.style;
