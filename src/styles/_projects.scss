@@ -17,27 +17,10 @@
     transition: var(--t-spring);
 }
 
-.project-item::before {
-    content: "";
-    position: absolute;
-    top: clamp(1.15rem, 2.4vw, 1.5rem);
-    bottom: clamp(1.15rem, 2.4vw, 1.5rem);
-    left: 0;
-    width: 3px;
-    border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
-    background: var(--accent-line);
-    opacity: 0;
-    transition: opacity var(--t-fast);
-}
-
 .project-item:hover {
     border-color: var(--accent-line);
     transform: translateY(-4px);
     box-shadow: var(--shadow-md), 0 16px 38px rgba(30, 150, 215, 0.16), var(--rim);
-}
-
-.project-item:hover::before {
-    opacity: 1;
 }
 
 .project-body {
