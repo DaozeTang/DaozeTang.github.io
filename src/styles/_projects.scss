@@ -28,15 +28,13 @@
 }
 
 .project-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--space-2) var(--space-3);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: var(--space-3);
 }
 
 .project-title {
-    flex: 1 1 auto;
     min-width: 0;
     margin: 0;
     font-size: 1.08rem;
@@ -62,7 +60,6 @@
     white-space: normal;
 }
 
-/* Role tag — colour-coded by involvement */
 .role-tag {
     flex: none;
     display: inline-flex;
@@ -96,7 +93,7 @@
 }
 
 .role-leader::before {
-    content: "\f521"; /* crown */
+    content: "\f521";
 }
 
 .role-advisor {
@@ -106,7 +103,7 @@
 }
 
 .role-advisor::before {
-    content: "\f19d"; /* graduation cap */
+    content: "\f19d";
 }
 
 .role-member {
@@ -116,7 +113,7 @@
 }
 
 .role-member::before {
-    content: "\f0c0"; /* users */
+    content: "\f0c0";
 }
 
 @media (max-width: 559.98px) {
