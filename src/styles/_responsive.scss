@@ -159,6 +159,18 @@
 
     .footer-base {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: var(--space-3);
+        padding: var(--space-5);
+    }
+
+    .footer-note {
+        flex: 0 1 auto;
+        width: 100%;
+    }
+
+    .footer-meta {
+        width: 100%;
+        gap: var(--space-1) var(--space-3);
     }
 }

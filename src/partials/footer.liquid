@@ -3,9 +3,11 @@
         <div class="footer-base">
             <div class="footer-note">{{ display.footer_text }}</div>
             <div class="footer-meta">
-                <span>&copy; 2022&ndash;{{ "now" | date: "%Y" }} {{ profile.primary_name }}</span>
-                <span class="sep" aria-hidden="true">&#10038;</span>
-                <span>Updated {{ "now" | date: "%b %Y" }}</span>
+                <span class="footer-meta-item">&copy; 2022&ndash;{{ "now" | date: "%Y" }} {{ profile.primary_name }}</span>
+                <span class="footer-meta-group">
+                    <span class="sep" aria-hidden="true">&#10038;</span>
+                    <span class="footer-meta-item">Updated {{ "now" | date: "%b %Y" }}</span>
+                </span>
             </div>
         </div>
     </div>
