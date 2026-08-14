@@ -1,19 +1,13 @@
-<article class="ip-item">
-    <div class="ip-mark" aria-hidden="true">
-        <i class="fas fa-file-code"></i>
-    </div>
-
-    <div class="ip-body">
-        <div class="ip-labels">
-            <span class="ip-type">{{ item.type }}</span>
-            <span class="ip-role"><i class="fas fa-user-pen" aria-hidden="true"></i> {{ item.role }}</span>
+<article class="project-item ip-item">
+    <div class="project-body">
+        <div class="project-head">
+            <h3 class="project-title ip-title">{{ item.title }}</h3>
+            <span class="role-tag ip-role"><i class="fas fa-user-pen" aria-hidden="true"></i> {{ item.role }}</span>
         </div>
 
-        <h3 class="ip-title">{{ item.title }}</h3>
-
-        <p class="ip-registration">
-            <span class="ip-registration-label">Registration No.</span>
-            <span class="ip-registration-number">{{ item.registration_number }}</span>
-        </p>
+        <div class="project-funding ip-meta">
+            <span class="tag tag-accent"><i class="fas fa-file-code" aria-hidden="true"></i> {{ item.type }}</span>
+            <span class="tag ip-registration"><i class="fas fa-certificate" aria-hidden="true"></i> Registration No. {{ item.registration_number }}</span>
+        </div>
     </div>
 </article>
