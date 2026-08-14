@@ -5,9 +5,13 @@
 }
 
 .ip-role {
-    border-color: rgba(64, 127, 191, 0.32);
-    background: rgba(64, 127, 191, 0.1);
-    color: var(--blue);
+    border-color: var(--blue-line);
+    background: var(--blue-soft);
+    color: var(--blue-ink);
+}
+
+.ip-role:hover {
+    border-color: var(--blue-ink);
 }
 
 .ip-role i,
@@ -17,4 +21,14 @@
 
 .ip-registration {
     color: var(--ink-2);
+}
+
+.ip-registration:hover {
+    border-color: var(--line-strong);
+    color: var(--ink);
+}
+
+.ip-timeline .rail-link:only-child {
+    color: var(--accent-deep);
+    background: var(--accent-soft);
 }

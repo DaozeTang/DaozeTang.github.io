@@ -1,7 +1,7 @@
 .hero {
     position: relative;
-    padding-top: clamp(2.6rem, 7vw, 5rem);
-    padding-bottom: clamp(2.8rem, 7vw, 4.5rem);
+    padding-top: clamp(2.4rem, 6vw, 4.2rem);
+    padding-bottom: clamp(2.5rem, 6vw, 4rem);
 }
 
 .hero-grid {
@@ -9,6 +9,10 @@
     grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
     gap: clamp(2rem, 6vw, 4.5rem);
     align-items: center;
+}
+
+.hero-kicker {
+    margin-bottom: var(--space-5);
 }
 
 .profile-status {
@@ -26,6 +30,18 @@
     color: var(--accent-deep);
     font-size: 0.8rem;
     font-weight: 600;
+    transition: var(--t-spring);
+}
+
+.profile-status:hover {
+    border-color: var(--accent-line);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm), var(--rim-soft);
+}
+
+.profile-status:hover .status-dot {
+    transform: scale(1.15);
 }
 
 .status-dot {
@@ -35,10 +51,11 @@
     border-radius: var(--radius-pill);
     background: var(--accent);
     animation: status-pulse 2.4s infinite var(--ease-smooth);
+    transition: transform var(--t-med), background-color var(--t-fast);
 }
 
 .hero-name {
-    margin: 0 0 var(--space-5);
+    margin: 0 0 var(--space-4);
     font-family: var(--font-display);
     font-size: clamp(3.1rem, 8.4vw, 5.6rem);
     font-weight: 800;
@@ -103,7 +120,7 @@
 
 .hero-bio {
     max-width: 56rem;
-    margin-bottom: clamp(1.6rem, 3.5vw, 2.2rem);
+    margin-bottom: var(--space-4);
     color: var(--ink-2);
     font-family: var(--font-serif);
     font-size: 1.04rem;
@@ -146,7 +163,7 @@
 .hero-bio a b,
 .hero-bio a strong {
     color: inherit;
-    font-weight: 660;
+    font-weight: 700;
 }
 
 .hero-side {
@@ -182,7 +199,7 @@
 
 .hero-portrait:hover .portrait-frame {
     transform: translateY(-4px) scale(1.012);
-    box-shadow: var(--shadow-lg), 0 24px 52px rgba(30, 150, 215, 0.22), var(--rim-strong);
+    box-shadow: var(--shadow-lg), 0 24px 52px rgb(var(--accent-rgb) / 0.22), var(--rim-strong);
 }
 
 .profile-img {
@@ -203,7 +220,7 @@
     border-left: 2px solid var(--accent);
     color: var(--ink-3);
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.74rem;
     line-height: 1.7;
     letter-spacing: 0.02em;
 }

@@ -10,9 +10,14 @@
     padding-bottom: var(--space-10);
 }
 
+.page-main:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .section {
     position: relative;
-    margin-top: clamp(4rem, 9vw, 6.5rem);
+    margin-top: var(--section-gap);
     counter-increment: section;
     scroll-margin-top: calc(var(--header-h) + 2rem);
 }
@@ -42,7 +47,7 @@
 
 .section-title {
     font-size: clamp(1.75rem, 3.6vw, 2.5rem);
-    font-weight: 750;
+    font-weight: 700;
     letter-spacing: -0.028em;
     line-height: 1.05;
 }
@@ -95,7 +100,18 @@
 
 .page-header {
     position: relative;
-    padding: clamp(2.6rem, 7vw, 5rem) 0 clamp(1.8rem, 4vw, 2.8rem);
+    max-width: 54rem;
+    padding: clamp(2.4rem, 6vw, 4.2rem) 0 clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.page-header::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-line), var(--line), transparent 82%);
 }
 
 .page-header-kicker {
@@ -131,6 +147,7 @@
     align-items: center;
     gap: var(--space-2);
     padding: 0.4rem 0.95rem;
+    min-height: 2.5rem;
     border: 1px solid var(--glass-edge);
     border-radius: var(--radius-chip);
     background: var(--card);
@@ -142,14 +159,29 @@
     transition: var(--t-spring);
 }
 
-a.page-header-stat:hover {
+.page-header-stat:hover,
+a.page-header-stat:focus-visible {
     border-color: var(--accent-line);
+    background:
+        linear-gradient(135deg, var(--glass-inner), transparent 52%),
+        color-mix(in srgb, var(--card-solid) 68%, var(--accent-soft));
     color: var(--accent-deep);
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm), var(--rim-soft);
 }
 
+a.page-header-stat:focus-visible {
+    box-shadow: var(--ring), var(--shadow-sm), var(--rim-soft);
+}
+
 .page-header-stat i {
     color: var(--accent);
     font-size: 0.72rem;
+    transition: color var(--t-fast), transform var(--t-med);
+}
+
+.page-header-stat:hover i,
+a.page-header-stat:focus-visible i {
+    color: var(--accent-deep);
+    transform: translateY(-1px) scale(1.08);
 }

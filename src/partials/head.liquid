@@ -16,26 +16,26 @@
     (function () {
         var mode = "system";
         try {
-            var stored = localStorage.getItem("theme");
+            var match = document.cookie.match(/(?:^|;\s*)dzt_theme=(light|dark|system)(?:;|$)/);
+            var stored = match ? match[1] : localStorage.getItem("theme");
             if (stored === "light" || stored === "dark" || stored === "system") mode = stored;
         } catch (e) {}
         var theme = mode === "system"
             ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
             : mode;
         var root = document.documentElement;
+        if (new URLSearchParams(window.location.search).has("capture")) root.setAttribute("data-capture", "true");
         root.setAttribute("data-theme", theme);
         root.setAttribute("data-theme-mode", mode);
         var meta = document.getElementById("meta-theme-color");
         if (meta) meta.setAttribute("content", theme === "dark" ? "#16110e" : "#f9f7f6");
-        var rand = function (a, b) { return a + Math.random() * (b - a); };
-        var t1 = rand(38, 52), t2 = rand(50, 68), th = rand(38, 52);
         var s = root.style;
-        s.setProperty("--aurora-t1", t1.toFixed(1) + "s");
-        s.setProperty("--aurora-t2", t2.toFixed(1) + "s");
-        s.setProperty("--aurora-hue-t", th.toFixed(1) + "s");
-        s.setProperty("--aurora-seek-1", (-rand(0, 2 * t1)).toFixed(1) + "s");
-        s.setProperty("--aurora-seek-2", (-rand(0, 2 * t2)).toFixed(1) + "s");
-        s.setProperty("--aurora-hue-seek", (-rand(0, 2 * th)).toFixed(1) + "s");
+        s.setProperty("--aurora-t1", "46s");
+        s.setProperty("--aurora-t2", "58s");
+        s.setProperty("--aurora-hue-t", "47s");
+        s.setProperty("--aurora-seek-1", "-13s");
+        s.setProperty("--aurora-seek-2", "-31s");
+        s.setProperty("--aurora-hue-seek", "-19s");
     })();
 </script>
 

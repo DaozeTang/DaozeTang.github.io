@@ -25,7 +25,7 @@ subtitle: >-
     </div>
 </header>
 
-<div class="pubs-layout">
+<div class="pubs-layout ip-layout">
     <div class="pubs-stream">
         {% for group in intellectual_property.groups %}
         <section id="year-{{ group.year }}" class="year-section" data-year="{{ group.year }}">
@@ -45,7 +45,7 @@ subtitle: >-
         {% endfor %}
     </div>
 
-    <aside class="pubs-rail" aria-label="Jump to year">
+    <aside class="pubs-rail ip-timeline" aria-label="Jump to year">
         <div class="rail-label">Timeline</div>
         <nav class="rail-nav" id="year-rail">
             {% for group in intellectual_property.groups %}

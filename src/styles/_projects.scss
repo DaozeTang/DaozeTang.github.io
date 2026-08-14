@@ -20,7 +20,7 @@
 .project-item:hover {
     border-color: var(--accent-line);
     transform: translateY(-4px);
-    box-shadow: var(--shadow-md), 0 16px 38px rgba(30, 150, 215, 0.16), var(--rim);
+    box-shadow: var(--shadow-interactive);
 }
 
 .project-body {
@@ -78,6 +78,12 @@
     text-transform: uppercase;
     white-space: nowrap;
     box-shadow: var(--rim-soft);
+    transition: var(--t-spring);
+}
+
+.role-tag:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm), var(--rim-soft);
 }
 
 .role-tag::before {
@@ -92,14 +98,22 @@
     color: var(--accent-deep);
 }
 
+.role-leader:hover {
+    border-color: var(--accent);
+}
+
 .role-leader::before {
     content: "\f521";
 }
 
 .role-advisor {
-    border-color: rgba(33, 181, 140, 0.36);
-    background: rgba(33, 181, 140, 0.1);
-    color: var(--violet);
+    border-color: var(--violet-line);
+    background: var(--violet-soft);
+    color: var(--violet-ink);
+}
+
+.role-advisor:hover {
+    border-color: var(--violet-ink);
 }
 
 .role-advisor::before {
@@ -107,9 +121,13 @@
 }
 
 .role-member {
-    border-color: rgba(23, 169, 166, 0.34);
-    background: rgba(23, 169, 166, 0.1);
-    color: var(--teal);
+    border-color: var(--teal-line);
+    background: var(--teal-soft);
+    color: var(--teal-ink);
+}
+
+.role-member:hover {
+    border-color: var(--teal-ink);
 }
 
 .role-member::before {

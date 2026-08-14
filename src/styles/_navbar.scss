@@ -46,6 +46,7 @@
     align-items: center;
     gap: var(--space-3);
     color: var(--ink);
+    white-space: nowrap;
 }
 
 .brand:hover {
@@ -100,6 +101,7 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    white-space: nowrap;
     transition: var(--t-fast);
 }
 
@@ -132,8 +134,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.75rem;
+    height: 2.75rem;
     padding: 0;
     border: 1px solid var(--glass-edge);
     border-radius: var(--radius-pill);
@@ -158,7 +160,11 @@
     display: none;
 }
 
-@media (max-width: 719.98px) {
+@media (max-width: 959.98px) {
+    .nav-actions {
+        margin-left: auto;
+    }
+
     .nav-links {
         position: absolute;
         top: calc(100% + 0.6rem);
@@ -172,7 +178,7 @@
         padding: var(--space-3);
         border: 1px solid var(--glass-edge);
         border-radius: var(--radius-lg);
-        background: var(--glass-strong);
+        background: var(--menu-bg);
         backdrop-filter: var(--glass-deep);
         -webkit-backdrop-filter: var(--glass-deep);
         box-shadow: var(--shadow-lg), var(--rim);

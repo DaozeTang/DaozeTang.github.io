@@ -11,6 +11,7 @@
     --glass-strong: linear-gradient(150deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.26) 24%, rgba(255, 255, 255, 0.1) 54%, rgba(255, 255, 255, 0.05) 72%, rgba(255, 255, 255, 0.22) 100%), rgba(255, 255, 255, 0.64);
     --glass-edge: rgba(160, 135, 114, 0.26);
     --glass-inner: rgba(255, 255, 255, 0.45);
+    --menu-bg: rgba(254, 253, 252, 0.94);
     --veil: rgba(245, 243, 241, 0.22);
 
     --ink: #0c111d;
@@ -20,6 +21,7 @@
     --on-accent: #ffffff;
 
     --accent: #347954;
+    --accent-rgb: 52 121 84;
     --accent-deep: #21593b;
     --accent-soft: rgba(52, 121, 84, 0.1);
     --accent-softer: rgba(52, 121, 84, 0.05);
@@ -33,6 +35,16 @@
     --blue-bright: #5494d4;
     --coral: #d06c4e;
     --gold: #c58526;
+    --gold-ink: #805113;
+    --blue-ink: #245f9a;
+    --violet-ink: #68457e;
+    --teal-ink: #236565;
+    --violet-soft: rgba(104, 69, 126, 0.1);
+    --violet-line: rgba(104, 69, 126, 0.32);
+    --blue-soft: rgba(36, 95, 154, 0.1);
+    --blue-line: rgba(36, 95, 154, 0.3);
+    --teal-soft: rgba(35, 101, 101, 0.1);
+    --teal-line: rgba(35, 101, 101, 0.3);
     --gold-soft: rgba(197, 133, 38, 0.14);
     --ok: #328655;
 
@@ -59,6 +71,7 @@
     --shadow-md: 0 2px 5px rgba(50, 39, 30, 0.07), 0 14px 34px rgba(64, 50, 38, 0.13);
     --shadow-lg: 0 4px 10px rgba(50, 39, 30, 0.08), 0 28px 64px rgba(64, 50, 38, 0.18);
     --shadow-glow: 0 12px 32px rgba(52, 121, 84, 0.26);
+    --shadow-interactive: var(--shadow-md), 0 16px 38px rgb(var(--accent-rgb) / 0.18), var(--rim);
     --ring: 0 0 0 3px rgba(52, 121, 84, 0.32);
 
     --rim:
@@ -119,6 +132,10 @@
 
     --shell-max: 72rem;
     --header-h: 4rem;
+    --section-gap: clamp(3.6rem, 8vw, 6rem);
+    --content-gap: clamp(1.5rem, 4vw, 3rem);
+    --card-pad: clamp(1.2rem, 2.6vw, 1.7rem);
+    --leading-prose: 1.82;
 
     --pulse-from: 0 0 0 0 rgba(52, 121, 84, 0.45);
     --pulse-mid: 0 0 0 0.6rem rgba(52, 121, 84, 0);
@@ -138,6 +155,7 @@
     --glass-strong: linear-gradient(150deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 48%, rgba(255, 255, 255, 0.05)), rgba(38, 30, 23, 0.72);
     --glass-edge: rgba(255, 255, 255, 0.14);
     --glass-inner: rgba(255, 255, 255, 0.06);
+    --menu-bg: rgba(29, 23, 18, 0.95);
     --veil: rgba(16, 13, 10, 0.3);
 
     --ink: #eef2fc;
@@ -147,6 +165,7 @@
     --on-accent: #ffffff;
 
     --accent: #4abf81;
+    --accent-rgb: 74 191 129;
     --accent-deep: #6ad29b;
     --accent-soft: rgba(74, 191, 129, 0.15);
     --accent-softer: rgba(74, 191, 129, 0.08);
@@ -160,6 +179,16 @@
     --blue-bright: #97c0ed;
     --coral: #e58c6c;
     --gold: #ecb351;
+    --gold-ink: #ecb351;
+    --blue-ink: #91bce8;
+    --violet-ink: #c6a7d9;
+    --teal-ink: #69cfd0;
+    --violet-soft: rgba(198, 167, 217, 0.13);
+    --violet-line: rgba(198, 167, 217, 0.34);
+    --blue-soft: rgba(145, 188, 232, 0.12);
+    --blue-line: rgba(145, 188, 232, 0.32);
+    --teal-soft: rgba(105, 207, 208, 0.12);
+    --teal-line: rgba(105, 207, 208, 0.32);
     --gold-soft: rgba(236, 179, 81, 0.14);
     --ok: #4ac97f;
 
@@ -179,13 +208,14 @@
 
     --grad-aurora: linear-gradient(120deg, #4abf81 0%, #59c3c5 50%, #7cacde 100%);
     --grad-text: linear-gradient(108deg, #4abf81 0%, #59c3c5 50%, #7cacde 100%);
-    --grad-button: linear-gradient(140deg, #4abf81 0%, #59c3c5 58%, #6ad29b 100%);
+    --grad-button: linear-gradient(140deg, #286f4d 0%, #267377 58%, #245d55 100%);
     --grad-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 46%);
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.38), 0 4px 14px rgba(0, 0, 0, 0.36);
     --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.38), 0 12px 34px rgba(0, 0, 0, 0.46);
     --shadow-lg: 0 6px 18px rgba(0, 0, 0, 0.46), 0 28px 70px rgba(0, 0, 0, 0.56);
     --shadow-glow: 0 14px 40px rgba(74, 191, 129, 0.32);
+    --shadow-interactive: var(--shadow-md), 0 16px 40px rgb(var(--accent-rgb) / 0.2), var(--rim);
     --ring: 0 0 0 3px rgba(74, 191, 129, 0.38);
 
     --rim:

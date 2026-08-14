@@ -8,12 +8,12 @@
 
             <div class="nav-links" id="site-nav">
                 {% for item in navigation.pages %}
-                <a class="nav-link {% if item.name == navTitle %}active{% endif %}" href="{{ item.url }}">{{ item.name }}</a>
+                <a class="nav-link {% if item.name == navTitle %}active{% endif %}" href="{{ item.url }}"{% if item.name == navTitle %} aria-current="page"{% endif %}>{{ item.name }}</a>
                 {% endfor %}
             </div>
 
             <div class="nav-actions">
-                <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+                <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Change color theme">
                     <i class="fas fa-moon" aria-hidden="true"></i>
                 </button>
                 <button class="nav-burger" type="button" id="nav-burger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">

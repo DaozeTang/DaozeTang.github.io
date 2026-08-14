@@ -121,13 +121,43 @@ body {
 }
 
 :focus {
-    outline: none;
+    outline: 2px solid transparent;
+    outline-offset: 3px;
 }
 
 :focus-visible {
-    outline: none;
+    outline-color: var(--accent);
     box-shadow: var(--ring);
     border-radius: var(--radius-sm);
+}
+
+.skip-link {
+    position: fixed;
+    top: var(--space-3);
+    left: var(--space-3);
+    z-index: 1000;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--accent-line);
+    border-radius: var(--radius-chip);
+    background: var(--menu-bg);
+    color: var(--accent-deep);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-md), var(--rim-soft);
+    transform: translateY(calc(-100% - 2rem));
+    transition: transform var(--t-med);
+}
+
+.skip-link:focus-visible {
+    transform: translateY(0);
+}
+
+@media (forced-colors: active) {
+    :focus-visible {
+        outline: 2px solid CanvasText;
+        box-shadow: none;
+    }
 }
 
 img,
@@ -172,7 +202,7 @@ a:hover {
 
 strong,
 b {
-    font-weight: 660;
+    font-weight: 700;
     color: var(--ink);
 }
 
@@ -282,4 +312,37 @@ code {
     height: 0;
     overflow: hidden;
     pointer-events: none;
+}
+
+[data-capture="true"] .site-header {
+    position: relative;
+}
+
+[data-capture="true"] .canvas-glow,
+[data-capture="true"] .canvas-veil,
+[data-capture="true"] .canvas-grain {
+    display: none;
+}
+
+[data-capture="true"] body {
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(ellipse at 12% 8%, var(--aurora-1), transparent 34%),
+        radial-gradient(ellipse at 88% 14%, var(--aurora-2), transparent 36%),
+        radial-gradient(ellipse at 16% 72%, var(--aurora-3), transparent 38%),
+        radial-gradient(ellipse at 86% 86%, var(--aurora-4), transparent 36%);
+    background-size: 100% 100%;
+}
+
+html[data-capture="true"] {
+    scrollbar-width: none;
+}
+
+html[data-capture="true"]::-webkit-scrollbar {
+    display: none;
+}
+
+[data-capture="true"] * {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
 }

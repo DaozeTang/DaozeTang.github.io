@@ -33,12 +33,13 @@
 
 .footer-meta {
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: var(--space-3);
     font-family: var(--font-mono);
     font-size: 0.72rem;
     letter-spacing: 0.04em;
-    white-space: nowrap;
+    white-space: normal;
 }
 
 .footer-meta a {
