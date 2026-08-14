@@ -210,7 +210,7 @@
 })();
 (function () {
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    var sel = ".pub-item, .tool-card, .post-item, .award-card, a.post-nav-card";
+    var sel = ".pub-item, .ip-item, .tool-card, .post-item, .award-card, a.post-nav-card";
     var cards = document.querySelectorAll(sel);
     if (!cards.length) return;
     cards.forEach(function (el) { el.classList.add("lq-glare"); });

@@ -2,6 +2,7 @@
     .topbar,
     .panel,
     .pub-item,
+    .ip-item,
     .pub-media,
     .tool-card,
     .award-card,
@@ -24,6 +25,7 @@
     }
 
     .pub-item:hover,
+    .ip-item:hover,
     .tool-card:hover,
     .award-card:hover {
         -webkit-backdrop-filter: var(--glass) url(#liquid-distortion-strong);
@@ -32,6 +34,7 @@
 }
 
 .pub-item,
+.ip-item,
 .tool-card,
 .award-card,
 .post-item,
@@ -81,6 +84,7 @@
 }
 
 .pub-item:active,
+.ip-item:active,
 .tool-card:active,
 .post-item:active,
 .award-card:active,

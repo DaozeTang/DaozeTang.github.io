@@ -1,0 +1,15 @@
+# Patents, software copyrights, and other intellectual property, grouped by year.
+# type: Display label for the intellectual-property category.
+# registration_number: Registration number shown on the certificate.
+# role: Contribution shown on the registration.
+groups:
+  - year: "2024"
+    items:
+      - title: "A Blockchain-Based Secure Data Sharing and Storage System for Vehicular Ad Hoc Networks"
+        type: Software Copyright
+        registration_number: "12688804"
+        role: First Author
+      - title: "A Security System for the Vehicular Internet of Things Based on Edge Cloud Computing"
+        type: Software Copyright
+        registration_number: "12686735"
+        role: First Author
