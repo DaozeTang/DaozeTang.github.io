@@ -44,33 +44,12 @@
     z-index: 1;
     display: inline-flex;
     align-items: center;
-    gap: var(--space-3);
     color: var(--ink);
     white-space: nowrap;
 }
 
 .brand:hover {
     color: var(--ink);
-}
-
-.brand-seal {
-    display: grid;
-    place-items: center;
-    width: 2.2rem;
-    height: 2.2rem;
-    border-radius: 0.7rem;
-    background: var(--grad-button);
-    color: #fff;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.45);
-    transition: var(--t-spring);
-}
-
-.brand:hover .brand-seal {
-    transform: rotate(-8deg) scale(1.08);
 }
 
 .brand-name {
