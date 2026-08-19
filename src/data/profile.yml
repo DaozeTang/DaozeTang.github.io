@@ -5,7 +5,7 @@ navbar_name: "Daoze Tang"
 status: ""
 
 positions:
-- name: Incoming M.Eng. Student · CAU
+- name: M.Eng. Student · CAU
   logo: /assets/images/institutions/cau-logo.png
 - name: B.Eng. Graduate · HUC
   logo: /assets/images/institutions/huc-logo.png
@@ -20,7 +20,7 @@ blog: https://blog.dztang.net/
 short_bio_text_justify: false
 short_bio: >-
   <p>
-  Hello! I am Daoze Tang, an incoming Master's student in Computer Science and Technology at <a href="https://www.cau.edu.cn/" target="_blank" rel="noopener"><b>China Agricultural University</b></a>, where I will be supervised by <a href="https://faculty.cau.edu.cn/lx_7543/list.htm" target="_blank" rel="noopener"><b>Prof. Xiang Li</b></a>.
+  Hello! I am Daoze Tang, a Master's student in Computer Science and Technology at <a href="https://www.cau.edu.cn/" target="_blank" rel="noopener"><b>China Agricultural University</b></a>, advised by <a href="https://faculty.cau.edu.cn/lx_7543/list.htm" target="_blank" rel="noopener"><b>Prof. Xiang Li</b></a>.
   </p>
   <p>
   My research spans Computer Science broadly, centering on <b>Computer Vision</b>—and Object Detection in particular—where I build efficient algorithms and robust visual recognition systems.
@@ -46,7 +46,7 @@ education:
 - name: China Agricultural University
   logo: /assets/images/institutions/cau-logo.png
   position: >-
-    Master of Engineering in Computer Science and Technology · Recommended Admission
+    Master of Engineering in Computer Science and Technology
   date: Sep. 2026 - Jul. 2029
 - name: Harbin University of Commerce
   logo: /assets/images/institutions/huc-logo.png
