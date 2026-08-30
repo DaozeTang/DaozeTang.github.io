@@ -18,13 +18,7 @@ metaDescription: >-
     </div>
 </header>
 
-<section class="collaborators-section" aria-labelledby="collaborators-list-title">
-    <header class="section-head">
-        <span class="section-index" aria-hidden="true"></span>
-        <h2 class="section-title" id="collaborators-list-title">Working together<span class="title-dot">.</span></h2>
-        <span class="section-rule" aria-hidden="true"></span>
-    </header>
-
+<section class="collaborators-section" aria-label="Recent collaborators">
     <div class="collaborator-grid">
         {% for person in collaborators.people %}
         <article class="collaborator-card">
@@ -60,14 +54,4 @@ metaDescription: >-
         {% endfor %}
     </div>
 
-    <footer class="collaborators-outro" aria-label="A note on collaboration">
-        <div class="collaborators-outro-label" aria-hidden="true">
-            <span class="collaborators-outro-rule"></span>
-            <span>In good company</span>
-        </div>
-        <div class="collaborators-outro-copy">
-            <p class="collaborators-outro-quote">Different perspectives make better questions possible.</p>
-            <p class="collaborators-outro-text">I’m grateful for the ideas, trust, and momentum we continue to build together.</p>
-        </div>
-    </footer>
 </section>

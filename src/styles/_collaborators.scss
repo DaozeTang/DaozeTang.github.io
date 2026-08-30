@@ -222,59 +222,6 @@
     line-height: 1.45;
 }
 
-.collaborators-outro {
-    display: grid;
-    grid-template-columns: minmax(8rem, 1fr) minmax(0, 3fr);
-    gap: clamp(1.5rem, 5vw, 4rem);
-    align-items: start;
-    margin-top: clamp(2.6rem, 7vw, 4.5rem);
-    padding-top: clamp(1.5rem, 4vw, 2.2rem);
-    border-top: 1px solid var(--line-strong);
-}
-
-.collaborators-outro-label {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding-top: 0.4rem;
-    color: var(--accent-deep);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-}
-
-.collaborators-outro-rule {
-    flex: 0 0 2.2rem;
-    height: 2px;
-    border-radius: var(--radius-pill);
-    background: var(--grad-aurora);
-}
-
-.collaborators-outro-copy {
-    max-width: 43rem;
-}
-
-.collaborators-outro-quote {
-    margin: 0;
-    color: var(--ink);
-    font-family: var(--font-display);
-    font-size: clamp(1.45rem, 3.2vw, 2.15rem);
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    line-height: 1.25;
-}
-
-.collaborators-outro-text {
-    max-width: 37rem;
-    margin: var(--space-3) 0 0;
-    color: var(--ink-2);
-    font-family: var(--font-serif);
-    font-size: 0.98rem;
-    line-height: 1.7;
-}
-
 @media (max-width: 879.98px) {
     .collaborator-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -288,14 +235,5 @@
 
     .collaborator-card {
         min-height: 19rem;
-    }
-
-    .collaborators-outro {
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--space-4);
-    }
-
-    .collaborators-outro-label {
-        padding-top: 0;
     }
 }
