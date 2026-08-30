@@ -1,0 +1,29 @@
+description: >-
+  Research is shaped by conversation, trust, and shared curiosity. This is a
+  current snapshot of the people I have been working with most closely—not a
+  complete historical record.
+institution_count: 2
+
+people:
+  - name: Shuyun Tang
+    initials: ST
+    institution: China Agricultural University
+    institution_short: CAU
+    institution_logo: /assets/images/institutions/cau-logo.png
+    institution_logo_alt: China Agricultural University emblem
+
+  - name: Shuang Zhou
+    initials: SZ
+    homepage: https://toponezs111111-source.github.io
+    institution: Harbin University of Commerce
+    institution_short: HUC
+    institution_logo: /assets/images/institutions/huc-logo.png
+    institution_logo_alt: Harbin University of Commerce emblem
+
+  - name: Yuxin Bao
+    initials: YB
+    homepage: https://yuxinbao00.github.io
+    institution: China Agricultural University
+    institution_short: CAU
+    institution_logo: /assets/images/institutions/cau-logo.png
+    institution_logo_alt: China Agricultural University emblem

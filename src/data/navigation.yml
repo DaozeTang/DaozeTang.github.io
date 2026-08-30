@@ -5,5 +5,7 @@ pages:
   url: /publications
 - name: Projects
   url: /projects
+- name: Collaborators
+  url: /collaborators
 - name: Intellectual Property
   url: /intellectual-property

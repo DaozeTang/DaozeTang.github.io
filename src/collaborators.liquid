@@ -1,0 +1,73 @@
+---
+layout: base.liquid
+title: Recent Collaborators
+navTitle: Collaborators
+permalink: /collaborators/
+metaDescription: >-
+  Meet Daoze Tang's recent major collaborators and their institutional
+  affiliations.
+---
+
+<header class="page-header collaborators-header">
+    <p class="page-header-kicker kicker">A current circle</p>
+    <h1 class="page-header-title">Collaborators<span class="title-dot">.</span></h1>
+    <p class="page-header-subtitle">{{ collaborators.description }}</p>
+    <div class="page-header-meta" aria-label="Collaboration overview">
+        <span class="page-header-stat"><i class="fas fa-user-group" aria-hidden="true"></i> {{ collaborators.people.size }} collaborators</span>
+        <span class="page-header-stat"><i class="fas fa-building-columns" aria-hidden="true"></i> {{ collaborators.institution_count }} institutions</span>
+    </div>
+</header>
+
+<section class="collaborators-section" aria-labelledby="collaborators-list-title">
+    <header class="section-head">
+        <span class="section-index" aria-hidden="true"></span>
+        <h2 class="section-title" id="collaborators-list-title">Working together<span class="title-dot">.</span></h2>
+        <span class="section-rule" aria-hidden="true"></span>
+    </header>
+
+    <div class="collaborator-grid">
+        {% for person in collaborators.people %}
+        <article class="collaborator-card">
+            <div class="collaborator-card-top">
+                <span class="collaborator-number" aria-hidden="true">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
+                <span class="collaborator-monogram" aria-hidden="true">{{ person.initials }}</span>
+            </div>
+
+            <div class="collaborator-body">
+                <p class="collaborator-eyebrow">Recent collaborator</p>
+                <h3 class="collaborator-name">
+                    {% if person.homepage %}
+                    <a class="collaborator-name-link" href="{{ person.homepage }}" target="_blank" rel="noopener" aria-label="{{ person.name }} personal homepage (opens in a new tab)">
+                        <span>{{ person.name }}</span>
+                        <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                    {% else %}
+                    {{ person.name }}
+                    {% endif %}
+                </h3>
+
+                <div class="collaborator-affiliation">
+                    <span class="institution-mark">
+                        <img src="{{ person.institution_logo }}" alt="{{ person.institution_logo_alt }}" loading="lazy">
+                    </span>
+                    <span class="institution-copy">
+                        <span class="institution-label">Affiliation · {{ person.institution_short }}</span>
+                        <span class="institution-name">{{ person.institution }}</span>
+                    </span>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    <footer class="collaborators-outro" aria-label="A note on collaboration">
+        <div class="collaborators-outro-label" aria-hidden="true">
+            <span class="collaborators-outro-rule"></span>
+            <span>In good company</span>
+        </div>
+        <div class="collaborators-outro-copy">
+            <p class="collaborators-outro-quote">Different perspectives make better questions possible.</p>
+            <p class="collaborators-outro-text">I’m grateful for the ideas, trust, and momentum we continue to build together.</p>
+        </div>
+    </footer>
+</section>

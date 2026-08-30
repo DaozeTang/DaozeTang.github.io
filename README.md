@@ -19,6 +19,7 @@ npm run build   # production build into _site/
 | Homepage sections on/off | `src/data/display.yml` |
 | Papers | `src/content/publications/<year>/*.md` |
 | Patents and software copyrights | `src/data/intellectual_property.yml` |
+| Recent collaborators | `src/data/collaborators.yml` |
 | News | `src/content/news/<year>/*.md` |
 
 Paper front matter: `title`, `date`, `venue`, `selected`, optional `highlight`, `semantic_scholar_id`, `cover`, `authors` (suffix `*` = equal contribution, `#` = corresponding), `links`, `abstract`. News front matter: `title`, `date`, optional `badge`.

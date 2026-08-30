@@ -1,13 +1,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="{{ profile.short_bio | strip_html | strip_newlines | truncatewords: 30 }}">
+{% assign pageDescription = metaDescription | default: profile.short_bio %}
+<meta name="description" content="{{ pageDescription | strip_html | strip_newlines | truncatewords: 30 }}">
 <meta name="author" content="{{ profile.primary_name }}">
 <title>{{ title }} - {{ profile.navbar_name }}</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 
 <meta property="og:type" content="profile">
 <meta property="og:title" content="{{ title }} - {{ profile.navbar_name }}">
-<meta property="og:description" content="{{ profile.short_bio | strip_html | strip_newlines | truncatewords: 30 }}">
+<meta property="og:description" content="{{ pageDescription | strip_html | strip_newlines | truncatewords: 30 }}">
 {% if profile.portrait_url %}<meta property="og:image" content="{{ profile.portrait_url }}">{% endif %}
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" id="meta-theme-color" content="#f9f7f6">
