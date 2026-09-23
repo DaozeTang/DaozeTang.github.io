@@ -108,6 +108,7 @@
     font-family: var(--font-display);
     font-size: clamp(5rem, 18vw, 9rem);
     font-weight: 800;
+    font-variation-settings: "SOFT" 0, "WONK" 0;
     letter-spacing: -0.04em;
     line-height: 1;
     background: var(--grad-text);

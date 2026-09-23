@@ -3,16 +3,16 @@
 
     --bg: #f9f7f6;
 
-    --card: linear-gradient(150deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.28) 22%, rgba(255, 255, 255, 0.1) 52%, rgba(255, 255, 255, 0.04) 74%, rgba(255, 255, 255, 0.22) 100%), rgba(255, 255, 255, 0.56);
+    --card: linear-gradient(150deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.28) 22%, rgba(255, 255, 255, 0.1) 52%, rgba(255, 255, 255, 0.04) 74%, rgba(255, 255, 255, 0.26) 100%), rgba(255, 255, 255, 0.7);
     --card-solid: #fefdfc;
-    --surface: linear-gradient(150deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.24) 32%, rgba(255, 255, 255, 0.08) 66%, rgba(255, 255, 255, 0.18) 100%), rgba(255, 255, 255, 0.52);
+    --surface: linear-gradient(150deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.24) 32%, rgba(255, 255, 255, 0.08) 66%, rgba(255, 255, 255, 0.2) 100%), rgba(255, 255, 255, 0.64);
     --surface-2: rgba(245, 239, 233, 0.8);
-    --glass-bg: linear-gradient(150deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.22) 24%, rgba(255, 255, 255, 0.08) 54%, rgba(255, 255, 255, 0.04) 72%, rgba(255, 255, 255, 0.18) 100%), rgba(255, 255, 255, 0.52);
-    --glass-strong: linear-gradient(150deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.26) 24%, rgba(255, 255, 255, 0.1) 54%, rgba(255, 255, 255, 0.05) 72%, rgba(255, 255, 255, 0.22) 100%), rgba(255, 255, 255, 0.64);
+    --glass-bg: linear-gradient(150deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.22) 24%, rgba(255, 255, 255, 0.08) 54%, rgba(255, 255, 255, 0.04) 72%, rgba(255, 255, 255, 0.22) 100%), rgba(255, 255, 255, 0.64);
+    --glass-strong: linear-gradient(150deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.26) 24%, rgba(255, 255, 255, 0.1) 54%, rgba(255, 255, 255, 0.05) 72%, rgba(255, 255, 255, 0.26) 100%), rgba(255, 255, 255, 0.76);
     --glass-edge: rgba(160, 135, 114, 0.26);
     --glass-inner: rgba(255, 255, 255, 0.45);
     --menu-bg: rgba(254, 253, 252, 0.94);
-    --veil: rgba(245, 243, 241, 0.22);
+    --veil: rgba(245, 243, 241, 0.13);
 
     --ink: #0c111d;
     --ink-2: #2e364e;
@@ -29,16 +29,16 @@
 
     --violet: #946fae;
     --cyan: #4592b0;
-    --pink: #c98798;
     --teal: #3a8888;
     --blue: #407fbf;
-    --blue-bright: #5494d4;
     --coral: #d06c4e;
     --gold: #c58526;
     --gold-ink: #805113;
     --blue-ink: #245f9a;
     --violet-ink: #68457e;
     --teal-ink: #236565;
+    --pink-ink: #a4566b;
+    --cyan-ink: #2c6e88;
     --violet-soft: rgba(104, 69, 126, 0.1);
     --violet-line: rgba(104, 69, 126, 0.32);
     --blue-soft: rgba(36, 95, 154, 0.1);
@@ -46,7 +46,7 @@
     --teal-soft: rgba(35, 101, 101, 0.1);
     --teal-line: rgba(35, 101, 101, 0.3);
     --gold-soft: rgba(197, 133, 38, 0.14);
-    --ok: #328655;
+    --ok: #2b7a4b;
 
     --aurora-1: rgba(52, 121, 84, 0.42);
     --aurora-2: rgba(64, 127, 191, 0.36);
@@ -60,7 +60,7 @@
     --line: rgba(51, 39, 29, 0.1);
     --line-soft: rgba(51, 39, 29, 0.06);
     --line-strong: rgba(51, 39, 29, 0.2);
-    --dot: rgba(51, 39, 29, 0.045);
+    --dot: rgba(51, 39, 29, 0.03);
 
     --grad-aurora: linear-gradient(120deg, #347954 0%, #3a8888 50%, #407fbf 100%);
     --grad-text: linear-gradient(108deg, #1f4732 0%, #224f4f 50%, #29517a 100%);
@@ -156,7 +156,7 @@
     --glass-edge: rgba(255, 255, 255, 0.14);
     --glass-inner: rgba(255, 255, 255, 0.06);
     --menu-bg: rgba(29, 23, 18, 0.95);
-    --veil: rgba(16, 13, 10, 0.3);
+    --veil: rgba(16, 13, 10, 0.2);
 
     --ink: #eef2fc;
     --ink-2: #b9c2db;
@@ -173,16 +173,16 @@
 
     --violet: #bd9cd3;
     --cyan: #78bcd9;
-    --pink: #e3abb9;
     --teal: #59c3c5;
     --blue: #7cacde;
-    --blue-bright: #97c0ed;
     --coral: #e58c6c;
     --gold: #ecb351;
     --gold-ink: #ecb351;
     --blue-ink: #91bce8;
     --violet-ink: #c6a7d9;
     --teal-ink: #69cfd0;
+    --pink-ink: #e3abb9;
+    --cyan-ink: #78bcd9;
     --violet-soft: rgba(198, 167, 217, 0.13);
     --violet-line: rgba(198, 167, 217, 0.34);
     --blue-soft: rgba(145, 188, 232, 0.12);
@@ -204,7 +204,7 @@
     --line: rgba(249, 245, 241, 0.11);
     --line-soft: rgba(249, 245, 241, 0.065);
     --line-strong: rgba(249, 245, 241, 0.22);
-    --dot: rgba(249, 245, 241, 0.045);
+    --dot: rgba(249, 245, 241, 0.03);
 
     --grad-aurora: linear-gradient(120deg, #4abf81 0%, #59c3c5 50%, #7cacde 100%);
     --grad-text: linear-gradient(108deg, #4abf81 0%, #59c3c5 50%, #7cacde 100%);

@@ -21,7 +21,12 @@
             <strong>{{ item.data.venue }}</strong>
             <span class="mono">&middot; {{ item.date | date: "%Y" }}</span>
             {% if item.data.semantic_scholar_id %}
-            <span data-semantic-scholar-id="{{ item.data.semantic_scholar_id }}"{% if item.data.links.Paper %} data-doi="{{ item.data.links.Paper | remove: 'https://doi.org/' }}"{% endif %}></span>
+            {% assign cite = citations[item.data.semantic_scholar_id] %}
+            {% if cite.count > 0 %}
+            {% assign cite_src = "Semantic Scholar" %}
+            {% if cite.source == "openalex" %}{% assign cite_src = "OpenAlex" %}{% endif %}
+            <a class="tag tag-cite" href="https://www.semanticscholar.org/paper/{{ item.data.semantic_scholar_id }}" target="_blank" rel="noopener" title="Citation count from {{ cite_src }}, updated {{ cite.fetchedAt }}"><i class="ai ai-semanticscholar" aria-hidden="true"></i> {{ cite.count }} citation{% if cite.count != 1 %}s{% endif %}</a>
+            {% endif %}
             {% endif %}
             {% if item.data.highlight %}
             <span class="tag tag-gold">{{ item.data.highlight }}</span>

@@ -118,6 +118,12 @@
     border-radius: 0.3rem;
 }
 
+[data-theme="dark"] .position-badge img {
+    padding: 0.1rem;
+    border-radius: 0.32rem;
+    background: rgba(248, 245, 241, 0.94);
+}
+
 .hero-bio {
     max-width: 56rem;
     margin-bottom: var(--space-4);
@@ -207,20 +213,22 @@
     aspect-ratio: 0.82;
     object-fit: cover;
     transform: scale(1.02);
+    filter: brightness(1.13) contrast(1.05) saturate(1.04);
     transition: transform 760ms var(--ease-out), filter 760ms var(--ease-out);
 }
 
 .hero-portrait:hover .profile-img {
     transform: scale(1.06);
+    filter: brightness(1.2) contrast(1.06) saturate(1.06);
 }
 
 .portrait-caption {
     margin-top: var(--space-5);
     padding-left: var(--space-4);
     border-left: 2px solid var(--accent);
-    color: var(--ink-3);
+    color: var(--ink-2);
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     line-height: 1.7;
     letter-spacing: 0.02em;
 }

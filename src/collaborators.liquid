@@ -29,7 +29,7 @@ metaDescription: >-
 
             <div class="collaborator-body">
                 <p class="collaborator-eyebrow">Recent collaborator</p>
-                <h3 class="collaborator-name">
+                <h2 class="collaborator-name">
                     {% if person.homepage %}
                     <a class="collaborator-name-link" href="{{ person.homepage }}" target="_blank" rel="noopener" aria-label="{{ person.name }} personal homepage (opens in a new tab)">
                         <span>{{ person.name }}</span>
@@ -38,7 +38,7 @@ metaDescription: >-
                     {% else %}
                     {{ person.name }}
                     {% endif %}
-                </h3>
+                </h2>
 
                 <div class="collaborator-affiliation">
                     <span class="institution-mark">

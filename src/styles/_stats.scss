@@ -70,8 +70,9 @@
 }
 
 .stat-affix {
-    font-size: 0.6em;
-    font-weight: 800;
+    font-size: 0.7em;
+    font-weight: 700;
+    line-height: 1;
     background: var(--grad-text);
     -webkit-background-clip: text;
     background-clip: text;
@@ -79,12 +80,21 @@
     color: transparent;
 }
 
+.stat-value > .stat-affix:first-child {
+    margin-right: 0.04em;
+}
+
+.stat-value > .stat-affix:last-child {
+    margin-left: 0.02em;
+}
+
 .stat-sub {
-    margin-top: 0.15rem;
+    margin-top: 0.3rem;
     color: var(--ink-3);
     font-family: var(--font-mono);
-    font-size: 0.74rem;
-    letter-spacing: 0.04em;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    opacity: 0.9;
 }
 
 .stat-label {

@@ -7,8 +7,8 @@
 .pub-item {
     position: relative;
     display: grid;
-    grid-template-columns: 13rem minmax(0, 1fr);
-    gap: clamp(1.2rem, 3vw, 2rem);
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: clamp(1.2rem, 3vw, 2.2rem);
     padding: clamp(1.3rem, 2.6vw, 1.7rem);
     border: 1px solid var(--glass-edge);
     border-radius: var(--radius-lg);
@@ -29,7 +29,7 @@
 .pub-media {
     position: relative;
     overflow: hidden;
-    align-self: start;
+    align-self: center;
     border: 1px solid var(--glass-edge);
     border-radius: var(--radius-md);
     background: var(--surface);
@@ -51,21 +51,31 @@
 }
 
 .pub-cover {
+    display: block;
     width: 100%;
-    aspect-ratio: 1.5;
-    object-fit: cover;
-    transition: transform 700ms var(--ease-out);
+    height: auto;
+    transition: filter 700ms var(--ease-out);
+    filter: saturate(1.06) contrast(1.03);
 }
 
 .pub-item:hover .pub-cover {
-    transform: scale(1.05);
+    filter: saturate(1.12) contrast(1.05);
+}
+
+[data-theme="dark"] .pub-cover {
+    opacity: 0.94;
+    filter: brightness(0.88) contrast(0.96) saturate(0.92);
+}
+
+[data-theme="dark"] .pub-media::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 42%);
 }
 
 .pub-cover-placeholder {
     display: grid;
     place-items: center;
     width: 100%;
-    aspect-ratio: 1.5;
+    aspect-ratio: 1.32;
     color: var(--accent);
     font-size: 1.5rem;
     background: var(--accent-softer);

@@ -41,10 +41,10 @@
     content: "";
     position: absolute;
     right: 1.65rem;
-    bottom: 0;
+    bottom: 0.55rem;
     left: 1.65rem;
     height: 3px;
-    border-radius: var(--radius-pill) var(--radius-pill) 0 0;
+    border-radius: var(--radius-pill);
     background: var(--grad-aurora);
     opacity: 0.38;
     transform: scaleX(0.38);
