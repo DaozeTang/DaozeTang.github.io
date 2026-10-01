@@ -1,3 +1,8 @@
+/* ==========================================================================
+   PIXEL BASE — shared reset / typography / background layers.
+   Byte-identical across the Blog and personal-homepage repositories.
+   ========================================================================== */
+
 *,
 *::before,
 *::after {
@@ -17,120 +22,98 @@ body {
     position: relative;
     min-height: 100vh;
     background-color: var(--bg);
+    background-image:
+        linear-gradient(var(--dot) var(--bw-hair), transparent var(--bw-hair)),
+        linear-gradient(90deg, var(--dot) var(--bw-hair), transparent var(--bw-hair));
+    background-size: 32px 32px, 32px 32px;
+    background-position: -1px -1px;
     color: var(--ink);
     font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.65;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-size: 1.05rem;
+    line-height: var(--leading-prose);
+    letter-spacing: 0.01em;
     overflow-x: hidden;
+    /* NB: `-webkit-font-smoothing: none` makes Chrome shear the tops off
+       shadowed pixel-font headings, so smoothing stays on and crispness comes
+       from the bitmap faces themselves instead. */
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
-.canvas-glow {
+/* ---- CRT / pixel backdrop layers ------------------------------------- */
+
+.canvas-grid {
     position: fixed;
-    inset: -40vmax;
+    /* site.js parallaxes this layer by up to +-44px; an inset:0 box would drag
+       a bare band along the viewport edge, so it is deliberately oversized. */
+    inset: -64px;
     z-index: -3;
     pointer-events: none;
-    overflow: hidden;
-    filter: blur(var(--aurora-blur)) saturate(var(--aurora-sat));
-    animation: aurora-hue var(--aurora-hue-t, 44s) ease-in-out var(--aurora-hue-seek, 0s) infinite alternate;
+    background-image:
+        repeating-linear-gradient(180deg, var(--aurora-1) 0 var(--px), transparent var(--px) 96px),
+        repeating-linear-gradient(90deg, var(--aurora-2) 0 var(--px), transparent var(--px) 96px),
+        var(--px-dither);
+    background-size: auto, auto, 8px 8px;
+    opacity: 0.3;
 }
 
-.canvas-glow::before,
-.canvas-glow::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(40vmax 34vmax at 27% 25%, var(--aurora-1), transparent 64%),
-        radial-gradient(42vmax 36vmax at 73% 22%, var(--aurora-2), transparent 64%),
-        radial-gradient(38vmax 32vmax at 71% 76%, var(--aurora-3), transparent 64%),
-        radial-gradient(34vmax 28vmax at 26% 78%, var(--aurora-4), transparent 64%);
-    animation: aurora-drift var(--aurora-t1, 44s) var(--ease-smooth) var(--aurora-seek-1, 0s) infinite alternate;
-    will-change: transform;
-}
-
-.canvas-glow::after {
-    background:
-        radial-gradient(30vmax 24vmax at 55% 26%, var(--aurora-5), transparent 62%),
-        radial-gradient(36vmax 30vmax at 24% 50%, var(--aurora-6), transparent 62%),
-        radial-gradient(32vmax 26vmax at 77% 50%, var(--aurora-3), transparent 62%),
-        radial-gradient(24vmax 20vmax at 46% 46%, var(--aurora-2), transparent 60%),
-        radial-gradient(28vmax 24vmax at 52% 78%, var(--aurora-4), transparent 62%);
-    animation: aurora-drift-2 var(--aurora-t2, 58s) var(--ease-smooth) var(--aurora-seek-2, 0s) infinite alternate;
-    opacity: 0.9;
-}
-
-[data-theme="dark"] .canvas-glow::after {
-    mix-blend-mode: screen;
-}
-
-[data-theme="light"] .canvas-glow {
-    opacity: 0.92;
-}
-
-[data-theme="dark"] .canvas-glow {
-    opacity: 0.95;
-}
-
-.canvas-veil {
+.canvas-scanlines {
     position: fixed;
     inset: 0;
     z-index: -2;
     pointer-events: none;
-    background:
-        radial-gradient(120% 62% at 50% 44%, var(--veil) 0%, transparent 82%),
-        linear-gradient(180deg, transparent 0%, var(--veil) 34%, var(--veil) 66%, transparent 100%);
+    background-image: repeating-linear-gradient(180deg,
+            var(--ghost) 0 2px, transparent 2px var(--px-scan));
+    opacity: 0.4;
+    animation: scan-roll 8s steps(8, end) infinite;
 }
 
-.canvas-grain {
+.canvas-vignette {
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.4;
-    background-image:
-        radial-gradient(var(--dot) 1px, transparent 1.4px),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.045'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 28px 28px, 180px 180px;
+    background:
+        radial-gradient(120% 80% at 50% 40%, transparent 52%, var(--veil) 100%);
 }
 
-@keyframes aurora-drift {
-    0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1.08); }
-    25%  { transform: translate3d(7%, -12%, 0) rotate(6deg) scale(1.16); }
-    50%  { transform: translate3d(15%, 8%, 0) rotate(12deg) scale(1.08); }
-    75%  { transform: translate3d(-6%, 14%, 0) rotate(5deg) scale(1.18); }
-    100% { transform: translate3d(-15%, -8%, 0) rotate(-8deg) scale(1.1); }
+@keyframes scan-roll {
+    from { background-position: 0 0; }
+    to { background-position: 0 32px; }
 }
 
-@keyframes aurora-drift-2 {
-    0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1.1); }
-    28%  { transform: translate3d(-11%, 5%, 0) rotate(-9deg) scale(1.2); }
-    55%  { transform: translate3d(6%, -13%, 0) rotate(8deg) scale(1.1); }
-    80%  { transform: translate3d(14%, 8%, 0) rotate(-5deg) scale(1.22); }
-    100% { transform: translate3d(-9%, 14%, 0) rotate(11deg) scale(1.1); }
-}
-
-@keyframes aurora-hue {
-    0% { filter: blur(var(--aurora-blur)) saturate(var(--aurora-sat)) hue-rotate(-12deg); }
-    100% { filter: blur(var(--aurora-blur)) saturate(var(--aurora-sat)) hue-rotate(14deg); }
+/* legacy layer names kept working (older markup / capture screenshots) */
+.canvas-glow,
+.canvas-veil,
+.canvas-grain {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    filter: none;
+    animation: none;
+    background: none;
+    background-image: none;
+    opacity: 1;
+    mix-blend-mode: normal;
 }
 
 ::selection {
     background: var(--accent);
     color: var(--on-accent);
+    text-shadow: none;
 }
 
 :focus {
     outline: 2px solid transparent;
-    outline-offset: 3px;
+    outline-offset: 2px;
 }
 
 :focus-visible {
-    outline-color: var(--accent);
-    box-shadow: var(--ring);
-    border-radius: var(--radius-sm);
+    outline: var(--focus-outline);
+    outline-offset: 3px;
+    border-radius: 0;
 }
 
 .skip-link {
@@ -138,15 +121,17 @@ body {
     top: var(--space-3);
     left: var(--space-3);
     z-index: 1000;
-    padding: 0.7rem 1rem;
-    border: 1px solid var(--accent-line);
-    border-radius: var(--radius-chip);
-    background: var(--menu-bg);
-    color: var(--accent-deep);
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 700;
-    box-shadow: var(--shadow-md), var(--rim-soft);
+    padding: var(--space-3) var(--space-4);
+    border: var(--bw) solid var(--px-line);
+    border-radius: 0;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--font-pixel);
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-md);
     transform: translateY(calc(-100% - 2rem));
     transition: transform var(--t-med);
 }
@@ -157,7 +142,7 @@ body {
 
 @media (forced-colors: active) {
     :focus-visible {
-        outline: 2px solid CanvasText;
+        outline: var(--bw) solid CanvasText;
         box-shadow: none;
     }
 }
@@ -169,23 +154,42 @@ video {
     max-width: 100%;
 }
 
+img {
+    /* Article screenshots/photos are content, not chrome: nearest-neighbour
+       scaling makes their text unreadable. Only brand + tile imagery in
+       _pixel.scss is rendered pixelated. */
+    image-rendering: auto;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-sans);
+    font-family: var(--font-display);
     font-weight: 700;
-    line-height: 1.12;
-    letter-spacing: -0.022em;
+    line-height: 1.25;
+    letter-spacing: 0;
     color: var(--ink);
     overflow-wrap: break-word;
+    /* Display-size pixel headings deliberately keep text-shadow at most 2px:
+       Chrome clips the tops of large pixel-font runs as soon as a >=3px
+       text-shadow is applied (verified on both sites). Depth comes from the
+       hard panel shadows — see scripts/sync-pixel-theme.js CHECKS. */
+    text-shadow: 2px 2px 0 var(--ghost);
+    /* Pixel display faces (Silkscreen / Press Start 2P) draw ink outside the
+       em box. Non-positioned inline ink paints before every positioned layer,
+       so decorative pseudo-rules (.page-header::after, .year-rule, …) can cover
+       the top of a heading. Keeping headings in the positioned layer — and
+       therefore in DOM order — stops that. */
+    position: relative;
+    z-index: 0;
 }
 
 .font-display {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
 }
 
 p {
@@ -208,11 +212,27 @@ b {
     color: var(--ink);
 }
 
+/* Markdown emphasis inside article prose: DotGothic16 ships a single weight,
+   so Latin <strong> cannot be rendered bolder and emphasis would silently
+   vanish. Carry it with colour + an underline (never colour alone). Scoped to
+   .prose so counters, author lists and venue <b>/<strong> keep their own
+   treatment instead of turning green. (.prose is blog-only; inert here.) */
+.prose strong,
+.prose b {
+    color: var(--accent-deep);
+    text-decoration: underline;
+    text-decoration-thickness: var(--bw-hair);
+    text-decoration-color: var(--accent-line);
+    text-underline-offset: 3px;
+}
+
 code,
 kbd,
 samp {
     font-family: var(--font-mono);
-    font-size: 0.86em;
+    /* VT323 sits small on the baseline — bump it to keep code readable */
+    font-size: 1.12em;
+    letter-spacing: 0;
 }
 
 small {
@@ -221,15 +241,38 @@ small {
 
 hr {
     border: 0;
-    border-top: 1px solid var(--line);
+    height: var(--bw-hair);
+    background: var(--line-strong);
+    image-rendering: pixelated;
 }
 
 code {
-    padding: 0.14em 0.45em;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
+    padding: 0.1em 0.4em;
+    border: var(--bw-hair) solid var(--px-line);
+    border-radius: 0;
     background: var(--surface);
     color: var(--accent-deep);
+    box-shadow: inset -2px -2px 0 0 var(--px-lo), inset 2px 2px 0 0 var(--px-hi);
+}
+
+kbd {
+    padding: 0.1em 0.45em;
+    border: var(--bw-hair) solid var(--px-line);
+    border-bottom-width: var(--bw);
+    border-radius: 0;
+    background: var(--card);
+    box-shadow: 2px 2px 0 0 var(--px-shadow);
+}
+
+/* Inline-code chrome must not leak into fenced blocks: the pixel bevel on
+   `code` would otherwise draw a second frame inside every code panel. */
+pre code,
+pre code :where(*) {
+    border: 0;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    color: inherit;
 }
 
 .mono {
@@ -237,32 +280,33 @@ code {
     font-feature-settings: "zero" 1;
 }
 
+/* pixel "engraved" headline instead of a smooth gradient clip */
 .grad-text {
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: currentColor;
+    color: var(--accent-deep);
 }
 
 .kicker {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
+    font-family: var(--font-pixel);
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent-deep);
 }
 
 .kicker::before {
     content: "";
-    width: 1.4rem;
-    height: 2px;
-    border-radius: var(--radius-pill);
-    background: var(--grad-aurora);
+    width: var(--space-4);
+    height: var(--bw);
+    border-radius: 0;
+    background: var(--accent);
 }
 
 .visually-hidden {
@@ -277,35 +321,43 @@ code {
     border: 0;
 }
 
+/* kept for older markup — resolves to a solid pixel panel now */
 .glass {
     position: relative;
-    border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-lg);
+    border: var(--bw) solid var(--px-line);
+    border-radius: 0;
     background: var(--card);
-    backdrop-filter: var(--glass);
-    -webkit-backdrop-filter: var(--glass);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     box-shadow: var(--shadow-md), var(--rim);
 }
 
+/* ---- chunky pixel scrollbar ------------------------------------------ */
+
 * {
     scrollbar-width: thin;
-    scrollbar-color: var(--line-strong) transparent;
+    scrollbar-color: var(--accent) var(--surface-2);
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 16px;
+    height: 16px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--line-strong);
-    border-radius: var(--radius-pill);
-    border: 2px solid transparent;
-    background-clip: padding-box;
+    background: var(--accent);
+    border: var(--bw-hair) solid var(--px-line);
+    border-radius: 0;
+    box-shadow: inset 2px 2px 0 0 var(--px-hi), inset -2px -2px 0 0 var(--px-lo);
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--surface-2);
+    border-left: var(--bw-hair) solid var(--line-strong);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--surface-2);
 }
 
 .lq-defs {
@@ -316,10 +368,15 @@ code {
     pointer-events: none;
 }
 
+/* ---- capture mode (OG image rendering) -------------------------------- */
+
 [data-capture="true"] .site-header {
     position: relative;
 }
 
+[data-capture="true"] .canvas-grid,
+[data-capture="true"] .canvas-scanlines,
+[data-capture="true"] .canvas-vignette,
 [data-capture="true"] .canvas-glow,
 [data-capture="true"] .canvas-veil,
 [data-capture="true"] .canvas-grain {
@@ -329,11 +386,10 @@ code {
 [data-capture="true"] body {
     background-color: var(--bg);
     background-image:
-        radial-gradient(ellipse at 12% 8%, var(--aurora-1), transparent 34%),
-        radial-gradient(ellipse at 88% 14%, var(--aurora-2), transparent 36%),
-        radial-gradient(ellipse at 16% 72%, var(--aurora-3), transparent 38%),
-        radial-gradient(ellipse at 86% 86%, var(--aurora-4), transparent 36%);
-    background-size: 100% 100%;
+        repeating-linear-gradient(180deg, var(--aurora-1) 0 var(--px), transparent var(--px) 8px),
+        linear-gradient(var(--dot) var(--bw-hair), transparent var(--bw-hair)),
+        linear-gradient(90deg, var(--dot) var(--bw-hair), transparent var(--bw-hair));
+    background-size: auto, 32px 32px, 32px 32px;
 }
 
 html[data-capture="true"] {

@@ -20,60 +20,55 @@
     align-items: center;
     gap: var(--space-2);
     margin-bottom: var(--space-4);
-    padding: 0.34rem 0.95rem;
-    border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-chip);
+    padding: var(--space-2) var(--space-4);
+    border: var(--bw-hair) solid var(--px-line);
+    border-radius: 0;
     background: var(--card);
-    backdrop-filter: var(--glass);
-    -webkit-backdrop-filter: var(--glass);
-    box-shadow: var(--rim-soft);
+    box-shadow: var(--shadow-sm), var(--rim-soft);
     color: var(--accent-deep);
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-family: var(--font-pixel);
+    font-size: 0.58rem;
+    line-height: 1.6;
     transition: var(--t-spring);
 }
 
 .profile-status:hover {
     border-color: var(--accent-line);
     color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm), var(--rim-soft);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-md), var(--rim-soft);
 }
 
 .profile-status:hover .status-dot {
-    transform: scale(1.15);
+    background: var(--gold);
 }
 
 .status-dot {
     flex: 0 0 auto;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: var(--radius-pill);
+    width: var(--space-2);
+    height: var(--space-2);
+    border-radius: 0;
     background: var(--accent);
     animation: status-pulse 2.4s infinite var(--ease-smooth);
-    transition: transform var(--t-med), background-color var(--t-fast);
+    transition: background-color var(--t-fast);
 }
 
 .hero-name {
     margin: 0 0 var(--space-4);
     font-family: var(--font-display);
-    font-size: clamp(3.1rem, 8.4vw, 5.6rem);
+    font-size: clamp(2.4rem, 6.4vw, 4.2rem);
     font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 0.96;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
     color: var(--ink);
 }
 
 .hero-period {
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: var(--grad-text);
 }
 
 .hero-secondary {
-    margin: -0.4rem 0 var(--space-4);
+    margin: calc(-1 * var(--space-1)) 0 var(--space-4);
     color: var(--ink-3);
     font-family: var(--font-serif);
     font-size: 1.2rem;
@@ -91,15 +86,14 @@
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    padding: 0.45rem 1rem;
-    border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-chip);
+    padding: var(--space-2) var(--space-4);
+    border: var(--bw-hair) solid var(--px-line);
+    border-radius: 0;
     background: var(--card);
-    backdrop-filter: var(--glass);
-    -webkit-backdrop-filter: var(--glass);
     color: var(--ink-2);
-    font-size: 0.82rem;
-    font-weight: 600;
+    font-family: var(--font-pixel);
+    font-size: 0.55rem;
+    line-height: 1.6;
     box-shadow: var(--shadow-sm), var(--rim-soft);
     transition: var(--t-spring);
 }
@@ -107,21 +101,22 @@
 .position-badge:hover {
     border-color: var(--accent-line);
     color: var(--accent-deep);
-    transform: translateY(-2px);
+    transform: translate(-2px, -2px);
     box-shadow: var(--shadow-md), var(--rim-soft);
 }
 
 .position-badge img {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: var(--space-5);
+    height: var(--space-5);
     object-fit: contain;
-    border-radius: 0.3rem;
+    border-radius: 0;
+    image-rendering: pixelated;
 }
 
 [data-theme="dark"] .position-badge img {
-    padding: 0.1rem;
-    border-radius: 0.32rem;
-    background: rgba(248, 245, 241, 0.94);
+    padding: var(--space-1);
+    border-radius: 0;
+    background: var(--card-solid);
 }
 
 .hero-bio {
@@ -129,8 +124,8 @@
     margin-bottom: var(--space-4);
     color: var(--ink-2);
     font-family: var(--font-serif);
-    font-size: 1.04rem;
-    line-height: 1.8;
+    font-size: 1.2rem;
+    line-height: 1.7;
 }
 
 .hero-bio p {
@@ -139,8 +134,8 @@
 
 .hero-bio p:first-child {
     color: var(--ink);
-    font-size: 1.18rem;
-    line-height: 1.72;
+    font-size: 1.3rem;
+    line-height: 1.65;
 }
 
 .hero-bio p:last-child {
@@ -156,7 +151,7 @@
     font-weight: 600;
     text-decoration: underline;
     text-decoration-color: var(--accent-line);
-    text-decoration-thickness: 1px;
+    text-decoration-thickness: var(--bw-hair);
     text-underline-offset: 0.22em;
     transition: var(--t-fast);
 }
@@ -185,51 +180,60 @@
 .hero-portrait::after {
     content: "";
     position: absolute;
-    inset: -14% -10% -18% -14%;
+    inset: calc(-1 * var(--space-2));
     z-index: -1;
-    border-radius: 50%;
-    background: var(--grad-aurora);
-    filter: blur(52px);
-    opacity: 0.3;
+    border: var(--bw-hair) solid var(--line-soft);
+    border-radius: 0;
+    background: var(--px-dither);
+    /* Shifted down-right by the same 8px as the frame's hard shadow, so the
+       dither plate and the shadow read as one layered pixel frame instead of
+       two unrelated rectangles. */
+    transform: translate(var(--space-2), var(--space-2));
+    /* purely decorative: must never swallow clicks */
+    pointer-events: none;
+
+    /* the dither token is a conic gradient: without a tile size it
+       stretches across the whole box and reads as giant checkerboards */
+    background-size: 8px 8px;
 }
 
 .portrait-frame {
     position: relative;
     overflow: hidden;
-    border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-xl);
+    border: var(--bw) solid var(--px-line);
+    border-radius: 0;
     background: var(--surface);
     box-shadow: var(--shadow-lg), var(--rim-strong);
     transition: var(--t-spring);
 }
 
 .hero-portrait:hover .portrait-frame {
-    transform: translateY(-4px) scale(1.012);
-    box-shadow: var(--shadow-lg), 0 24px 52px rgb(var(--accent-rgb) / 0.22), var(--rim-strong);
+    /* lift + deeper shadow: matching the hover language of every other card */
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0 0 var(--px-shadow), var(--rim-strong);
 }
 
 .profile-img {
     width: 100%;
     aspect-ratio: 0.82;
     object-fit: cover;
-    transform: scale(1.02);
-    filter: brightness(1.13) contrast(1.05) saturate(1.04);
-    transition: transform 760ms var(--ease-out), filter 760ms var(--ease-out);
+    image-rendering: pixelated;
+    filter: contrast(1.05) saturate(1.04);
+    transition: filter var(--t-med);
 }
 
 .hero-portrait:hover .profile-img {
-    transform: scale(1.06);
-    filter: brightness(1.2) contrast(1.06) saturate(1.06);
+    filter: contrast(1.1) saturate(1.08);
 }
 
 .portrait-caption {
     margin-top: var(--space-5);
     padding-left: var(--space-4);
-    border-left: 2px solid var(--accent);
+    border-left: var(--bw) solid var(--accent);
     color: var(--ink-2);
     font-family: var(--font-mono);
-    font-size: 0.76rem;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.6;
     letter-spacing: 0.02em;
 }
 

@@ -8,13 +8,16 @@
 .news-list::before {
     content: "";
     position: absolute;
-    top: 0.6rem;
-    bottom: 0.6rem;
-    left: calc(7.5rem + 0.31rem);
-    width: 2px;
-    border-radius: var(--radius-pill);
-    background: linear-gradient(180deg, var(--accent-line), var(--violet), transparent);
-    opacity: 0.5;
+    top: var(--space-2);
+    bottom: var(--space-2);
+    left: calc(7.5rem + var(--space-1));
+    width: var(--bw);
+    border-radius: 0;
+    background: repeating-linear-gradient(180deg,
+            var(--line-strong) 0 var(--px), transparent var(--px) 8px);
+    opacity: 1;
+    /* purely decorative: must never swallow clicks */
+    pointer-events: none;
 }
 
 .news-item {
@@ -22,8 +25,8 @@
     display: grid;
     grid-template-columns: 7.5rem 1.6rem minmax(0, 1fr);
     align-items: baseline;
-    padding: 0.7rem 0;
-    border-radius: var(--radius-md);
+    padding: var(--space-2) 0;
+    border-radius: 0;
     transition: background-color var(--t-fast);
 }
 
@@ -34,36 +37,36 @@
 .news-date {
     color: var(--ink-3);
     font-family: var(--font-mono);
-    font-size: 0.76rem;
+    font-size: 1rem;
     font-weight: 500;
     letter-spacing: 0.05em;
     text-align: right;
-    padding-right: 1.1rem;
+    padding-right: var(--space-4);
     white-space: nowrap;
 }
 
 .news-node {
     position: relative;
     align-self: center;
-    width: 0.7rem;
-    height: 0.7rem;
-    border: 2px solid var(--accent);
-    border-radius: var(--radius-pill);
+    width: var(--space-3);
+    height: var(--space-3);
+    border: var(--bw-hair) solid var(--accent);
+    border-radius: 0;
     background: var(--card-solid);
-    box-shadow: var(--rim-soft);
+    box-shadow: var(--rim-plain);
     transition: var(--t-med);
 }
 
 .news-item:hover .news-node {
     background: var(--accent);
-    box-shadow: var(--pulse-from);
+    box-shadow: 0 0 0 var(--bw-hair) var(--accent-soft);
 }
 
 .news-text {
     padding-left: var(--space-4);
     padding-right: var(--space-3);
     color: var(--ink-2);
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.6;
     transition: color var(--t-fast);
 }
@@ -81,7 +84,7 @@
 .news-year-marker {
     display: grid;
     grid-template-columns: 7.5rem 1.6rem minmax(0, 1fr);
-    padding: 1.1rem 0 0.2rem;
+    padding: var(--space-4) 0 var(--space-1);
 }
 
 .news-year-marker:first-child {
@@ -93,17 +96,17 @@
     padding-left: var(--space-4);
     color: var(--ink);
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 700;
+    text-transform: uppercase;
 }
 
 .news-year-label::after {
     content: "";
     display: inline-block;
-    width: 0.42rem;
-    height: 0.42rem;
-    margin-left: 0.5rem;
-    border-radius: 1px;
-    background: var(--grad-aurora);
-    transform: rotate(45deg) translateY(-1px);
+    width: var(--space-2);
+    height: var(--space-2);
+    margin-left: var(--space-2);
+    border-radius: 0;
+    background: var(--accent);
 }

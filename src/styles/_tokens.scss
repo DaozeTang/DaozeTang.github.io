@@ -1,241 +1,275 @@
+/* ==========================================================================
+   PIXEL DESIGN TOKENS — shared design system (Blog + personal homepage)
+   Retro / 8-bit pixel-art language:
+   · square corners, hard 3px outlines, solid offset shadows (never blurred)
+   · inner bevels via --rim* so existing `box-shadow: var(--shadow), var(--rim)`
+     rules resolve to a pixel bevel automatically
+   · no backdrop blur (--glass: none), no smooth gradients on surfaces
+   · 4px spacing grid, steps() easing, pixel + terminal typefaces
+   This file must stay byte-identical across both repositories.
+   See scripts/check-pixel-theme.js (npm run theme:check).
+   ========================================================================== */
+
 :root {
     color-scheme: light;
 
-    --bg: #f9f7f6;
+    /* ---- pixel grid + chrome primitives ------------------------------ */
+    --px: 4px;                    /* base pixel unit (everything snaps to it) */
+    --bw: 3px;                    /* standard pixel outline width */
+    --bw-lg: 4px;                 /* heavy outline for panels / hero frames */
+    --bw-hair: 2px;
+    --px-notch: 6px;              /* stepped corner size for clip-path frames */
+    --px-line: #1a1c2c;           /* dark outline ink */
+    --px-shadow: #1a1c2c;         /* solid offset shadow color */
+    --px-hi: rgba(255, 255, 255, 0.78);   /* bevel highlight (top/left) */
+    --px-lo: rgba(26, 28, 44, 0.22);      /* bevel shade (bottom/right) */
+    --px-scan: 4px;               /* CRT scanline pitch */
 
-    --card: linear-gradient(150deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.28) 22%, rgba(255, 255, 255, 0.1) 52%, rgba(255, 255, 255, 0.04) 74%, rgba(255, 255, 255, 0.26) 100%), rgba(255, 255, 255, 0.7);
-    --card-solid: #fefdfc;
-    --surface: linear-gradient(150deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.24) 32%, rgba(255, 255, 255, 0.08) 66%, rgba(255, 255, 255, 0.2) 100%), rgba(255, 255, 255, 0.64);
-    --surface-2: rgba(245, 239, 233, 0.8);
-    --glass-bg: linear-gradient(150deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.22) 24%, rgba(255, 255, 255, 0.08) 54%, rgba(255, 255, 255, 0.04) 72%, rgba(255, 255, 255, 0.22) 100%), rgba(255, 255, 255, 0.64);
-    --glass-strong: linear-gradient(150deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.26) 24%, rgba(255, 255, 255, 0.1) 54%, rgba(255, 255, 255, 0.05) 72%, rgba(255, 255, 255, 0.26) 100%), rgba(255, 255, 255, 0.76);
-    --glass-edge: rgba(160, 135, 114, 0.26);
-    --glass-inner: rgba(255, 255, 255, 0.45);
-    --menu-bg: rgba(254, 253, 252, 0.94);
-    --veil: rgba(245, 243, 241, 0.13);
+    --bg: #e9e1c9;
+    --bg-alt: #ded4b6;
 
-    --ink: #0c111d;
-    --ink-2: #2e364e;
-    --ink-3: #5b6580;
-    --ghost: rgba(35, 28, 21, 0.06);
-    --on-accent: #ffffff;
+    --card: #fff8e7;
+    --card-solid: #fff8e7;
+    --surface: #f4ecd6;
+    --surface-2: #e6dcc0;
+    --glass-bg: #f7f0dd;
+    --glass-strong: #fffaee;
+    --glass-edge: #1a1c2c;
+    --glass-inner: #fffdf5;
+    --menu-bg: #fbf5e6;
+    --veil: rgba(233, 225, 201, 0.6);
 
-    --accent: #347954;
-    --accent-rgb: 52 121 84;
-    --accent-deep: #21593b;
-    --accent-soft: rgba(52, 121, 84, 0.1);
-    --accent-softer: rgba(52, 121, 84, 0.05);
-    --accent-line: rgba(52, 121, 84, 0.3);
+    --ink: #1a1c2c;
+    --ink-2: #2f3550;
+    --ink-3: #5a6285;
+    --ghost: rgba(26, 28, 44, 0.08);
+    --on-accent: #fff8e7;
 
-    --violet: #946fae;
-    --cyan: #4592b0;
-    --teal: #3a8888;
-    --blue: #407fbf;
-    --coral: #d06c4e;
-    --gold: #c58526;
-    --gold-ink: #805113;
-    --blue-ink: #245f9a;
-    --violet-ink: #68457e;
-    --teal-ink: #236565;
-    --pink-ink: #a4566b;
-    --cyan-ink: #2c6e88;
-    --violet-soft: rgba(104, 69, 126, 0.1);
-    --violet-line: rgba(104, 69, 126, 0.32);
-    --blue-soft: rgba(36, 95, 154, 0.1);
-    --blue-line: rgba(36, 95, 154, 0.3);
-    --teal-soft: rgba(35, 101, 101, 0.1);
-    --teal-line: rgba(35, 101, 101, 0.3);
-    --gold-soft: rgba(197, 133, 38, 0.14);
-    --ok: #2b7a4b;
+    --accent: #067d49;
+    --accent-rgb: 6 125 73;
+    --accent-deep: #005c38;
+    --accent-soft: #d7e4ce /* opaque 16% #067d49 on #fff8e7 */;
+    --accent-softer: #ebeeda /* opaque 8% #067d49 on #fff8e7 */;
+    --accent-line: #005c38;
 
-    --aurora-1: rgba(52, 121, 84, 0.42);
-    --aurora-2: rgba(64, 127, 191, 0.36);
-    --aurora-3: rgba(58, 136, 136, 0.34);
-    --aurora-4: rgba(197, 133, 38, 0.3);
-    --aurora-5: rgba(208, 108, 78, 0.22);
-    --aurora-6: rgba(69, 146, 176, 0.3);
-    --aurora-blur: 58px;
-    --aurora-sat: 165%;
+    /* PICO-8-flavoured secondary palette (kept from the old token names) */
+    --violet: #7e2553;
+    --cyan: #29adff;
+    --teal: #41d6a3;
+    --blue: #3b5dc9;
+    --coral: #ff5d54;
+    --gold: #ffa300;
+    --gold-ink: #8a5800;
+    --blue-ink: #1d3d8f;
+    --violet-ink: #5e1a3d;
+    --teal-ink: #17796a;
+    --pink-ink: #b83d6b;
+    --cyan-ink: #1a6f9e;
+    --violet-soft: #ecd9e6;
+    --violet-line: #7e2553;
+    --blue-soft: #dfe2f2;
+    --blue-line: #3b5dc9;
+    --teal-soft: #e8f0e6
+    --teal-line: #17796a;
+    --gold-soft: #ffe5b4 /* opaque 22% #ffa300 on #fff8e7 */;
+    --ok: #067d49;
 
-    --line: rgba(51, 39, 29, 0.1);
-    --line-soft: rgba(51, 39, 29, 0.06);
-    --line-strong: rgba(51, 39, 29, 0.2);
-    --dot: rgba(51, 39, 29, 0.03);
+    /* decorative layers: flat retro sky bands instead of blurred aurora */
+    --aurora-1: rgba(6, 125, 73, 0.16);
+    --aurora-2: rgba(59, 93, 201, 0.14);
+    --aurora-3: rgba(65, 214, 163, 0.14);
+    --aurora-4: rgba(255, 163, 0, 0.16);
+    --aurora-5: rgba(255, 93, 84, 0.12);
+    --aurora-6: rgba(41, 173, 255, 0.12);
+    --aurora-blur: 0px;
+    --aurora-sat: 100%;
+    --aurora-hue-t: 8s;
+    --aurora-t1: 12s;
+    --aurora-t2: 16s;
+    --aurora-seek-1: 0s;
+    --aurora-seek-2: -4s;
+    --aurora-hue-seek: -2s;
 
-    --grad-aurora: linear-gradient(120deg, #347954 0%, #3a8888 50%, #407fbf 100%);
-    --grad-text: linear-gradient(108deg, #1f4732 0%, #224f4f 50%, #29517a 100%);
-    --grad-button: linear-gradient(140deg, #347954 0%, #3a8888 55%, #21593b 100%);
-    --grad-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 46%);
+    --line: rgba(26, 28, 44, 0.28);
+    --line-soft: rgba(26, 28, 44, 0.14);
+    --line-strong: #1a1c2c;
+    --dot: rgba(26, 28, 44, 0.16);
 
-    --shadow-sm: 0 1px 2px rgba(50, 39, 30, 0.06), 0 5px 16px rgba(64, 50, 38, 0.08);
-    --shadow-md: 0 2px 5px rgba(50, 39, 30, 0.07), 0 14px 34px rgba(64, 50, 38, 0.13);
-    --shadow-lg: 0 4px 10px rgba(50, 39, 30, 0.08), 0 28px 64px rgba(64, 50, 38, 0.18);
-    --shadow-glow: 0 12px 32px rgba(52, 121, 84, 0.26);
-    --shadow-interactive: var(--shadow-md), 0 16px 38px rgb(var(--accent-rgb) / 0.18), var(--rim);
-    --ring: 0 0 0 3px rgba(52, 121, 84, 0.32);
+    /* dithered / striped patterns replace smooth gradients */
+    --grad-aurora: repeating-linear-gradient(90deg,
+            var(--accent) 0 var(--px), transparent var(--px) calc(var(--px) * 2));
+    --grad-text: #005c38;
+    --grad-button: var(--accent);
+    --grad-sheen: repeating-linear-gradient(180deg,
+            rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 4px);
+    /* the pointer scan block is a tint layer, so it keeps real alpha */
+    --px-scan-tint: rgba(6, 125, 73, 0.16);
+    --px-dither: repeating-conic-gradient(var(--dot) 0% 25%, transparent 0% 50%);
+    --px-checker: repeating-linear-gradient(45deg,
+            var(--line-soft) 0 var(--px), transparent var(--px) calc(var(--px) * 2));
 
+    /* solid offset shadows — never blurred */
+    --shadow-sm: 2px 2px 0 0 var(--px-shadow);
+    --shadow-md: 4px 4px 0 0 var(--px-shadow);
+    --shadow-lg: 8px 8px 0 0 var(--px-shadow);
+    --shadow-glow: 4px 4px 0 0 var(--accent);
+    --shadow-interactive: var(--shadow-md), var(--rim);
+    --shadow-none: 0 0 0 0 transparent;
+    --ring: 0 0 0 4px var(--bg), 0 0 0 8px var(--accent);
+    --focus-outline: var(--bw) solid var(--accent);
+
+    /* --rim* feed the pixel bevel into every existing box-shadow combo */
     --rim:
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.4),
-        inset 1px 0 0 0 rgba(231, 201, 174, 0.14),
-        inset -1px 0 0 0 rgba(255, 160, 215, 0.12),
-        inset -1px -1.5px 1px -0.5px rgba(255, 255, 255, 0.5),
-        inset 0 10px 20px -16px rgba(255, 255, 255, 0.75),
-        inset 0 -10px 18px -16px rgba(93, 72, 53, 0.12);
+        inset 0 0 0 var(--bw-hair) var(--px-line),
+        inset var(--bw) var(--bw) 0 0 var(--px-hi),
+        inset calc(var(--bw) * -1) calc(var(--bw) * -1) 0 0 var(--px-lo);
     --rim-strong:
-        inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.52),
-        inset 1.5px 0 0 0 rgba(231, 201, 174, 0.18),
-        inset -1.5px 0 0 0 rgba(255, 160, 215, 0.15),
-        inset -1.5px -2px 2px -1px rgba(255, 255, 255, 0.6),
-        inset 0 12px 24px -16px rgba(255, 255, 255, 0.85),
-        inset 0 -12px 20px -17px rgba(93, 72, 53, 0.15);
+        inset 0 0 0 var(--bw-hair) var(--px-line),
+        inset var(--bw-lg) var(--bw-lg) 0 0 var(--px-hi),
+        inset calc(var(--bw-lg) * -1) calc(var(--bw-lg) * -1) 0 0 var(--px-lo);
     --rim-soft:
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.32),
-        inset 0 -6px 12px -12px rgba(93, 72, 53, 0.12);
+        inset var(--bw-hair) var(--bw-hair) 0 0 var(--px-hi),
+        inset calc(var(--bw-hair) * -1) calc(var(--bw-hair) * -1) 0 0 var(--px-lo);
+    --rim-plain: 0 0 0 0 transparent;
 
-    --font-display: "Fraunces", "Source Serif 4", "Noto Serif SC", Georgia, serif;
-    --font-serif: "Source Serif 4", "Noto Serif SC", Georgia, serif;
-    --font-sans: "Inter", "Noto Sans SC", system-ui, -apple-system, "Helvetica Neue", sans-serif;
-    --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Consolas, monospace;
+    /* typefaces: pixel display + terminal mono + readable CJK-safe body */
+    --font-pixel: "Press Start 2P", "Silkscreen", ui-monospace, monospace;
+    /* Display face must survive Chrome's rasteriser: both Silkscreen (bitmap
+       strikes) and DotGothic16 clip the tops of uppercase + digit glyphs at
+       heading sizes, so headings use the VT323 terminal face and the blocky
+       Press Start 2P is reserved for short uppercase labels. */
+    --font-display: "VT323", "DotGothic16", "Noto Sans SC", monospace;
+    --font-serif: "VT323", "DotGothic16", "Noto Sans SC", monospace;
+    --font-sans: "DotGothic16", "Noto Sans SC", ui-monospace, monospace;
+    --font-mono: "VT323", "JetBrains Mono", ui-monospace, monospace;
 
-    --space-1: 0.25rem;
-    --space-2: 0.5rem;
-    --space-3: 0.75rem;
-    --space-4: 1rem;
-    --space-5: 1.25rem;
-    --space-6: 1.5rem;
-    --space-7: 2rem;
-    --space-8: 2.5rem;
-    --space-9: 3.5rem;
-    --space-10: 5rem;
+    /* 4px grid */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 40px;
+    --space-8: 48px;
+    --space-9: 64px;
+    --space-10: 96px;
 
-    --radius-sm: 0.55rem;
-    --radius-md: 0.95rem;
-    --radius-lg: 1.4rem;
-    --radius-xl: 2.1rem;
-    --radius-pill: 999px;
-    --radius-chip: 0.6rem;
+    /* pixel art has no rounded corners */
+    --radius-sm: 0px;
+    --radius-md: 0px;
+    --radius-lg: 0px;
+    --radius-xl: 0px;
+    --radius-pill: 0px;
+    --radius-chip: 0px;
 
-    --ease-spring: cubic-bezier(0.34, 1.45, 0.45, 1);
-    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --t-fast: 160ms var(--ease-smooth);
-    --t-med: 280ms var(--ease-smooth);
-    --t-spring: transform 460ms var(--ease-spring), box-shadow 320ms var(--ease-smooth),
-        border-color 240ms var(--ease-smooth), background-color 240ms var(--ease-smooth),
-        color 240ms var(--ease-smooth);
+    /* stepped easing: motion snaps between pixel frames */
+    --ease-pixel: steps(2, end);
+    --ease-pixel-slow: steps(4, end);
+    --ease-spring: steps(2, end);
+    --ease-smooth: steps(2, end);
+    --ease-out: steps(3, end);
+    --t-fast: 120ms steps(2, end);
+    --t-med: 200ms steps(3, end);
+    --t-spring: transform 160ms steps(2, end), box-shadow 160ms steps(2, end),
+        border-color 120ms steps(2, end), background-color 120ms steps(2, end),
+        color 120ms steps(2, end);
 
-    --glass: blur(20px) saturate(175%) brightness(1.04);
-    --glass-deep: blur(34px) saturate(190%) brightness(1.05);
+    /* no glassmorphism */
+    --glass: none;
+    --glass-deep: none;
 
     --shell-max: 72rem;
-    --header-h: 4rem;
-    --section-gap: clamp(3.6rem, 8vw, 6rem);
-    --content-gap: clamp(1.5rem, 4vw, 3rem);
-    --card-pad: clamp(1.2rem, 2.6vw, 1.7rem);
-    --leading-prose: 1.82;
+    --header-h: 64px;
+    --section-gap: 80px;
+    --content-gap: 32px;
+    --card-pad: 24px;
+    --leading-prose: 1.85;
 
-    --pulse-from: 0 0 0 0 rgba(52, 121, 84, 0.45);
-    --pulse-mid: 0 0 0 0.6rem rgba(52, 121, 84, 0);
-    --pulse-to: 0 0 0 0 rgba(52, 121, 84, 0);
+    --pulse-from: 0 0 0 0 rgba(6, 125, 73, 0.55);
+    --pulse-mid: 0 0 0 8px rgba(6, 125, 73, 0);
+    --pulse-to: 0 0 0 8px rgba(6, 125, 73, 0);
 }
 
 [data-theme="dark"] {
     color-scheme: dark;
 
-    --bg: #16110e;
+    --px-line: #0a0c18;
+    --px-shadow: #05060f;
+    --px-hi: rgba(207, 214, 255, 0.26);
+    --px-lo: rgba(5, 6, 15, 0.55);
 
-    --card: linear-gradient(150deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.02) 46%, rgba(255, 255, 255, 0.05)), rgba(41, 34, 27, 0.5);
-    --card-solid: #1e1812;
-    --surface: rgba(255, 255, 255, 0.05);
-    --surface-2: rgba(255, 255, 255, 0.08);
-    --glass-bg: linear-gradient(150deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.01) 48%, rgba(255, 255, 255, 0.04)), rgba(33, 26, 20, 0.56);
-    --glass-strong: linear-gradient(150deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 48%, rgba(255, 255, 255, 0.05)), rgba(38, 30, 23, 0.72);
-    --glass-edge: rgba(255, 255, 255, 0.14);
-    --glass-inner: rgba(255, 255, 255, 0.06);
-    --menu-bg: rgba(29, 23, 18, 0.95);
-    --veil: rgba(16, 13, 10, 0.2);
+    --bg: #14162b;
+    --bg-alt: #0f1120;
 
-    --ink: #eef2fc;
-    --ink-2: #b9c2db;
-    --ink-3: #828ead;
-    --ghost: rgba(249, 245, 241, 0.06);
-    --on-accent: #ffffff;
+    --card: #22244a;
+    --card-solid: #22244a;
+    --surface: #1b1d3a;
+    --surface-2: #2a2d5c;
+    --glass-bg: #1c1e40;
+    --glass-strong: #262a55;
+    --glass-edge: #9aa4ff;
+    --glass-inner: #363b74;
+    --menu-bg: #1c1e40;
+    --veil: rgba(20, 22, 43, 0.55);
 
-    --accent: #4abf81;
-    --accent-rgb: 74 191 129;
-    --accent-deep: #6ad29b;
-    --accent-soft: rgba(74, 191, 129, 0.15);
-    --accent-softer: rgba(74, 191, 129, 0.08);
-    --accent-line: rgba(74, 191, 129, 0.36);
+    --ink: #e9ecff;
+    --ink-2: #c3cafa;
+    --ink-3: #8f98cf;
+    --ghost: rgba(233, 236, 255, 0.08);
+    --on-accent: #0a0c18;
 
-    --violet: #bd9cd3;
-    --cyan: #78bcd9;
-    --teal: #59c3c5;
-    --blue: #7cacde;
-    --coral: #e58c6c;
-    --gold: #ecb351;
-    --gold-ink: #ecb351;
-    --blue-ink: #91bce8;
-    --violet-ink: #c6a7d9;
-    --teal-ink: #69cfd0;
-    --pink-ink: #e3abb9;
-    --cyan-ink: #78bcd9;
-    --violet-soft: rgba(198, 167, 217, 0.13);
-    --violet-line: rgba(198, 167, 217, 0.34);
-    --blue-soft: rgba(145, 188, 232, 0.12);
-    --blue-line: rgba(145, 188, 232, 0.32);
-    --teal-soft: rgba(105, 207, 208, 0.12);
-    --teal-line: rgba(105, 207, 208, 0.32);
-    --gold-soft: rgba(236, 179, 81, 0.14);
-    --ok: #4ac97f;
+    --accent: #68d67a;
+    --accent-rgb: 104 214 122;
+    --accent-deep: #a7f3b6;
+    --accent-soft: #26443f;
+    --accent-softer: #223046;
+    --accent-line: #a7f3b6;
 
-    --aurora-1: rgba(74, 191, 129, 0.5);
-    --aurora-2: rgba(124, 172, 222, 0.44);
-    --aurora-3: rgba(89, 195, 197, 0.4);
-    --aurora-4: rgba(236, 179, 81, 0.34);
-    --aurora-5: rgba(229, 140, 108, 0.24);
-    --aurora-6: rgba(120, 188, 217, 0.34);
-    --aurora-blur: 70px;
-    --aurora-sat: 178%;
+    --violet: #c775a9;
+    --cyan: #6ad0ff;
+    --teal: #41d6a3;
+    --blue: #7aa2ff;
+    --coral: #ff8f88;
+    --gold: #fbb13c;
+    --gold-ink: #fbb13c;
+    --blue-ink: #9db6ff;
+    --violet-ink: #dda6c4;
+    --teal-ink: #7ef0cf;
+    --pink-ink: #ffb3cf;
+    --cyan-ink: #8fdcff;
+    --violet-soft: #46365f /* opaque 22% #c775a9 on #22244a */;
+    --violet-line: #c775a9;
+    --blue-soft: #354072 /* opaque 22% #7aa2ff on #22244a */;
+    --blue-line: #7aa2ff;
+    --teal-soft: #28485c /* opaque 20% #41d6a3 on #22244a */;
+    --teal-line: #41d6a3;
+    --gold-soft: #4d3f22;
+    --ok: #68d67a;
 
-    --line: rgba(249, 245, 241, 0.11);
-    --line-soft: rgba(249, 245, 241, 0.065);
-    --line-strong: rgba(249, 245, 241, 0.22);
-    --dot: rgba(249, 245, 241, 0.03);
+    --aurora-1: rgba(104, 214, 122, 0.16);
+    --aurora-2: rgba(122, 162, 255, 0.14);
+    --aurora-3: rgba(65, 214, 163, 0.14);
+    --aurora-4: rgba(251, 177, 60, 0.14);
+    --aurora-5: rgba(255, 143, 136, 0.12);
+    --aurora-6: rgba(106, 208, 255, 0.12);
 
-    --grad-aurora: linear-gradient(120deg, #4abf81 0%, #59c3c5 50%, #7cacde 100%);
-    --grad-text: linear-gradient(108deg, #4abf81 0%, #59c3c5 50%, #7cacde 100%);
-    --grad-button: linear-gradient(140deg, #286f4d 0%, #267377 58%, #245d55 100%);
-    --grad-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 46%);
+    --line: rgba(233, 236, 255, 0.3);
+    --line-soft: rgba(233, 236, 255, 0.14);
+    --line-strong: #9aa4ff;
+    --dot: rgba(233, 236, 255, 0.16);
 
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.38), 0 4px 14px rgba(0, 0, 0, 0.36);
-    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.38), 0 12px 34px rgba(0, 0, 0, 0.46);
-    --shadow-lg: 0 6px 18px rgba(0, 0, 0, 0.46), 0 28px 70px rgba(0, 0, 0, 0.56);
-    --shadow-glow: 0 14px 40px rgba(74, 191, 129, 0.32);
-    --shadow-interactive: var(--shadow-md), 0 16px 40px rgb(var(--accent-rgb) / 0.2), var(--rim);
-    --ring: 0 0 0 3px rgba(74, 191, 129, 0.38);
+    --grad-text: #a7f3b6;
+    --grad-button: var(--accent);
+    --grad-sheen: repeating-linear-gradient(180deg,
+            rgba(233, 236, 255, 0.12) 0 2px, transparent 2px 4px);
 
-    --rim:
-        inset 0 1px 0 -0.5px rgba(255, 255, 255, 0.35),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-        inset -1px -1px 1px -0.5px rgba(235, 208, 185, 0.14),
-        inset 0 9px 18px -15px rgba(243, 226, 212, 0.28);
-    --rim-strong:
-        inset 0 1.5px 0 -0.5px rgba(255, 255, 255, 0.48),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-        inset -1.5px -1.5px 2px -1px rgba(237, 214, 193, 0.22),
-        inset 0 11px 22px -15px rgba(243, 226, 212, 0.36);
-    --rim-soft:
-        inset 0 1px 0 -0.5px rgba(255, 255, 255, 0.28),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --shadow-glow: 4px 4px 0 0 var(--accent);
+    --ring: 0 0 0 4px var(--bg), 0 0 0 8px var(--accent);
 
-    --glass: blur(20px) saturate(170%) brightness(1.16);
-    --glass-deep: blur(34px) saturate(185%) brightness(1.22);
+    --px-scan-tint: rgba(104, 214, 122, 0.2);
 
-    --pulse-from: 0 0 0 0 rgba(74, 191, 129, 0.45);
-    --pulse-mid: 0 0 0 0.6rem rgba(74, 191, 129, 0);
-    --pulse-to: 0 0 0 0 rgba(74, 191, 129, 0);
+    --pulse-from: 0 0 0 0 rgba(104, 214, 122, 0.55);
+    --pulse-mid: 0 0 0 8px rgba(104, 214, 122, 0);
+    --pulse-to: 0 0 0 8px rgba(104, 214, 122, 0);
 }

@@ -1,13 +1,21 @@
+/* ==========================================================================
+   PIXEL ANIMATIONS — shared motion. Byte-identical across both repositories.
+   Everything steps between discrete frames; no easing curves, no blur.
+   ========================================================================== */
+
 @keyframes status-pulse {
     0% { box-shadow: var(--pulse-from); }
-    70% { box-shadow: var(--pulse-mid); }
+    50% { box-shadow: var(--pulse-mid); }
     100% { box-shadow: var(--pulse-to); }
 }
 
+/* scroll reveal: two-frame snap, like a sprite fading in */
 .reveal-item {
     opacity: 0;
-    transform: translateY(1.8rem);
-    transition: opacity 760ms var(--ease-out), transform 760ms var(--ease-out);
+    transform: translateY(16px);
+    transition:
+        opacity 240ms steps(2, end),
+        transform 240ms steps(4, end);
 }
 
 .reveal-item.revealed {
@@ -16,18 +24,22 @@
 }
 
 @keyframes rise-in {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(1.4rem);
+        transform: translateY(16px);
     }
-    to {
+    50% {
+        opacity: 0.6;
+        transform: translateY(8px);
+    }
+    100% {
         opacity: 1;
         transform: none;
     }
 }
 
 .hero .hero-text > * {
-    animation: rise-in 850ms var(--ease-out) backwards;
+    animation: rise-in 400ms steps(4, end) backwards;
 }
 
 .hero .hero-text > *:nth-child(1) { animation-delay: 60ms; }
@@ -38,29 +50,33 @@
 .hero .hero-text > *:nth-child(6) { animation-delay: 460ms; }
 
 .hero .hero-side {
-    animation: rise-in 950ms var(--ease-out) 250ms backwards;
+    animation: rise-in 480ms steps(4, end) 200ms backwards;
 }
 
+/* palette-cycling text (classic 8-bit trick): discrete colour swap, no gradient */
 @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0%   { color: var(--accent-deep); }
+    25%  { color: var(--gold-ink); }
+    50%  { color: var(--cyan-ink); }
+    75%  { color: var(--violet-ink); }
+    100% { color: var(--accent-deep); }
 }
 
 .shimmer-text {
-    background: linear-gradient(110deg, var(--accent-deep) 20%, var(--violet) 40%, var(--cyan) 55%, var(--accent-deep) 75%);
-    background-size: 220% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    animation: shimmer 7s linear infinite;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: currentColor;
+    color: var(--accent-deep);
+    animation: shimmer 8s steps(1, end) infinite;
+    text-shadow: 2px 2px 0 var(--ghost);
 }
 
+/* a hard-edged 8px column of light marching across a panel */
 @keyframes sheen-sweep {
-    0% { transform: translateX(-120%) rotate(8deg); opacity: 0; }
-    18% { opacity: 0.7; }
-    40% { opacity: 0; }
-    100% { transform: translateX(220%) rotate(8deg); opacity: 0; }
+    0%   { transform: translateX(-140%); opacity: 1; }
+    70%  { transform: translateX(240%); opacity: 1; }
+    100% { transform: translateX(240%); opacity: 0; }
 }
 
 .glass-sheen {
@@ -71,19 +87,18 @@
 .glass-sheen::after {
     content: "";
     position: absolute;
-    top: -60%;
+    top: 0;
     left: 0;
-    width: 45%;
-    height: 220%;
+    width: 8px;
+    height: 100%;
     pointer-events: none;
-    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-    filter: blur(6px);
-    animation: sheen-sweep 9s var(--ease-smooth) infinite;
+    background: var(--px-hi);
+    animation: sheen-sweep 6s steps(14, end) infinite;
     z-index: 3;
 }
 
 [data-theme="dark"] .glass-sheen::after {
-    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+    background: rgba(233, 236, 255, 0.18);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -104,9 +119,14 @@
         transform: none;
     }
 
+    .canvas-scanlines,
     .canvas-glow,
     .canvas-glow::before,
     .canvas-glow::after {
         animation: none;
+    }
+
+    .glass-sheen::after {
+        display: none;
     }
 }

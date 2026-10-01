@@ -4,6 +4,11 @@
     gap: var(--space-4);
 }
 
+.ip-item {
+    border: var(--bw) solid var(--px-line);
+    border-radius: 0;
+}
+
 .ip-role {
     border-color: var(--blue-line);
     background: var(--blue-soft);

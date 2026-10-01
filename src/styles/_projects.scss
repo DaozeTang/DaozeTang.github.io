@@ -6,12 +6,10 @@
 
 .project-item {
     position: relative;
-    padding: clamp(1.15rem, 2.4vw, 1.5rem) clamp(1.3rem, 2.6vw, 1.7rem);
-    border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-lg);
+    padding: clamp(1.2rem, 2.4vw, 1.6rem) clamp(1.2rem, 2.6vw, 1.6rem);
+    border: var(--bw) solid var(--px-line);
+    border-radius: 0;
     background: var(--card);
-    backdrop-filter: var(--glass);
-    -webkit-backdrop-filter: var(--glass);
     box-shadow: var(--shadow-sm), var(--rim);
     overflow: hidden;
     transition: var(--t-spring);
@@ -19,8 +17,8 @@
 
 .project-item:hover {
     border-color: var(--accent-line);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-interactive);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg), var(--rim);
 }
 
 .project-body {
@@ -37,9 +35,9 @@
 .project-title {
     min-width: 0;
     margin: 0;
-    font-size: 1.08rem;
+    font-size: 1.15rem;
     font-weight: 700;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
     line-height: 1.45;
     color: var(--ink);
     transition: color var(--t-fast);
@@ -65,13 +63,13 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35em;
-    padding: 0.24em 0.75em;
-    border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-chip);
+    padding: var(--space-1) var(--space-2);
+    border: var(--bw-hair) solid var(--px-line);
+    border-radius: 0;
     background: var(--surface);
     color: var(--ink-2);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-family: var(--font-pixel);
+    font-size: 0.55rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     line-height: 1.6;
@@ -82,7 +80,7 @@
 }
 
 .role-tag:hover {
-    transform: translateY(-1px);
+    transform: translate(-2px, -2px);
     box-shadow: var(--shadow-sm), var(--rim-soft);
 }
 
@@ -136,6 +134,6 @@
 
 @media (max-width: 559.98px) {
     .project-title {
-        font-size: 1.02rem;
+        font-size: 1.1rem;
     }
 }

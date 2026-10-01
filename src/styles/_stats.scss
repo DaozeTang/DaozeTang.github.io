@@ -8,8 +8,8 @@
 .team-description {
     color: var(--ink-2);
     font-family: var(--font-serif);
-    font-size: 1.08rem;
-    line-height: 1.85;
+    font-size: 1.2rem;
+    line-height: 1.8;
 }
 
 .team-description::first-letter {
@@ -20,22 +20,16 @@
     line-height: 0.82;
     padding-right: 0.12em;
     padding-top: 0.04em;
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: var(--grad-text);
 }
 
 .stat-grid {
     display: flex;
     flex-direction: column;
     padding: var(--space-6);
-    border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-lg);
+    border: var(--bw) solid var(--px-line);
+    border-radius: 0;
     background: var(--card);
-    backdrop-filter: var(--glass);
-    -webkit-backdrop-filter: var(--glass);
     box-shadow: var(--shadow-md), var(--rim);
 }
 
@@ -45,7 +39,7 @@
 }
 
 .stat-item + .stat-item {
-    border-top: 1px solid var(--line);
+    border-top: var(--bw-hair) solid var(--line);
 }
 
 .stat-item:first-child {
@@ -59,25 +53,23 @@
 .stat-value {
     display: flex;
     align-items: baseline;
-    gap: 0.15rem;
+    gap: var(--space-1);
     font-family: var(--font-display);
-    font-size: clamp(2.3rem, 4.5vw, 3.1rem);
+    font-size: clamp(2rem, 4vw, 2.6rem);
     font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+    letter-spacing: 0;
+    line-height: 1.15;
     color: var(--ink);
     font-variant-numeric: tabular-nums;
 }
 
 .stat-affix {
-    font-size: 0.7em;
+    font-size: 0.84em;
     font-weight: 700;
     line-height: 1;
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: var(--accent-deep);
+    /* no text-shadow here: the affixes are single glyphs (+ / ¥), and a hard
+       2px offset on a thin glyph just smears it into a blob */
 }
 
 .stat-value > .stat-affix:first-child {
@@ -89,19 +81,19 @@
 }
 
 .stat-sub {
-    margin-top: 0.3rem;
+    margin-top: var(--space-1);
     color: var(--ink-3);
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.95rem;
     letter-spacing: 0.05em;
     opacity: 0.9;
 }
 
 .stat-label {
-    margin-top: 0.4rem;
+    margin-top: var(--space-1);
     color: var(--ink-3);
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -110,10 +102,10 @@
 .stat-label::before {
     content: "";
     display: inline-block;
-    width: 0.9rem;
-    height: 2px;
-    margin-right: 0.5rem;
+    width: var(--space-2);
+    height: var(--space-2);
+    margin-right: var(--space-2);
     vertical-align: middle;
-    border-radius: var(--radius-pill);
-    background: var(--grad-aurora);
+    border-radius: 0;
+    background: var(--accent);
 }

@@ -1,0 +1,149 @@
+/* Homepage-only responsive rules (the shared breakpoint core lives in
+   _responsive.scss, which must stay identical to the Blog repo). */
+
+@media (max-width: 1023.98px) {
+    .pubs-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pubs-rail {
+        display: none;
+    }
+}
+
+@media (min-width: 720px) and (max-width: 1023.98px) {
+    .ip-layout {
+        grid-template-columns: minmax(0, 1fr) 160px;
+        gap: clamp(16px, 3vw, 28px);
+    }
+
+    .ip-layout .ip-timeline {
+        display: block;
+        padding: var(--space-3);
+    }
+}
+
+@media (max-width: 879.98px) {
+    .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-7);
+    }
+
+    .hero-side {
+        order: -1;
+    }
+
+    .hero-portrait {
+        max-width: 184px;
+        margin: 0 auto;
+    }
+
+    .portrait-caption {
+        text-align: center;
+        padding-left: 0;
+        border-left: 0;
+        border-top: var(--bw) solid var(--accent);
+        padding-top: var(--space-3);
+        max-width: 256px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .bg-grid,
+    .team-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .award-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat-item:first-child {
+        padding-top: var(--space-5);
+        border-top: var(--bw-hair) solid var(--line);
+    }
+}
+
+@media (max-width: 719.98px) {
+    .pub-item {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-4);
+    }
+
+    .pub-media {
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 559.98px) {
+    .hero-portrait {
+        max-width: 152px;
+    }
+
+    .portrait-caption {
+        display: none;
+    }
+
+    .hero-grid {
+        gap: var(--space-6);
+    }
+
+    .hero-bio {
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    .hero-bio p {
+        margin-bottom: 0.72em;
+    }
+
+    .hero-bio p:first-child {
+        font-size: 1.1rem;
+    }
+
+    .news-item,
+    .news-year-marker {
+        grid-template-columns: 16px minmax(0, 1fr);
+    }
+
+    .news-list::before {
+        left: 6px;
+    }
+
+    .news-date {
+        display: block;
+        grid-column: 2;
+        grid-row: 2;
+        padding: 0 0 0 var(--space-4);
+        text-align: left;
+    }
+
+    .news-node {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: baseline;
+        transform: translateY(4px);
+    }
+
+    .news-text {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .news-year-label {
+        grid-column: 2;
+    }
+
+    .award-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .award-title {
+        min-height: 0;
+    }
+
+    .timeline-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

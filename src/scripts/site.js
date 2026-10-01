@@ -6,7 +6,7 @@
     var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
     var themeToggle = document.getElementById("theme-toggle");
-    var THEME_COLORS = { light: "#f9f7f6", dark: "#16110e" };
+    var THEME_COLORS = { light: "#e9e1c9", dark: "#14162b" };
     var MODE_ORDER = ["light", "dark", "system"];
     var MODE_ICONS = {
         light: "fas fa-sun",
@@ -211,7 +211,7 @@
 (function () {
     var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mq.matches || !window.matchMedia("(pointer: fine)").matches) return;
-    var glow = document.querySelector(".canvas-glow");
+    var glow = document.querySelector(".canvas-grid");
     if (!glow) return;
     var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
     function tick() {
@@ -238,7 +238,13 @@
         var t = e.target.closest ? e.target.closest(".lq-glare") : null;
         if (!t) return;
         var r = t.getBoundingClientRect();
-        t.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
-        t.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+        /* Lengths, not percentages: background-position percentages align P% of
+           the image with P% of the box, so a cursor-locked highlight can never
+           land on the pointer. Snap to the 4px pixel grid instead. */
+        var grid = 4;
+        var mx = Math.round((e.clientX - r.left) / grid) * grid;
+        var my = Math.round((e.clientY - r.top) / grid) * grid;
+        t.style.setProperty("--mx", mx + "px");
+        t.style.setProperty("--my", my + "px");
     }, { passive: true });
 })();

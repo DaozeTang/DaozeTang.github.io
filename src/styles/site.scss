@@ -1,3 +1,8 @@
+/* Personal homepage — pixel theme entrypoint.
+   Shared core (identical to the Blog repo): tokens, base, pixel, layout, cards,
+   navbar, footer, buttons, animations, responsive.
+   Homepage-only modules follow; the pixel finish layer loads last so it wins
+   over component defaults. */
 @use "tokens";
 @use "base";
 @use "layout";
@@ -15,4 +20,5 @@
 @use "intellectual-property";
 @use "animations";
 @use "responsive";
-@use "glass";
+@use "responsive-pages";
+@use "pixel";

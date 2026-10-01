@@ -6,10 +6,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "eleventy",
+    "build": "node scripts/sync-pixel-theme.js check && eleventy",
     "citations:refresh": "node scripts/refresh-citations.js",
     "serve": "eleventy --serve",
-    "clean": "rm -rf _site"
+    "clean": "rm -rf _site",
+    "theme:check": "node scripts/sync-pixel-theme.js check",
+    "theme:sync": "node scripts/sync-pixel-theme.js sync"
   },
   "engines": {
     "node": ">=18"

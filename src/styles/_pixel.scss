@@ -1,0 +1,221 @@
+/* ==========================================================================
+   PIXEL UI — shared interaction / finish layer.
+   Replaces the former liquid-glass (`_glass.scss`) module in BOTH projects.
+   Selector lists are deliberately the union of Blog + homepage components so
+   this file stays byte-identical across repositories; unmatched selectors are
+   simply inert in whichever project is rendering.
+   ========================================================================== */
+
+:root {
+    /* stepped 8-bit corner: a 6px stair cut into each corner */
+    --px-clip: polygon(
+        var(--px-notch) 0, calc(100% - var(--px-notch)) 0,
+        calc(100% - var(--px-notch)) var(--bw-hair), 100% var(--bw-hair),
+        100% calc(100% - var(--bw-hair)), calc(100% - var(--px-notch)) calc(100% - var(--bw-hair)),
+        calc(100% - var(--px-notch)) 100%, var(--px-notch) 100%,
+        var(--px-notch) calc(100% - var(--bw-hair)), 0 calc(100% - var(--bw-hair)),
+        0 var(--bw-hair), var(--px-notch) var(--bw-hair)
+    );
+    /* hard (unblurred) offset shadow that follows a clipped silhouette */
+    --px-drop: drop-shadow(4px 4px 0 var(--px-shadow));
+    --px-drop-lg: drop-shadow(8px 8px 0 var(--px-shadow));
+}
+
+/* ---- stepped-corner pixel frames ------------------------------------- */
+/* Only leaf containers are clipped: clip-path hides overflowing children and
+   would swallow the dropdown menu, absolutely positioned badges, etc. */
+
+.px-notch,
+.site-dialog,
+.prompt-container,
+.footer-base {
+    clip-path: var(--px-clip);
+    filter: var(--px-drop);
+    box-shadow: var(--rim-strong);
+}
+
+.px-flat-shadow {
+    box-shadow: var(--shadow-md), var(--rim);
+}
+
+/* ---- pixelated media -------------------------------------------------- */
+
+img,
+video {
+    image-rendering: pixelated;
+}
+
+/* Brand + tile imagery only. Article screenshots and paper figures stay on
+   normal smoothing (see _base.scss) so their text remains readable. */
+.hero-portrait img,
+.tool-card img,
+.project-thumb img,
+.ip-cover img,
+.institution-logo,
+.site-dialog img,
+.avatar,
+.logo {
+    image-rendering: pixelated;
+    border-radius: 0;
+}
+
+/* ---- stepped motion for every interactive surface -------------------- */
+
+.pub-item,
+.post-item,
+.tool-card,
+.award-card,
+.ip-item,
+.project-item,
+.term-chip,
+.position-badge,
+.social-btn,
+.timeline-marker,
+.pager-num,
+.nav-link,
+.theme-toggle,
+.nav-burger,
+.nav-search-btn,
+.tag,
+.post-chip,
+.section-action,
+.page-header-stat,
+.btn-ink,
+.btn-pub-link,
+.pub-view-all,
+.stat-item,
+.news-item {
+    transition:
+        transform 160ms var(--ease-pixel),
+        box-shadow 160ms var(--ease-pixel),
+        border-color 120ms var(--ease-pixel),
+        background-color 120ms var(--ease-pixel),
+        color 120ms var(--ease-pixel);
+}
+
+/* ---- button press: sink into the screen, shadow collapses ------------- */
+
+.social-btn:active,
+.btn-ink:active,
+.btn-pub-link:active,
+.pub-view-all:active,
+.nav-link:active,
+.theme-toggle:active,
+.nav-burger:active,
+.nav-search-btn:active,
+.post-chip:active,
+.tag:active,
+.term-chip:active,
+.pager-num:active,
+.pager-arrow:active,
+.section-action:active,
+.page-header-stat:active {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-none), var(--rim-soft) !important;
+    filter: none;
+    transition-duration: 60ms;
+}
+
+.pub-item:active,
+.tool-card:active,
+.post-item:active,
+.award-card:active,
+.ip-item:active,
+.project-item:active,
+.news-item:active,
+.stat-item:active,
+a.post-nav-card:active {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-sm), var(--rim) !important;
+    transition-duration: 60ms;
+}
+
+/* ---- pointer-tracked glare becomes a flat dithered highlight --------- */
+/* site.js still adds .lq-glare and writes --mx/--my; pixel style keeps that
+   hook but renders it as a hard-edged scan highlight, never a soft glow. */
+
+.lq-glare {
+    /* px units, parked outside the card until the pointer reports a position */
+    --mx: -999px;
+    --my: -999px;
+    --px-hl: 48px;
+    position: relative;
+    /* isolate keeps the scan overlay's z-index inside the card, so it can sit
+       above the panel's own children without racing page-level stacking */
+    isolation: isolate;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    /* The patch is drawn in an overlay layer ABOVE the card content. As a
+       background-image it used to sit under opaque children (a .btn-pub-link
+       painted over it, then leaked through that button's translucent hover
+       state). ::after + z-index puts it on top; pointer-events keeps it inert
+       and isolation contains it. Length maths works because --mx/--my are px
+       — see the note in src/scripts/site.js. */
+    .lq-glare::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        opacity: 0;
+        background-image:
+            repeating-linear-gradient(180deg,
+                var(--px-scan-tint) 0 var(--px), transparent var(--px) 6px),
+            repeating-linear-gradient(90deg,
+                var(--px-scan-tint) 0 var(--px), transparent var(--px) 6px);
+        background-position:
+            calc(var(--mx) - var(--px-hl) / 2) calc(var(--my) - var(--px-hl) / 2),
+            calc(var(--mx) - var(--px-hl) / 2) calc(var(--my) - var(--px-hl) / 2);
+        background-size: var(--px-hl) var(--px-hl), var(--px-hl) var(--px-hl);
+        background-repeat: no-repeat, no-repeat;
+        transition: opacity 120ms steps(2, end);
+    }
+
+    .lq-glare:hover::after {
+        opacity: 1;
+    }
+}
+
+/* ---- pixel utilities -------------------------------------------------- */
+
+.px-blink {
+    animation: px-blink 1s steps(2, start) infinite;
+}
+
+@keyframes px-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+/* blinking block caret for terminal-style labels */
+.px-caret::after {
+    content: "";
+    display: inline-block;
+    width: 0.6em;
+    height: 1em;
+    margin-left: 0.3em;
+    vertical-align: -0.12em;
+    background: var(--accent);
+    animation: px-blink 1s steps(2, start) infinite;
+}
+
+/* CRT power-on flash, used on the 404 / prompt pages */
+.px-crt-boot {
+    animation: px-crt-boot 420ms steps(6, end) 1;
+}
+
+@keyframes px-crt-boot {
+    0% { opacity: 0; transform: scaleY(0.02); filter: brightness(3); }
+    60% { opacity: 1; transform: scaleY(1.04); filter: brightness(1.4); }
+    100% { opacity: 1; transform: none; filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .canvas-scanlines,
+    .px-blink,
+    .px-caret::after,
+    .px-crt-boot {
+        animation: none;
+    }
+}

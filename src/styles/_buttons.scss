@@ -1,3 +1,7 @@
+/* ==========================================================================
+   PIXEL BUTTONS — shared. Byte-identical across both repositories.
+   ========================================================================== */
+
 .social-btn,
 .btn-pub-link,
 .pub-view-all,
@@ -6,113 +10,114 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.5rem;
+    min-height: 40px;
     gap: 0.5em;
-    border: 1px solid var(--glass-edge);
-    border-radius: var(--radius-chip);
+    padding: var(--space-2) var(--space-4);
+    border: var(--bw) solid var(--px-line);
+    border-radius: 0;
     background: var(--card);
-    backdrop-filter: var(--glass);
-    -webkit-backdrop-filter: var(--glass);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     color: var(--ink-2);
-    font-family: var(--font-sans);
-    font-weight: 600;
-    line-height: 1;
+    font-family: var(--font-pixel);
+    font-size: 0.58rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.6;
     cursor: pointer;
     white-space: nowrap;
-    box-shadow: var(--shadow-sm), var(--rim-soft);
+    box-shadow: var(--shadow-md), var(--rim-soft);
     transition: var(--t-spring);
     overflow: hidden;
 }
 
 .social-btn {
-    min-height: 2.75rem;
-    padding: 0.65rem 1.15rem;
-    font-size: 0.84rem;
+    min-height: 44px;
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.6rem;
 }
 
 .social-btn i {
-    font-size: 0.9em;
-    color: var(--accent);
+    font-size: 1.1em;
+    color: var(--accent-deep);
     transition: transform var(--t-med);
 }
 
 .social-btn:hover {
-    border-color: var(--accent-line);
+    border-color: var(--px-line);
+    background: var(--surface-2);
     color: var(--ink);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md), var(--rim-soft);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg), var(--rim-soft);
 }
 
 .social-btn:hover i {
-    transform: scale(1.18) rotate(-6deg);
+    transform: translate(-1px, -1px);
 }
 
-.social-btn-primary {
-    border-color: transparent;
-    background: var(--grad-button);
-    color: #fff;
-    box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+.social-btn-primary,
+.btn-ink {
+    border-color: var(--px-line);
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: var(--shadow-md), var(--rim-soft);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
 
-.social-btn-primary::after {
+/* hard scanline texture instead of a smooth gradient sheen */
+.social-btn-primary::after,
+.btn-ink::after {
     content: "";
     position: absolute;
     inset: 0;
     background: var(--grad-sheen);
-    opacity: 0.5;
     pointer-events: none;
 }
 
-.social-btn-primary i {
-    color: #fff;
+.social-btn-primary i,
+.btn-ink i {
+    color: var(--on-accent);
 }
 
-.social-btn-primary:hover {
-    color: #fff;
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 16px 40px rgb(var(--accent-rgb) / 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+.social-btn-primary:hover,
+.btn-ink:hover {
+    color: var(--on-accent);
+    background: var(--accent-deep);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg), var(--rim-soft);
 }
 
 .btn-ink {
-    padding: 0.9rem 1.7rem;
-    border-color: transparent;
-    background: var(--grad-button);
-    color: #fff;
-    font-size: 0.9rem;
-    box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.btn-ink:hover {
-    color: #fff;
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 18px 44px rgb(var(--accent-rgb) / 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    padding: var(--space-3) var(--space-6);
+    font-size: 0.66rem;
 }
 
 .btn-ghost {
     background: var(--card);
-    border-color: var(--glass-edge);
+    border-color: var(--px-line);
     color: var(--ink-2);
-    box-shadow: var(--shadow-sm), var(--rim-soft);
+    box-shadow: var(--shadow-md), var(--rim-soft);
 }
 
 .btn-ghost:hover {
     border-color: var(--accent-line);
+    background: var(--accent-soft);
     color: var(--accent-deep);
 }
 
 .btn-pub-link {
-    padding: 0.45rem 0.9rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    padding: var(--space-2) var(--space-3);
+    min-height: 32px;
+    font-size: 0.55rem;
+    box-shadow: var(--shadow-sm), var(--rim-soft);
 }
 
 .btn-pub-link::after {
     content: "\2197";
-    font-size: 0.85em;
-    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 1.1em;
+    color: var(--accent-deep);
     transition: transform var(--t-med);
 }
 
@@ -120,7 +125,7 @@
     border-color: var(--accent-line);
     background: var(--accent-soft);
     color: var(--accent-deep);
-    transform: translateY(-2px);
+    transform: translate(-2px, -2px);
     box-shadow: var(--shadow-md), var(--rim-soft);
 }
 
@@ -129,16 +134,20 @@
 }
 
 .pub-view-all {
-    padding: 0.6rem 1.15rem;
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.58rem;
 }
 
 .pub-view-all:hover {
     border-color: var(--accent-line);
+    background: var(--accent-soft);
     color: var(--accent-deep);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md), var(--rim-soft);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg), var(--rim-soft);
+}
+
+/* links that are not buttons must not inherit the pixel key look */
+a.social-btn,
+a.btn-ink {
+    text-decoration: none;
 }
