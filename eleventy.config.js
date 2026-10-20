@@ -42,6 +42,14 @@ module.exports = function (eleventyConfig) {
         groupByYear(api.getFilteredByGlob(NEWS_GLOB).sort(byDateDesc))
     );
 
+    eleventyConfig.addCollection("sitePages", (api) =>
+        api
+            .getAll()
+            .filter((item) => typeof item.outputPath === "string" && item.outputPath.endsWith(".html"))
+            .filter((item) => item.url !== "/404.html")
+            .filter((item) => item.data.sitemap !== false)
+    );
+
     eleventyConfig.addFilter("encodeEmail", (value) =>
         String(value)
             .split("")
@@ -52,6 +60,8 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addFilter("toFixed", (value, digits = 2) =>
         Number(value).toFixed(digits)
     );
+
+    eleventyConfig.addFilter("encodeUri", (value) => encodeURI(String(value)));
 
     eleventyConfig.addTemplateFormats("scss");
     eleventyConfig.addExtension("scss", {
@@ -73,7 +83,6 @@ module.exports = function (eleventyConfig) {
     });
 
     eleventyConfig.addPassthroughCopy({ "src/assets/images": "assets/images" });
-    eleventyConfig.addPassthroughCopy({ "src/assets/documents": "assets/documents" });
     eleventyConfig.addPassthroughCopy({ "src/assets/favicon.png": "favicon.png" });
     eleventyConfig.addPassthroughCopy({ "src/scripts": "scripts" });
 

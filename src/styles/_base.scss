@@ -1,8 +1,3 @@
-/* ==========================================================================
-   PIXEL BASE — shared reset / typography / background layers.
-   Byte-identical across the Blog and personal-homepage repositories.
-   ========================================================================== */
-
 *,
 *::before,
 *::after {
@@ -33,20 +28,13 @@ body {
     line-height: var(--leading-prose);
     letter-spacing: 0.01em;
     overflow-x: hidden;
-    /* NB: `-webkit-font-smoothing: none` makes Chrome shear the tops off
-       shadowed pixel-font headings, so smoothing stays on and crispness comes
-       from the bitmap faces themselves instead. */
     -webkit-font-smoothing: auto;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
 
-/* ---- CRT / pixel backdrop layers ------------------------------------- */
-
 .canvas-grid {
     position: fixed;
-    /* site.js parallaxes this layer by up to +-44px; an inset:0 box would drag
-       a bare band along the viewport edge, so it is deliberately oversized. */
     inset: -64px;
     z-index: -3;
     pointer-events: none;
@@ -81,22 +69,6 @@ body {
 @keyframes scan-roll {
     from { background-position: 0 0; }
     to { background-position: 0 32px; }
-}
-
-/* legacy layer names kept working (older markup / capture screenshots) */
-.canvas-glow,
-.canvas-veil,
-.canvas-grain {
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    pointer-events: none;
-    filter: none;
-    animation: none;
-    background: none;
-    background-image: none;
-    opacity: 1;
-    mix-blend-mode: normal;
 }
 
 ::selection {
@@ -155,9 +127,6 @@ video {
 }
 
 img {
-    /* Article screenshots/photos are content, not chrome: nearest-neighbour
-       scaling makes their text unreadable. Only brand + tile imagery in
-       _pixel.scss is rendered pixelated. */
     image-rendering: auto;
 }
 
@@ -173,23 +142,9 @@ h6 {
     letter-spacing: 0;
     color: var(--ink);
     overflow-wrap: break-word;
-    /* Display-size pixel headings deliberately keep text-shadow at most 2px:
-       Chrome clips the tops of large pixel-font runs as soon as a >=3px
-       text-shadow is applied (verified on both sites). Depth comes from the
-       hard panel shadows — see scripts/sync-pixel-theme.js CHECKS. */
     text-shadow: 2px 2px 0 var(--ghost);
-    /* Pixel display faces (Silkscreen / Press Start 2P) draw ink outside the
-       em box. Non-positioned inline ink paints before every positioned layer,
-       so decorative pseudo-rules (.page-header::after, .year-rule, …) can cover
-       the top of a heading. Keeping headings in the positioned layer — and
-       therefore in DOM order — stops that. */
     position: relative;
     z-index: 0;
-}
-
-.font-display {
-    font-family: var(--font-display);
-    letter-spacing: 0;
 }
 
 p {
@@ -212,11 +167,6 @@ b {
     color: var(--ink);
 }
 
-/* Markdown emphasis inside article prose: DotGothic16 ships a single weight,
-   so Latin <strong> cannot be rendered bolder and emphasis would silently
-   vanish. Carry it with colour + an underline (never colour alone). Scoped to
-   .prose so counters, author lists and venue <b>/<strong> keep their own
-   treatment instead of turning green. (.prose is blog-only; inert here.) */
 .prose strong,
 .prose b {
     color: var(--accent-deep);
@@ -230,7 +180,6 @@ code,
 kbd,
 samp {
     font-family: var(--font-mono);
-    /* VT323 sits small on the baseline — bump it to keep code readable */
     font-size: 1.12em;
     letter-spacing: 0;
 }
@@ -264,8 +213,6 @@ kbd {
     box-shadow: 2px 2px 0 0 var(--px-shadow);
 }
 
-/* Inline-code chrome must not leak into fenced blocks: the pixel bevel on
-   `code` would otherwise draw a second frame inside every code panel. */
 pre code,
 pre code :where(*) {
     border: 0;
@@ -278,15 +225,6 @@ pre code :where(*) {
 .mono {
     font-family: var(--font-mono);
     font-feature-settings: "zero" 1;
-}
-
-/* pixel "engraved" headline instead of a smooth gradient clip */
-.grad-text {
-    background: none;
-    -webkit-background-clip: initial;
-    background-clip: initial;
-    -webkit-text-fill-color: currentColor;
-    color: var(--accent-deep);
 }
 
 .kicker {
@@ -308,31 +246,6 @@ pre code :where(*) {
     border-radius: 0;
     background: var(--accent);
 }
-
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* kept for older markup — resolves to a solid pixel panel now */
-.glass {
-    position: relative;
-    border: var(--bw) solid var(--px-line);
-    border-radius: 0;
-    background: var(--card);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: var(--shadow-md), var(--rim);
-}
-
-/* ---- chunky pixel scrollbar ------------------------------------------ */
 
 * {
     scrollbar-width: thin;
@@ -360,26 +273,13 @@ pre code :where(*) {
     background: var(--surface-2);
 }
 
-.lq-defs {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-/* ---- capture mode (OG image rendering) -------------------------------- */
-
 [data-capture="true"] .site-header {
     position: relative;
 }
 
 [data-capture="true"] .canvas-grid,
 [data-capture="true"] .canvas-scanlines,
-[data-capture="true"] .canvas-vignette,
-[data-capture="true"] .canvas-glow,
-[data-capture="true"] .canvas-veil,
-[data-capture="true"] .canvas-grain {
+[data-capture="true"] .canvas-vignette {
     display: none;
 }
 

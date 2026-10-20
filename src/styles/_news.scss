@@ -16,7 +16,6 @@
     background: repeating-linear-gradient(180deg,
             var(--line-strong) 0 var(--px), transparent var(--px) 8px);
     opacity: 1;
-    /* purely decorative: must never swallow clicks */
     pointer-events: none;
 }
 

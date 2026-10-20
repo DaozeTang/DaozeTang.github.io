@@ -1,15 +1,9 @@
-/* ==========================================================================
-   PIXEL ANIMATIONS — shared motion. Byte-identical across both repositories.
-   Everything steps between discrete frames; no easing curves, no blur.
-   ========================================================================== */
-
 @keyframes status-pulse {
     0% { box-shadow: var(--pulse-from); }
     50% { box-shadow: var(--pulse-mid); }
     100% { box-shadow: var(--pulse-to); }
 }
 
-/* scroll reveal: two-frame snap, like a sprite fading in */
 .reveal-item {
     opacity: 0;
     transform: translateY(16px);
@@ -53,54 +47,6 @@
     animation: rise-in 480ms steps(4, end) 200ms backwards;
 }
 
-/* palette-cycling text (classic 8-bit trick): discrete colour swap, no gradient */
-@keyframes shimmer {
-    0%   { color: var(--accent-deep); }
-    25%  { color: var(--gold-ink); }
-    50%  { color: var(--cyan-ink); }
-    75%  { color: var(--violet-ink); }
-    100% { color: var(--accent-deep); }
-}
-
-.shimmer-text {
-    background: none;
-    -webkit-background-clip: initial;
-    background-clip: initial;
-    -webkit-text-fill-color: currentColor;
-    color: var(--accent-deep);
-    animation: shimmer 8s steps(1, end) infinite;
-    text-shadow: 2px 2px 0 var(--ghost);
-}
-
-/* a hard-edged 8px column of light marching across a panel */
-@keyframes sheen-sweep {
-    0%   { transform: translateX(-140%); opacity: 1; }
-    70%  { transform: translateX(240%); opacity: 1; }
-    100% { transform: translateX(240%); opacity: 0; }
-}
-
-.glass-sheen {
-    position: relative;
-    overflow: hidden;
-}
-
-.glass-sheen::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 8px;
-    height: 100%;
-    pointer-events: none;
-    background: var(--px-hi);
-    animation: sheen-sweep 6s steps(14, end) infinite;
-    z-index: 3;
-}
-
-[data-theme="dark"] .glass-sheen::after {
-    background: rgba(233, 236, 255, 0.18);
-}
-
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -119,14 +65,7 @@
         transform: none;
     }
 
-    .canvas-scanlines,
-    .canvas-glow,
-    .canvas-glow::before,
-    .canvas-glow::after {
+    .canvas-scanlines {
         animation: none;
-    }
-
-    .glass-sheen::after {
-        display: none;
     }
 }

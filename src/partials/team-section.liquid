@@ -1,9 +1,10 @@
-{% assign funding_rmb = team.total_funding_rmb | default: team.total_funding | default: 0 %}
-{% if team.total_funding_usd %}
-    {% assign funding_usd_k = team.total_funding_usd | divided_by: 1000 %}
-{% else %}
-    {% assign funding_usd_k = funding_rmb | divided_by: 7000 %}
-{% endif %}
+{% assign funding_rmb = team.total_funding | default: 0 %}
+{% assign funding_usd_k = funding_rmb | divided_by: team.cny_per_usd | divided_by: 1000 %}
+
+{%- assign project_count = 0 -%}
+{%- for group in projects.groups -%}
+    {%- assign project_count = project_count | plus: group.items.size -%}
+{%- endfor -%}
 
 <section class="section" id="team">
     <header class="section-head">
@@ -29,7 +30,7 @@
 
             <div class="stat-item">
                 <div class="stat-value">
-                    <span data-count-to="{{ team.project_count | default: 0 }}">{{ team.project_count | default: 0 }}</span>
+                    <span data-count-to="{{ project_count }}">{{ project_count }}</span>
                 </div>
                 <div class="stat-label">Projects completed</div>
             </div>

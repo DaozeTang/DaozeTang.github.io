@@ -38,7 +38,7 @@
         <div class="hero-side">
             <figure class="hero-portrait">
                 <div class="portrait-frame">
-                    <img src="{{ profile.portrait_url }}" class="profile-img" alt="{{ profile.primary_name }}">
+                    <img src="{{ profile.portrait_url }}" class="profile-img" alt="{{ profile.portrait_alt | default: profile.primary_name }}">
                 </div>
 
                 {% if profile.portrait_caption %}

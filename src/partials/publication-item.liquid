@@ -1,7 +1,6 @@
 <article class="pub-item">
     <div class="pub-media">
-        {% if item.data.cover %}
-        <img src="{{ item.data.cover }}" alt="{{ item.data.title | strip_html }}" class="pub-cover" loading="lazy" decoding="async">
+        {% if item.data.cover %}<img src="{{ item.data.cover }}" alt="" class="pub-cover" loading="lazy" decoding="async">
         {% else %}
         <div class="pub-cover-placeholder">
             <i class="fas fa-file-lines" aria-hidden="true"></i>

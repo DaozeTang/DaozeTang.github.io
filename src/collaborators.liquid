@@ -7,14 +7,15 @@ metaDescription: >-
   Meet Daoze Tang's recent major collaborators and their institutional
   affiliations.
 ---
+{%- assign institutionCount = collaborators.people | map: "institution" | uniq | size -%}
 
 <header class="page-header collaborators-header">
     <p class="page-header-kicker kicker">A current circle</p>
     <h1 class="page-header-title">Collaborators<span class="title-dot">.</span></h1>
     <p class="page-header-subtitle">{{ collaborators.description }}</p>
     <div class="page-header-meta" aria-label="Collaboration overview">
-        <span class="page-header-stat"><i class="fas fa-user-group" aria-hidden="true"></i> {{ collaborators.people.size }} collaborators</span>
-        <span class="page-header-stat"><i class="fas fa-building-columns" aria-hidden="true"></i> {{ collaborators.institution_count }} institutions</span>
+        <span class="page-header-stat"><i class="fas fa-user-group" aria-hidden="true"></i> {{ collaborators.people.size }} collaborator{% if collaborators.people.size != 1 %}s{% endif %}</span>
+        <span class="page-header-stat"><i class="fas fa-building-columns" aria-hidden="true"></i> {{ institutionCount }} institution{% if institutionCount != 1 %}s{% endif %}</span>
     </div>
 </header>
 

@@ -68,7 +68,6 @@ async function fromSemanticScholar(paperId) {
             await sleep(wait);
         }
     }
-    return { error: "semanticscholar: exhausted" };
 }
 
 async function fromOpenAlex(doi) {
@@ -84,7 +83,6 @@ async function fromOpenAlex(doi) {
             await sleep(BASE_DELAY_MS * attempt);
         }
     }
-    return { error: "openalex: exhausted" };
 }
 
 async function resolveCount(paperId, doi, preferredSource) {

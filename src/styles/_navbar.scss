@@ -1,8 +1,3 @@
-/* ==========================================================================
-   PIXEL NAVBAR — shared chrome. Byte-identical across both repositories.
-   Square 3px outlines, solid fills, hard offset shadows, Press Start 2P labels.
-   ========================================================================== */
-
 .site-header {
     position: sticky;
     top: 0;
@@ -28,7 +23,6 @@
     transition: box-shadow var(--t-med), border-color var(--t-med), background-color var(--t-med);
 }
 
-/* hard dithered highlight strip along the top edge */
 .topbar::after {
     content: "";
     position: absolute;

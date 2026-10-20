@@ -52,7 +52,6 @@
     display: block;
     width: 100%;
     height: auto;
-    image-rendering: pixelated;
     transition: filter var(--t-med);
     filter: saturate(1.06) contrast(1.03);
 }
@@ -80,8 +79,6 @@
     background-color: var(--accent-softer);
     background-image: var(--px-dither);
 
-    /* the dither token is a conic gradient: without a tile size it
-       stretches across the whole box and reads as giant checkerboards */
     background-size: 8px 8px;
 }
 
@@ -193,8 +190,6 @@
     font-size: clamp(1.8rem, 4vw, 2.4rem);
     font-weight: 800;
     letter-spacing: 0.02em;
-    /* Silkscreen draws above the em box: line-height: 1 lets the ink escape
-       into the decorative rule above it */
     line-height: 1.3;
     color: var(--ink);
 }

@@ -230,7 +230,7 @@
 })();
 (function () {
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    var sel = ".pub-item, .ip-item, .project-item, .tool-card, .post-item, .award-card, a.post-nav-card";
+    var sel = ".pub-item, .ip-item, .project-item, .award-card";
     var cards = document.querySelectorAll(sel);
     if (!cards.length) return;
     cards.forEach(function (el) { el.classList.add("lq-glare"); });
@@ -238,9 +238,7 @@
         var t = e.target.closest ? e.target.closest(".lq-glare") : null;
         if (!t) return;
         var r = t.getBoundingClientRect();
-        /* Lengths, not percentages: background-position percentages align P% of
-           the image with P% of the box, so a cursor-locked highlight can never
-           land on the pointer. Snap to the 4px pixel grid instead. */
+
         var grid = 4;
         var mx = Math.round((e.clientX - r.left) / grid) * grid;
         var my = Math.round((e.clientY - r.top) / grid) * grid;

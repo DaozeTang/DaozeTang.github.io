@@ -1,7 +1,3 @@
-/* ==========================================================================
-   PIXEL BUTTONS — shared. Byte-identical across both repositories.
-   ========================================================================== */
-
 .social-btn,
 .btn-pub-link,
 .pub-view-all,
@@ -65,7 +61,6 @@
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
 
-/* hard scanline texture instead of a smooth gradient sheen */
 .social-btn-primary::after,
 .btn-ink::after {
     content: "";
@@ -146,7 +141,6 @@
     box-shadow: var(--shadow-lg), var(--rim-soft);
 }
 
-/* links that are not buttons must not inherit the pixel key look */
 a.social-btn,
 a.btn-ink {
     text-decoration: none;

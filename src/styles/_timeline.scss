@@ -10,8 +10,6 @@
     gap: var(--space-2);
     margin-bottom: var(--space-5);
     padding-bottom: var(--space-3);
-    /* --line-strong, not --px-line: the outline ink is near-black and this
-       rule sits straight on the page background, so it vanished in dark mode. */
     border-bottom: var(--bw) solid var(--line-strong);
     color: var(--ink-3);
     font-family: var(--font-display);
@@ -44,10 +42,8 @@
     bottom: 0;
     left: calc(-1 * var(--space-7));
     width: var(--bw);
-    /* pixel-chain spine instead of a dashed rule */
     background: repeating-linear-gradient(180deg,
             var(--line-strong) 0 var(--px), transparent var(--px) 8px);
-    /* purely decorative: must never swallow clicks */
     pointer-events: none;
 }
 
@@ -91,7 +87,6 @@
     height: 70%;
     object-fit: contain;
     border-radius: 0;
-    image-rendering: pixelated;
 }
 
 [data-theme="dark"] .timeline-marker {

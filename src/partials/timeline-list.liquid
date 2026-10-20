@@ -2,8 +2,7 @@
     {% for item in timelineItems %}
     <div class="timeline-item">
         <div class="timeline-marker">
-            {% if item.logo %}
-            <img src="{{ item.logo }}" alt="{{ item.name }}" loading="lazy">
+            {% if item.logo %}<img src="{{ item.logo }}" alt="" loading="lazy">
             {% else %}
             <div class="icon-placeholder"><i class="fas {{ fallbackIcon | default: 'fa-circle' }}" aria-hidden="true"></i></div>
             {% endif %}

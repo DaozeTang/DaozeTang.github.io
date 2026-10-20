@@ -110,7 +110,6 @@
     height: var(--space-5);
     object-fit: contain;
     border-radius: 0;
-    image-rendering: pixelated;
 }
 
 [data-theme="dark"] .position-badge img {
@@ -185,15 +184,9 @@
     border: var(--bw-hair) solid var(--line-soft);
     border-radius: 0;
     background: var(--px-dither);
-    /* Shifted down-right by the same 8px as the frame's hard shadow, so the
-       dither plate and the shadow read as one layered pixel frame instead of
-       two unrelated rectangles. */
     transform: translate(var(--space-2), var(--space-2));
-    /* purely decorative: must never swallow clicks */
     pointer-events: none;
 
-    /* the dither token is a conic gradient: without a tile size it
-       stretches across the whole box and reads as giant checkerboards */
     background-size: 8px 8px;
 }
 
@@ -208,7 +201,6 @@
 }
 
 .hero-portrait:hover .portrait-frame {
-    /* lift + deeper shadow: matching the hover language of every other card */
     transform: translate(-4px, -4px);
     box-shadow: 12px 12px 0 0 var(--px-shadow), var(--rim-strong);
 }
@@ -217,7 +209,6 @@
     width: 100%;
     aspect-ratio: 0.82;
     object-fit: cover;
-    image-rendering: pixelated;
     filter: contrast(1.05) saturate(1.04);
     transition: filter var(--t-med);
 }

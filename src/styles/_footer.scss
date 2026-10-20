@@ -1,7 +1,3 @@
-/* ==========================================================================
-   PIXEL FOOTER + PROMPT (404) PAGE — shared. Byte-identical across repos.
-   ========================================================================== */
-
 .site-footer {
     position: relative;
     margin-top: var(--space-10);
@@ -12,9 +8,6 @@
 }
 
 .footer-base {
-    /* two rows: the slogan owns a full-width line, the credits sit under it.
-       Sharing one row squeezed the code line into ~55% of the footer and forced
-       it to wrap. */
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
@@ -35,11 +28,6 @@
     line-height: 1.6;
 }
 
-/* One framed terminal panel, not an inline chip: an inline `code` frame plus
-   box-decoration-break: clone drew a separate closed box per wrapped line.
-   At 1.05rem VT323 the 93-character line is ~780px wide, so it stays on a
-   single row across the full desktop footer and only wraps inside this one
-   frame on narrow screens. */
 .footer-note code {
     display: block;
     padding: var(--space-3) var(--space-4);
@@ -109,8 +97,6 @@
     color: var(--accent);
 }
 
-/* ---- prompt / 404 page ------------------------------------------------ */
-
 .prompt-body {
     display: grid;
     place-items: center;
@@ -137,7 +123,6 @@
     font-weight: 400;
     letter-spacing: -0.02em;
     line-height: 1;
-    /* engraved pixel digits: solid fill + hard drop, no gradient clip */
     background: none;
     -webkit-background-clip: initial;
     background-clip: initial;

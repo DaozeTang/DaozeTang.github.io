@@ -1,7 +1,3 @@
-/* ==========================================================================
-   PIXEL CARDS — shared panels and dialogs. Byte-identical across repos.
-   ========================================================================== */
-
 .panel {
     position: relative;
     border: var(--bw) solid var(--px-line);
@@ -72,7 +68,7 @@
 
 .dialog-close:hover {
     background: var(--coral);
-    color: var(--on-accent);
+    color: var(--ink);
     transform: translate(-1px, -1px);
     box-shadow: var(--shadow-md);
 }

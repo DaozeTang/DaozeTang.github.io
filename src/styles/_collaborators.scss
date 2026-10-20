@@ -32,8 +32,6 @@
     background: var(--px-dither);
     pointer-events: none;
 
-    /* the dither token is a conic gradient: without a tile size it
-       stretches across the whole box and reads as giant checkerboards */
     background-size: 8px 8px;
 }
 
@@ -48,7 +46,6 @@
     background: var(--grad-aurora);
     opacity: 0.4;
     transition: opacity var(--t-med);
-    /* purely decorative: must never swallow clicks */
     pointer-events: none;
 }
 
@@ -194,15 +191,10 @@
     display: block;
     width: 100%;
     height: auto;
-    /* The frame is a square grid cell, but grid items resolve min-height:auto
-       from their content: with height:100% the 129x160 source forced the row
-       to ~30px and spilled out of the 24px content box, sitting low in the
-       frame. Pinning a 1:1 box lets object-fit centre the emblem instead. */
     aspect-ratio: 1;
     min-height: 0;
     object-fit: contain;
     border-radius: 0;
-    image-rendering: pixelated;
 }
 
 .institution-copy {

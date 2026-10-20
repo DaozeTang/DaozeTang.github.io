@@ -1,32 +1,18 @@
-/* ==========================================================================
-   PIXEL DESIGN TOKENS — shared design system (Blog + personal homepage)
-   Retro / 8-bit pixel-art language:
-   · square corners, hard 3px outlines, solid offset shadows (never blurred)
-   · inner bevels via --rim* so existing `box-shadow: var(--shadow), var(--rim)`
-     rules resolve to a pixel bevel automatically
-   · no backdrop blur (--glass: none), no smooth gradients on surfaces
-   · 4px spacing grid, steps() easing, pixel + terminal typefaces
-   This file must stay byte-identical across both repositories.
-   See scripts/check-pixel-theme.js (npm run theme:check).
-   ========================================================================== */
-
 :root {
     color-scheme: light;
 
-    /* ---- pixel grid + chrome primitives ------------------------------ */
-    --px: 4px;                    /* base pixel unit (everything snaps to it) */
-    --bw: 3px;                    /* standard pixel outline width */
-    --bw-lg: 4px;                 /* heavy outline for panels / hero frames */
+    --px: 4px;
+    --bw: 3px;
+    --bw-lg: 4px;
     --bw-hair: 2px;
-    --px-notch: 6px;              /* stepped corner size for clip-path frames */
-    --px-line: #1a1c2c;           /* dark outline ink */
-    --px-shadow: #1a1c2c;         /* solid offset shadow color */
-    --px-hi: rgba(255, 255, 255, 0.78);   /* bevel highlight (top/left) */
-    --px-lo: rgba(26, 28, 44, 0.22);      /* bevel shade (bottom/right) */
-    --px-scan: 4px;               /* CRT scanline pitch */
+    --px-notch: 6px;
+    --px-line: #1a1c2c;
+    --px-shadow: #1a1c2c;
+    --px-hi: rgba(255, 255, 255, 0.78);
+    --px-lo: rgba(26, 28, 44, 0.22);
+    --px-scan: 4px;
 
     --bg: #e9e1c9;
-    --bg-alt: #ded4b6;
 
     --card: #fff8e7;
     --card-solid: #fff8e7;
@@ -34,8 +20,6 @@
     --surface-2: #e6dcc0;
     --glass-bg: #f7f0dd;
     --glass-strong: #fffaee;
-    --glass-edge: #1a1c2c;
-    --glass-inner: #fffdf5;
     --menu-bg: #fbf5e6;
     --veil: rgba(233, 225, 201, 0.6);
 
@@ -48,11 +32,10 @@
     --accent: #067d49;
     --accent-rgb: 6 125 73;
     --accent-deep: #005c38;
-    --accent-soft: #d7e4ce /* opaque 16% #067d49 on #fff8e7 */;
-    --accent-softer: #ebeeda /* opaque 8% #067d49 on #fff8e7 */;
+    --accent-soft: #d7e4ce;
+    --accent-softer: #ebeeda;
     --accent-line: #005c38;
 
-    /* PICO-8-flavoured secondary palette (kept from the old token names) */
     --violet: #7e2553;
     --cyan: #29adff;
     --teal: #41d6a3;
@@ -69,56 +52,35 @@
     --violet-line: #7e2553;
     --blue-soft: #dfe2f2;
     --blue-line: #3b5dc9;
-    --teal-soft: #e8f0e6
+    --teal-soft: #e8f0e6;
     --teal-line: #17796a;
-    --gold-soft: #ffe5b4 /* opaque 22% #ffa300 on #fff8e7 */;
+    --gold-soft: #ffe5b4;
     --ok: #067d49;
 
-    /* decorative layers: flat retro sky bands instead of blurred aurora */
     --aurora-1: rgba(6, 125, 73, 0.16);
     --aurora-2: rgba(59, 93, 201, 0.14);
-    --aurora-3: rgba(65, 214, 163, 0.14);
-    --aurora-4: rgba(255, 163, 0, 0.16);
-    --aurora-5: rgba(255, 93, 84, 0.12);
-    --aurora-6: rgba(41, 173, 255, 0.12);
-    --aurora-blur: 0px;
-    --aurora-sat: 100%;
-    --aurora-hue-t: 8s;
-    --aurora-t1: 12s;
-    --aurora-t2: 16s;
-    --aurora-seek-1: 0s;
-    --aurora-seek-2: -4s;
-    --aurora-hue-seek: -2s;
 
     --line: rgba(26, 28, 44, 0.28);
     --line-soft: rgba(26, 28, 44, 0.14);
     --line-strong: #1a1c2c;
     --dot: rgba(26, 28, 44, 0.16);
 
-    /* dithered / striped patterns replace smooth gradients */
     --grad-aurora: repeating-linear-gradient(90deg,
             var(--accent) 0 var(--px), transparent var(--px) calc(var(--px) * 2));
     --grad-text: #005c38;
-    --grad-button: var(--accent);
     --grad-sheen: repeating-linear-gradient(180deg,
             rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 4px);
-    /* the pointer scan block is a tint layer, so it keeps real alpha */
     --px-scan-tint: rgba(6, 125, 73, 0.16);
     --px-dither: repeating-conic-gradient(var(--dot) 0% 25%, transparent 0% 50%);
-    --px-checker: repeating-linear-gradient(45deg,
-            var(--line-soft) 0 var(--px), transparent var(--px) calc(var(--px) * 2));
 
-    /* solid offset shadows — never blurred */
     --shadow-sm: 2px 2px 0 0 var(--px-shadow);
     --shadow-md: 4px 4px 0 0 var(--px-shadow);
     --shadow-lg: 8px 8px 0 0 var(--px-shadow);
     --shadow-glow: 4px 4px 0 0 var(--accent);
-    --shadow-interactive: var(--shadow-md), var(--rim);
     --shadow-none: 0 0 0 0 transparent;
     --ring: 0 0 0 4px var(--bg), 0 0 0 8px var(--accent);
     --focus-outline: var(--bw) solid var(--accent);
 
-    /* --rim* feed the pixel bevel into every existing box-shadow combo */
     --rim:
         inset 0 0 0 var(--bw-hair) var(--px-line),
         inset var(--bw) var(--bw) 0 0 var(--px-hi),
@@ -132,18 +94,12 @@
         inset calc(var(--bw-hair) * -1) calc(var(--bw-hair) * -1) 0 0 var(--px-lo);
     --rim-plain: 0 0 0 0 transparent;
 
-    /* typefaces: pixel display + terminal mono + readable CJK-safe body */
     --font-pixel: "Press Start 2P", "Silkscreen", ui-monospace, monospace;
-    /* Display face must survive Chrome's rasteriser: both Silkscreen (bitmap
-       strikes) and DotGothic16 clip the tops of uppercase + digit glyphs at
-       heading sizes, so headings use the VT323 terminal face and the blocky
-       Press Start 2P is reserved for short uppercase labels. */
     --font-display: "VT323", "DotGothic16", "Noto Sans SC", monospace;
     --font-serif: "VT323", "DotGothic16", "Noto Sans SC", monospace;
     --font-sans: "DotGothic16", "Noto Sans SC", ui-monospace, monospace;
     --font-mono: "VT323", "JetBrains Mono", ui-monospace, monospace;
 
-    /* 4px grid */
     --space-1: 4px;
     --space-2: 8px;
     --space-3: 12px;
@@ -155,35 +111,17 @@
     --space-9: 64px;
     --space-10: 96px;
 
-    /* pixel art has no rounded corners */
-    --radius-sm: 0px;
-    --radius-md: 0px;
-    --radius-lg: 0px;
-    --radius-xl: 0px;
-    --radius-pill: 0px;
-    --radius-chip: 0px;
-
-    /* stepped easing: motion snaps between pixel frames */
     --ease-pixel: steps(2, end);
-    --ease-pixel-slow: steps(4, end);
-    --ease-spring: steps(2, end);
     --ease-smooth: steps(2, end);
-    --ease-out: steps(3, end);
     --t-fast: 120ms steps(2, end);
     --t-med: 200ms steps(3, end);
     --t-spring: transform 160ms steps(2, end), box-shadow 160ms steps(2, end),
         border-color 120ms steps(2, end), background-color 120ms steps(2, end),
         color 120ms steps(2, end);
 
-    /* no glassmorphism */
-    --glass: none;
-    --glass-deep: none;
-
     --shell-max: 72rem;
     --header-h: 64px;
     --section-gap: 80px;
-    --content-gap: 32px;
-    --card-pad: 24px;
     --leading-prose: 1.85;
 
     --pulse-from: 0 0 0 0 rgba(6, 125, 73, 0.55);
@@ -200,7 +138,6 @@
     --px-lo: rgba(5, 6, 15, 0.55);
 
     --bg: #14162b;
-    --bg-alt: #0f1120;
 
     --card: #22244a;
     --card-solid: #22244a;
@@ -208,8 +145,6 @@
     --surface-2: #2a2d5c;
     --glass-bg: #1c1e40;
     --glass-strong: #262a55;
-    --glass-edge: #9aa4ff;
-    --glass-inner: #363b74;
     --menu-bg: #1c1e40;
     --veil: rgba(20, 22, 43, 0.55);
 
@@ -238,21 +173,17 @@
     --teal-ink: #7ef0cf;
     --pink-ink: #ffb3cf;
     --cyan-ink: #8fdcff;
-    --violet-soft: #46365f /* opaque 22% #c775a9 on #22244a */;
+    --violet-soft: #46365f;
     --violet-line: #c775a9;
-    --blue-soft: #354072 /* opaque 22% #7aa2ff on #22244a */;
+    --blue-soft: #354072;
     --blue-line: #7aa2ff;
-    --teal-soft: #28485c /* opaque 20% #41d6a3 on #22244a */;
+    --teal-soft: #28485c;
     --teal-line: #41d6a3;
     --gold-soft: #4d3f22;
     --ok: #68d67a;
 
     --aurora-1: rgba(104, 214, 122, 0.16);
     --aurora-2: rgba(122, 162, 255, 0.14);
-    --aurora-3: rgba(65, 214, 163, 0.14);
-    --aurora-4: rgba(251, 177, 60, 0.14);
-    --aurora-5: rgba(255, 143, 136, 0.12);
-    --aurora-6: rgba(106, 208, 255, 0.12);
 
     --line: rgba(233, 236, 255, 0.3);
     --line-soft: rgba(233, 236, 255, 0.14);
@@ -260,7 +191,6 @@
     --dot: rgba(233, 236, 255, 0.16);
 
     --grad-text: #a7f3b6;
-    --grad-button: var(--accent);
     --grad-sheen: repeating-linear-gradient(180deg,
             rgba(233, 236, 255, 0.12) 0 2px, transparent 2px 4px);
 

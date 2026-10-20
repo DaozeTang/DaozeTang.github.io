@@ -11,7 +11,6 @@ positions:
   logo: /assets/images/institutions/huc-logo.png
 
 email: "daozetang@cau.edu.cn"
-# cv_link: /assets/documents/cv.pdf
 gscholar: 9AQVTHMAAAAJ
 github: DaozeTang
 orcid: 0009-0003-0001-0049
@@ -39,6 +38,7 @@ short_bio: >-
   </p>
 
 portrait_url: /assets/images/profile/daoze-tang.jpg
+portrait_alt: Portrait photograph of Daoze Tang
 portrait_caption: >-
   Daoze Tang, China, 2022.
 

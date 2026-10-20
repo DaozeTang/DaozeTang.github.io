@@ -68,8 +68,6 @@
     font-weight: 700;
     line-height: 1;
     color: var(--accent-deep);
-    /* no text-shadow here: the affixes are single glyphs (+ / ¥), and a hard
-       2px offset on a thin glyph just smears it into a blob */
 }
 
 .stat-value > .stat-affix:first-child {

@@ -1,20 +1,4 @@
-#!/usr/bin/env node
 'use strict';
-
-/*
- * sync-pixel-theme.js — keeps the shared pixel design system identical across
- * the Blog repository and the personal-homepage repository.
- *
- * The two sites live side by side (…/GitHub/Blog and …/GitHub/DaozeTang.github.io)
- * and share a pixel "core" of SCSS partials. This tool:
- *   check   verify the shared partials are byte-identical with the sibling repo
- *           and that every var(--token) used is actually defined          (default)
- *   sync    copy the sibling repo's shared partials over this repo's copies
- *   tokens  only run the token-coverage audit
- *
- * When no sibling checkout exists (e.g. inside a single-repo CI job) the
- * cross-repo comparison is skipped and the local audits still run.
- */
 
 const fs = require('fs');
 const path = require('path');
@@ -22,7 +6,6 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const STYLES = path.join(ROOT, 'src', 'styles');
 
-/* Files that form the shared pixel core — must be identical in both repos. */
 const SHARED = [
     '_tokens.scss',
     '_base.scss',
@@ -36,17 +19,12 @@ const SHARED = [
     '_responsive.scss',
 ];
 
-/* Markers that prove a partial is still written in the pixel system. */
 const REQUIRED_MARKERS = {
     '_tokens.scss': ['--px:', '--px-line', 'steps('],
     '_base.scss': ['canvas-grid', 'canvas-scanlines', 'image-rendering'],
     '_pixel.scss': ['--px-clip', 'px-notch', 'lq-glare'],
 };
 
-/* Legacy "glass / soft UI" declarations that must not survive in the pixel
-   core. Matched as whole declarations and judged on the parsed value, so the
-   pixel-legal forms (`backdrop-filter: none`, `border-radius: 0`,
-   `border-radius: var(--radius-*)`) are not false positives. */
 const CHECKS = [
     {
         name: 'glassmorphism blur must not return',
@@ -56,11 +34,7 @@ const CHECKS = [
     {
         name: 'rounded corners break the pixel grid',
         re: /border-radius\s*:\s*([^;]+);/g,
-        bad: (v) => {
-            const value = v.trim();
-            if (/^var\(--radius/.test(value)) return false;
-            return value.split(/\s+/).some((p) => !/^0(px|rem|em)?$/i.test(p));
-        },
+        bad: (v) => v.trim().split(/\s+/).some((p) => !/^0(px|rem|em)?$/i.test(p)),
     },
     {
         name: 'blurred shadows are not pixel shadows (use Nx Nx 0 0 color)',
@@ -83,7 +57,6 @@ const CHECKS = [
     },
 ];
 
-/* a conic-gradient tint only tiles when the rule also sets background-size */
 function auditDitherTiles(dir) {
     const hits = [];
     for (const file of listScss(dir)) {
@@ -138,27 +111,47 @@ function read(p) {
     return fs.readFileSync(p, 'utf8');
 }
 
-/* strip CSS comments so prose inside the header banners is never audited */
 function stripComments(css) {
     return css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 }
-
-/* ---------------- token coverage ---------------- */
 
 function auditTokens() {
     const files = listScss(STYLES);
     const defined = new Set();
     const used = new Map();
+    const embedded = [];
 
     for (const file of files) {
+        const name = path.basename(file);
         const css = stripComments(read(file));
-        for (const m of css.matchAll(/(--[a-z0-9][a-z0-9-]*)\s*:/gi)) defined.add(m[1]);
+
+        for (const block of css.matchAll(/[^{}]*\{([^{}]*)\}/g)) {
+            const body = block[1];
+            const decls = [];
+            let start = 0;
+            const pushDecl = (text) => {
+                const m = /^\s*(--[a-z0-9][a-z0-9-]*)\s*:\s*([\s\S]*)$/i.exec(text);
+                if (m) decls.push({ name: m[1], value: m[2].trim() });
+            };
+            for (const part of body.split(';')) pushDecl(part);
+            if (body.split(';').pop().trim()) {
+
+                start = 0;
+            }
+            for (const d of decls) {
+                defined.add(d.name);
+
+                for (const inner of d.value.matchAll(/(--[a-z0-9][a-z0-9-]*)\s*:/gi)) {
+                    embedded.push({ file: name, token: inner[1], owner: d.name, value: d.value });
+                }
+            }
+        }
+
         for (const m of css.matchAll(/var\(\s*(--[a-z0-9][a-z0-9-]*)/gi)) {
-            if (!used.has(m[1])) used.set(m[1], path.basename(file));
+            if (!used.has(m[1])) used.set(m[1], name);
         }
     }
 
-    /* vars set from JS / inline styles are legitimate external definitions */
     const external = new Set(['--mx', '--my']);
     const jsPath = path.join(ROOT, 'src', 'scripts', 'site.js');
     if (fs.existsSync(jsPath)) {
@@ -168,26 +161,8 @@ function auditTokens() {
     }
 
     const missing = [...used.keys()].filter((t) => !defined.has(t) && !external.has(t));
-    return { defined: defined.size, used: used.size, missing, usedBy: used };
+    return { defined: defined.size, used: used.size, missing, usedBy: used, embedded };
 }
-
-/* ---------------- forbidden patterns ---------------- */
-
-function auditForbidden() {
-    const hits = [];
-    for (const file of listScss(STYLES)) {
-        const css = read(file);
-        for (const { re, why } of FORBIDDEN) {
-            re.lastIndex = 0;
-            for (const m of css.matchAll(re)) {
-                hits.push({ file: path.basename(file), why, sample: m[0].trim().slice(0, 72) });
-            }
-        }
-    }
-    return hits;
-}
-
-/* ---------------- main ---------------- */
 
 const mode = process.argv[2] || 'check';
 const problems = [];
@@ -207,14 +182,12 @@ if (mode === 'sync') {
     process.exit(0);
 }
 
-/* 1. every shared partial exists and is non-empty */
 for (const f of SHARED) {
     const p = path.join(STYLES, f);
     if (!fs.existsSync(p)) problems.push('missing shared partial: src/styles/' + f);
     else if (read(p).trim().length === 0) problems.push('empty shared partial: src/styles/' + f);
 }
 
-/* 2. pixel markers present / legacy glass module gone */
 for (const [f, markers] of Object.entries(REQUIRED_MARKERS)) {
     const p = path.join(STYLES, f);
     if (!fs.existsSync(p)) continue;
@@ -237,7 +210,6 @@ if (fs.existsSync(siteScss)) {
     }
 }
 
-/* 3. shared core must be byte-identical with the sibling repository */
 const sib = siblingRoot();
 if (sib) {
     for (const f of SHARED) {
@@ -248,7 +220,6 @@ if (sib) {
     }
 }
 
-/* 3b. the palette announced to the OS/browser must equal the token palette */
 (function auditThemeColor() {
     const tokens = read(path.join(STYLES, '_tokens.scss'));
     const light = /\n\s*--bg:\s*(#[0-9a-f]{6})/i.exec(tokens);
@@ -272,9 +243,13 @@ if (sib) {
     }
 }());
 
-/* 4. token coverage + legacy glass/soft-UI patterns */
 const tokens = auditTokens();
 for (const t of tokens.missing) problems.push('undefined design token used: ' + t + ' (first seen in ' + tokens.usedBy[t] + ')');
+
+for (const e of tokens.embedded) {
+    problems.push(e.file + ': ' + e.owner + ' is not terminated with ";" — the following '
+        + e.token + ' was swallowed into its value');
+}
 
 const forbidden = auditLegacy(STYLES).concat(auditDitherTiles(STYLES));
 for (const h of forbidden) problems.push(h.file + ': ' + h.why + ' — ' + h.sample);
@@ -282,6 +257,7 @@ for (const h of forbidden) problems.push(h.file + ': ' + h.why + ' — ' + h.sam
 console.log('pixel theme check — ' + path.basename(ROOT));
 console.log('  shared partials : ' + SHARED.length + (sib ? ' (compared with ' + path.basename(sib) + ')' : ' (no sibling checkout)'));
 console.log('  tokens defined  : ' + tokens.defined + ', used: ' + tokens.used + ', unresolved: ' + tokens.missing.length);
+console.log('  malformed decls : ' + tokens.embedded.length + ' (missing semicolon)');
 console.log('  legacy patterns : ' + forbidden.length + ' hit(s)');
 
 if (problems.length) {
