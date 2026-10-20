@@ -220,25 +220,6 @@ pre code :where(*) {
     font-feature-settings: "zero" 1;
 }
 
-.kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-pixel);
-    font-size: 0.62rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent-deep);
-}
-
-.kicker::before {
-    content: "";
-    width: var(--space-4);
-    height: var(--bw);
-    background: var(--accent);
-}
-
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--accent) var(--surface-2);
