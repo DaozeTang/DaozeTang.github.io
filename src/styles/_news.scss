@@ -12,7 +12,6 @@
     bottom: var(--space-2);
     left: calc(7.5rem + var(--space-1));
     width: var(--bw);
-    border-radius: 0;
     background: repeating-linear-gradient(180deg,
             var(--line-strong) 0 var(--px), transparent var(--px) 8px);
     opacity: 1;
@@ -25,7 +24,6 @@
     grid-template-columns: 7.5rem 1.6rem minmax(0, 1fr);
     align-items: baseline;
     padding: var(--space-2) 0;
-    border-radius: 0;
     transition: background-color var(--t-fast);
 }
 
@@ -50,7 +48,6 @@
     width: var(--space-3);
     height: var(--space-3);
     border: var(--bw-hair) solid var(--accent);
-    border-radius: 0;
     background: var(--card-solid);
     box-shadow: var(--rim-plain);
     transition: var(--t-med);
@@ -106,6 +103,5 @@
     width: var(--space-2);
     height: var(--space-2);
     margin-left: var(--space-2);
-    border-radius: 0;
     background: var(--accent);
 }

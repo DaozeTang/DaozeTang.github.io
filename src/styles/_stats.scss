@@ -28,7 +28,6 @@
     flex-direction: column;
     padding: var(--space-6);
     border: var(--bw) solid var(--px-line);
-    border-radius: 0;
     background: var(--card);
     box-shadow: var(--shadow-md), var(--rim);
 }
@@ -104,6 +103,5 @@
     height: var(--space-2);
     margin-right: var(--space-2);
     vertical-align: middle;
-    border-radius: 0;
     background: var(--accent);
 }

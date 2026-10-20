@@ -11,7 +11,6 @@
     gap: clamp(1.2rem, 3vw, 2.2rem);
     padding: clamp(1.2rem, 2.6vw, 1.6rem);
     border: var(--bw) solid var(--px-line);
-    border-radius: 0;
     background: var(--card);
     box-shadow: var(--shadow-sm), var(--rim);
     overflow: hidden;
@@ -29,7 +28,6 @@
     overflow: hidden;
     align-self: center;
     border: var(--bw) solid var(--px-line);
-    border-radius: 0;
     background: var(--surface);
     box-shadow: var(--shadow-md);
     transition: var(--t-spring);
@@ -236,7 +234,6 @@
     top: calc(var(--header-h) + 2rem);
     padding: var(--space-4);
     border: var(--bw) solid var(--px-line);
-    border-radius: 0;
     background: var(--card);
     box-shadow: var(--shadow-sm), var(--rim);
 }
@@ -264,7 +261,6 @@
     justify-content: space-between;
     gap: var(--space-2);
     padding: var(--space-2) var(--space-3);
-    border-radius: 0;
     color: var(--ink-3);
     font-family: var(--font-mono);
     font-size: 1rem;
@@ -294,7 +290,6 @@
     gap: 0.35em;
     padding: var(--space-1) var(--space-2);
     border: var(--bw-hair) solid var(--px-line);
-    border-radius: 0;
     background: var(--surface);
     color: var(--ink-2);
     font-family: var(--font-pixel);

@@ -19,11 +19,6 @@
     box-shadow: var(--rim-strong);
 }
 
-.hero-portrait img,
-.site-dialog img {
-    border-radius: 0;
-}
-
 .pub-item,
 .post-item,
 .tool-card,
@@ -48,12 +43,8 @@
 .pub-view-all,
 .stat-item,
 .news-item {
-    transition:
-        transform 160ms var(--ease-pixel),
-        box-shadow 160ms var(--ease-pixel),
-        border-color 120ms var(--ease-pixel),
-        background-color 120ms var(--ease-pixel),
-        color 120ms var(--ease-pixel);
+    /* One motion signature for every interactive pixel surface. */
+    transition: var(--t-spring);
 }
 
 .social-btn:active,

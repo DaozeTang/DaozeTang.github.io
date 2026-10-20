@@ -1,10 +1,7 @@
 .panel {
     position: relative;
     border: var(--bw) solid var(--px-line);
-    border-radius: 0;
     background: var(--card);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     box-shadow: var(--shadow-md), var(--rim);
 }
 
@@ -14,10 +11,7 @@
     padding: var(--space-6);
     max-width: 24rem;
     border: var(--bw) solid var(--px-line);
-    border-radius: 0;
     background: var(--glass-strong);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     color: var(--ink);
     font-family: var(--font-mono);
     text-align: center;
@@ -27,13 +21,11 @@
     background:
         repeating-linear-gradient(180deg,
             rgba(5, 6, 15, 0.5) 0 var(--px), rgba(5, 6, 15, 0.68) var(--px) 8px);
-    backdrop-filter: none;
 }
 
 .site-dialog img {
     margin: 0 auto var(--space-3);
     border: var(--bw-hair) solid var(--px-line);
-    border-radius: 0;
 }
 
 .site-dialog h6 {
@@ -55,7 +47,6 @@
     width: 32px;
     height: 32px;
     border: var(--bw-hair) solid var(--px-line);
-    border-radius: 0;
     background: var(--surface-2);
     color: var(--ink-2);
     font-family: var(--font-mono);

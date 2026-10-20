@@ -8,7 +8,6 @@
     position: relative;
     padding: clamp(1.2rem, 2.4vw, 1.6rem) clamp(1.2rem, 2.6vw, 1.6rem);
     border: var(--bw) solid var(--px-line);
-    border-radius: 0;
     background: var(--card);
     box-shadow: var(--shadow-sm), var(--rim);
     overflow: hidden;
@@ -65,7 +64,6 @@
     gap: 0.35em;
     padding: var(--space-1) var(--space-2);
     border: var(--bw-hair) solid var(--px-line);
-    border-radius: 0;
     background: var(--surface);
     color: var(--ink-2);
     font-family: var(--font-pixel);

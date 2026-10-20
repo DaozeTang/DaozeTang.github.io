@@ -29,23 +29,18 @@
     --ghost: rgba(26, 28, 44, 0.08);
     --on-accent: #fff8e7;
 
-    --accent: #067d49;
-    --accent-rgb: 6 125 73;
+    --accent: #047041;
     --accent-deep: #005c38;
     --accent-soft: #d7e4ce;
     --accent-softer: #ebeeda;
     --accent-line: #005c38;
 
-    --violet: #7e2553;
-    --cyan: #29adff;
-    --teal: #41d6a3;
-    --blue: #3b5dc9;
     --coral: #ff5d54;
     --gold: #ffa300;
     --gold-ink: #8a5800;
     --blue-ink: #1d3d8f;
     --violet-ink: #5e1a3d;
-    --teal-ink: #17796a;
+    --teal-ink: #157063;
     --pink-ink: #b83d6b;
     --cyan-ink: #1a6f9e;
     --violet-soft: #ecd9e6;
@@ -55,9 +50,10 @@
     --teal-soft: #e8f0e6;
     --teal-line: #17796a;
     --gold-soft: #ffe5b4;
-    --ok: #067d49;
+    --ok: #047041;
+    --err: #b3241c;
 
-    --aurora-1: rgba(6, 125, 73, 0.16);
+    --aurora-1: rgba(4, 112, 65, 0.16);
     --aurora-2: rgba(59, 93, 201, 0.14);
 
     --line: rgba(26, 28, 44, 0.28);
@@ -70,7 +66,7 @@
     --grad-text: #005c38;
     --grad-sheen: repeating-linear-gradient(180deg,
             rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 4px);
-    --px-scan-tint: rgba(6, 125, 73, 0.16);
+    --px-scan-tint: rgba(4, 112, 65, 0.16);
     --px-dither: repeating-conic-gradient(var(--dot) 0% 25%, transparent 0% 50%);
 
     --shadow-sm: 2px 2px 0 0 var(--px-shadow);
@@ -112,7 +108,6 @@
     --space-10: 96px;
 
     --ease-pixel: steps(2, end);
-    --ease-smooth: steps(2, end);
     --t-fast: 120ms steps(2, end);
     --t-med: 200ms steps(3, end);
     --t-spring: transform 160ms steps(2, end), box-shadow 160ms steps(2, end),
@@ -124,9 +119,9 @@
     --section-gap: 80px;
     --leading-prose: 1.85;
 
-    --pulse-from: 0 0 0 0 rgba(6, 125, 73, 0.55);
-    --pulse-mid: 0 0 0 8px rgba(6, 125, 73, 0);
-    --pulse-to: 0 0 0 8px rgba(6, 125, 73, 0);
+    --pulse-from: 0 0 0 0 rgba(4, 112, 65, 0.55);
+    --pulse-mid: 0 0 0 8px rgba(4, 112, 65, 0);
+    --pulse-to: 0 0 0 8px rgba(4, 112, 65, 0);
 }
 
 [data-theme="dark"] {
@@ -155,16 +150,11 @@
     --on-accent: #0a0c18;
 
     --accent: #68d67a;
-    --accent-rgb: 104 214 122;
     --accent-deep: #a7f3b6;
     --accent-soft: #26443f;
     --accent-softer: #223046;
     --accent-line: #a7f3b6;
 
-    --violet: #c775a9;
-    --cyan: #6ad0ff;
-    --teal: #41d6a3;
-    --blue: #7aa2ff;
     --coral: #ff8f88;
     --gold: #fbb13c;
     --gold-ink: #fbb13c;
@@ -181,6 +171,7 @@
     --teal-line: #41d6a3;
     --gold-soft: #4d3f22;
     --ok: #68d67a;
+    --err: #ff8f88;
 
     --aurora-1: rgba(104, 214, 122, 0.16);
     --aurora-2: rgba(122, 162, 255, 0.14);

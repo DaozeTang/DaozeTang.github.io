@@ -2,6 +2,8 @@
 *::before,
 *::after {
     box-sizing: border-box;
+    /* Any rounding breaks the pixel grid, so zero it once instead of per rule. */
+    border-radius: 0;
 }
 
 * {
@@ -28,7 +30,6 @@ body {
     line-height: var(--leading-prose);
     letter-spacing: 0.01em;
     overflow-x: hidden;
-    -webkit-font-smoothing: auto;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
@@ -85,7 +86,6 @@ body {
 :focus-visible {
     outline: var(--focus-outline);
     outline-offset: 3px;
-    border-radius: 0;
 }
 
 .skip-link {
@@ -95,7 +95,6 @@ body {
     z-index: 1000;
     padding: var(--space-3) var(--space-4);
     border: var(--bw) solid var(--px-line);
-    border-radius: 0;
     background: var(--accent);
     color: var(--on-accent);
     font-family: var(--font-pixel);
@@ -124,10 +123,6 @@ svg,
 video {
     display: block;
     max-width: 100%;
-}
-
-img {
-    image-rendering: auto;
 }
 
 h1,
@@ -198,7 +193,6 @@ hr {
 code {
     padding: 0.1em 0.4em;
     border: var(--bw-hair) solid var(--px-line);
-    border-radius: 0;
     background: var(--surface);
     color: var(--accent-deep);
     box-shadow: inset -2px -2px 0 0 var(--px-lo), inset 2px 2px 0 0 var(--px-hi);
@@ -208,7 +202,6 @@ kbd {
     padding: 0.1em 0.45em;
     border: var(--bw-hair) solid var(--px-line);
     border-bottom-width: var(--bw);
-    border-radius: 0;
     background: var(--card);
     box-shadow: 2px 2px 0 0 var(--px-shadow);
 }
@@ -243,7 +236,6 @@ pre code :where(*) {
     content: "";
     width: var(--space-4);
     height: var(--bw);
-    border-radius: 0;
     background: var(--accent);
 }
 
@@ -260,7 +252,6 @@ pre code :where(*) {
 ::-webkit-scrollbar-thumb {
     background: var(--accent);
     border: var(--bw-hair) solid var(--px-line);
-    border-radius: 0;
     box-shadow: inset 2px 2px 0 0 var(--px-hi), inset -2px -2px 0 0 var(--px-lo);
 }
 
@@ -298,9 +289,4 @@ html[data-capture="true"] {
 
 html[data-capture="true"]::-webkit-scrollbar {
     display: none;
-}
-
-[data-capture="true"] * {
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
 }

@@ -126,23 +126,12 @@ function auditTokens() {
         const css = stripComments(read(file));
 
         for (const block of css.matchAll(/[^{}]*\{([^{}]*)\}/g)) {
-            const body = block[1];
-            const decls = [];
-            let start = 0;
-            const pushDecl = (text) => {
-                const m = /^\s*(--[a-z0-9][a-z0-9-]*)\s*:\s*([\s\S]*)$/i.exec(text);
-                if (m) decls.push({ name: m[1], value: m[2].trim() });
-            };
-            for (const part of body.split(';')) pushDecl(part);
-            if (body.split(';').pop().trim()) {
-
-                start = 0;
-            }
-            for (const d of decls) {
-                defined.add(d.name);
-
-                for (const inner of d.value.matchAll(/(--[a-z0-9][a-z0-9-]*)\s*:/gi)) {
-                    embedded.push({ file: name, token: inner[1], owner: d.name, value: d.value });
+            for (const part of block[1].split(';')) {
+                const m = /^\s*(--[a-z0-9][a-z0-9-]*)\s*:\s*([\s\S]*)$/i.exec(part);
+                if (!m) continue;
+                defined.add(m[1]);
+                for (const inner of m[2].matchAll(/(--[a-z0-9][a-z0-9-]*)\s*:/gi)) {
+                    embedded.push({ file: name, token: inner[1], owner: m[1], value: m[2].trim() });
                 }
             }
         }
