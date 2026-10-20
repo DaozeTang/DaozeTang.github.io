@@ -9,12 +9,12 @@
 }
 
 @media (min-width: 720px) and (max-width: 1023.98px) {
-    .ip-layout {
+    .reg-layout {
         grid-template-columns: minmax(0, 1fr) 160px;
         gap: clamp(16px, 3vw, 28px);
     }
 
-    .ip-layout .ip-timeline {
+    .reg-layout .reg-timeline {
         display: block;
         padding: var(--space-3);
     }

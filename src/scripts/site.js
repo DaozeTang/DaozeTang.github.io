@@ -230,7 +230,7 @@
 })();
 (function () {
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    var sel = ".pub-item, .ip-item, .project-item, .award-card";
+    var sel = ".pub-item, .reg-item, .project-item, .award-card";
     var cards = document.querySelectorAll(sel);
     if (!cards.length) return;
     cards.forEach(function (el) { el.classList.add("lq-glare"); });

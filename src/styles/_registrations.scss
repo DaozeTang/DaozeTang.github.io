@@ -1,39 +1,39 @@
-.ip-list {
+.reg-list {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
 }
 
-.ip-item {
+.reg-item {
     border: var(--bw) solid var(--px-line);
     border-radius: 0;
 }
 
-.ip-role {
+.reg-role {
     border-color: var(--blue-line);
     background: var(--blue-soft);
     color: var(--blue-ink);
 }
 
-.ip-role:hover {
+.reg-role:hover {
     border-color: var(--blue-ink);
 }
 
-.ip-role i,
-.ip-meta .tag i {
+.reg-role i,
+.reg-meta .tag i {
     font-size: 0.82em;
 }
 
-.ip-registration {
+.reg-number {
     color: var(--ink-2);
 }
 
-.ip-registration:hover {
+.reg-number:hover {
     border-color: var(--line-strong);
     color: var(--ink);
 }
 
-.ip-timeline .rail-link:only-child {
+.reg-timeline .rail-link:only-child {
     color: var(--accent-deep);
     background: var(--accent-soft);
 }

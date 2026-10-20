@@ -19,7 +19,7 @@ npm run citations:refresh # re-resolve publication citation counts
 | Social/contact buttons | `src/data/social.yml` |
 | Homepage sections on/off | `src/data/display.yml` |
 | Papers | `src/content/publications/<year>/*.md` |
-| Patents and software copyrights | `src/data/intellectual_property.yml` |
+| Software copyrights and patents | `src/data/registrations.yml` |
 | Recent collaborators | `src/data/collaborators.yml` |
 | News | `src/content/news/<year>/*.md` |
 | Citation counts | `src/data/citations.json` |
