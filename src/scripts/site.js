@@ -67,6 +67,8 @@
 
     var topbar = document.getElementById("topbar");
     var burger = document.getElementById("nav-burger");
+    var navLinks = document.getElementById("site-nav");
+    var desktopQuery = window.matchMedia("(min-width: 960px)");
 
     if (topbar) {
         var onScroll = function () {
@@ -76,34 +78,47 @@
         onScroll();
     }
 
-    function closeNav(restoreFocus) {
-        if (!topbar) return;
-        topbar.classList.remove("nav-open");
-        if (burger) burger.setAttribute("aria-expanded", "false");
-        if (restoreFocus && burger) burger.focus();
+    function setNavState(open) {
+        var expanded = open && !desktopQuery.matches;
+        topbar.classList.toggle("nav-open", expanded);
+        burger.setAttribute("aria-expanded", String(expanded));
+        burger.setAttribute("aria-label", expanded ? "Close navigation" : "Open navigation");
+        navLinks.hidden = !expanded && !desktopQuery.matches;
+        navLinks.inert = !expanded && !desktopQuery.matches;
     }
 
-    if (burger && topbar) {
+    function closeNav(restoreFocus) {
+        var wasOpen = burger.getAttribute("aria-expanded") === "true";
+        setNavState(false);
+        if (restoreFocus && wasOpen) burger.focus();
+    }
+
+    if (burger && topbar && navLinks) {
+        setNavState(false);
+        desktopQuery.addEventListener("change", function () { setNavState(false); });
+
         burger.addEventListener("click", function (event) {
             event.stopPropagation();
-            var open = topbar.classList.toggle("nav-open");
-            burger.setAttribute("aria-expanded", String(open));
+            var open = burger.getAttribute("aria-expanded") !== "true";
+            setNavState(open);
             if (open) {
-                var firstLink = topbar.querySelector(".nav-link");
-                if (firstLink) setTimeout(function () { firstLink.focus(); }, 80);
+                var firstLink = navLinks.querySelector(".nav-link");
+                if (firstLink) firstLink.focus();
+            } else {
+                burger.focus();
             }
         });
 
         document.addEventListener("click", function (event) {
-            if (topbar.classList.contains("nav-open") && !topbar.contains(event.target)) closeNav();
+            if (burger.getAttribute("aria-expanded") === "true" && !topbar.contains(event.target)) closeNav(true);
         });
 
         document.addEventListener("keydown", function (event) {
-            if (event.key === "Escape") closeNav(true);
+            if (event.key === "Escape" && burger.getAttribute("aria-expanded") === "true") closeNav(true);
         });
 
-        topbar.querySelectorAll(".nav-link").forEach(function (link) {
-            link.addEventListener("click", function () { closeNav(false); });
+        navLinks.querySelectorAll(".nav-link").forEach(function (link) {
+            link.addEventListener("click", function () { closeNav(true); });
         });
     }
 
@@ -200,7 +215,11 @@
         opener.addEventListener("click", function () { dialog.showModal(); });
 
         dialog.addEventListener("click", function (event) {
-            if (event.target === dialog) dialog.close();
+            if (event.target !== dialog) return;
+            var rect = dialog.getBoundingClientRect();
+            var outside = event.clientX < rect.left || event.clientX > rect.right ||
+                event.clientY < rect.top || event.clientY > rect.bottom;
+            if (outside) dialog.close();
         });
 
         dialog.querySelectorAll("[data-dialog-close]").forEach(function (btn) {

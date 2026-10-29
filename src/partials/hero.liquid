@@ -49,9 +49,9 @@
 </section>
 
 {% if profile.wechat_qrcode %}
-<dialog class="site-dialog" id="modal-wechat">
+<dialog class="site-dialog" id="modal-wechat" aria-labelledby="wechat-dialog-title">
     <button type="button" class="dialog-close" data-dialog-close aria-label="Close">&times;</button>
-    <h6>WeChat ID</h6>
+    <h2 id="wechat-dialog-title">WeChat ID</h2>
     <img src="{{ profile.wechat_qrcode }}" alt="WeChat QR code">
     {% if profile.wechat_prompt %}
     <p class="stat-sub">{{ profile.wechat_prompt }}</p>

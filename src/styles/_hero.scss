@@ -6,9 +6,13 @@
 
 .hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-    gap: clamp(2rem, 6vw, 4.5rem);
+    grid-template-columns: minmax(0, 7fr) minmax(16rem, 4fr);
+    gap: clamp(2rem, 5vw, 4rem);
     align-items: center;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: var(--bw) solid var(--px-line);
+    background: var(--card);
+    box-shadow: var(--shadow-md), var(--rim);
 }
 
 .profile-status {
@@ -50,10 +54,10 @@
 .hero-name {
     margin: 0 0 var(--space-4);
     font-family: var(--font-display);
-    font-size: clamp(2.4rem, 6.4vw, 4.2rem);
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    line-height: 1.05;
+    font-size: clamp(3rem, 6vw, 4.6rem);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1;
     color: var(--ink);
 }
 
@@ -84,8 +88,10 @@
     border: var(--bw-hair) solid var(--px-line);
     background: var(--card);
     color: var(--ink-2);
-    font-family: var(--font-pixel);
-    font-size: 0.55rem;
+    min-height: 40px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
     line-height: 1.6;
     box-shadow: var(--shadow-sm), var(--rim-soft);
     transition: var(--t-spring);
@@ -114,22 +120,28 @@
     margin-bottom: var(--space-4);
     color: var(--ink-2);
     font-family: var(--font-serif);
-    font-size: 1.2rem;
-    line-height: 1.7;
+    font-size: 0.975rem;
+    line-height: 1.8;
 }
 
 .hero-bio p {
-    margin: 0 0 0.9em;
+    margin: 0 0 0.75em;
 }
 
 .hero-bio p:first-child {
     color: var(--ink);
-    font-size: 1.3rem;
-    line-height: 1.65;
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.75;
 }
 
 .hero-bio p:last-child {
+    margin-top: var(--space-4);
     margin-bottom: 0;
+    padding: var(--space-3) var(--space-4);
+    border-left: var(--bw) solid var(--accent);
+    background: var(--accent-softer);
+    color: var(--ink);
 }
 
 .hero-bio.text-justify {
@@ -163,7 +175,7 @@
 
 .hero-portrait {
     position: relative;
-    max-width: 20rem;
+    max-width: 18rem;
     margin: 0 0 0 auto;
 }
 

@@ -14,10 +14,10 @@
     transition: var(--t-spring);
 }
 
-.project-item:hover {
+.project-item:hover,
+.project-item:focus-within {
     border-color: var(--accent-line);
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-lg), var(--rim);
+    box-shadow: var(--shadow-md), var(--rim);
 }
 
 .project-body {
@@ -67,8 +67,10 @@
     background: var(--surface);
     color: var(--ink-2);
     font-family: var(--font-pixel);
-    font-size: 0.55rem;
-    font-weight: 600;
+    min-height: 32px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
     letter-spacing: 0.06em;
     line-height: 1.6;
     text-transform: uppercase;
@@ -131,7 +133,17 @@
 }
 
 @media (max-width: 559.98px) {
+    .project-head {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-3);
+    }
+
+    .role-tag {
+        justify-self: start;
+        white-space: normal;
+    }
+
     .project-title {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
     }
 }

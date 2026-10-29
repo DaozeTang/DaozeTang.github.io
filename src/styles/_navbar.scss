@@ -77,9 +77,9 @@
     border: var(--bw-hair) solid transparent;
     color: var(--ink-2);
     font-family: var(--font-pixel);
-    font-size: 0.55rem;
+    font-size: 0.62rem;
     font-weight: 400;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
     white-space: nowrap;
     transition: var(--t-fast);
@@ -119,8 +119,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     padding: 0;
     border: var(--bw) solid var(--px-line);
     background: var(--surface);
@@ -168,6 +168,10 @@
         transform: translateY(-8px);
         visibility: hidden;
         transition: opacity var(--t-med), transform var(--t-med), visibility var(--t-med);
+    }
+
+    .nav-links[hidden] {
+        display: none;
     }
 
     .topbar.nav-open .nav-links {

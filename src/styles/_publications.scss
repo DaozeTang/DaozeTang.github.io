@@ -7,7 +7,7 @@
 .pub-item {
     position: relative;
     display: grid;
-    grid-template-columns: 15rem minmax(0, 1fr);
+    grid-template-columns: 14rem minmax(0, 1fr);
     gap: clamp(1.2rem, 3vw, 2.2rem);
     padding: clamp(1.2rem, 2.6vw, 1.6rem);
     border: var(--bw) solid var(--px-line);
@@ -17,10 +17,10 @@
     transition: var(--t-spring);
 }
 
-.pub-item:hover {
+.pub-item:hover,
+.pub-item:focus-within {
     border-color: var(--accent-line);
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-lg), var(--rim);
+    box-shadow: var(--shadow-md), var(--rim);
 }
 
 .pub-media {
@@ -42,14 +42,17 @@
     pointer-events: none;
 }
 
-.pub-item:hover .pub-media {
-    transform: translate(-2px, -2px);
+.pub-item:hover .pub-media,
+.pub-item:focus-within .pub-media {
+    border-color: var(--accent-line);
 }
 
 .pub-cover {
     display: block;
     width: 100%;
     height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
     transition: filter var(--t-med);
     filter: saturate(1.06) contrast(1.03);
 }
@@ -86,8 +89,8 @@
 
 .pub-title {
     margin: 0 0 var(--space-2);
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1.4rem;
+    font-weight: 400;
     letter-spacing: 0;
     line-height: 1.32;
     color: var(--ink);
@@ -148,8 +151,8 @@
     margin: 0 0 var(--space-4);
     color: var(--ink-2);
     font-family: var(--font-serif);
-    font-size: 1.1rem;
-    line-height: 1.65;
+    font-size: 0.95rem;
+    line-height: 1.75;
 }
 
 .pub-links {
@@ -293,8 +296,10 @@
     background: var(--surface);
     color: var(--ink-2);
     font-family: var(--font-pixel);
-    font-size: 0.55rem;
-    font-weight: 600;
+    min-height: 32px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
     letter-spacing: 0.02em;
     line-height: 1.6;
     vertical-align: middle;

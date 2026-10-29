@@ -59,7 +59,7 @@
     --line: rgba(26, 28, 44, 0.28);
     --line-soft: rgba(26, 28, 44, 0.14);
     --line-strong: #1a1c2c;
-    --dot: rgba(26, 28, 44, 0.16);
+    --dot: rgba(26, 28, 44, 0.075);
 
     --grad-aurora: repeating-linear-gradient(90deg,
             var(--accent) 0 var(--px), transparent var(--px) calc(var(--px) * 2));
@@ -90,11 +90,11 @@
         inset calc(var(--bw-hair) * -1) calc(var(--bw-hair) * -1) 0 0 var(--px-lo);
     --rim-plain: 0 0 0 0 transparent;
 
-    --font-pixel: "Press Start 2P", "Silkscreen", ui-monospace, monospace;
-    --font-display: "VT323", "DotGothic16", "Noto Sans SC", monospace;
-    --font-serif: "VT323", "DotGothic16", "Noto Sans SC", monospace;
-    --font-sans: "DotGothic16", "Noto Sans SC", ui-monospace, monospace;
-    --font-mono: "VT323", "JetBrains Mono", ui-monospace, monospace;
+    --font-pixel: "Press Start 2P", ui-monospace, monospace;
+    --font-display: "VT323", "Noto Sans SC", monospace;
+    --font-serif: "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-sans: "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", "Noto Sans SC", monospace;
 
     --space-1: 4px;
     --space-2: 8px;
@@ -114,10 +114,10 @@
         border-color 120ms steps(2, end), background-color 120ms steps(2, end),
         color 120ms steps(2, end);
 
-    --shell-max: 72rem;
+    --shell-max: 76rem;
     --header-h: 64px;
-    --section-gap: 80px;
-    --leading-prose: 1.85;
+    --section-gap: 72px;
+    --leading-prose: 1.8;
 
     --pulse-from: 0 0 0 0 rgba(4, 112, 65, 0.55);
     --pulse-mid: 0 0 0 8px rgba(4, 112, 65, 0);
@@ -179,7 +179,7 @@
     --line: rgba(233, 236, 255, 0.3);
     --line-soft: rgba(233, 236, 255, 0.14);
     --line-strong: #9aa4ff;
-    --dot: rgba(233, 236, 255, 0.16);
+    --dot: rgba(233, 236, 255, 0.055);
 
     --grad-text: #a7f3b6;
     --grad-sheen: repeating-linear-gradient(180deg,

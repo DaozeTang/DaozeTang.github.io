@@ -1,6 +1,6 @@
-<div class="timeline-wrapper">
+<ol class="timeline-wrapper">
     {% for item in timelineItems %}
-    <div class="timeline-item">
+    <li class="timeline-item">
         <div class="timeline-marker">
             {% if item.logo %}<img src="{{ item.logo }}" alt="" loading="lazy">
             {% else %}
@@ -15,6 +15,6 @@
             {% if item.dept %}<div class="exp-subtitle">{{ item.dept }}</div>{% endif %}
             {% if item.position %}<div class="exp-desc">{{ item.position }}</div>{% endif %}
         </div>
-    </div>
+    </li>
     {% endfor %}
-</div>
+</ol>

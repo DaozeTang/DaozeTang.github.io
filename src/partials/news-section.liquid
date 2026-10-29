@@ -11,14 +11,14 @@
     <ol class="news-list">
         {% for group in collections.newsByYear %}
         {% if shown < newsLimit %}
-        <li class="news-year-marker" aria-hidden="true">
+        <li class="news-year-marker">
             <span class="news-year-label">{{ group.year }}</span>
         </li>
         {% endif %}
         {% for item in group.items %}
         {% if shown < newsLimit %}
         <li class="news-item">
-            <time class="news-date" datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: "%b %d" }}</time>
+            <time class="news-date" datetime="{{ item.date | date: '%Y-%m-%d' }}" aria-label="{{ item.date | date: '%B %-d, %Y' }}">{{ item.date | date: "%b %d" }}</time>
             <span class="news-node" aria-hidden="true"></span>
             <div class="news-text">
                 {{ item.data.title }}

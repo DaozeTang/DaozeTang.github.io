@@ -83,6 +83,11 @@
 
     .hero-grid {
         gap: var(--space-6);
+        padding: var(--space-5);
+    }
+
+    .hero-name {
+        font-size: clamp(2.8rem, 15vw, 3.6rem);
     }
 
     .hero-bio {

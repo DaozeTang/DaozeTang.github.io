@@ -73,13 +73,14 @@
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
+    min-height: 44px;
     padding: var(--space-2) var(--space-3);
     border: var(--bw) solid var(--px-line);
     background: var(--card);
     box-shadow: var(--shadow-sm), var(--rim-soft);
     color: var(--ink-2);
     font-family: var(--font-pixel);
-    font-size: 0.55rem;
+    font-size: 0.62rem;
     font-weight: 400;
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -106,8 +107,8 @@
 
 .page-header {
     position: relative;
-    max-width: 56rem;
-    padding: clamp(32px, 6vw, 64px) 0 clamp(20px, 3vw, 28px);
+    max-width: 64rem;
+    padding: clamp(40px, 5vw, 64px) 0 clamp(24px, 3vw, 32px);
 }
 
 .page-header::after {
@@ -138,8 +139,8 @@
     margin-top: var(--space-5);
     color: var(--ink-2);
     font-family: var(--font-serif);
-    font-size: 1.35rem;
-    line-height: 1.5;
+    font-size: 1.125rem;
+    line-height: 1.75;
 }
 
 .page-header-meta {
@@ -154,13 +155,13 @@
     align-items: center;
     gap: var(--space-2);
     padding: var(--space-2) var(--space-3);
-    min-height: 36px;
+    min-height: 44px;
     border: var(--bw) solid var(--px-line);
     background: var(--card);
     box-shadow: var(--shadow-sm), var(--rim-soft);
     color: var(--ink-2);
     font-family: var(--font-pixel);
-    font-size: 0.55rem;
+    font-size: 0.6rem;
     font-weight: 400;
     letter-spacing: 0.02em;
     text-transform: uppercase;

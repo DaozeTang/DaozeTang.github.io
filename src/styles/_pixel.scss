@@ -82,6 +82,15 @@ a.post-nav-card:active {
     transition-duration: 60ms;
 }
 
+.pub-item:not(:has(a)):active,
+.project-item:not(:has(a)):active,
+.award-card:active,
+.reg-item:active,
+.news-item:active,
+.stat-item:active {
+    transform: none;
+}
+
 .lq-glare {
     --mx: -999px;
     --my: -999px;

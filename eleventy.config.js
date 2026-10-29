@@ -85,6 +85,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ "src/assets/images": "assets/images" });
     eleventyConfig.addPassthroughCopy({ "src/assets/favicon.png": "favicon.png" });
     eleventyConfig.addPassthroughCopy({ "src/scripts": "scripts" });
+    eleventyConfig.addPassthroughCopy({ CNAME: "CNAME" });
 
     eleventyConfig.setServerOptions({ showAllHosts: true });
 
