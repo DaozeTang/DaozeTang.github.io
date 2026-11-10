@@ -4,6 +4,11 @@
     100% { box-shadow: var(--pulse-to); }
 }
 
+@keyframes cursor-blink {
+    0%, 54% { opacity: 1; }
+    55%, 100% { opacity: 0.15; }
+}
+
 .reveal-item {
     opacity: 0;
     transform: translateY(16px);
@@ -67,5 +72,11 @@
 
     .canvas-scanlines {
         animation: none;
+    }
+
+    .title-dot,
+    .hero-period {
+        animation: none;
+        opacity: 1;
     }
 }

@@ -5,6 +5,11 @@
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
+    function listenMedia(query, handler) {
+        if (typeof query.addEventListener === "function") query.addEventListener("change", handler);
+        else if (typeof query.addListener === "function") query.addListener(handler);
+    }
+
     var themeToggle = document.getElementById("theme-toggle");
     var THEME_COLORS = { light: "#e9e1c9", dark: "#14162b" };
     var MODE_ORDER = ["light", "dark", "system"];
@@ -61,7 +66,7 @@
         applyMode(currentMode());
     }
 
-    darkQuery.addEventListener("change", function () {
+    listenMedia(darkQuery, function () {
         if (currentMode() === "system") applyMode("system");
     });
 
@@ -76,6 +81,18 @@
         };
         window.addEventListener("scroll", onScroll, { passive: true });
         onScroll();
+    }
+
+    var backToTop = document.getElementById("back-to-top");
+    if (backToTop) {
+        var syncBackToTop = function () {
+            backToTop.classList.toggle("visible", window.scrollY > 480);
+        };
+        window.addEventListener("scroll", syncBackToTop, { passive: true });
+        syncBackToTop();
+        backToTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+        });
     }
 
     function setNavState(open) {
@@ -95,7 +112,7 @@
 
     if (burger && topbar && navLinks) {
         setNavState(false);
-        desktopQuery.addEventListener("change", function () { setNavState(false); });
+        listenMedia(desktopQuery, function () { setNavState(false); });
 
         burger.addEventListener("click", function (event) {
             event.stopPropagation();

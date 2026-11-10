@@ -63,6 +63,7 @@
 
 .hero-period {
     color: var(--grad-text);
+    animation: cursor-blink 1.2s step-end infinite;
 }
 
 .hero-secondary {

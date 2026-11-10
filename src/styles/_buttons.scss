@@ -142,3 +142,43 @@ a.social-btn,
 a.btn-ink {
     text-decoration: none;
 }
+
+.back-to-top {
+    position: fixed;
+    right: clamp(16px, 3vw, 32px);
+    bottom: clamp(16px, 3vw, 32px);
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: var(--bw) solid var(--px-line);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-md), var(--rim-soft);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: var(--t-spring), opacity var(--t-med), visibility var(--t-med),
+        transform var(--t-med);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--accent-deep);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg), var(--rim-soft);
+}
+
+.back-to-top:active {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-none), var(--rim-soft);
+}

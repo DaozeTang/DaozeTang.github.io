@@ -59,6 +59,7 @@
 .title-dot {
     color: var(--accent);
     -webkit-text-fill-color: var(--accent);
+    animation: cursor-blink 1.2s step-end infinite;
 }
 
 .section-rule {
