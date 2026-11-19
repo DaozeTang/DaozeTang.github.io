@@ -1,0 +1,166 @@
+// =============================================================================
+//  CART — publications as research cartridges, each with its own monitor.
+// =============================================================================
+
+.cart {
+    display: grid;
+    grid-template-columns: 232px minmax(0, 1fr);
+    gap: var(--s-5);
+    padding: var(--s-4);
+    border: var(--bw) solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--sh-1);
+    transition: var(--move);
+}
+
+.cart + .cart {
+    margin-top: var(--s-3);
+}
+
+.cart:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--sh-3);
+    transform: translate(-2px, -2px);
+}
+
+.cart__monitor {
+    position: relative;
+    display: grid;
+    gap: 6px;
+    align-content: start;
+}
+
+.cart__screen {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: var(--bw) solid var(--line-strong);
+    background: #0b0d16;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.cart__screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.88) contrast(1.02);
+}
+
+.cart__screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        180deg,
+        rgba(6, 8, 14, 0.28) 0 1px,
+        transparent 1px 3px
+    );
+    pointer-events: none;
+}
+
+.cart__placeholder {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    border: var(--bw) solid var(--line-strong);
+    background:
+        repeating-conic-gradient(var(--line-soft) 0 25%, transparent 0 50%) 0 0 / 8px 8px,
+        var(--surface-2);
+    color: var(--ink-3);
+}
+
+.cart__placeholder .ico {
+    width: 32px;
+    height: 32px;
+}
+
+.cart__strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    color: var(--ink-3);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.cart__body {
+    min-width: 0;
+}
+
+.cart__kicker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: var(--s-2);
+}
+
+.cart__title {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--f-dot);
+    font-size: 24px;
+    line-height: 1.4;
+}
+
+.cart__authors {
+    margin: var(--s-3) 0 0;
+    color: var(--ink-2);
+    font-size: 13.5px;
+    line-height: 1.8;
+}
+
+.cart__authors .me {
+    color: var(--ink);
+    font-weight: 700;
+    box-shadow: inset 0 -2px 0 var(--accent-soft);
+}
+
+.cart__authors mark {
+    padding: 0 4px;
+    background: none;
+    color: var(--ink-4);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+}
+
+.cart__authors mark i {
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.cart__abstract {
+    margin: var(--s-3) 0 0;
+    color: var(--ink-3);
+    font-size: 13.5px;
+    line-height: 1.8;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cart__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--s-4);
+}
+
+@media (max-width: 760px) {
+    .cart {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cart__monitor {
+        max-width: 320px;
+    }
+
+    .cart__title {
+        font-size: 20px;
+    }
+}

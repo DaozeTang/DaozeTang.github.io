@@ -1,0 +1,47 @@
+<article class="cart">
+    <div class="cart__monitor">
+        {% if item.data.cover %}
+        <div class="cart__screen">
+            <img src="{{ item.data.cover }}" alt="Architecture figure from {{ item.data.title }}" loading="lazy" decoding="async">
+        </div>
+        {% else %}
+        <div class="cart__placeholder"><svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg></div>
+        {% endif %}
+        <div class="cart__strip">
+            <span>paper.exe</span>
+            <span>{{ item.date | date: "%Y" }}</span>
+        </div>
+    </div>
+
+    <div class="cart__body">
+        <div class="cart__kicker">
+            <span class="chip chip--accent">{{ item.data.venue }}</span>
+            {% if item.data.highlight %}<span class="chip chip--gold">{{ item.data.highlight }}</span>{% endif %}
+            {% if item.data.semantic_scholar_id %}
+            {% assign cite = citations[item.data.semantic_scholar_id] %}
+            {% if cite.count > 0 %}
+            <span class="chip chip--blue cite-badge"><svg class="ico" aria-hidden="true"><use href="#i-quote"></use></svg>{{ cite.count }} citation{% if cite.count != 1 %}s{% endif %}</span>
+            {% endif %}
+            {% endif %}
+        </div>
+
+        <h3 class="cart__title">{{ item.data.title }}</h3>
+
+        <p class="cart__authors">
+            {% assign authors = item.data.authors %}
+            {% include "author-list" %}
+        </p>
+
+        {% if item.data.abstract %}
+        <p class="cart__abstract">{{ item.data.abstract }}</p>
+        {% endif %}
+
+        {% if item.data.links %}
+        <div class="cart__links">
+            {% for link in item.data.links %}
+            <a class="btn btn--sm" href="{{ link[1] }}" target="_blank" rel="noopener">{{ link[0] }}<svg class="ico" aria-hidden="true"><use href="#i-external"></use></svg></a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</article>

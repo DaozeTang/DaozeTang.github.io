@@ -1,48 +1,62 @@
-<section class="section" id="background">
-    <header class="section-head">
-        <span class="section-index" aria-hidden="true"></span>
-        <h2 class="section-title">Background<span class="title-dot">.</span></h2>
-        <span class="section-rule" aria-hidden="true"></span>
+<section class="sec" id="background">
+    <header class="sec-head">
+        <span class="sec-head__no" aria-hidden="true">03</span>
+        <h2 class="sec-head__title">Save slots<span class="sec-head__dot">.</span></h2>
+        <span class="sec-head__rule" aria-hidden="true"></span>
     </header>
 
     <div class="bg-grid">
         {% if profile.education %}
-        <div>
-            <h3 class="bg-col-head">
-                <i class="fas fa-graduation-cap" aria-hidden="true"></i> Education
-            </h3>
-            {% assign timelineItems = profile.education %}
-            {% assign fallbackIcon = "fa-university" %}
-            {% include "timeline-list" %}
+        <div class="bg-col">
+            <h3 class="bg-col__head"><svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>Education</h3>
+            <ol class="track">
+                {% for item in profile.education %}
+                <li class="track__item">
+                    <span class="track__node">
+                        {% if item.logo %}<img class="px-img" src="{{ item.logo }}" alt="" loading="lazy">{% else %}<svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>{% endif %}
+                    </span>
+                    <div class="track__body">
+                        <span class="track__when">{{ item.date }}</span>
+                        <span class="track__where">{{ item.name }}</span>
+                        <span class="track__what">{{ item.position }}</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ol>
         </div>
         {% endif %}
 
         {% if profile.experience %}
-        <div>
-            <h3 class="bg-col-head">
-                <i class="fas fa-briefcase" aria-hidden="true"></i> Experience
-            </h3>
-            {% assign timelineItems = profile.experience %}
-            {% assign fallbackIcon = "fa-building" %}
-            {% include "timeline-list" %}
+        <div class="bg-col">
+            <h3 class="bg-col__head"><svg class="ico" aria-hidden="true"><use href="#i-briefcase"></use></svg>Experience</h3>
+            <ol class="track">
+                {% for item in profile.experience %}
+                <li class="track__item">
+                    <span class="track__node">
+                        {% if item.logo %}<img class="px-img" src="{{ item.logo }}" alt="" loading="lazy">{% else %}<svg class="ico" aria-hidden="true"><use href="#i-briefcase"></use></svg>{% endif %}
+                    </span>
+                    <div class="track__body">
+                        <span class="track__when">{{ item.date }}</span>
+                        <span class="track__where">{{ item.name }}</span>
+                        <span class="track__what">{{ item.position }}</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ol>
         </div>
         {% endif %}
     </div>
 
     {% if profile.awards %}
-    <div class="awards-block">
-        <h3 class="bg-col-head">
-            <i class="fas fa-medal" aria-hidden="true"></i> Honors &amp; Awards
-        </h3>
+    <div class="awards">
+        <h3 class="bg-col__head"><svg class="ico" aria-hidden="true"><use href="#i-trophy"></use></svg>Honors &amp; awards</h3>
         <div class="award-grid">
             {% for item in profile.awards %}
-            <div class="award-card">
-                <div class="award-icon">
-                    <i class="fas fa-award" aria-hidden="true"></i>
-                </div>
-                <div class="award-content">
-                    <div class="award-title">{{ item.name }}</div>
-                    <div class="award-date">{{ item.date }}</div>
+            <div class="award">
+                <span class="award__medal"><svg class="ico" aria-hidden="true"><use href="#i-trophy"></use></svg></span>
+                <div>
+                    <div class="award__name">{{ item.name }}</div>
+                    <div class="award__year">{{ item.date }}</div>
                 </div>
             </div>
             {% endfor %}

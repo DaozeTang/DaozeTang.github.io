@@ -5,14 +5,14 @@
     {% include "head" %}
 </head>
 <body class="prompt-body">
-    <div class="canvas-grid" aria-hidden="true"></div>
-    <div class="canvas-scanlines" aria-hidden="true"></div>
-    <div class="canvas-vignette" aria-hidden="true"></div>
-
+    {% include "sprite" %}
+    <div class="stage" aria-hidden="true">
+        <div class="stage__beam"></div>
+        <div class="stage__dots"></div>
+        <div class="stage__scan"></div>
+    </div>
     <main role="main">
-        <div class="prompt-container">
-            {{ content }}
-        </div>
+        {{ content }}
     </main>
 </body>
 </html>

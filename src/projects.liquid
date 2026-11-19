@@ -10,49 +10,71 @@ subtitle: >-
 
 {% assign totalProjects = 0 %}
 {% for group in projects.groups %}
-    {% assign totalProjects = totalProjects | plus: group.items.size %}
+{% assign totalProjects = totalProjects | plus: group.items.size %}
 {% endfor %}
 
-<header class="page-header">
-    <h1 class="page-header-title">Projects<span class="title-dot">.</span></h1>
-    <p class="page-header-subtitle">{{ subtitle }}</p>
-    <div class="page-header-meta">
-        <span class="page-header-stat"><i class="fas fa-diagram-project" aria-hidden="true"></i> {{ totalProjects }} projects</span>
+<header class="page-head">
+    <p class="kicker"><span class="led led--gold" aria-hidden="true"></span>Projects &middot; built with students</p>
+    <h1 class="page-head__title">Projects<span style="color: var(--accent)">.</span></h1>
+    <p class="page-head__sub">{{ subtitle }}</p>
+    <ul class="page-head__meta">
+        <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-package"></use></svg>{{ totalProjects }} projects</span></li>
         {% for group in projects.groups %}
-        <span class="page-header-stat">{{ group.year }} &middot; {{ group.items.size }}</span>
+        <li><a class="chip" href="#year-{{ group.year }}">{{ group.year }} &middot; {{ group.items.size }}</a></li>
         {% endfor %}
-    </div>
+    </ul>
 </header>
 
-<div class="pubs-layout">
-    <div class="pubs-stream">
-        {% for group in projects.groups %}
-        <section id="year-{{ group.year }}" class="year-section" data-year="{{ group.year }}">
-            <span class="year-ghost" aria-hidden="true">{{ group.year }}</span>
-            <header class="year-head">
-                <h2 class="year-num">{{ group.year }}</h2>
-                <span class="year-count"><b>{{ group.items.size }}</b> project{% if group.items.size > 1 %}s{% endif %}</span>
-                <span class="year-rule" aria-hidden="true"></span>
-            </header>
+<div class="split">
+    <div>
+        <div class="year-stack" style="margin-top: 0">
+            {% for group in projects.groups %}
+            <section class="year-block" id="year-{{ group.year }}">
+                <div class="year-block__head">
+                    <h2 class="year-block__year">{{ group.year }}</h2>
+                    <span class="year-block__count">{{ group.items.size }} project{% if group.items.size > 1 %}s{% endif %}</span>
+                    <span class="year-block__rule" aria-hidden="true"></span>
+                </div>
 
-            <div class="project-list">
                 {% for item in group.items %}
-                    {% include "project-item" %}
+                <article class="proj">
+                    <span class="proj__role proj__role--{{ item.role | downcase | replace: ' ', '-' }}">{{ item.role }}</span>
+                    <div>
+                        <h3 class="proj__title">{{ item.title }}</h3>
+                        {% if item.funding and item.funding.size > 0 %}
+                        <div class="proj__meta">
+                            {% for fund in item.funding %}
+                            <span class="chip chip--gold"><svg class="ico" aria-hidden="true"><use href="#i-zap"></use></svg>{{ fund }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </article>
                 {% endfor %}
-            </div>
-        </section>
-        {% endfor %}
+            </section>
+            {% endfor %}
+        </div>
     </div>
 
-    <aside class="pubs-rail" aria-label="Jump to year">
-        <div class="rail-label">Timeline</div>
-        <nav class="rail-nav" id="year-rail">
-            {% for group in projects.groups %}
-            <a class="rail-link" href="#year-{{ group.year }}">
-                {{ group.year }}
-                <span class="rail-count">{{ group.items.size }}</span>
-            </a>
-            {% endfor %}
-        </nav>
+    <aside class="rail" aria-label="Jump to year">
+        <div>
+            <p class="rail__label">Timeline</p>
+            <nav class="rail__list" id="year-rail">
+                {% for group in projects.groups %}
+                <a class="rail__link" href="#year-{{ group.year }}">
+                    <span>{{ group.year }}</span>
+                    <span class="rail__count">{{ group.items.size }}</span>
+                </a>
+                {% endfor %}
+            </nav>
+        </div>
+        <div class="panel rail__panel">
+            <p class="rail__label">Roles</p>
+            <div class="stack stack--tight">
+                <span class="chip chip--accent">Advisor</span>
+                <span class="chip chip--blue">Leader</span>
+                <span class="chip">Member</span>
+            </div>
+        </div>
     </aside>
 </div>

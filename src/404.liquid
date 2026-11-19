@@ -4,6 +4,13 @@ title: 404 - Page Not Found
 permalink: /404.html
 noindex: true
 ---
-<h1 class="prompt-code">404<span class="title-dot">.</span></h1>
-<p class="prompt-text">The requested page could not be found — it may have moved, or never existed.</p>
-<a class="btn-ink" href="/"><svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"><path d="M7.47 2.22a.75.75 0 0 1 1.06 1.06L3.81 8.25H14a.75.75 0 0 1 0 1.5H3.81l4.72 4.97a.75.75 0 1 1-1.06 1.06L2.22 8.53a.75.75 0 0 1 0-1.06l5.25-5.25Z"/></svg>Back to homepage</a>
+<div class="prompt panel">
+    <p class="kicker"><span class="led led--coral" aria-hidden="true"></span>Signal lost</p>
+    <h1 class="prompt__code">404<span>.</span></h1>
+    <p class="prompt__text">The requested page could not be found — it may have moved, or never existed.</p>
+    <div class="prompt__actions">
+        <a class="btn btn--accent" href="/"><svg class="ico" aria-hidden="true"><use href="#i-home"></use></svg>Back to homepage</a>
+        <a class="btn" href="/publications/"><svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>Publications</a>
+    </div>
+    <p class="prompt__log">&gt; GET /this/page HTTP/1.1<br>&gt; 404 — nothing here but static</p>
+</div>

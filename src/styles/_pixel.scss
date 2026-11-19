@@ -1,132 +1,291 @@
-:root {
-    --px-clip: polygon(
-        var(--px-notch) 0, calc(100% - var(--px-notch)) 0,
-        calc(100% - var(--px-notch)) var(--bw-hair), 100% var(--bw-hair),
-        100% calc(100% - var(--bw-hair)), calc(100% - var(--px-notch)) calc(100% - var(--bw-hair)),
-        calc(100% - var(--px-notch)) 100%, var(--px-notch) 100%,
-        var(--px-notch) calc(100% - var(--bw-hair)), 0 calc(100% - var(--bw-hair)),
-        0 var(--bw-hair), var(--px-notch) var(--bw-hair)
-    );
-    --px-drop: drop-shadow(4px 4px 0 var(--px-shadow));
-}
+// =============================================================================
+//  PIXEL — the 8-bit chrome: beveled panels, LEDs, screens, dividers.
+//  No blur, no border-radius, no smooth easing. Shadows are solid offsets.
+// =============================================================================
 
-.px-notch,
-.site-dialog,
-.prompt-container,
-.footer-base {
-    clip-path: var(--px-clip);
-    filter: var(--px-drop);
-    box-shadow: var(--rim-strong);
-}
+/* -----------------------------------------------------------------------------
+   Panels: 3px ink border + hard bevel + offset shadow.
+   -------------------------------------------------------------------------- */
 
-.pub-item,
-.post-item,
-.tool-card,
-.award-card,
-.reg-item,
-.project-item,
-.term-chip,
-.position-badge,
-.social-btn,
-.timeline-marker,
-.pager-num,
-.nav-link,
-.theme-toggle,
-.nav-burger,
-.nav-search-btn,
-.tag,
-.post-chip,
-.section-action,
-.page-header-stat,
-.btn-ink,
-.btn-pub-link,
-.pub-view-all,
-.stat-item,
-.news-item {
-    /* One motion signature for every interactive pixel surface. */
-    transition: var(--t-spring);
-}
-
-.social-btn:active,
-.btn-ink:active,
-.btn-pub-link:active,
-.pub-view-all:active,
-.nav-link:active,
-.theme-toggle:active,
-.nav-burger:active,
-.nav-search-btn:active,
-.post-chip:active,
-.tag:active,
-.term-chip:active,
-.pager-num:active,
-.pager-arrow:active,
-.section-action:active,
-.page-header-stat:active {
-    transform: translate(2px, 2px);
-    box-shadow: var(--shadow-none), var(--rim-soft) !important;
-    filter: none;
-    transition-duration: 60ms;
-}
-
-.pub-item:active,
-.tool-card:active,
-.post-item:active,
-.award-card:active,
-.reg-item:active,
-.project-item:active,
-.news-item:active,
-.stat-item:active,
-a.post-nav-card:active {
-    transform: translate(2px, 2px);
-    box-shadow: var(--shadow-sm), var(--rim) !important;
-    transition-duration: 60ms;
-}
-
-.pub-item:not(:has(a)):active,
-.project-item:not(:has(a)):active,
-.award-card:active,
-.reg-item:active,
-.news-item:active,
-.stat-item:active {
-    transform: none;
-}
-
-.lq-glare {
-    --mx: -999px;
-    --my: -999px;
-    --px-hl: 48px;
+.panel {
     position: relative;
-    isolation: isolate;
+    background: var(--surface);
+    border: var(--bw) solid var(--line-strong);
+    box-shadow:
+        inset var(--bw) var(--bw) 0 var(--px-hi),
+        inset calc(var(--bw) * -1) calc(var(--bw) * -1) 0 var(--px-lo),
+        var(--sh-2);
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .lq-glare::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 3;
-        pointer-events: none;
+.panel--flat {
+    box-shadow:
+        inset var(--bw) var(--bw) 0 var(--px-hi),
+        inset calc(var(--bw) * -1) calc(var(--bw) * -1) 0 var(--px-lo);
+}
+
+.panel--sunken {
+    background: var(--surface-2);
+    box-shadow:
+        inset var(--bw) var(--bw) 0 var(--px-lo),
+        inset calc(var(--bw) * -1) calc(var(--bw) * -1) 0 var(--px-hi);
+}
+
+.panel--ink {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+}
+
+.panel--accent {
+    background: var(--accent);
+    color: var(--on-accent);
+    border-color: var(--accent-3);
+}
+
+/* Small 4px "screw" pixels in the corners — the classic 8-bit panel tell. */
+.panel--studs::before,
+.panel--studs::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--px-lo);
+    pointer-events: none;
+}
+
+.panel--studs::before {
+    top: 4px;
+    left: 4px;
+    box-shadow: calc(100% + 0px) 0 0 var(--px-lo);
+}
+
+.panel--studs::after {
+    right: 4px;
+    bottom: 4px;
+    box-shadow: 0 calc(0px) 0 var(--px-lo);
+}
+
+/* -----------------------------------------------------------------------------
+   Screens: dark viewports with scanlines (used for canvas art and media).
+   -------------------------------------------------------------------------- */
+
+.screen {
+    position: relative;
+    overflow: hidden;
+    border: var(--bw) solid var(--line-strong);
+    background: #0b0d16;
+    box-shadow:
+        inset 2px 2px 0 rgba(0, 0, 0, 0.6),
+        inset -2px -2px 0 rgba(255, 255, 255, 0.08),
+        var(--sh-2);
+}
+
+.screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background-image: repeating-linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.16) 0 2px,
+        transparent 2px 4px
+    );
+    pointer-events: none;
+    mix-blend-mode: multiply;
+}
+
+.screen__glare {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    background: linear-gradient(
+        112deg,
+        rgba(255, 255, 255, 0.07) 0 9%,
+        transparent 9% 100%
+    );
+    pointer-events: none;
+}
+
+/* -----------------------------------------------------------------------------
+   Dividers + dither
+   -------------------------------------------------------------------------- */
+
+.rule {
+    display: block;
+    height: 4px;
+    background-image: repeating-linear-gradient(
+        90deg,
+        var(--ink) 0 8px,
+        transparent 8px 16px
+    );
+    opacity: 0.55;
+}
+
+.rule--dot {
+    background-image: radial-gradient(var(--ink-3) 1.5px, transparent 1.5px);
+    background-size: 8px 4px;
+    height: 4px;
+    opacity: 0.7;
+}
+
+.rule--wave {
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0 2px,
+        var(--accent) 2px 4px,
+        transparent 4px 8px
+    );
+    opacity: 0.9;
+}
+
+.dither {
+    background-image: repeating-conic-gradient(
+        var(--px-dot) 0 25%,
+        transparent 0 50%
+    );
+    background-size: 8px 8px;
+}
+
+.dither--accent {
+    background-image: repeating-conic-gradient(
+        var(--accent-2) 0 25%,
+        transparent 0 50%
+    );
+    background-size: 8px 8px;
+    opacity: 0.35;
+}
+
+/* A 4-step dithered gradient band — the 8-bit way to fade. */
+.dither-fade {
+    height: 24px;
+    background-image:
+        repeating-linear-gradient(90deg, var(--bg) 0 2px, transparent 2px 4px);
+    background-size: 4px 4px;
+    mask-image: linear-gradient(180deg, #000, transparent);
+}
+
+/* -----------------------------------------------------------------------------
+   Images as pixel art
+   -------------------------------------------------------------------------- */
+
+.px-img {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.px-caption {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin: var(--s-3) 0 0;
+    color: var(--ink-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-micro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.px-caption::before {
+    content: "";
+    width: 12px;
+    height: 2px;
+    background: var(--accent);
+}
+
+/* -----------------------------------------------------------------------------
+   Interaction primitives
+   -------------------------------------------------------------------------- */
+
+.pressable {
+    transition: var(--move);
+}
+
+.pressable:active {
+    transform: translate(2px, 2px);
+    box-shadow: var(--sh-none) !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Detection overlay — DOM boxes over the canvas so labels stay crisp.
+   -------------------------------------------------------------------------- */
+
+.det-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.det {
+    position: absolute;
+    left: calc(var(--x) * 1%);
+    top: calc(var(--y) * 1%);
+    width: calc(var(--w) * 1%);
+    height: calc(var(--h) * 1%);
+    border: 2px solid var(--accent-2);
+    box-shadow: 0 0 0 2px rgba(6, 10, 8, 0.45);
+    animation: det-lock 420ms steps(6, end) both;
+}
+
+.det__tag {
+    position: absolute;
+    left: -2px;
+    top: -15px;
+    padding: 1px 4px;
+    background: var(--accent-2);
+    color: #06110b;
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+.det--bottom .det__tag {
+    top: auto;
+    bottom: -15px;
+}
+
+.det-scan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: var(--accent-2);
+    opacity: 0.3;
+    animation: det-scan 7s linear infinite;
+}
+
+@keyframes det-lock {
+    from {
         opacity: 0;
-        background-image:
-            repeating-linear-gradient(180deg,
-                var(--px-scan-tint) 0 var(--px), transparent var(--px) 6px),
-            repeating-linear-gradient(90deg,
-                var(--px-scan-tint) 0 var(--px), transparent var(--px) 6px);
-        background-position:
-            calc(var(--mx) - var(--px-hl) / 2) calc(var(--my) - var(--px-hl) / 2),
-            calc(var(--mx) - var(--px-hl) / 2) calc(var(--my) - var(--px-hl) / 2);
-        background-size: var(--px-hl) var(--px-hl), var(--px-hl) var(--px-hl);
-        background-repeat: no-repeat, no-repeat;
-        transition: opacity 120ms steps(2, end);
+        transform: scale(1.2);
     }
 
-    .lq-glare:hover::after {
+    to {
         opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes det-scan {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(var(--scan-span, 400px));
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .canvas-scanlines {
+    .det,
+    .det-scan {
         animation: none;
     }
 }

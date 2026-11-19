@@ -1,0 +1,324 @@
+// =============================================================================
+//  PAGES — projects, registrations, collaborators, 404.
+// =============================================================================
+
+/* -----------------------------------------------------------------------------
+   Year groups (publications / projects / registrations)
+   -------------------------------------------------------------------------- */
+
+.year-stack {
+    display: grid;
+    gap: var(--s-7);
+    margin-top: var(--s-7);
+}
+
+.year-block {
+    display: grid;
+    gap: var(--s-4);
+}
+
+.year-block__head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-3);
+}
+
+.year-block__year {
+    margin: 0;
+    color: var(--ink);
+    font-family: "VT323", var(--f-mono);
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+}
+
+.year-block__count {
+    color: var(--ink-4);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.year-block__rule {
+    flex: 1;
+    height: 2px;
+    background-image: repeating-linear-gradient(90deg, var(--line) 0 4px, transparent 4px 8px);
+}
+
+/* -----------------------------------------------------------------------------
+   Project rows
+   -------------------------------------------------------------------------- */
+
+.proj {
+    display: grid;
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: var(--s-3);
+    padding: var(--s-4);
+    border: var(--bw-2) solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--sh-1);
+    transition: var(--move);
+}
+
+.proj + .proj {
+    margin-top: var(--s-2);
+}
+
+.proj:hover {
+    border-color: var(--line-strong);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--sh-2);
+}
+
+.proj__role {
+    align-self: start;
+    display: grid;
+    place-items: center;
+    padding: 4px 6px;
+    border: 2px solid var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.proj__role--advisor {
+    border-color: var(--blue);
+    background: var(--blue-soft);
+    color: var(--blue);
+}
+
+.proj__role--member {
+    border-color: var(--ink-4);
+    background: var(--surface-2);
+    color: var(--ink-3);
+}
+
+.proj__title {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.proj__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--s-2);
+}
+
+/* -----------------------------------------------------------------------------
+   Registrations
+   -------------------------------------------------------------------------- */
+
+.reg {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-4);
+    border: var(--bw-2) solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--sh-1);
+}
+
+.reg + .reg {
+    margin-top: var(--s-2);
+}
+
+.reg__title {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.reg__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* -----------------------------------------------------------------------------
+   Collaborators
+   -------------------------------------------------------------------------- */
+
+.collab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--s-4);
+    margin-top: var(--s-7);
+}
+
+.collab {
+    display: grid;
+    gap: var(--s-3);
+    padding: var(--s-5);
+    border: var(--bw) solid var(--line-strong);
+    background: var(--surface);
+    box-shadow: var(--sh-3);
+    transition: var(--move);
+}
+
+.collab:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--sh-4);
+}
+
+.collab__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+}
+
+.collab__no {
+    color: var(--ink-4);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+}
+
+.collab__mono {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: var(--bw-2) solid var(--line-strong);
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--f-pixel);
+    font-size: 16px;
+}
+
+.collab__name {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--f-dot);
+    font-size: 24px;
+    line-height: 1.4;
+}
+
+.collab__name a:hover {
+    color: var(--accent);
+}
+
+.collab__name .ico {
+    width: 14px;
+    height: 14px;
+    color: var(--ink-3);
+    margin-left: 4px;
+}
+
+.collab__inst {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding-top: var(--s-3);
+    border-top: 2px dashed var(--line);
+}
+
+.collab__inst img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    border: 2px solid var(--line);
+    background: #f7f1e2;
+}
+
+.collab__inst span {
+    display: block;
+    color: var(--ink-2);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.collab__inst small {
+    display: block;
+    color: var(--ink-4);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------------
+   404 / prompt
+   -------------------------------------------------------------------------- */
+
+.prompt-body {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: var(--s-8) var(--gutter);
+    background: var(--bg);
+}
+
+.prompt {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    justify-items: start;
+    gap: var(--s-3);
+    width: min(560px, 100%);
+    padding: var(--s-7);
+}
+
+.prompt__code {
+    margin: 0;
+    font-weight: 400;
+    color: var(--ink);
+    font-family: "VT323", var(--f-mono);
+    font-size: 128px;
+    line-height: 0.8;
+    letter-spacing: 0.02em;
+}
+
+.prompt__code span {
+    color: var(--accent);
+}
+
+.prompt__text {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.prompt__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+}
+
+.prompt__log {
+    margin-top: var(--s-2);
+    color: var(--ink-4);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+@media (max-width: 560px) {
+    .proj {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .proj__role {
+        justify-self: start;
+    }
+}

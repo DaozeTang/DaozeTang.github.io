@@ -1,13 +1,20 @@
-<footer class="site-footer" id="site-footer">
+<footer class="footer" id="site-footer">
     <div class="shell">
-        <div class="footer-base">
-            <div class="footer-note">{{ display.footer_text }}</div>
-            <div class="footer-meta">
-                <span class="footer-meta-item">&copy; 2022&ndash;{{ "now" | date: "%Y" }} {{ profile.primary_name }}</span>
-                <span class="footer-meta-group">
-                    <span class="sep" aria-hidden="true">&#10038;</span>
-                    <span class="footer-meta-item">Updated {{ "now" | date: "%b %Y" }}</span>
-                </span>
+        <div class="footer__edge">end of line</div>
+        <div class="footer__hud panel">
+            <div class="footer__leds" aria-hidden="true">
+                <span class="led led--blink"></span>
+                <span class="led led--gold"></span>
+                <span class="led led--coral"></span>
+            </div>
+            <div class="footer__note">{{ display.footer_text }}</div>
+            <div class="footer__meta">
+                <span>&copy; 2022&ndash;{{ "now" | date: "%Y" }} {{ profile.primary_name }}</span>
+                <span class="footer__sep">&#9670;</span>
+                <span>Updated {{ "now" | date: "%b %Y" }}</span>
+                <span class="footer__sep">&#9670;</span>
+                <a href="{{ profile.blog }}">Blog</a>
+                <a href="/sitemap.xml">Sitemap</a>
             </div>
         </div>
     </div>

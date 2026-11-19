@@ -1,0 +1,430 @@
+// =============================================================================
+//  PROSE — long-form article typography. Chinese body text stays in Noto Sans
+//  SC for comfort; structure is carried by pixel markers, rules and mono labels.
+// =============================================================================
+
+.prose {
+    max-width: 70ch;
+    color: var(--ink-2);
+    font-size: var(--t-body);
+    line-height: 1.92;
+    overflow-wrap: break-word;
+}
+
+.prose > *:first-child {
+    margin-top: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+    position: relative;
+    scroll-margin-top: calc(var(--header-h) + 24px);
+    color: var(--ink);
+}
+
+.prose h2 {
+    margin: 56px 0 18px;
+    padding: 0 0 10px 22px;
+    border-bottom: 2px dashed var(--line);
+    font-family: var(--f-dot);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.prose h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    box-shadow: 2px 2px 0 var(--px-shadow);
+}
+
+.prose h3 {
+    margin: 40px 0 14px;
+    padding-left: 16px;
+    font-family: var(--f-body);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.prose h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    box-shadow: 2px 2px 0 var(--px-shadow);
+}
+
+.prose h4 {
+    margin: 32px 0 12px;
+    color: var(--ink-3);
+    font-family: var(--f-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.prose p {
+    margin: 0 0 22px;
+}
+
+.prose strong {
+    color: var(--ink);
+    font-weight: 700;
+    background: linear-gradient(transparent 62%, var(--gold-soft) 62%);
+}
+
+.prose em {
+    color: var(--ink);
+    font-style: normal;
+    box-shadow: inset 0 -2px 0 var(--accent-soft);
+}
+
+.prose a {
+    color: var(--accent);
+    box-shadow: inset 0 -2px 0 var(--accent-2);
+    transition: var(--tick);
+}
+
+.prose a:hover {
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: none;
+}
+
+.prose .heading-anchor {
+    margin-left: 10px;
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 0.6em;
+    opacity: 0;
+    box-shadow: none;
+    transition: opacity var(--tick);
+}
+
+.prose h2:hover .heading-anchor,
+.prose h3:hover .heading-anchor,
+.prose h4:hover .heading-anchor,
+.prose .heading-anchor:focus-visible {
+    opacity: 0.7;
+}
+
+.prose ul,
+.prose ol {
+    margin: 0 0 22px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.prose ul > li,
+.prose ol > li {
+    position: relative;
+    margin: 0 0 8px;
+    padding-left: 26px;
+}
+
+.prose ul > li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 0.78em;
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    transform: translateY(-50%);
+}
+
+.prose ul > li > ul > li::before {
+    background: var(--ink-4);
+    width: 5px;
+    height: 5px;
+}
+
+.prose ol {
+    counter-reset: px-list;
+}
+
+.prose ol > li {
+    counter-increment: px-list;
+}
+
+.prose ol > li::before {
+    content: counter(px-list, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.22em;
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.prose li > p {
+    margin-bottom: 8px;
+}
+
+.prose blockquote {
+    position: relative;
+    margin: 28px 0;
+    padding: 20px 24px 20px 28px;
+    border: var(--bw) solid var(--line);
+    border-left-width: 8px;
+    border-left-color: var(--accent);
+    background: var(--accent-softer);
+    color: var(--ink-2);
+    box-shadow: var(--sh-1);
+}
+
+.prose blockquote p {
+    margin: 0 0 12px;
+}
+
+.prose blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.prose blockquote::before {
+    content: "// NOTE";
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+}
+
+.prose code {
+    padding: 1px 6px;
+    border: 2px solid var(--line-soft);
+    background: var(--surface-3);
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 0.88em;
+    overflow-wrap: anywhere;
+}
+
+.prose pre {
+    position: relative;
+    margin: 28px 0;
+    padding: 48px 20px 20px;
+    overflow-x: auto;
+    border: var(--bw) solid var(--ink);
+    background: #0b0d16;
+    color: #e9e3d4;
+    box-shadow: var(--sh-2);
+    font-size: 13.5px;
+    line-height: 1.72;
+    tab-size: 4;
+}
+
+.prose pre code {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+    white-space: pre;
+}
+
+.prose pre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 26px;
+    border-bottom: 2px solid rgba(243, 234, 215, 0.16);
+    background-image: radial-gradient(rgba(243, 234, 215, 0.5) 1.5px, transparent 1.5px);
+    background-size: 8px 8px;
+    background-position: 8px 12px;
+    opacity: 0.7;
+}
+
+/* Syntax highlighting — warm 8-colour ramp that matches the palette. */
+.prose .token.comment,
+.prose .token.prolog,
+.prose .token.doctype,
+.prose .token.cdata {
+    color: #7f8aa8;
+}
+
+.prose .token.punctuation {
+    color: #b9b2a0;
+}
+
+.prose .token.property,
+.prose .token.tag,
+.prose .token.boolean,
+.prose .token.number,
+.prose .token.constant,
+.prose .token.symbol {
+    color: #ffb454;
+}
+
+.prose .token.selector,
+.prose .token.attr-name,
+.prose .token.string,
+.prose .token.char,
+.prose .token.builtin,
+.prose .token.inserted {
+    color: #7fd48c;
+}
+
+.prose .token.operator,
+.prose .token.entity,
+.prose .token.url,
+.prose .token.variable {
+    color: #e9e3d4;
+}
+
+.prose .token.atrule,
+.prose .token.attr-value,
+.prose .token.keyword {
+    color: #ff8266;
+}
+
+.prose .token.function,
+.prose .token.class-name {
+    color: #8fb4ff;
+}
+
+.prose .token.regex,
+.prose .token.important {
+    color: #ffd166;
+}
+
+.prose .token.deleted {
+    color: #ff6f61;
+}
+
+.prose table {
+    display: block;
+    width: 100%;
+    margin: 28px 0;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.prose table th,
+.prose table td {
+    padding: 10px 14px;
+    border: 2px solid var(--line-soft);
+    text-align: left;
+    vertical-align: top;
+}
+
+.prose table th {
+    border-color: var(--line-strong);
+    background: var(--surface-2);
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.prose table tr:nth-child(even) td {
+    background: var(--surface-2);
+}
+
+.prose img {
+    display: block;
+    max-width: 100%;
+    margin: 28px auto;
+    border: var(--bw) solid var(--line-strong);
+    box-shadow: var(--sh-2);
+    cursor: zoom-in;
+}
+
+.prose figure {
+    margin: 28px 0;
+}
+
+.prose figcaption {
+    margin-top: 10px;
+    color: var(--ink-3);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    text-align: center;
+}
+
+.prose hr {
+    height: 8px;
+    margin: 40px 0;
+    border: 0;
+    background-image: radial-gradient(var(--line) 2px, transparent 2px);
+    background-size: 12px 8px;
+}
+
+.prose kbd {
+    font-size: 0.8em;
+}
+
+.prose sup {
+    font-size: 0.68em;
+    line-height: 0;
+}
+
+.prose .table-scroll {
+    overflow-x: auto;
+}
+
+/* Compact prose for bios and intros */
+.prose--tight {
+    font-size: var(--t-body);
+    line-height: 1.85;
+}
+
+.prose--tight p {
+    margin-bottom: 14px;
+}
+
+.prose--tight a {
+    color: var(--accent);
+    font-weight: 500;
+    box-shadow: inset 0 -2px 0 var(--accent-soft);
+}
+
+.prose--tight a:hover {
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: none;
+}
+
+@media (max-width: 720px) {
+    .prose {
+        font-size: 15.5px;
+    }
+
+    .prose h2 {
+        font-size: 21px;
+        margin-top: 44px;
+    }
+
+    .prose h3 {
+        font-size: 17px;
+    }
+
+    .prose pre {
+        margin-left: calc(var(--gutter) * -1);
+        margin-right: calc(var(--gutter) * -1);
+        border-left: 0;
+        border-right: 0;
+        font-size: 12.5px;
+    }
+}

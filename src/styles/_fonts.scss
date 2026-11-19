@@ -1,0 +1,40 @@
+// Self-hosted pixel type. Both faces are SIL OFL 1.1; the licence files
+// live next to the woff2 files in src/assets/fonts/.
+//
+//   Silkscreen   8px pixel grid, Latin only  -> labels, nav, numerals
+//   Cubic 11    12px pixel grid, CJK + Latin -> headings, tags, CJK display
+//   VT323       25px optical grid            -> oversized terminal numerals
+
+@font-face {
+    font-family: "Silkscreen";
+    src: url("/assets/fonts/silkscreen-400.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Silkscreen";
+    src: url("/assets/fonts/silkscreen-700.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cubic 11";
+    src: url("/assets/fonts/cubic11-400.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    /* CJK is huge; let the fallback show until it lands. */
+    size-adjust: 100%;
+}
+
+@font-face {
+    font-family: "VT323";
+    src: url("/assets/fonts/vt323-400.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}

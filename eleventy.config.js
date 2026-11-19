@@ -83,7 +83,10 @@ module.exports = function (eleventyConfig) {
     });
 
     eleventyConfig.addPassthroughCopy({ "src/assets/images": "assets/images" });
+    eleventyConfig.addPassthroughCopy({ "src/assets/pixel": "assets/pixel" });
+    eleventyConfig.addPassthroughCopy({ "src/assets/fonts": "assets/fonts" });
     eleventyConfig.addPassthroughCopy({ "src/assets/favicon.png": "favicon.png" });
+    eleventyConfig.addPassthroughCopy({ "src/assets/apple-touch-icon.png": "apple-touch-icon.png" });
     eleventyConfig.addPassthroughCopy({ "src/scripts": "scripts" });
     eleventyConfig.addPassthroughCopy({ CNAME: "CNAME" });
 

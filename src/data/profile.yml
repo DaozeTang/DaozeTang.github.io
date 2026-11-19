@@ -6,9 +6,9 @@ status: ""
 
 positions:
 - name: M.Eng. Student · CAU
-  logo: /assets/images/institutions/cau-logo.png
+  logo: /assets/images/institutions/cau-logo-px.png
 - name: B.Eng. Graduate · HUC
-  logo: /assets/images/institutions/huc-logo.png
+  logo: /assets/images/institutions/huc-logo-px.png
 
 email: "daozetang@cau.edu.cn"
 gscholar: 9AQVTHMAAAAJ
@@ -44,18 +44,18 @@ portrait_caption: >-
 
 education:
 - name: China Agricultural University
-  logo: /assets/images/institutions/cau-logo.png
+  logo: /assets/images/institutions/cau-logo-px.png
   position: >-
     Master of Engineering in Computer Science and Technology
   date: Sep. 2026 - Jul. 2029
 - name: Harbin University of Commerce
-  logo: /assets/images/institutions/huc-logo.png
+  logo: /assets/images/institutions/huc-logo-px.png
   position: Bachelor of Engineering in Internet of Things Engineering
   date: Sep. 2022 - Jul. 2026
 
 experience:
 - name: Huazhong University of Science and Technology
-  logo: /assets/images/institutions/hust-logo.png
+  logo: /assets/images/institutions/hust-logo-px.png
   position: Research Intern
   date: Jul. 2025 - Aug. 2025
 

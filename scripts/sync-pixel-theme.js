@@ -8,21 +8,24 @@ const STYLES = path.join(ROOT, 'src', 'styles');
 
 const SHARED = [
     '_tokens.scss',
+    '_fonts.scss',
     '_base.scss',
     '_pixel.scss',
     '_layout.scss',
-    '_cards.scss',
-    '_navbar.scss',
-    '_footer.scss',
-    '_buttons.scss',
+    '_chrome.scss',
+    '_ui.scss',
+    '_prose.scss',
     '_animations.scss',
     '_responsive.scss',
 ];
 
 const REQUIRED_MARKERS = {
-    '_tokens.scss': ['--px:', '--px-line', 'steps('],
-    '_base.scss': ['canvas-grid', 'canvas-scanlines', 'image-rendering'],
-    '_pixel.scss': ['--px-clip', 'px-notch', 'lq-glare'],
+    '_tokens.scss': ['--px-shadow', '--f-pixel', 'steps('],
+    '_fonts.scss': ['Silkscreen', 'Cubic 11', 'VT323'],
+    '_base.scss': ['stage__dots', 'stage__scan', '.ico'],
+    '_pixel.scss': ['.panel', '.screen', 'det-layer'],
+    '_chrome.scss': ['.masthead', '.nav__link', '.footer__hud'],
+    '_ui.scss': ['.btn', '.chip', '.pager'],
 };
 
 const CHECKS = [
@@ -34,7 +37,7 @@ const CHECKS = [
     {
         name: 'rounded corners break the pixel grid',
         re: /border-radius\s*:\s*([^;]+);/g,
-        bad: (v) => v.trim().split(/\s+/).some((p) => !/^0(px|rem|em)?$/i.test(p)),
+        bad: (v) => v.replace(/!important/gi, '').trim().split(/\s+/).some((p) => !/^0(px|rem|em)?$/i.test(p)),
     },
     {
         name: 'blurred shadows are not pixel shadows (use Nx Nx 0 0 color)',
@@ -141,7 +144,7 @@ function auditTokens() {
         }
     }
 
-    const external = new Set(['--mx', '--my']);
+    const external = new Set(['--mx', '--my', '--x', '--y', '--w', '--h', '--scan-span', '--px-hl']);
     const jsPath = path.join(ROOT, 'src', 'scripts', 'site.js');
     if (fs.existsSync(jsPath)) {
         for (const m of read(jsPath).matchAll(/setProperty\(\s*['"](--[a-z0-9-]+)/gi)) {

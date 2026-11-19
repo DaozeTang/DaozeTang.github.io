@@ -5,15 +5,18 @@
     {% include "head" %}
 </head>
 <body>
+    {% include "sprite" %}
     <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <div class="canvas-grid" aria-hidden="true"></div>
-    <div class="canvas-scanlines" aria-hidden="true"></div>
-    <div class="canvas-vignette" aria-hidden="true"></div>
+    <div class="stage" aria-hidden="true">
+        <div class="stage__beam"></div>
+        <div class="stage__dots"></div>
+        <div class="stage__scan"></div>
+    </div>
 
-    {% include "navbar" %}
+    {% include "masthead" %}
 
-    <main class="page-main" id="main-content" tabindex="-1">
+    <main class="main" id="main-content" tabindex="-1">
         <div class="shell">
             {{ content }}
         </div>
@@ -21,10 +24,11 @@
 
     {% include "footer" %}
 
-    <button class="back-to-top" type="button" id="back-to-top" aria-label="Back to top">
-        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    <button class="totop" type="button" id="back-to-top" aria-label="Back to top">
+        <svg class="ico" aria-hidden="true"><use href="#i-arrow-up"></use></svg>
     </button>
 
     <script src="/scripts/site.js" defer></script>
+    {% if showScene %}<script src="/scripts/pixel-scene.js" defer></script>{% endif %}
 </body>
 </html>

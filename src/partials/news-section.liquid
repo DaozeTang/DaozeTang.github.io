@@ -1,29 +1,30 @@
 {% assign newsLimit = display.homepage.num_news | default: 999 %}
 {% assign shown = 0 %}
 
-<section class="section" id="news">
-    <header class="section-head">
-        <span class="section-index" aria-hidden="true"></span>
-        <h2 class="section-title">News<span class="title-dot">.</span></h2>
-        <span class="section-rule" aria-hidden="true"></span>
+<section class="sec" id="news">
+    <header class="sec-head">
+        <span class="sec-head__no" aria-hidden="true">01</span>
+        <h2 class="sec-head__title">Quest log<span class="sec-head__dot">.</span></h2>
+        <span class="sec-head__rule" aria-hidden="true"></span>
+        <div class="sec-head__aside">
+            <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-sparkle"></use></svg>{{ collections.news.size }} entries</span>
+        </div>
     </header>
 
-    <ol class="news-list">
+    <ol class="log">
         {% for group in collections.newsByYear %}
         {% if shown < newsLimit %}
-        <li class="news-year-marker">
-            <span class="news-year-label">{{ group.year }}</span>
-        </li>
+        <li class="log__year" aria-hidden="true">{{ group.year }}</li>
         {% endif %}
         {% for item in group.items %}
         {% if shown < newsLimit %}
-        <li class="news-item">
-            <time class="news-date" datetime="{{ item.date | date: '%Y-%m-%d' }}" aria-label="{{ item.date | date: '%B %-d, %Y' }}">{{ item.date | date: "%b %d" }}</time>
-            <span class="news-node" aria-hidden="true"></span>
-            <div class="news-text">
+        <li class="log__item">
+            <time class="log__date" datetime="{{ item.date | date: '%Y-%m-%d' }}" aria-label="{{ item.date | date: '%B %-d, %Y' }}">{{ item.date | date: "%b %d" }}</time>
+            <span class="log__dot" aria-hidden="true"></span>
+            <span class="log__text">
                 {{ item.data.title }}
-                {%- if item.data.badge %} <span class="tag tag-accent">{{ item.data.badge }}</span>{% endif %}
-            </div>
+                {%- if item.data.badge %} <span class="chip chip--soft">{{ item.data.badge }}</span>{% endif %}
+            </span>
         </li>
         {% assign shown = shown | plus: 1 %}
         {% endif %}

@@ -1,196 +1,162 @@
+// =============================================================================
+//  DESIGN TOKENS — a shared 16-colour, 8-bit vocabulary for both sites.
+//  Everything renders on a 4px grid; type sits on 12px / 8px pixel grids
+//  (Cubic 11 = 12px grid, Silkscreen = 8px grid) so glyphs stay crisp.
+// =============================================================================
+
 :root {
     color-scheme: light;
 
-    --px: 4px;
+    /* --- grid ------------------------------------------------------------- */
+    --u: 4px;
     --bw: 3px;
-    --bw-lg: 4px;
-    --bw-hair: 2px;
-    --px-notch: 6px;
-    --px-line: #1a1c2c;
-    --px-shadow: #1a1c2c;
-    --px-hi: rgba(255, 255, 255, 0.78);
-    --px-lo: rgba(26, 28, 44, 0.22);
-    --px-scan: 4px;
+    --bw-2: 2px;
+    --notch: 8px;
+    --shell: 74rem;
+    --gutter: 24px;
 
-    --bg: #e9e1c9;
+    /* --- palette: paper console ------------------------------------------- */
+    --bg: #f1e7d2;
+    --bg-2: #e6dbbf;
+    --bg-3: #d9cba8;
+    --surface: #fbf6e9;
+    --surface-2: #f3ead7;
+    --surface-3: #e8dcc3;
+    --ink: #16171f;
+    --ink-2: #34374a;
+    --ink-3: #666a85;
+    --ink-4: #8f92a8;
 
-    --card: #fff8e7;
-    --card-solid: #fff8e7;
-    --surface: #f4ecd6;
-    --surface-2: #e6dcc0;
-    --glass-bg: #f7f0dd;
-    --glass-strong: #fffaee;
-    --menu-bg: #fbf5e6;
-    --veil: rgba(233, 225, 201, 0.6);
+    --line: rgba(22, 23, 31, 0.32);
+    --line-soft: rgba(22, 23, 31, 0.14);
+    --line-strong: #16171f;
 
-    --ink: #1a1c2c;
-    --ink-2: #2f3550;
-    --ink-3: #5a6285;
-    --ghost: rgba(26, 28, 44, 0.08);
-    --on-accent: #fff8e7;
+    --accent: #0b6b43;
+    --accent-2: #14935c;
+    --accent-3: #0a5436;
+    --accent-soft: #d8e7cb;
+    --accent-softer: #eaf0df;
+    --on-accent: #fbf6e9;
 
-    --accent: #047041;
-    --accent-deep: #005c38;
-    --accent-soft: #d7e4ce;
-    --accent-softer: #ebeeda;
-    --accent-line: #005c38;
+    --coral: #c8493a;
+    --coral-soft: #f6d7cf;
+    --gold: #a9700a;
+    --gold-soft: #f6e3b8;
+    --blue: #2b54c8;
+    --blue-soft: #dbe1f8;
+    --violet: #7b3f8d;
+    --violet-soft: #eedaf0;
 
-    --coral: #ff5d54;
-    --gold: #ffa300;
-    --gold-ink: #8a5800;
-    --blue-ink: #1d3d8f;
-    --violet-ink: #5e1a3d;
-    --teal-ink: #157063;
-    --pink-ink: #b83d6b;
-    --cyan-ink: #1a6f9e;
-    --violet-soft: #ecd9e6;
-    --violet-line: #7e2553;
-    --blue-soft: #dfe2f2;
-    --blue-line: #3b5dc9;
-    --teal-soft: #e8f0e6;
-    --teal-line: #17796a;
-    --gold-soft: #ffe5b4;
-    --ok: #047041;
+    --ok: #0b6b43;
     --err: #b3241c;
 
-    --aurora-1: rgba(4, 112, 65, 0.16);
-    --aurora-2: rgba(59, 93, 201, 0.14);
+    /* --- pixel chrome ----------------------------------------------------- */
+    --px-shadow: #16171f;
+    --px-hi: rgba(255, 255, 255, 0.72);
+    --px-lo: rgba(22, 23, 31, 0.16);
+    --px-scan: rgba(22, 23, 31, 0.07);
+    --px-dot: rgba(22, 23, 31, 0.10);
+    --px-veil: rgba(241, 231, 210, 0.72);
 
-    --line: rgba(26, 28, 44, 0.28);
-    --line-soft: rgba(26, 28, 44, 0.14);
-    --line-strong: #1a1c2c;
-    --dot: rgba(26, 28, 44, 0.075);
-
-    --grad-aurora: repeating-linear-gradient(90deg,
-            var(--accent) 0 var(--px), transparent var(--px) calc(var(--px) * 2));
-    --grad-text: #005c38;
-    --grad-sheen: repeating-linear-gradient(180deg,
-            rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 4px);
-    --px-scan-tint: rgba(4, 112, 65, 0.16);
-    --px-dither: repeating-conic-gradient(var(--dot) 0% 25%, transparent 0% 50%);
-
-    --shadow-sm: 2px 2px 0 0 var(--px-shadow);
-    --shadow-md: 4px 4px 0 0 var(--px-shadow);
-    --shadow-lg: 8px 8px 0 0 var(--px-shadow);
-    --shadow-glow: 4px 4px 0 0 var(--accent);
-    --shadow-none: 0 0 0 0 transparent;
-    --ring: 0 0 0 4px var(--bg), 0 0 0 8px var(--accent);
-    --focus-outline: var(--bw) solid var(--accent);
-
-    --rim:
-        inset 0 0 0 var(--bw-hair) var(--px-line),
+    --sh-1: 2px 2px 0 0 var(--px-shadow);
+    --sh-2: 4px 4px 0 0 var(--px-shadow);
+    --sh-3: 6px 6px 0 0 var(--px-shadow);
+    --sh-4: 8px 8px 0 0 var(--px-shadow);
+    --sh-none: 0 0 0 0 transparent;
+    --sh-inset:
+        inset 0 0 0 var(--bw-2) var(--px-shadow),
         inset var(--bw) var(--bw) 0 0 var(--px-hi),
         inset calc(var(--bw) * -1) calc(var(--bw) * -1) 0 0 var(--px-lo);
-    --rim-strong:
-        inset 0 0 0 var(--bw-hair) var(--px-line),
-        inset var(--bw-lg) var(--bw-lg) 0 0 var(--px-hi),
-        inset calc(var(--bw-lg) * -1) calc(var(--bw-lg) * -1) 0 0 var(--px-lo);
-    --rim-soft:
-        inset var(--bw-hair) var(--bw-hair) 0 0 var(--px-hi),
-        inset calc(var(--bw-hair) * -1) calc(var(--bw-hair) * -1) 0 0 var(--px-lo);
-    --rim-plain: 0 0 0 0 transparent;
 
-    --font-pixel: "Press Start 2P", ui-monospace, monospace;
-    --font-display: "VT323", "Noto Sans SC", monospace;
-    --font-serif: "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --font-sans: "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", "Noto Sans SC", monospace;
+    --ring: 0 0 0 3px var(--bg), 0 0 0 6px var(--accent);
 
-    --space-1: 4px;
-    --space-2: 8px;
-    --space-3: 12px;
-    --space-4: 16px;
-    --space-5: 24px;
-    --space-6: 32px;
-    --space-7: 40px;
-    --space-8: 48px;
-    --space-9: 64px;
-    --space-10: 96px;
+    /* --- type ------------------------------------------------------------- */
+    --f-pixel: "Silkscreen", "Cubic 11", ui-monospace, monospace;
+    --f-dot: "Cubic 11", "Silkscreen", "Noto Sans SC", system-ui, sans-serif;
+    --f-body: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+    --f-mono: ui-monospace, "SFMono-Regular", "SF Mono", "Cascadia Mono",
+        Menlo, Consolas, "Liberation Mono", monospace;
 
-    --ease-pixel: steps(2, end);
-    --t-fast: 120ms steps(2, end);
-    --t-med: 200ms steps(3, end);
-    --t-spring: transform 160ms steps(2, end), box-shadow 160ms steps(2, end),
-        border-color 120ms steps(2, end), background-color 120ms steps(2, end),
-        color 120ms steps(2, end);
+    --t-hero: 48px;
+    --t-h1: 36px;
+    --t-h2: 24px;
+    --t-h3: 16px;
+    --t-label: 16px;
+    --t-micro: 12px;
+    --t-body: 16px;
+    --t-body-lg: 17px;
+    --t-small: 14px;
 
-    --shell-max: 76rem;
-    --header-h: 64px;
-    --section-gap: 72px;
-    --leading-prose: 1.8;
+    --lh-tight: 1.15;
+    --lh-body: 1.8;
 
-    --pulse-from: 0 0 0 0 rgba(4, 112, 65, 0.55);
-    --pulse-mid: 0 0 0 8px rgba(4, 112, 65, 0);
-    --pulse-to: 0 0 0 8px rgba(4, 112, 65, 0);
+    /* --- space ------------------------------------------------------------ */
+    --s-1: 4px;
+    --s-2: 8px;
+    --s-3: 12px;
+    --s-4: 16px;
+    --s-5: 24px;
+    --s-6: 32px;
+    --s-7: 40px;
+    --s-8: 48px;
+    --s-9: 64px;
+    --s-10: 80px;
+    --s-11: 96px;
+
+    /* --- motion: every transition lands on a step, never a curve ----------- */
+    --tick: 120ms steps(2, end);
+    --tock: 180ms steps(3, end);
+    --tock-3: 240ms steps(4, end);
+    --move: transform var(--tock), box-shadow var(--tock), background-color var(--tick),
+        border-color var(--tick), color var(--tick);
+
+    /* --- page furniture --------------------------------------------------- */
+    --header-h: 72px;
+    --footer-h: 96px;
 }
 
 [data-theme="dark"] {
     color-scheme: dark;
 
-    --px-line: #0a0c18;
-    --px-shadow: #05060f;
-    --px-hi: rgba(207, 214, 255, 0.26);
-    --px-lo: rgba(5, 6, 15, 0.55);
+    --bg: #101119;
+    --bg-2: #161826;
+    --bg-3: #1d2033;
+    --surface: #1a1c2a;
+    --surface-2: #222538;
+    --surface-3: #2a2e44;
+    --ink: #f3ead7;
+    --ink-2: #c6cadd;
+    --ink-3: #8f94b4;
+    --ink-4: #6d7291;
 
-    --bg: #14162b;
+    --line: rgba(243, 234, 215, 0.32);
+    --line-soft: rgba(243, 234, 215, 0.16);
+    --line-strong: #f3ead7;
 
-    --card: #22244a;
-    --card-solid: #22244a;
-    --surface: #1b1d3a;
-    --surface-2: #2a2d5c;
-    --glass-bg: #1c1e40;
-    --glass-strong: #262a55;
-    --menu-bg: #1c1e40;
-    --veil: rgba(20, 22, 43, 0.55);
+    --accent: #56d98b;
+    --accent-2: #8bf0b2;
+    --accent-3: #a9f7c7;
+    --accent-soft: #1d3a2c;
+    --accent-softer: #172b22;
+    --on-accent: #07130c;
 
-    --ink: #e9ecff;
-    --ink-2: #c3cafa;
-    --ink-3: #8f98cf;
-    --ghost: rgba(233, 236, 255, 0.08);
-    --on-accent: #0a0c18;
+    --coral: #ff8267;
+    --coral-soft: #40231f;
+    --gold: #ffc24b;
+    --gold-soft: #3d2f14;
+    --blue: #8fa9ff;
+    --blue-soft: #232a4d;
+    --violet: #d99ae8;
+    --violet-soft: #35233c;
 
-    --accent: #68d67a;
-    --accent-deep: #a7f3b6;
-    --accent-soft: #26443f;
-    --accent-softer: #223046;
-    --accent-line: #a7f3b6;
+    --ok: #56d98b;
+    --err: #ff8267;
 
-    --coral: #ff8f88;
-    --gold: #fbb13c;
-    --gold-ink: #fbb13c;
-    --blue-ink: #9db6ff;
-    --violet-ink: #dda6c4;
-    --teal-ink: #7ef0cf;
-    --pink-ink: #ffb3cf;
-    --cyan-ink: #8fdcff;
-    --violet-soft: #46365f;
-    --violet-line: #c775a9;
-    --blue-soft: #354072;
-    --blue-line: #7aa2ff;
-    --teal-soft: #28485c;
-    --teal-line: #41d6a3;
-    --gold-soft: #4d3f22;
-    --ok: #68d67a;
-    --err: #ff8f88;
-
-    --aurora-1: rgba(104, 214, 122, 0.16);
-    --aurora-2: rgba(122, 162, 255, 0.14);
-
-    --line: rgba(233, 236, 255, 0.3);
-    --line-soft: rgba(233, 236, 255, 0.14);
-    --line-strong: #9aa4ff;
-    --dot: rgba(233, 236, 255, 0.055);
-
-    --grad-text: #a7f3b6;
-    --grad-sheen: repeating-linear-gradient(180deg,
-            rgba(233, 236, 255, 0.12) 0 2px, transparent 2px 4px);
-
-    --shadow-glow: 4px 4px 0 0 var(--accent);
-    --ring: 0 0 0 4px var(--bg), 0 0 0 8px var(--accent);
-
-    --px-scan-tint: rgba(104, 214, 122, 0.2);
-
-    --pulse-from: 0 0 0 0 rgba(104, 214, 122, 0.55);
-    --pulse-mid: 0 0 0 8px rgba(104, 214, 122, 0);
-    --pulse-to: 0 0 0 8px rgba(104, 214, 122, 0);
+    --px-shadow: #05060c;
+    --px-hi: rgba(243, 234, 215, 0.16);
+    --px-lo: rgba(0, 0, 0, 0.48);
+    --px-scan: rgba(243, 234, 215, 0.06);
+    --px-dot: rgba(243, 234, 215, 0.10);
+    --px-veil: rgba(16, 17, 25, 0.72);
 }

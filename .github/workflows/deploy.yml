@@ -51,7 +51,7 @@ jobs:
             exit 1
           fi
           expected=$(node -e 'const c=require("./src/data/citations.json");console.log(Object.values(c).filter(v=>typeof v.count==="number"&&v.count>0).length)')
-          found=$(grep -o 'tag-cite' _site/publications/index.html | wc -l | tr -d ' ')
+          found=$(grep -o 'cite-badge' _site/publications/index.html | wc -l | tr -d ' ')
           echo "citation entries with count>0: $expected"
           echo "badges rendered on publications page: $found"
           if [ "$expected" -gt 0 ] && [ "$found" -eq 0 ]; then

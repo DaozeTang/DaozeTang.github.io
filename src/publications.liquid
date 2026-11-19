@@ -8,46 +8,55 @@ subtitle: >-
   what we've been exploring.
 ---
 
-<header class="page-header">
-    <h1 class="page-header-title">Publications<span class="title-dot">.</span></h1>
-    <p class="page-header-subtitle">{{ subtitle }}</p>
-    <div class="page-header-meta">
-        <span class="page-header-stat"><i class="fas fa-book-open" aria-hidden="true"></i> {{ collections.publications.size }} papers</span>
+<header class="page-head">
+    <p class="kicker"><span class="led" aria-hidden="true"></span>Papers &middot; peer reviewed &amp; preprints</p>
+    <h1 class="page-head__title">Publications<span style="color: var(--accent)">.</span></h1>
+    <p class="page-head__sub">{{ subtitle }}</p>
+    <ul class="page-head__meta">
+        <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>{{ collections.publications.size }} papers</span></li>
         {% for group in collections.publicationsByYear %}
-        <span class="page-header-stat">{{ group.year }} &middot; {{ group.items.size }}</span>
+        <li><a class="chip" href="#year-{{ group.year }}">{{ group.year }} &middot; {{ group.items.size }}</a></li>
         {% endfor %}
-    </div>
+    </ul>
 </header>
 
-<div class="pubs-layout">
-    <div class="pubs-stream">
-        {% for group in collections.publicationsByYear %}
-        <section id="year-{{ group.year }}" class="year-section" data-year="{{ group.year }}">
-            <span class="year-ghost" aria-hidden="true">{{ group.year }}</span>
-            <header class="year-head">
-                <h2 class="year-num">{{ group.year }}</h2>
-                <span class="year-count"><b>{{ group.items.size }}</b> paper{% if group.items.size > 1 %}s{% endif %}</span>
-                <span class="year-rule" aria-hidden="true"></span>
-            </header>
-
-            <div class="pub-list">
+<div class="split">
+    <div>
+        <div class="year-stack" style="margin-top: 0">
+            {% for group in collections.publicationsByYear %}
+            <section class="year-block" id="year-{{ group.year }}">
+                <div class="year-block__head">
+                    <h2 class="year-block__year">{{ group.year }}</h2>
+                    <span class="year-block__count">{{ group.items.size }} paper{% if group.items.size > 1 %}s{% endif %}</span>
+                    <span class="year-block__rule" aria-hidden="true"></span>
+                </div>
                 {% for item in group.items %}
-                    {% include "publication-item" %}
+                {% include "pub-card" %}
                 {% endfor %}
-            </div>
-        </section>
-        {% endfor %}
+            </section>
+            {% endfor %}
+        </div>
     </div>
 
-    <aside class="pubs-rail" aria-label="Jump to year">
-        <div class="rail-label">Timeline</div>
-        <nav class="rail-nav" id="year-rail">
-            {% for group in collections.publicationsByYear %}
-            <a class="rail-link" href="#year-{{ group.year }}">
-                {{ group.year }}
-                <span class="rail-count">{{ group.items.size }}</span>
-            </a>
-            {% endfor %}
-        </nav>
+    <aside class="rail" aria-label="Jump to year">
+        <div>
+            <p class="rail__label">Timeline</p>
+            <nav class="rail__list" id="year-rail">
+                {% for group in collections.publicationsByYear %}
+                <a class="rail__link" href="#year-{{ group.year }}">
+                    <span>{{ group.year }}</span>
+                    <span class="rail__count">{{ group.items.size }}</span>
+                </a>
+                {% endfor %}
+            </nav>
+        </div>
+        <div class="panel rail__panel">
+            <p class="rail__label">Legend</p>
+            <div class="stack stack--tight">
+                <span class="chip chip--accent">Venue</span>
+                <span class="chip chip--blue">Citations</span>
+                <span class="chip chip--gold">Highlight</span>
+            </div>
+        </div>
     </aside>
 </div>

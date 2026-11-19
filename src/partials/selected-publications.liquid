@@ -1,16 +1,16 @@
-<section class="section" id="selected-publications">
-    <header class="section-head">
-        <span class="section-index" aria-hidden="true"></span>
-        <h2 class="section-title">Selected Publications<span class="title-dot">.</span></h2>
-        <span class="section-rule" aria-hidden="true"></span>
-        <a class="section-action" href="/publications/">
-            View all <i class="fas fa-arrow-right" aria-hidden="true"></i>
-        </a>
+<section class="sec" id="selected-publications">
+    <header class="sec-head">
+        <span class="sec-head__no" aria-hidden="true">02</span>
+        <h2 class="sec-head__title">Selected papers<span class="sec-head__dot">.</span></h2>
+        <span class="sec-head__rule" aria-hidden="true"></span>
+        <div class="sec-head__aside">
+            <a class="chip" href="/publications/">All papers<svg class="ico" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+        </div>
     </header>
 
-    <div class="pub-list">
+    <div class="cart-list">
         {% for item in collections.selectedPublications %}
-            {% include "publication-item" %}
+        {% include "pub-card" %}
         {% endfor %}
     </div>
 </section>

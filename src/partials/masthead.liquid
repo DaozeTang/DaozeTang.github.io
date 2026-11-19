@@ -1,0 +1,36 @@
+<header class="masthead" id="site-header">
+    <div class="shell masthead__inner">
+        <a class="brand" href="/" aria-label="{{ profile.primary_name }} — home">
+            <span class="brand__mark" aria-hidden="true">
+                <svg class="ico" viewBox="0 0 24 24"><use href="#i-prompt"></use></svg>
+            </span>
+            <span class="brand__text">DZT<span class="brand__dot">.</span></span>
+            <span class="brand__tag">LAB</span>
+        </a>
+
+        <nav class="nav" id="site-nav" aria-label="Main navigation">
+            {% for item in navigation.pages %}
+            <a class="nav__link {% if item.name == navTitle %}is-active{% endif %}" href="{{ item.url }}"{% if item.name == navTitle %} aria-current="page"{% endif %}>{{ item.name }}</a>
+            {% endfor %}
+            <a class="nav__link nav__ext" href="{{ profile.blog }}" target="_blank" rel="noopener">Blog<svg class="ico" aria-hidden="true"><use href="#i-external"></use></svg></a>
+        </nav>
+
+        <div class="masthead__tools">
+            <button class="iconbtn" type="button" id="theme-toggle" aria-label="Change color theme">
+                <svg class="ico" aria-hidden="true"><use id="theme-icon" href="#i-sun"></use></svg>
+            </button>
+            <button class="iconbtn nav-burger" type="button" id="nav-burger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-drawer">
+                <svg class="ico" aria-hidden="true"><use href="#i-menu"></use></svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="nav-drawer" id="nav-drawer" hidden>
+        <div class="shell nav-drawer__inner">
+            {% for item in navigation.pages %}
+            <a class="nav__link {% if item.name == navTitle %}is-active{% endif %}" href="{{ item.url }}">{{ item.name }}</a>
+            {% endfor %}
+            <a class="nav__link nav__ext" href="{{ profile.blog }}" target="_blank" rel="noopener">Blog<svg class="ico" aria-hidden="true"><use href="#i-external"></use></svg></a>
+        </div>
+    </div>
+</header>
