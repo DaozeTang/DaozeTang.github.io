@@ -29,6 +29,12 @@
     border: var(--bw-2) solid var(--line);
     background: var(--surface);
     box-shadow: var(--sh-1);
+    transition: border-color var(--tick), box-shadow var(--tick);
+}
+
+.xp:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--sh-2);
 }
 
 .xp__top {

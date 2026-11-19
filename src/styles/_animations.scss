@@ -1,5 +1,7 @@
 // =============================================================================
 //  MOTION — everything steps. Nothing eases.
+//  Every animation here is decoration: none of them may hide content that a
+//  stalled script, a reduced-motion preference, or a print sheet would need.
 // =============================================================================
 
 @keyframes led-blink {
@@ -69,24 +71,121 @@
     }
 }
 
-/* Reveal on scroll: a stepped lift. Never hides text, so a stalled or
-   disabled script can't leave the page blank. */
-.reveal {
-    transform: translateY(8px);
+/* Meters charge one cell at a time, like a health bar topping up. */
+@keyframes meter-charge {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
 }
 
-.reveal.is-in {
+/* The one-time CRT sweep used by the attract screens. */
+@keyframes boot-scan {
+    0% {
+        opacity: 0;
+        transform: translateY(-110%);
+    }
+
+    12% {
+        opacity: 0.9;
+    }
+
+    88% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(110%);
+    }
+}
+
+@keyframes px-glitch {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-2px);
+    }
+
+    50% {
+        transform: translateX(2px);
+    }
+
+    75% {
+        transform: translateX(-1px);
+    }
+}
+
+@keyframes chip-pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 transparent;
+    }
+
+    50% {
+        box-shadow: 0 0 0 2px var(--accent);
+    }
+}
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes wipe-in {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   Reveal on scroll: a stepped lift. It only shifts a few pixels and never
+   changes opacity, so a stalled script cannot leave the page blank.
+   The offset is applied by CSS (not by the script) so nothing flashes before
+   the observer attaches; the script only has to add .is-in.
+   -------------------------------------------------------------------------- */
+
+.has-js .reveal {
+    --i: 0;
+    transform: translateY(6px);
+}
+
+.has-js .reveal.is-in {
     transform: none;
-    transition: transform 260ms steps(4, end);
+    transition:
+        transform 260ms steps(4, end),
+        opacity 260ms steps(4, end);
+    transition-delay: calc(var(--i, 0) * 45ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .reveal {
+    .has-js .reveal,
+    .has-js .reveal.is-in {
         transform: none;
-    }
-
-    .reveal.is-in {
         transition: none;
+    }
+}
+
+@media print {
+    .has-js .reveal {
+        transform: none !important;
     }
 }
 
@@ -96,4 +195,52 @@
 
 .bob {
     animation: bob 2.4s steps(2, end) infinite;
+}
+
+/* Toast: the shared confirmation chip (copy, theme, etc). */
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    z-index: 120;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: min(90vw, 420px);
+    padding: 10px 14px;
+    border: var(--bw) solid var(--line-strong);
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--f-mono);
+    font-size: 12.5px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    box-shadow: var(--sh-3);
+    transform: translate(-50%, 0);
+    animation: toast-in 180ms steps(3, end) both;
+    pointer-events: none;
+}
+
+.toast[hidden] {
+    display: none;
+}
+
+.toast__led {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 auto;
+    background: var(--accent-2);
+    box-shadow: 0 0 0 2px var(--ink);
+}
+
+@media (max-width: 560px) {
+    .toast {
+        bottom: 84px;
+    }
+}
+
+@media print {
+    .toast {
+        display: none !important;
+    }
 }

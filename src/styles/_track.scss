@@ -67,6 +67,12 @@
     border: var(--bw-2) solid var(--line-strong);
     background: var(--surface);
     box-shadow: var(--sh-1);
+    transition: transform var(--tock);
+}
+
+.track__item:hover .track__node {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--sh-2);
 }
 
 .track__node img {

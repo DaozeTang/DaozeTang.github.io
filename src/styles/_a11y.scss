@@ -1,0 +1,187 @@
+// =============================================================================
+//  A11Y — contrast and forced-colour overrides.
+//  Imported last so these rules win over the component styles they patch.
+// =============================================================================
+
+/* -----------------------------------------------------------------------------
+   Accessibility preferences: contrast and forced colours.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-contrast: more) {
+    :root {
+        --line: rgba(22, 23, 31, 0.62);
+        --line-soft: rgba(22, 23, 31, 0.34);
+        --ink-3: #3c4054;
+        --ink-4: #4a4e64;
+        --px-lo: rgba(22, 23, 31, 0.42);
+    }
+
+    [data-theme="dark"] {
+        --line: rgba(243, 234, 215, 0.6);
+        --line-soft: rgba(243, 234, 215, 0.32);
+        --ink-3: #b9bedb;
+        --ink-4: #a3a8c6;
+    }
+
+    .panel,
+    .cart,
+    .post-card__link,
+    .proj,
+    .award,
+    .reg,
+    .tool-card,
+    .term-card,
+    .post-nav__card,
+    .stamp,
+    .cert,
+    .cat-card,
+    .note,
+    .filter-bar,
+    .index-toolbar {
+        border-color: var(--ink);
+    }
+}
+
+/* Windows High Contrast: drop the artwork, keep the structure. */
+@media (forced-colors: active) {
+    .stage,
+    .dither,
+    .dither--accent,
+    .dither-fade,
+    .screen::after,
+    .screen__glare,
+    .det-layer,
+    .horizon__label,
+    .wipe,
+    .prompt__snow,
+    .prompt__bars {
+        display: none !important;
+    }
+
+    .panel,
+    .btn,
+    .chip,
+    .iconbtn,
+    .nav__link,
+    .post-card__link,
+    .pager__btn,
+    .pager__num,
+    .term-card,
+    .stamp,
+    .cert,
+    .cat-card,
+    .note,
+    .filter-bar,
+    .index-toolbar,
+    .cart__tab,
+    .cart__screen,
+    .prompt__screen,
+    dialog,
+    .totop {
+        border-color: CanvasText;
+        box-shadow: none;
+        forced-color-adjust: none;
+        background: Canvas;
+        color: CanvasText;
+    }
+
+    .prompt__code,
+    .prompt__code span,
+    .cart__fig {
+        background: Canvas;
+        color: CanvasText;
+        text-shadow: none;
+    }
+
+    .btn--accent,
+    .chip--accent,
+    .chip--soft,
+    .nav__link.is-active,
+    .rail__link.is-active,
+    .pager__num.is-active,
+    .filter-btn.is-active,
+    .years__cell.is-now,
+    .iconbtn:hover {
+        background: Highlight;
+        color: HighlightText;
+        border-color: Highlight;
+    }
+
+    .led,
+    .kicker__dot,
+    .log__dot,
+    .meter__cell.is-on,
+    .post-card__dot,
+    .sec-head__dot {
+        background: CanvasText;
+    }
+
+    .meter__cell {
+        border: 1px solid CanvasText;
+    }
+
+    .prose pre,
+    .prose code,
+    .code-copy,
+    .code-lang {
+        border-color: CanvasText;
+        background: Canvas;
+        color: CanvasText;
+    }
+
+    .progress__seg.is-on {
+        background: Highlight;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+        outline: 3px solid CanvasText;
+        outline-offset: 3px;
+    }
+}
+
+/* Structure that is drawn with gaps or shadows needs an explicit outline once
+   the browser replaces colours. */
+@media (forced-colors: active) {
+    .hud,
+    .statbar,
+    .meter {
+        background: Canvas;
+        border-color: CanvasText;
+        gap: 2px;
+    }
+
+    .hud__cell,
+    .statbar > li,
+    .xp {
+        border: 1px solid CanvasText;
+        background: Canvas;
+    }
+
+    .track__node,
+    .post-card__no,
+    .term-disclosure > summary,
+    .lightbox__step,
+    .code-block,
+    .copy-btn,
+    .filter-bar__label,
+    .tool-card__bar,
+    .term-band__title {
+        border: 1px solid CanvasText;
+    }
+
+    .term-row__bar,
+    .term-card__bar,
+    .cat-card__bar,
+    .cart__spec {
+        border: 1px solid CanvasText;
+    }
+
+    .term-row__bar i,
+    .term-card__bar i,
+    .cat-card__bar i {
+        background: CanvasText;
+    }
+
+}

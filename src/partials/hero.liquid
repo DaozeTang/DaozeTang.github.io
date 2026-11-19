@@ -78,6 +78,7 @@
                     <p>{{ profile.portrait_caption | default: "Pixel study, 16 colours." }}</p>
                     <button class="portrait__toggle" type="button" data-portrait-toggle aria-pressed="false">view photo</button>
                 </div>
+                <span class="visually-hidden" role="status" id="portrait-status"></span>
             </figure>
             {% endif %}
 
@@ -87,11 +88,11 @@
             <dl class="hud">
                 <div class="hud__cell">
                     <dt class="hud__k">Papers</dt>
-                    <dd class="hud__v">{{ collections.publications.size }}</dd>
+                    <dd class="hud__v" data-count-to="{{ collections.publications.size }}">{{ collections.publications.size }}</dd>
                 </div>
                 <div class="hud__cell">
                     <dt class="hud__k">Projects</dt>
-                    <dd class="hud__v">{{ project_total }}</dd>
+                    <dd class="hud__v" data-count-to="{{ project_total }}">{{ project_total }}</dd>
                 </div>
                 <div class="hud__cell">
                     <dt class="hud__k">Team</dt>

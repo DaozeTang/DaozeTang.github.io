@@ -19,10 +19,11 @@
 @media (max-width: 720px) {
     :root {
         --gutter: 16px;
-        --t-hero: 36px;
-        --t-h1: 26px;
-        --t-h2: 19px;
-        --t-body: 15.5px;
+        /* Silkscreen only renders on an 8px grid; keep every step a multiple. */
+        --t-hero: 32px;
+        --t-h1: 24px;
+        --t-h2: 16px;
+        --t-body: 16px;
     }
 
     .sec {
@@ -36,7 +37,58 @@
     .chip:hover,
     .iconbtn:hover,
     .nav__link:hover,
-    .rail__link:hover {
+    .rail__link:hover,
+    .cart:hover,
+    .proj:hover,
+    .award:hover,
+    .collab:hover,
+    .post-card__link:hover,
+    .term-card:hover,
+    .tool-card:hover,
+    .post-nav__card:hover {
         transform: none;
+    }
+}
+
+/* Coarse pointers need 44px targets: the console chrome is deliberately small,
+   so grow the hit area without changing the type. */
+@media (pointer: coarse) {
+    .iconbtn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .nav__link {
+        padding: 12px;
+    }
+
+    .portrait__toggle {
+        min-height: 34px;
+        padding: 6px 10px;
+    }
+
+    .pager__num {
+        min-width: 44px;
+        height: 44px;
+    }
+
+    .pager__btn {
+        min-height: 44px;
+    }
+
+    .dialog__close,
+    .lightbox__step {
+        width: 40px;
+        height: 40px;
+    }
+
+    .code-copy {
+        width: 40px;
+        height: 40px;
+    }
+
+    .totop {
+        width: 52px;
+        height: 52px;
     }
 }

@@ -1,61 +1,218 @@
 // =============================================================================
 //  CART — publications as research cartridges, each with its own monitor.
+//  A cartridge wears a label strip: index, venue, citation count, year.
 // =============================================================================
 
 .cart {
     display: grid;
-    grid-template-columns: 232px minmax(0, 1fr);
-    gap: var(--s-5);
-    padding: var(--s-4);
-    border: var(--bw) solid var(--line);
+    gap: 0;
+    border: var(--bw) solid var(--line-strong);
     background: var(--surface);
     box-shadow: var(--sh-1);
     transition: var(--move);
 }
 
 .cart + .cart {
-    margin-top: var(--s-3);
+    margin-top: var(--s-4);
 }
 
 .cart:hover {
-    border-color: var(--line-strong);
     box-shadow: var(--sh-3);
     transform: translate(-2px, -2px);
 }
 
-.cart__monitor {
-    position: relative;
-    display: grid;
-    gap: 6px;
-    align-content: start;
+.cart:hover .cart__no,
+.cart:focus-within .cart__no {
+    background: var(--accent);
 }
 
+.cart:hover .cart__venue,
+.cart:focus-within .cart__venue {
+    color: var(--accent);
+}
+
+/* -----------------------------------------------------------------------------
+   Cartridge label
+   -------------------------------------------------------------------------- */
+
+.cart__tab {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px var(--s-2);
+    padding: 7px 12px;
+    border-bottom: var(--bw-2) solid var(--line);
+    background: var(--surface-2);
+    color: var(--ink-3);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.cart__no {
+    display: inline-grid;
+    place-items: center;
+    min-width: 40px;
+    height: 20px;
+    padding: 0 4px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--f-pixel);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+}
+
+.cart__venue {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.cart__mark {
+    padding: 1px 5px;
+    border: 2px solid var(--gold);
+    background: var(--gold-soft);
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+}
+
+.cart__date {
+    margin-left: auto;
+    color: var(--ink-4);
+}
+
+/* -----------------------------------------------------------------------------
+   Monitor + body
+   -------------------------------------------------------------------------- */
+
+.cart__grid {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    align-items: start;
+    gap: var(--s-5);
+    padding: var(--s-4);
+}
+
+.cart__aside {
+    min-width: 0;
+}
+
+/* The monitor keeps a 4:3 window: wide architecture figures letterbox inside
+   a dark screen instead of being cropped or stretched. */
 .cart__screen {
     position: relative;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     border: var(--bw) solid var(--line-strong);
     background: #0b0d16;
     box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.5);
+    transition: border-color var(--tick), box-shadow var(--tock);
 }
 
 .cart__screen img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    filter: saturate(0.88) contrast(1.02);
+    padding: 4px;
+    object-fit: contain;
+    filter: saturate(0.94) contrast(1) brightness(1);
+    transition: filter 240ms steps(3, end);
+}
+
+/* Selected figure: the frame closes with a 1px accent line and the print
+   comes up to full saturation in three steps. No shake, no sweep. */
+.cart:hover .cart__screen,
+.cart:focus-within .cart__screen {
+    border-color: var(--accent);
+    box-shadow:
+        inset 0 0 0 1px var(--accent),
+        inset 2px 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+.cart:hover .cart__screen img,
+.cart:focus-within .cart__screen img {
+    filter: saturate(1.06) contrast(1.05) brightness(1.03);
+}
+
+.cart:hover .cart__fig,
+.cart:focus-within .cart__fig {
+    background: var(--gold);
+    color: var(--bg);
+}
+
+.cart:hover .cite-badge {
+    animation: chip-pulse 900ms steps(2, end) 1;
 }
 
 .cart__screen::after {
     content: "";
     position: absolute;
     inset: 0;
+    z-index: 2;
     background-image: repeating-linear-gradient(
         180deg,
         rgba(6, 8, 14, 0.28) 0 1px,
         transparent 1px 3px
     );
     pointer-events: none;
+}
+
+/* Viewfinder label pinned to the frame, not the figure. */
+.cart__fig {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 4;
+    padding: 2px 5px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background-color var(--tick), color var(--tick);
+}
+
+/* Spec plate under the figure: venue, citations, anything factual. */
+.cart__spec {
+    display: grid;
+    gap: 4px;
+    margin: var(--s-2) 0 0;
+    padding-top: var(--s-2);
+    border-top: 2px dashed var(--line);
+}
+
+.cart__spec > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-2);
+}
+
+.cart__spec dt {
+    margin: 0;
+    color: var(--ink-4);
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.cart__spec dd {
+    margin: 0;
+    color: var(--ink-2);
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    line-height: 1.5;
+    text-align: right;
+}
+
+.cart__spec .cite-badge {
+    display: inline-block;
+    padding: 0 4px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-size: 10.5px;
 }
 
 .cart__placeholder {
@@ -74,32 +231,13 @@
     height: 32px;
 }
 
-.cart__strip {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-    color: var(--ink-3);
-    font-family: var(--f-mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
 .cart__body {
     min-width: 0;
 }
 
-.cart__kicker {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: var(--s-2);
-}
-
 .cart__title {
     margin: 0;
+    overflow-wrap: break-word;
     color: var(--ink);
     font-family: var(--f-dot);
     font-size: 24px;
@@ -152,7 +290,7 @@
 }
 
 @media (max-width: 760px) {
-    .cart {
+    .cart__grid {
         grid-template-columns: minmax(0, 1fr);
     }
 
@@ -160,7 +298,24 @@
         max-width: 320px;
     }
 
+    .cart__aside {
+        display: grid;
+        gap: var(--s-2);
+        max-width: 320px;
+    }
+
     .cart__title {
-        font-size: 20px;
+        font-size: 24px;
+    }
+
+    .cart__date {
+        margin-left: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cart__screen,
+    .cart__screen img {
+        transition: none;
     }
 }

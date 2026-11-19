@@ -32,15 +32,19 @@ Paper front matter: `title`, `date`, `venue`, `selected`, optional `highlight`, 
 
 ## Design system (pixel, 16 colours, no blur)
 
-Same 4px grid, palette and components as the blog. Shared partials (`_tokens`, `_fonts`, `_base`, `_pixel`, `_layout`, `_chrome`, `_ui`, `_prose`, `_animations`, `_responsive`) must stay identical in both repos — `npm run build` refuses to build on drift.
+Same 4px grid, palette and components as the blog. Shared partials (`_tokens`, `_fonts`, `_base`, `_pixel`, `_layout`, `_chrome`, `_ui`, `_prose`, `_animations`, `_responsive`, `_a11y`) must stay identical in both repos — `npm run build` refuses to build on drift.
 
 Homepage-only partials: `_hero`, `_horizon`, `_log` (news), `_cart` (publications), `_track` (education, experience, awards), `_team`, `_pages`.
 
-**Signature art.** The hero portrait is a 96×96 pixel study generated from the source photo and snapped to the site palette; a button swaps it for the photograph. The full-bleed horizon strip under the hero is painted by `src/scripts/pixel-scene.js` (8 fps, deterministic, frozen under `prefers-reduced-motion`), with DOM detection boxes labelled `PERSON`, `CAT`, `DRONE`, `BARN`.
+**Signature art.** The hero portrait is a 96×96 pixel study generated from the source photo and snapped to the site palette; a button swaps it for the photograph. The full-bleed horizon strip under the hero is painted by `src/scripts/pixel-scene.js` (8 fps, deterministic, frozen under `prefers-reduced-motion`), with DOM tracking frames (corner brackets plus confidence labels), a grid-snapped reticle that reports scene coordinates in the HUD, and a live `AUTO · TRACK 04` status chip.
 
 **Assets.** `scripts/pixel-art.py` (Pillow) regenerates the pixel portrait, the posterised institution emblems (`*-px.png`, referenced from `src/data/*.yml`), the 16×16 prompt-mark favicon / touch icon, and `src/assets/pixel/og.png` is the 1200×630 social card.
 
-**Type + icons.** Self-hosted `Silkscreen` (8px grid) and `Cubic 11` (12px grid, CJK) from `src/assets/fonts/` (SIL OFL 1.1), body copy in Noto Sans SC, one MIT Pixelarticons sprite in `src/partials/sprite.liquid`.
+**Interaction.** Every control exists in the markup first, so a blocked script still leaves a working page (the mobile nav reflows, the theme follows the system, the portrait falls back to the photograph). On top of that: a stepped dither shutter for theme changes, a focus-managed navigation drawer, a scroll meter under the masthead, a mobile header that retreats on scroll-down, stepped HUD counters, XP meters that charge cell by cell, a detection reticle on the horizon that reports snapped scene coordinates, card hover frames that close their corner brackets and draw an accent line across the top edge, a stepped print grade and focus frame on paper figures, reduced-motion-aware scroll reveals and cross-document view transitions (Chrome 126+, Safari 18.2+).
+
+**Sub-page system.** Every interior page shares one header shape: the title block plus a bordered *record stamp* (big VT323 count, year cells, two summary rows) computed from the same data as the page. Publications are cartridges with a 4:3 figure window and a spec plate (authors / links / citations); projects are numbered dossier rows with a working role filter and a timeline that hides filtered-out years; registrations are framed certificates with a copyable registration number; collaborators are ID cards grouped by institution. All counts, stamps and filter tallies are computed at build time — no client-side data fetching.
+
+**Accessibility + compatibility.** `_a11y.scss` carries the `prefers-contrast: more` and Windows forced-colours overrides; the theme icon and the current nav state are CSS-driven so they stay correct without JavaScript; `overflow-x: clip` (not `hidden`) keeps `position: sticky` working in Safari; all body text meets 4.5:1 (axe-core: zero violations on home, publications, projects, registrations, collaborators and 404); every interactive control is a real `<a>`/`<button>` and keyboard reachable; filtered-out years are removed from the timeline so the rail never points at a hidden section. Fonts are only sized on their pixel grids (Silkscreen multiples of 8, Cubic 11 of 12).
 
 ---
 

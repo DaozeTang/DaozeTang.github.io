@@ -8,21 +8,54 @@ subtitle: >-
   what we've been exploring.
 ---
 
-<header class="page-head">
-    <p class="kicker"><span class="led" aria-hidden="true"></span>Papers &middot; peer reviewed &amp; preprints</p>
-    <h1 class="page-head__title">Publications<span style="color: var(--accent)">.</span></h1>
-    <p class="page-head__sub">{{ subtitle }}</p>
-    <ul class="page-head__meta">
-        <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>{{ collections.publications.size }} papers</span></li>
-        {% for group in collections.publicationsByYear %}
-        <li><a class="chip" href="#year-{{ group.year }}">{{ group.year }} &middot; {{ group.items.size }}</a></li>
-        {% endfor %}
-    </ul>
+{% assign totalCitations = 0 %}
+{% for item in collections.publications %}
+{% assign cite = citations[item.data.semantic_scholar_id] %}
+{% if cite.count %}{% assign totalCitations = totalCitations | plus: cite.count %}{% endif %}
+{% endfor %}
+{% assign projectTotal = 0 %}
+{% for group in projects.groups %}
+{% assign projectTotal = projectTotal | plus: group.items.size %}
+{% endfor %}
+{% assign regTotal = 0 %}
+{% for group in registrations.groups %}
+{% assign regTotal = regTotal | plus: group.items.size %}
+{% endfor %}
+{% assign newestYear = collections.publicationsByYear.first %}
+{% assign oldestYear = collections.publicationsByYear.last %}
+
+<header class="page-head page-head--split">
+    <div class="page-head__main">
+        <p class="kicker"><span class="led" aria-hidden="true"></span>Papers &middot; peer reviewed &amp; preprints</p>
+        <h1 class="page-head__title">Publications<span style="color: var(--accent)">.</span></h1>
+        <p class="page-head__sub">{{ subtitle }}</p>
+        <ul class="page-head__meta">
+            <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>{{ collections.publications.size }} papers</span></li>
+            <li><span class="chip chip--blue"><svg class="ico" aria-hidden="true"><use href="#i-quote"></use></svg>{{ totalCitations }} citations</span></li>
+        </ul>
+    </div>
+
+    <aside class="page-head__aside" aria-label="Publication record at a glance">
+        <div class="stamp">
+            <p class="stamp__head"><span class="led" aria-hidden="true"></span>Record sheet<span class="stamp__tag">{{ collections.publicationsByYear.size }} yrs</span></p>
+            <p class="stamp__value">{{ collections.publications.size }}<span class="stamp__unit">papers</span></p>
+            <div class="years" aria-hidden="true">
+                {% for group in collections.publicationsByYear %}
+                <span class="years__cell{% if forloop.first %} is-now{% endif %}"><b>{{ group.year }}</b><i>{{ group.items.size }}</i></span>
+                {% endfor %}
+            </div>
+            <dl class="stamp__rows">
+                <div><dt>Span</dt><dd>{{ oldestYear.year }}&ndash;{{ newestYear.year }}</dd></div>
+                <div><dt>Citations</dt><dd>{{ totalCitations }}</dd></div>
+            </dl>
+        </div>
+    </aside>
 </header>
 
 <div class="split">
     <div>
         <div class="year-stack" style="margin-top: 0">
+            {% assign pubNo = 0 %}
             {% for group in collections.publicationsByYear %}
             <section class="year-block" id="year-{{ group.year }}">
                 <div class="year-block__head">
@@ -31,6 +64,7 @@ subtitle: >-
                     <span class="year-block__rule" aria-hidden="true"></span>
                 </div>
                 {% for item in group.items %}
+                {% assign pubNo = pubNo | plus: 1 %}
                 {% include "pub-card" %}
                 {% endfor %}
             </section>
@@ -50,13 +84,13 @@ subtitle: >-
                 {% endfor %}
             </nav>
         </div>
-        <div class="panel rail__panel">
-            <p class="rail__label">Legend</p>
-            <div class="stack stack--tight">
-                <span class="chip chip--accent">Venue</span>
-                <span class="chip chip--blue">Citations</span>
-                <span class="chip chip--gold">Highlight</span>
-            </div>
+        <div class="rail__panel">
+            <p class="rail__label">Record key</p>
+            <ul class="key">
+                <li><span class="led led--gold" aria-hidden="true"></span><span>Highlight &mdash; featured work</span></li>
+                <li><span class="led" aria-hidden="true"></span><span>Citations &mdash; Semantic Scholar</span></li>
+                <li><span class="led led--coral" aria-hidden="true"></span><span>Figure &mdash; architecture preview</span></li>
+            </ul>
         </div>
     </aside>
 </div>

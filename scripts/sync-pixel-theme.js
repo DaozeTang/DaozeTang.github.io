@@ -17,6 +17,7 @@ const SHARED = [
     '_prose.scss',
     '_animations.scss',
     '_responsive.scss',
+    '_a11y.scss',
 ];
 
 const REQUIRED_MARKERS = {

@@ -8,40 +8,118 @@ metaDescription: >-
   affiliations.
 ---
 {%- assign institutionCount = collaborators.people | map: "institution" | uniq | size -%}
+{%- assign institutions = collaborators.people | map: "institution" | uniq -%}
+{%- assign shortNames = collaborators.people | map: "institution_short" | uniq -%}
+{%- assign projectTotal = 0 -%}
+{%- for group in projects.groups -%}{%- assign projectTotal = projectTotal | plus: group.items.size -%}{%- endfor -%}
+{%- assign regTotal = 0 -%}
+{%- for group in registrations.groups -%}{%- assign regTotal = regTotal | plus: group.items.size -%}{%- endfor -%}
+{%- for item in social -%}{%- if item.key == "email" -%}{%- assign emailValue = profile[item.key] -%}{%- endif -%}{%- endfor -%}
 
-<header class="page-head">
-    <p class="kicker"><span class="led" aria-hidden="true"></span>People &middot; recent collaborations</p>
-    <h1 class="page-head__title">Collaborators<span style="color: var(--accent)">.</span></h1>
-    <p class="page-head__sub">{{ collaborators.description }}</p>
-    <ul class="page-head__meta">
-        <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-users"></use></svg>{{ collaborators.people.size }} collaborator{% if collaborators.people.size != 1 %}s{% endif %}</span></li>
-        <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-globe"></use></svg>{{ institutionCount }} institution{% if institutionCount != 1 %}s{% endif %}</span></li>
-    </ul>
+<header class="page-head page-head--split">
+    <div class="page-head__main">
+        <p class="kicker"><span class="led" aria-hidden="true"></span>People &middot; recent collaborations</p>
+        <h1 class="page-head__title">Collaborators<span style="color: var(--accent)">.</span></h1>
+        <p class="page-head__sub">{{ collaborators.description }}</p>
+        <ul class="page-head__meta">
+            <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-users"></use></svg>{{ collaborators.people.size }} collaborator{% if collaborators.people.size != 1 %}s{% endif %}</span></li>
+            <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-globe"></use></svg>{{ institutionCount }} institution{% if institutionCount != 1 %}s{% endif %}</span></li>
+        </ul>
+    </div>
+
+    <aside class="page-head__aside" aria-label="Collaborator roster at a glance">
+        <div class="stamp">
+            <p class="stamp__head"><span class="led" aria-hidden="true"></span>Roster<span class="stamp__tag">{{ institutionCount }} inst.</span></p>
+            <p class="stamp__value">{{ collaborators.people.size }}<span class="stamp__unit">people</span></p>
+            <div class="years" aria-hidden="true">
+                {% for short in shortNames %}
+                {% assign group = collaborators.people | where: "institution_short", short %}
+                <span class="years__cell{% if forloop.first %} is-now{% endif %}"><b>{{ short }}</b><i>{{ group.size }}</i></span>
+                {% endfor %}
+            </div>
+            <dl class="stamp__rows">
+                <div><dt>Co-authors</dt><dd>{{ collaborators.people.size }}</dd></div>
+                <div><dt>Institutions</dt><dd>{{ institutionCount }}</dd></div>
+            </dl>
+        </div>
+    </aside>
 </header>
 
-<div class="collab-grid">
-    {% for person in collaborators.people %}
-    <article class="collab">
-        <div class="collab__top">
-            <span class="collab__no">0{{ forloop.index }}</span>
-            <span class="collab__mono" aria-hidden="true">{{ person.initials }}</span>
+<section class="sec" aria-labelledby="roster-title">
+    <header class="sec-head">
+        <span class="sec-head__no" aria-hidden="true">01</span>
+        <h2 class="sec-head__title" id="roster-title">Roster<span class="sec-head__dot">.</span></h2>
+        <span class="sec-head__rule" aria-hidden="true"></span>
+        <div class="sec-head__aside">
+            <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-users"></use></svg>{{ collaborators.people.size }} people</span>
+        </div>
+    </header>
+
+    <div class="split">
+        <div>
+            {% assign personNo = 0 %}
+            {% for inst in institutions %}
+            {% assign people = collaborators.people | where: "institution", inst %}
+            <section class="collab-group" aria-labelledby="inst-{{ forloop.index }}">
+                <header class="collab-group__head">
+                    <span class="collab-group__mark" aria-hidden="true"></span>
+                    <h2 class="collab-group__name" id="inst-{{ forloop.index }}">{{ inst }}</h2>
+                    <span class="collab-group__count">{{ people.size }} {% if people.size == 1 %}person{% else %}people{% endif %}</span>
+                </header>
+
+                <div class="collab-grid">
+                    {% for person in people %}
+                    {% assign personNo = personNo | plus: 1 %}
+                    <article class="collab px-hover">
+                        <span class="card-fx" aria-hidden="true"></span>
+                        <div class="collab__top">
+                            <span class="collab__no" aria-hidden="true">{% if personNo < 10 %}0{% endif %}{{ personNo }}</span>
+                            <span class="collab__mono" aria-hidden="true">{{ person.initials }}</span>
+                        </div>
+
+                        <h3 class="collab__name">
+                            {% if person.homepage %}
+                            <a href="{{ person.homepage }}" target="_blank" rel="noopener" aria-label="{{ person.name }} personal homepage (opens in a new tab)">{{ person.name }}<svg class="ico" aria-hidden="true"><use href="#i-external"></use></svg></a>
+                            {% else %}
+                            {{ person.name }}
+                            {% endif %}
+                        </h3>
+
+                        <div class="collab__inst">
+                            <img class="px-img" src="{{ person.institution_logo }}" alt="" loading="lazy">
+                            <div>
+                                <small>{{ person.institution_short }}</small>
+                                <span>{{ inst }}</span>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endfor %}
         </div>
 
-        <h2 class="collab__name">
-            {% if person.homepage %}
-            <a href="{{ person.homepage }}" target="_blank" rel="noopener" aria-label="{{ person.name }} personal homepage (opens in a new tab)">{{ person.name }}<svg class="ico" aria-hidden="true"><use href="#i-external"></use></svg></a>
-            {% else %}
-            {{ person.name }}
-            {% endif %}
-        </h2>
-
-        <div class="collab__inst">
-            <img class="px-img" src="{{ person.institution_logo }}" alt="{{ person.institution_logo_alt }}" loading="lazy">
+        <div class="rail">
             <div>
-                <small>{{ person.institution_short }}</small>
-                <span>{{ person.institution }}</span>
+                <p class="rail__label">Institutions</p>
+                <nav class="rail__list" aria-label="Institutions">
+                    {% for inst in institutions %}
+                    {% assign people = collaborators.people | where: "institution", inst %}
+                    <a class="rail__link" href="#inst-{{ forloop.index }}">
+                        <span>{{ inst }}</span>
+                        <span class="rail__count">{{ people.size }}</span>
+                    </a>
+                    {% endfor %}
+                </nav>
+            </div>
+
+            <div class="rail__panel cta-panel">
+                <p class="rail__label">Collaborate</p>
+                <p class="cta-panel__text">Open to academic collaborations, joint doctoral training and Ph.D. positions.</p>
+                {% if emailValue %}
+                <a class="btn btn--sm btn--accent" href="mailto:{{ emailValue | encodeEmail }}"><svg class="ico" aria-hidden="true"><use href="#i-mail"></use></svg>Email</a>
+                {% endif %}
             </div>
         </div>
-    </article>
-    {% endfor %}
-</div>
+    </div>
+</section>

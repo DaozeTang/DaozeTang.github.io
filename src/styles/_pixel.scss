@@ -106,6 +106,26 @@
     pointer-events: none;
 }
 
+/* Theme switch shutter: a stepped dither wipe, never a crossfade. */
+.wipe {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: none;
+    background-color: var(--accent);
+    background-image: repeating-conic-gradient(rgba(0, 0, 0, 0.14) 0 25%, transparent 0 50%);
+    background-size: 8px 8px;
+    clip-path: inset(0 100% 0 0);
+}
+
+.wipe.is-run {
+    animation: wipe-in 190ms steps(5, end) forwards;
+}
+
+.wipe.is-out {
+    animation: wipe-in 190ms steps(5, end) reverse forwards;
+}
+
 /* -----------------------------------------------------------------------------
    Dividers + dither
    -------------------------------------------------------------------------- */
@@ -161,6 +181,7 @@
     background-image:
         repeating-linear-gradient(90deg, var(--bg) 0 2px, transparent 2px 4px);
     background-size: 4px 4px;
+    -webkit-mask-image: linear-gradient(180deg, #000, transparent);
     mask-image: linear-gradient(180deg, #000, transparent);
 }
 
@@ -218,23 +239,62 @@
 }
 
 .det {
+    --det-line: #8bf0b2;
+    --det-ink: #06110b;
     position: absolute;
     left: calc(var(--x) * 1%);
     top: calc(var(--y) * 1%);
     width: calc(var(--w) * 1%);
     height: calc(var(--h) * 1%);
-    border: 2px solid var(--accent-2);
-    box-shadow: 0 0 0 2px rgba(6, 10, 8, 0.45);
+    border: 1px solid rgba(139, 240, 178, 0.45);
+    box-shadow: 0 0 0 1px rgba(6, 10, 8, 0.35);
     animation: det-lock 420ms steps(6, end) both;
+}
+
+/* Open corner brackets read as a tracking frame; the faint full border keeps
+   the box legible on bright parts of the scene. */
+.det::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-image:
+        linear-gradient(var(--det-line), var(--det-line)),
+        linear-gradient(var(--det-line), var(--det-line)),
+        linear-gradient(var(--det-line), var(--det-line)),
+        linear-gradient(var(--det-line), var(--det-line)),
+        linear-gradient(var(--det-line), var(--det-line)),
+        linear-gradient(var(--det-line), var(--det-line)),
+        linear-gradient(var(--det-line), var(--det-line)),
+        linear-gradient(var(--det-line), var(--det-line));
+    background-size:
+        11px 2px,
+        2px 11px,
+        11px 2px,
+        2px 11px,
+        11px 2px,
+        2px 11px,
+        11px 2px,
+        2px 11px;
+    background-position:
+        left top,
+        left top,
+        right top,
+        right top,
+        left bottom,
+        left bottom,
+        right bottom,
+        right bottom;
 }
 
 .det__tag {
     position: absolute;
-    left: -2px;
-    top: -15px;
-    padding: 1px 4px;
-    background: var(--accent-2);
-    color: #06110b;
+    left: -1px;
+    top: -16px;
+    padding: 1px 5px;
+    background: var(--det-line);
+    color: var(--det-ink);
     font-family: var(--f-mono);
     font-size: 9px;
     font-weight: 700;
@@ -243,6 +303,11 @@
     text-transform: uppercase;
     white-space: nowrap;
     box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+.det__conf {
+    margin-left: 4px;
+    opacity: 0.72;
 }
 
 .det--bottom .det__tag {
@@ -255,10 +320,16 @@
     left: 0;
     right: 0;
     top: 0;
-    height: 2px;
-    background: var(--accent-2);
-    opacity: 0.3;
-    animation: det-scan 7s linear infinite;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(139, 240, 178, 0.55) 18%,
+        rgba(139, 240, 178, 0.55) 82%,
+        transparent
+    );
+    opacity: 0.45;
+    animation: det-scan 9s steps(72, end) infinite;
 }
 
 @keyframes det-lock {

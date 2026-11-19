@@ -9,72 +9,138 @@ subtitle: >-
 ---
 
 {% assign totalProjects = 0 %}
+{% assign fundedCount = 0 %}
+{% assign advisorCount = 0 %}
+{% assign leaderCount = 0 %}
+{% assign memberCount = 0 %}
 {% for group in projects.groups %}
 {% assign totalProjects = totalProjects | plus: group.items.size %}
+{% for item in group.items %}
+{% if item.funding and item.funding.size > 0 %}{% assign fundedCount = fundedCount | plus: 1 %}{% endif %}
+{% case item.role %}
+{% when "Advisor" %}{% assign advisorCount = advisorCount | plus: 1 %}
+{% when "Leader" %}{% assign leaderCount = leaderCount | plus: 1 %}
+{% when "Member" %}{% assign memberCount = memberCount | plus: 1 %}
+{% endcase %}
 {% endfor %}
+{% endfor %}
+{% assign regTotal = 0 %}
+{% for group in registrations.groups %}
+{% assign regTotal = regTotal | plus: group.items.size %}
+{% endfor %}
+{% assign newestYear = projects.groups.first %}
+{% assign oldestYear = projects.groups.last %}
 
-<header class="page-head">
-    <p class="kicker"><span class="led led--gold" aria-hidden="true"></span>Projects &middot; built with students</p>
-    <h1 class="page-head__title">Projects<span style="color: var(--accent)">.</span></h1>
-    <p class="page-head__sub">{{ subtitle }}</p>
-    <ul class="page-head__meta">
-        <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-package"></use></svg>{{ totalProjects }} projects</span></li>
-        {% for group in projects.groups %}
-        <li><a class="chip" href="#year-{{ group.year }}">{{ group.year }} &middot; {{ group.items.size }}</a></li>
-        {% endfor %}
-    </ul>
-</header>
-
-<div class="split">
-    <div>
-        <div class="year-stack" style="margin-top: 0">
-            {% for group in projects.groups %}
-            <section class="year-block" id="year-{{ group.year }}">
-                <div class="year-block__head">
-                    <h2 class="year-block__year">{{ group.year }}</h2>
-                    <span class="year-block__count">{{ group.items.size }} project{% if group.items.size > 1 %}s{% endif %}</span>
-                    <span class="year-block__rule" aria-hidden="true"></span>
-                </div>
-
-                {% for item in group.items %}
-                <article class="proj">
-                    <span class="proj__role proj__role--{{ item.role | downcase | replace: ' ', '-' }}">{{ item.role }}</span>
-                    <div>
-                        <h3 class="proj__title">{{ item.title }}</h3>
-                        {% if item.funding and item.funding.size > 0 %}
-                        <div class="proj__meta">
-                            {% for fund in item.funding %}
-                            <span class="chip chip--gold"><svg class="ico" aria-hidden="true"><use href="#i-zap"></use></svg>{{ fund }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                </article>
-                {% endfor %}
-            </section>
-            {% endfor %}
-        </div>
+<header class="page-head page-head--split">
+    <div class="page-head__main">
+        <p class="kicker"><span class="led led--gold" aria-hidden="true"></span>Projects &middot; built with students</p>
+        <h1 class="page-head__title">Projects<span style="color: var(--accent)">.</span></h1>
+        <p class="page-head__sub">{{ subtitle }}</p>
+        <ul class="page-head__meta">
+            <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-package"></use></svg>{{ totalProjects }} projects</span></li>
+            <li><span class="chip chip--gold"><svg class="ico" aria-hidden="true"><use href="#i-zap"></use></svg>{{ fundedCount }} funded</span></li>
+        </ul>
     </div>
 
-    <aside class="rail" aria-label="Jump to year">
-        <div>
-            <p class="rail__label">Timeline</p>
-            <nav class="rail__list" id="year-rail">
+    <aside class="page-head__aside" aria-label="Project record at a glance">
+        <div class="stamp">
+            <p class="stamp__head"><span class="led led--gold" aria-hidden="true"></span>Project log<span class="stamp__tag">{{ projects.groups.size }} yrs</span></p>
+            <p class="stamp__value">{{ totalProjects }}<span class="stamp__unit">projects</span></p>
+            <div class="years" aria-hidden="true">
                 {% for group in projects.groups %}
-                <a class="rail__link" href="#year-{{ group.year }}">
-                    <span>{{ group.year }}</span>
-                    <span class="rail__count">{{ group.items.size }}</span>
-                </a>
+                <span class="years__cell{% if forloop.first %} is-now{% endif %}"><b>{{ group.year }}</b><i>{{ group.items.size }}</i></span>
                 {% endfor %}
-            </nav>
-        </div>
-        <div class="panel rail__panel">
-            <p class="rail__label">Roles</p>
-            <div class="stack stack--tight">
-                <span class="chip chip--accent">Advisor</span>
-                <span class="chip chip--blue">Leader</span>
-                <span class="chip">Member</span>
             </div>
+            <dl class="stamp__rows">
+                <div><dt>Span</dt><dd>{{ oldestYear.year }}&ndash;{{ newestYear.year }}</dd></div>
+                <div><dt>Roles</dt><dd>Advisor, Leader, Member</dd></div>
+                <div><dt>Funded</dt><dd>{{ fundedCount }}</dd></div>
+            </dl>
         </div>
     </aside>
-</div>
+</header>
+
+<section class="sec" aria-labelledby="project-log-title">
+    <header class="sec-head">
+        <span class="sec-head__no" aria-hidden="true">01</span>
+        <h2 class="sec-head__title" id="project-log-title">Projects by year<span class="sec-head__dot">.</span></h2>
+        <span class="sec-head__rule" aria-hidden="true"></span>
+        <div class="sec-head__aside">
+            <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-list"></use></svg>{{ totalProjects }} records</span>
+        </div>
+    </header>
+
+    <div class="filter-bar" data-project-filter hidden>
+        <p class="filter-bar__label"><svg class="ico" aria-hidden="true"><use href="#i-filter"></use></svg>Filter by role</p>
+        <div class="filter-set" role="group" aria-label="Filter projects by role">
+            <button class="filter-btn is-active" type="button" data-role-filter="all" aria-pressed="true">All<span class="filter-btn__n">{{ totalProjects }}</span></button>
+            <button class="filter-btn" type="button" data-role-filter="Advisor" aria-pressed="false">Advisor<span class="filter-btn__n">{{ advisorCount }}</span></button>
+            <button class="filter-btn" type="button" data-role-filter="Leader" aria-pressed="false">Leader<span class="filter-btn__n">{{ leaderCount }}</span></button>
+            <button class="filter-btn" type="button" data-role-filter="Member" aria-pressed="false">Member<span class="filter-btn__n">{{ memberCount }}</span></button>
+        </div>
+        <p class="filter-note" data-filter-note role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="split">
+        <div>
+            <div class="year-stack">
+                {% assign projNo = 0 %}
+                {% for group in projects.groups %}
+                <section class="year-block" id="year-{{ group.year }}" data-year-block>
+                    <div class="year-block__head">
+                        <h2 class="year-block__year">{{ group.year }}</h2>
+                        <span class="year-block__count">{{ group.items.size }} project{% if group.items.size > 1 %}s{% endif %}</span>
+                        <span class="year-block__rule" aria-hidden="true"></span>
+                    </div>
+
+                    {% for item in group.items %}
+                    {% assign projNo = projNo | plus: 1 %}
+                    <article class="proj px-hover" data-role="{{ item.role }}">
+                        <span class="card-fx" aria-hidden="true"></span>
+                        <span class="proj__no" aria-hidden="true">{% if projNo < 10 %}0{% endif %}{{ projNo }}</span>
+                        <div class="proj__main">
+                            <div class="proj__head">
+                                <span class="proj__role proj__role--{{ item.role | downcase | replace: ' ', '-' }}">{{ item.role }}</span>
+                            </div>
+                            <h3 class="proj__title">{{ item.title }}</h3>
+                            {% if item.funding and item.funding.size > 0 %}
+                            <ul class="proj__meta">
+                                {% for fund in item.funding %}
+                                <li class="chip chip--gold"><svg class="ico" aria-hidden="true"><use href="#i-zap"></use></svg>{{ fund }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </article>
+                    {% endfor %}
+                </section>
+                {% endfor %}
+            </div>
+
+            <p class="empty" data-project-empty hidden>No project carries this role.</p>
+        </div>
+
+        <div class="rail">
+            <div>
+                <p class="rail__label">Timeline</p>
+                <nav class="rail__list" id="year-rail" aria-label="Jump to year">
+                    {% for group in projects.groups %}
+                    <a class="rail__link" href="#year-{{ group.year }}">
+                        <span>{{ group.year }}</span>
+                        <span class="rail__count">{{ group.items.size }}</span>
+                    </a>
+                    {% endfor %}
+                </nav>
+            </div>
+
+            <div class="rail__panel">
+                <p class="rail__label">Role key</p>
+                <ul class="key">
+                    <li><span class="led led--gold" aria-hidden="true"></span><span>Advisor &mdash; supervised the team</span></li>
+                    <li><span class="led" aria-hidden="true"></span><span>Leader &mdash; led the build</span></li>
+                    <li><span class="led led--coral" aria-hidden="true"></span><span>Member &mdash; contributed</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

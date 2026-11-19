@@ -58,6 +58,12 @@
     height: 7px;
     background: var(--accent);
     transform: translateY(-1px);
+    transition: transform var(--tick), background-color var(--tick);
+}
+
+.log__item:hover .log__dot {
+    background: var(--ink);
+    transform: translate(2px, -1px) rotate(45deg);
 }
 
 .log__text {

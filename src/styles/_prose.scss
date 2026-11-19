@@ -20,7 +20,6 @@
 .prose h3,
 .prose h4 {
     position: relative;
-    scroll-margin-top: calc(var(--header-h) + 24px);
     color: var(--ink);
 }
 
@@ -93,14 +92,18 @@
 
 .prose a {
     color: var(--accent);
-    box-shadow: inset 0 -2px 0 var(--accent-2);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--accent-2);
+    text-underline-offset: 3px;
+    text-decoration-skip-ink: none;
     transition: var(--tick);
 }
 
 .prose a:hover {
     background: var(--accent);
     color: var(--on-accent);
-    box-shadow: none;
+    text-decoration-color: transparent;
 }
 
 .prose .heading-anchor {
@@ -109,7 +112,7 @@
     font-family: var(--f-mono);
     font-size: 0.6em;
     opacity: 0;
-    box-shadow: none;
+    text-decoration: none;
     transition: opacity var(--tick);
 }
 
@@ -311,13 +314,18 @@
 }
 
 .prose table {
-    display: block;
     width: 100%;
-    margin: 28px 0;
-    overflow-x: auto;
+    margin: 0;
     border-collapse: collapse;
     font-size: 14px;
     line-height: 1.6;
+}
+
+/* site.js wraps tables in .table-scroll; without it the table still renders,
+   it just cannot be scrolled sideways on narrow screens. */
+.prose > table,
+.prose > .table-scroll {
+    margin: 28px 0;
 }
 
 .prose table th,
@@ -397,13 +405,16 @@
 .prose--tight a {
     color: var(--accent);
     font-weight: 500;
-    box-shadow: inset 0 -2px 0 var(--accent-soft);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--accent-soft);
+    text-underline-offset: 3px;
 }
 
 .prose--tight a:hover {
     background: var(--accent);
     color: var(--on-accent);
-    box-shadow: none;
+    text-decoration-color: transparent;
 }
 
 @media (max-width: 720px) {
@@ -412,7 +423,7 @@
     }
 
     .prose h2 {
-        font-size: 21px;
+        font-size: 24px;
         margin-top: 44px;
     }
 
@@ -427,4 +438,99 @@
         border-right: 0;
         font-size: 12.5px;
     }
+
+}
+
+@media print {
+    .prose pre {
+        padding: 10px 12px !important;
+        box-shadow: none !important;
+    }
+
+    .code-block {
+        margin: 12px 0;
+    }
+}
+
+/* Native disclosure — used for long asides inside posts. */
+.prose details {
+    margin: 28px 0;
+    border: var(--bw-2) solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--sh-1);
+}
+
+.prose summary {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: 10px 14px;
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    cursor: pointer;
+    list-style: none;
+}
+
+.prose summary::-webkit-details-marker {
+    display: none;
+}
+
+.prose summary::before {
+    content: "+";
+    display: grid;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+    border: 2px solid var(--line-strong);
+    background: var(--surface-2);
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    line-height: 1;
+}
+
+.prose details[open] summary {
+    border-bottom: 2px solid var(--line);
+}
+
+.prose details[open] summary::before {
+    content: "\2212";
+    background: var(--accent);
+    border-color: var(--accent-3);
+    color: var(--on-accent);
+}
+
+.prose details > p,
+.prose details > ul,
+.prose details > ol,
+.prose details > pre,
+.prose details > .code-block,
+.prose details > table,
+.prose details > .table-scroll {
+    margin-right: 14px;
+    margin-left: 14px;
+}
+
+.prose details > :last-child {
+    margin-bottom: 14px;
+}
+
+/* Definition lists in posts. */
+.prose dl {
+    margin: 24px 0;
+}
+
+.prose dt {
+    margin-top: 12px;
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.prose dd {
+    margin: 2px 0 0;
+    color: var(--ink-2);
 }

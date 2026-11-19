@@ -2,10 +2,10 @@ pages:
 - name: Home
   url: /
 - name: Publications
-  url: /publications
+  url: /publications/
 - name: Projects
-  url: /projects
+  url: /projects/
 - name: Registrations
-  url: /registrations
+  url: /registrations/
 - name: Collaborators
-  url: /collaborators
+  url: /collaborators/

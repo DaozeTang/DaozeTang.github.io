@@ -5,12 +5,32 @@ permalink: /404.html
 noindex: true
 ---
 <div class="prompt panel">
-    <p class="kicker"><span class="led led--coral" aria-hidden="true"></span>Signal lost</p>
-    <h1 class="prompt__code">404<span>.</span></h1>
-    <p class="prompt__text">The requested page could not be found — it may have moved, or never existed.</p>
+    <div class="prompt__hud">
+        <span class="led led--coral led--blink" aria-hidden="true"></span>
+        <span>CH.404</span>
+        <span class="prompt__hud-r">No signal</span>
+    </div>
+
+    <div class="prompt__screen">
+        <span class="prompt__snow" aria-hidden="true"></span>
+        <h1 class="prompt__code">404<span>.</span></h1>
+        <span class="prompt__bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    </div>
+
+    <div class="prompt__copy">
+        <p class="prompt__text">The requested page could not be found &mdash; it may have moved, or never existed.</p>
+        <p class="prompt__log">&gt; GET /this/page HTTP/1.1<br>&gt; 404 &mdash; nothing here but static</p>
+    </div>
+
     <div class="prompt__actions">
         <a class="btn btn--accent" href="/"><svg class="ico" aria-hidden="true"><use href="#i-home"></use></svg>Back to homepage</a>
         <a class="btn" href="/publications/"><svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>Publications</a>
     </div>
-    <p class="prompt__log">&gt; GET /this/page HTTP/1.1<br>&gt; 404 — nothing here but static</p>
+
+    <nav class="prompt__links" aria-label="Site sections">
+        <a href="/projects/">Projects</a>
+        <a href="/registrations/">Registrations</a>
+        <a href="/collaborators/">Collaborators</a>
+        <a href="https://blog.dztang.net/">Blog</a>
+    </nav>
 </div>

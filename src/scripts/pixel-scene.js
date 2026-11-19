@@ -12,7 +12,10 @@
     if (!canvas) return;
 
     var ctx = canvas.getContext("2d");
-    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!ctx) return;
+
+    var motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var reduced = motionQuery.matches;
     var scene;
     var W = 1;
     var H = 1;
@@ -299,10 +302,10 @@
         width: 320,
         height: 80,
         boxes: [
-            { label: "PERSON", conf: "0.97", x: 92, y: 42, w: 18, h: 22, side: "bottom" },
-            { label: "CAT", conf: "0.99", x: 112, y: 52, w: 12, h: 9, side: "bottom" },
-            { label: "DRONE", conf: "0.93", x: 194, y: 12, w: 20, h: 14, side: "top" },
-            { label: "BARN", conf: "0.88", x: 44, y: 38, w: 30, h: 20, side: "top" }
+            { label: "PERSON", conf: "0.97", x: 94, y: 41, w: 15, h: 16, side: "bottom" },
+            { label: "CAT", conf: "0.99", x: 112, y: 51, w: 14, h: 9, side: "top" },
+            { label: "DRONE", conf: "0.93", x: 191, y: 11, w: 24, h: 16, side: "top" },
+            { label: "BARN", conf: "0.88", x: 48, y: 37, w: 32, h: 24, side: "top" }
         ],
         draw: function (t) {
             var bands = [
@@ -395,16 +398,23 @@
                 "#": "#111827", "f": C.fur, "k": "#1c140d", "w": "#d9cdb6", "d": C.furDark
             });
             sprite(TINY_CAT, 114, 52, { "#": "#111827", "f": C.furDark });
+            /* tail flick */
+            if (t % 6 < 3) {
+                px(122, 55, C.furDark);
+            } else {
+                px(123, 54, C.furDark);
+                px(123, 55, C.furDark);
+            }
             r(93, 56, 11, 1, "#2b3352");
-            if (t % 4 < 3) r(96, 54, 2, 1, C.green);
 
-            /* drone */
+            /* drone: bobs on the spot and drifts two pixels either way */
             var dy = 18 + (t % 8 < 4 ? 0 : -1);
-            sprite(DRONE, 201, dy, { "#": "#1d2236" });
-            if (Math.floor(t / 2) % 2 === 0) px(209, dy + 4, C.coral);
-            r(202, dy - 2, 6, 1, "#3b4568");
-            r(200, dy + 2, 1, 2, "#3b4568");
-            r(209, dy + 2, 1, 2, "#3b4568");
+            var dx = Math.round(Math.sin(t / 14) * 2);
+            sprite(DRONE, 201 + dx, dy, { "#": "#1d2236" });
+            if (Math.floor(t / 2) % 2 === 0) px(209 + dx, dy + 4, C.coral);
+            r(202 + dx, dy - 2, 6, 1, "#3b4568");
+            r(200 + dx, dy + 2, 1, 2, "#3b4568");
+            r(209 + dx, dy + 2, 1, 2, "#3b4568");
 
             /* foreground grass fringe */
             for (var g = 0; g < W; g++) {
@@ -423,17 +433,22 @@
 
     /* --- responsive scaling ------------------------------------------------ */
 
+    var lastDpr = 0;
+
     function resize() {
         var rect = canvas.getBoundingClientRect();
         var cssW = rect.width || 480;
         var cssH = rect.height || (cssW * H / W);
         p = cssW / W;
         var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        lastDpr = dpr;
         canvas.width = Math.max(1, Math.round(cssW * dpr));
         canvas.height = Math.max(1, Math.round(cssH * dpr));
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.imageSmoothingEnabled = false;
         current = null;
+        var layer = canvas.parentElement && canvas.parentElement.querySelector(".det-layer");
+        if (layer) layer.style.setProperty("--scan-span", cssH + "px");
         draw();
     }
 
@@ -463,7 +478,14 @@
             el.style.animationDelay = (index * 140) + "ms";
             var tag = document.createElement("span");
             tag.className = "det__tag";
-            tag.textContent = box.label + " " + box.conf;
+            var tagLabel = document.createElement("span");
+            tagLabel.className = "det__label";
+            tagLabel.textContent = box.label;
+            var tagConf = document.createElement("span");
+            tagConf.className = "det__conf";
+            tagConf.textContent = box.conf;
+            tag.appendChild(tagLabel);
+            tag.appendChild(tagConf);
             el.appendChild(tag);
             layer.appendChild(el);
         });
@@ -497,9 +519,31 @@
 
     if ("ResizeObserver" in window) {
         new ResizeObserver(function () { resize(); }).observe(canvas.parentElement);
+        // ResizeObserver ignores DPR-only changes (browser zoom, moving between
+        // displays), so keep a cheap width/DPR check on window resize.
+        window.addEventListener("resize", function () {
+            var rect = canvas.getBoundingClientRect();
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
+            if (dpr !== lastDpr || Math.abs(rect.width * dpr - canvas.width) > 1) resize();
+        });
     } else {
         window.addEventListener("resize", resize);
     }
+
+    function listenMedia(query, handler) {
+        if (typeof query.addEventListener === "function") query.addEventListener("change", handler);
+        else if (typeof query.addListener === "function") query.addListener(handler);
+    }
+
+    listenMedia(motionQuery, function (event) {
+        reduced = event.matches;
+        if (reduced) {
+            stop();
+            draw();
+        } else if (visible) {
+            start();
+        }
+    });
 
     if ("IntersectionObserver" in window) {
         new IntersectionObserver(function (entries) {
@@ -511,8 +555,8 @@
         }, { threshold: 0.05 }).observe(canvas);
     }
 
+    buildOverlay();
     resize();
     draw();
-    buildOverlay();
     if (!reduced) start();
 })();

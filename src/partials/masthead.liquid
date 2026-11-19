@@ -17,13 +17,19 @@
 
         <div class="masthead__tools">
             <button class="iconbtn" type="button" id="theme-toggle" aria-label="Change color theme">
-                <svg class="ico" aria-hidden="true"><use id="theme-icon" href="#i-sun"></use></svg>
+                <svg class="ico" aria-hidden="true">
+                    <use class="theme-icon theme-icon--light" href="#i-sun"></use>
+                    <use class="theme-icon theme-icon--dark" href="#i-moon"></use>
+                    <use class="theme-icon theme-icon--system" href="#i-monitor"></use>
+                </svg>
             </button>
             <button class="iconbtn nav-burger" type="button" id="nav-burger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-drawer">
                 <svg class="ico" aria-hidden="true"><use href="#i-menu"></use></svg>
             </button>
         </div>
     </div>
+
+    <div class="scrollline" aria-hidden="true"><span class="scrollline__fill" id="scroll-fill"></span></div>
 
     <div class="nav-drawer" id="nav-drawer" hidden>
         <div class="shell nav-drawer__inner">

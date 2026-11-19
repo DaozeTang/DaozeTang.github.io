@@ -8,60 +8,133 @@ subtitle: >-
   development work.
 ---
 
+{% assign projectTotal = 0 %}
+{% for group in projects.groups %}
+{% assign projectTotal = projectTotal | plus: group.items.size %}
+{% endfor %}
 {% assign totalItems = 0 %}
 {% for group in registrations.groups %}
 {% assign totalItems = totalItems | plus: group.items.size %}
 {% endfor %}
 
-<header class="page-head">
-    <p class="kicker"><span class="led led--coral" aria-hidden="true"></span>Registered works &middot; software copyrights</p>
-    <h1 class="page-head__title">Registrations<span style="color: var(--accent)">.</span></h1>
-    <p class="page-head__sub">{{ subtitle }}</p>
-    <ul class="page-head__meta">
-        <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-shield"></use></svg>{{ totalItems }} registrations</span></li>
-        {% for group in registrations.groups %}
-        <li><a class="chip" href="#year-{{ group.year }}">{{ group.year }} &middot; {{ group.items.size }}</a></li>
-        {% endfor %}
-    </ul>
-</header>
-
-<div class="split">
-    <div>
-        <div class="year-stack" style="margin-top: 0">
-            {% for group in registrations.groups %}
-            <section class="year-block" id="year-{{ group.year }}">
-                <div class="year-block__head">
-                    <h2 class="year-block__year">{{ group.year }}</h2>
-                    <span class="year-block__count">{{ group.items.size }} registration{% if group.items.size > 1 %}s{% endif %}</span>
-                    <span class="year-block__rule" aria-hidden="true"></span>
-                </div>
-
-                {% for item in group.items %}
-                <article class="reg">
-                    <h3 class="reg__title">{{ item.title }}</h3>
-                    <div class="reg__meta">
-                        <span class="chip chip--accent"><svg class="ico" aria-hidden="true"><use href="#i-file"></use></svg>{{ item.type }}</span>
-                        <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-shield"></use></svg>No. {{ item.registration_number }}</span>
-                        <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-pen"></use></svg>{{ item.role }}</span>
-                    </div>
-                </article>
-                {% endfor %}
-            </section>
-            {% endfor %}
-        </div>
+<header class="page-head page-head--split">
+    <div class="page-head__main">
+        <p class="kicker"><span class="led led--coral" aria-hidden="true"></span>Registered works &middot; software copyrights</p>
+        <h1 class="page-head__title">Registrations<span style="color: var(--accent)">.</span></h1>
+        <p class="page-head__sub">{{ subtitle }}</p>
+        <ul class="page-head__meta">
+            <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-shield"></use></svg>{{ totalItems }} registrations</span></li>
+            <li><span class="chip chip--coral"><svg class="ico" aria-hidden="true"><use href="#i-file"></use></svg>Software copyright</span></li>
+        </ul>
     </div>
 
-    <aside class="rail" aria-label="Jump to year">
-        <div>
-            <p class="rail__label">Timeline</p>
-            <nav class="rail__list" id="year-rail">
+    <aside class="page-head__aside" aria-label="Registration record at a glance">
+        <div class="stamp">
+            <p class="stamp__head"><span class="led led--coral" aria-hidden="true"></span>Registry<span class="stamp__tag">{% if registrations.groups.size > 1 %}{{ registrations.groups.size }} yrs{% else %}{{ registrations.groups.first.year }}{% endif %}</span></p>
+            <p class="stamp__value">{{ totalItems }}<span class="stamp__unit">records</span></p>
+            {% if registrations.groups.size > 1 %}
+            <div class="years" aria-hidden="true">
                 {% for group in registrations.groups %}
-                <a class="rail__link" href="#year-{{ group.year }}">
-                    <span>{{ group.year }}</span>
-                    <span class="rail__count">{{ group.items.size }}</span>
-                </a>
+                <span class="years__cell{% if forloop.first %} is-now{% endif %}"><b>{{ group.year }}</b><i>{{ group.items.size }}</i></span>
                 {% endfor %}
-            </nav>
+            </div>
+            {% endif %}
+            <dl class="stamp__rows">
+                <div><dt>Type</dt><dd>Software copyright</dd></div>
+                <div><dt>Role</dt><dd>First author</dd></div>
+            </dl>
         </div>
     </aside>
-</div>
+</header>
+
+<section class="sec" aria-labelledby="registry-title">
+    <header class="sec-head">
+        <span class="sec-head__no" aria-hidden="true">01</span>
+        <h2 class="sec-head__title" id="registry-title">Registry<span class="sec-head__dot">.</span></h2>
+        <span class="sec-head__rule" aria-hidden="true"></span>
+        <div class="sec-head__aside">
+            <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-file"></use></svg>{{ totalItems }} records</span>
+        </div>
+    </header>
+
+    <div class="split">
+        <div>
+            <div class="year-stack">
+                {% for group in registrations.groups %}
+                <section class="year-block" id="year-{{ group.year }}">
+                    <div class="year-block__head">
+                        <h2 class="year-block__year">{{ group.year }}</h2>
+                        <span class="year-block__count">{{ group.items.size }} registration{% if group.items.size > 1 %}s{% endif %}</span>
+                        <span class="year-block__rule" aria-hidden="true"></span>
+                    </div>
+
+                    {% for item in group.items %}
+                    <article class="cert px-hover">
+                        <span class="card-fx" aria-hidden="true"></span>
+                        <div class="cert__head">
+                            <span class="led led--coral" aria-hidden="true"></span>
+                            Certificate of registration
+                            <span class="cert__year">{{ group.year }}</span>
+                        </div>
+
+                        <div class="cert__body">
+                            <div>
+                                <h3 class="cert__title">{{ item.title }}</h3>
+                                <dl class="cert__rows">
+                                    <div class="cert__row">
+                                        <dt>Reg. no.</dt>
+                                        <dd>
+                                            <code>{{ item.registration_number }}</code>
+                                            <button class="copy-btn" type="button" data-copy="{{ item.registration_number }}" aria-label="Copy registration number {{ item.registration_number }}">
+                                                <svg class="ico" aria-hidden="true"><use href="#i-copy"></use></svg>
+                                            </button>
+                                        </dd>
+                                    </div>
+                                    <div class="cert__row">
+                                        <dt>Type</dt>
+                                        <dd>{{ item.type }}</dd>
+                                    </div>
+                                    <div class="cert__row">
+                                        <dt>Role</dt>
+                                        <dd>{{ item.role }}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+
+                            <div class="cert__seal" aria-hidden="true">
+                                <svg class="ico"><use href="#i-shield"></use></svg>
+                                <span>REG.</span>
+                                <b>{{ group.year }}</b>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </section>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="rail">
+            <div>
+                <p class="rail__label">Timeline</p>
+                <nav class="rail__list" id="year-rail" aria-label="Jump to year">
+                    {% for group in registrations.groups %}
+                    <a class="rail__link" href="#year-{{ group.year }}">
+                        <span>{{ group.year }}</span>
+                        <span class="rail__count">{{ group.items.size }}</span>
+                    </a>
+                    {% endfor %}
+                </nav>
+            </div>
+
+            <div class="rail__panel">
+                <p class="rail__label">Record key</p>
+                <dl class="stamp__rows">
+                    <div><dt>No.</dt><dd>Registration number</dd></div>
+                    <div><dt>Type</dt><dd>Protected work</dd></div>
+                    <div><dt>Role</dt><dd>Authorship</dd></div>
+                </dl>
+            </div>
+        </div>
+    </div>
+</section>

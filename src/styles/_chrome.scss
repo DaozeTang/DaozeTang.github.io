@@ -12,11 +12,39 @@
     z-index: 60;
     background: var(--bg);
     border-bottom: var(--bw) solid var(--line-strong);
-    transition: box-shadow var(--tick);
+    transition:
+        box-shadow var(--tick),
+        transform var(--tock);
 }
 
 .masthead.is-scrolled {
     box-shadow: 0 4px 0 var(--px-shadow);
+}
+
+/* Scroll meter: a 4px ticker of loaded pixels under the header. */
+.scrollline {
+    height: 4px;
+    background: var(--line-soft);
+    overflow: hidden;
+}
+
+.scrollline__fill {
+    --p: 0;
+    display: block;
+    width: calc(var(--p) * 1%);
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        90deg,
+        var(--accent) 0 4px,
+        var(--accent-2) 4px 8px
+    );
+    transition: width 90ms steps(3, end);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scrollline__fill {
+        transition: none;
+    }
 }
 
 .masthead__inner {
@@ -49,6 +77,15 @@
 .brand:hover .brand__mark {
     transform: translate(-2px, -2px);
     box-shadow: 5px 5px 0 var(--ink);
+}
+
+.brand:active .brand__mark {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--ink);
+}
+
+.brand:hover .brand__dot {
+    animation: led-blink 900ms steps(1, end) 2;
 }
 
 .brand__mark svg {
@@ -119,6 +156,16 @@
     color: var(--bg);
 }
 
+[data-theme="dark"] .nav__link.is-active {
+    background: var(--accent);
+    border-color: var(--accent-3);
+    color: var(--on-accent);
+}
+
+[data-theme="dark"] .nav__link.is-active::after {
+    background: var(--on-accent);
+}
+
 .nav__link.is-active::after {
     content: "";
     position: absolute;
@@ -172,21 +219,56 @@
     height: 18px;
 }
 
+/* The theme icon is chosen by CSS from data-theme-mode, so it stays correct
+   even when site.js never runs. */
+.theme-icon {
+    display: none;
+}
+
+[data-theme-mode="light"] .theme-icon--light,
+[data-theme-mode="dark"] .theme-icon--dark,
+[data-theme-mode="system"] .theme-icon--system {
+    display: inline;
+}
+
+/* Controls that only exist because a script wires them up stay hidden until
+   site.js proves it is alive. */
+html:not(.js-enhanced) #theme-toggle,
+html:not(.js-enhanced) .nav-burger,
+html:not(.js-enhanced) [data-portrait-toggle],
+html:not(.js-enhanced) .footer__clock,
+html:not(.js-enhanced) .footer__clock + .footer__sep {
+    display: none;
+}
+
 .nav-burger {
     display: none;
 }
 
-/* Mobile drawer */
+/* Mobile drawer: max-height disclosure so it can step open. */
 .nav-drawer {
     display: none;
-    border-top: var(--bw) solid var(--line-strong);
+    overflow: hidden;
+    max-height: 0;
     background: var(--surface);
+    transition: max-height var(--tock-3) steps(6, end);
 }
 
 .nav-drawer__inner {
     display: grid;
     gap: 2px;
     padding: var(--s-3) 0 var(--s-4);
+    border-top: var(--bw) solid var(--line-strong);
+}
+
+.nav-drawer.is-open {
+    max-height: 70vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-drawer {
+        transition: none;
+    }
 }
 
 .nav-drawer .nav__link {
@@ -195,6 +277,14 @@
 
 .nav-drawer .nav__link:hover {
     transform: none;
+}
+
+.nav-drawer .nav__link.is-active::after {
+    display: none;
+}
+
+.nav-drawer .nav__link.is-active {
+    border-left: 4px solid var(--accent);
 }
 
 /* -----------------------------------------------------------------------------
@@ -285,6 +375,23 @@
     color: var(--accent);
 }
 
+.footer__clock {
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.1em;
+}
+
+.footer__clock::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 6px;
+    background: var(--accent);
+    vertical-align: 1px;
+    animation: led-blink 2s steps(1, end) infinite;
+}
+
 /* -----------------------------------------------------------------------------
    Back to top
    -------------------------------------------------------------------------- */
@@ -330,17 +437,44 @@
    Responsive
    -------------------------------------------------------------------------- */
 
-@media (max-width: 1023px) {
-    .nav {
+@media (max-width: 1180px) {
+    /* .nav-ready is set by site.js once the drawer is wired, so a failed
+       script leaves the plain wrapping nav usable instead of a dead burger. */
+    .nav-ready .nav {
         display: none;
     }
 
-    .nav-burger {
+    .nav-ready .nav-burger {
         display: grid;
     }
 
-    .masthead.is-open .nav-drawer {
+    .nav-drawer {
         display: block;
+    }
+
+    .nav-drawer[hidden] {
+        display: none;
+    }
+
+    /* Script failed before wiring the drawer: wrap the plain nav instead. */
+    html:not(.nav-ready) .masthead__inner {
+        flex-wrap: wrap;
+        padding: 8px 0;
+    }
+
+    html:not(.nav-ready) .nav {
+        flex-basis: 100%;
+        order: 3;
+        flex-wrap: wrap;
+        margin-left: 0;
+    }
+
+    .masthead.is-hidden {
+        transform: translateY(-100%);
+    }
+
+    .masthead.is-open {
+        transform: none;
     }
 
     .footer__hud {
@@ -355,7 +489,7 @@
     }
 
     .brand__text {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .brand__tag {

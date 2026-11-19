@@ -21,7 +21,10 @@
     letter-spacing: 0.02em;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: var(--sh-2);
+    box-shadow:
+        inset 0 2px 0 var(--px-hi),
+        inset 0 -2px 0 var(--px-lo),
+        var(--sh-2);
     transition: var(--move);
 }
 
@@ -34,12 +37,18 @@
 .btn:hover {
     background: var(--surface-2);
     transform: translate(-2px, -2px);
-    box-shadow: var(--sh-3);
+    box-shadow:
+        inset 0 2px 0 var(--px-hi),
+        inset 0 -2px 0 var(--px-lo),
+        var(--sh-3);
 }
 
 .btn:active {
     transform: translate(2px, 2px);
-    box-shadow: var(--sh-none);
+    box-shadow:
+        inset 0 2px 0 var(--px-lo),
+        inset 0 -2px 0 var(--px-hi),
+        var(--sh-none);
 }
 
 .btn--accent {
@@ -97,6 +106,7 @@
     font-size: 12px;
     line-height: 1.5;
     letter-spacing: 0.02em;
+    box-shadow: inset 0 -2px 0 var(--px-lo);
     transition: var(--move);
 }
 
@@ -105,7 +115,9 @@ a.chip:hover {
     background: var(--ink);
     color: var(--bg);
     transform: translate(-1px, -1px);
-    box-shadow: var(--sh-1);
+    box-shadow:
+        inset 0 2px 0 var(--px-lo),
+        var(--sh-1);
 }
 
 .chip--accent {
@@ -150,7 +162,6 @@ a.chip:hover .chip__hash {
 .chip__count {
     padding-left: 6px;
     border-left: 2px solid currentColor;
-    opacity: 0.6;
     font-size: 11px;
 }
 
@@ -241,6 +252,11 @@ dialog {
     background: var(--surface);
     color: var(--ink-2);
     box-shadow: var(--sh-4);
+    transition: opacity var(--tock), transform var(--tock);
+}
+
+dialog:not([open]) {
+    display: none;
 }
 
 dialog::backdrop {
@@ -250,6 +266,22 @@ dialog::backdrop {
         transparent 0 50%
     );
     background-size: 4px 4px;
+    transition: opacity var(--tock);
+}
+
+/* Entry animation for browsers that support discrete transitions. Older
+   engines ignore the block and simply show the dialog, as before. */
+@supports (transition-behavior: allow-discrete) {
+    @starting-style {
+        dialog[open] {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        dialog[open]::backdrop {
+            opacity: 0;
+        }
+    }
 }
 
 .dialog__head {
@@ -360,8 +392,22 @@ dialog > .dialog-close {
 }
 
 .pager__btn.is-disabled {
-    opacity: 0.35;
+    border-style: dashed;
+    color: var(--ink-4);
+    box-shadow: none;
     pointer-events: none;
+}
+
+@media (max-width: 560px) {
+    .pager {
+        flex-wrap: wrap;
+    }
+
+    .pager__pages {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 .pager__num {
@@ -381,6 +427,7 @@ dialog > .dialog-close {
 .pager__num:hover {
     border-color: var(--line-strong);
     color: var(--ink);
+    transform: translate(-1px, -1px);
     box-shadow: var(--sh-1);
 }
 
@@ -388,6 +435,19 @@ dialog > .dialog-close {
     border-color: var(--ink);
     background: var(--ink);
     color: var(--bg);
+}
+
+/* Empty result state — dashed box, mono line, no drama. */
+.empty {
+    margin: 0;
+    padding: var(--s-6) var(--s-5);
+    border: 2px dashed var(--line);
+    background: var(--surface);
+    color: var(--ink-3);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    line-height: 1.8;
+    text-align: center;
 }
 
 /* -----------------------------------------------------------------------------
@@ -410,6 +470,7 @@ dialog > .dialog-close {
 .input {
     width: 100%;
     padding: 12px 14px;
+    caret-color: var(--accent);
     border: var(--bw) solid var(--line-strong);
     background: var(--surface);
     color: var(--ink);
@@ -428,9 +489,20 @@ dialog > .dialog-close {
    Code copy button + language label (injected by site.js)
    -------------------------------------------------------------------------- */
 
+/* JS wraps every <pre> in .code-block so the label and the copy button stay
+   pinned while the code itself scrolls sideways. */
+.code-block {
+    position: relative;
+    margin: 28px 0;
+}
+
+.code-block > pre {
+    margin: 0;
+}
+
 .code-copy {
     position: absolute;
-    top: 34px;
+    top: 6px;
     right: 8px;
     z-index: 2;
     display: grid;
@@ -462,6 +534,40 @@ dialog > .dialog-close {
     color: var(--coral);
 }
 
+/* Horizontal overflow is invisible until you try to scroll. A right-edge fade
+   and an arrow label make it obvious that the line continues. */
+.code-block.is-scrollable::after {
+    content: "";
+    position: absolute;
+    top: 30px;
+    right: 3px;
+    bottom: 3px;
+    width: 30px;
+    background: linear-gradient(90deg, rgba(11, 13, 22, 0), rgba(11, 13, 22, 0.92));
+    pointer-events: none;
+    transition: opacity var(--tick);
+}
+
+.code-block.is-at-end::after {
+    opacity: 0;
+}
+
+.code-scroll {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    z-index: 3;
+    color: rgba(243, 234, 215, 0.55);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    pointer-events: none;
+}
+
+.code-block.is-at-end .code-scroll {
+    opacity: 0;
+}
+
 .code-lang {
     position: absolute;
     top: 8px;
@@ -474,6 +580,86 @@ dialog > .dialog-close {
     font-size: 10px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
+}
+
+.meter__cell {
+    transform-origin: left center;
+}
+
+.meter--charge .meter__cell.is-on {
+    animation: meter-charge 260ms steps(3, end) both;
+    animation-delay: calc(var(--i, 0) * 55ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .meter--charge .meter__cell.is-on {
+        animation: none;
+    }
+}
+
+/* Horizontally scrollable regions are keyboard reachable. */
+.table-scroll {
+    margin: 28px 0;
+    overflow-x: auto;
+    border: 2px solid var(--line-soft);
+}
+
+.table-scroll:focus-visible {
+    outline: var(--bw) solid var(--accent);
+    outline-offset: 3px;
+}
+
+.table-scroll > table {
+    margin: 0;
+}
+
+/* Lightbox: previous / next arrows live in the dialog head. */
+.lightbox__nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.lightbox__counter {
+    min-width: 52px;
+    color: var(--ink-3);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+.lightbox__step {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 2px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    transition: var(--move);
+}
+
+.lightbox__step:hover {
+    background: var(--ink);
+    color: var(--bg);
+}
+
+.lightbox__step[disabled] {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.lightbox__step[disabled]:hover {
+    background: var(--surface);
+    color: var(--ink);
+}
+
+.lightbox img {
+    cursor: zoom-out;
 }
 
 /* -----------------------------------------------------------------------------
@@ -531,12 +717,12 @@ dialog > .dialog-close {
     color: var(--accent);
 }
 
-.toc__item--3 .toc__link {
+.toc__item--2 .toc__link {
     padding-left: 22px;
     font-size: 12px;
 }
 
-.toc__item--4 .toc__link {
+.toc__item--3 .toc__link {
     padding-left: 34px;
     font-size: 11.5px;
 }
@@ -622,4 +808,114 @@ dialog > .dialog-close {
     color: var(--ink-3) !important;
     font-family: var(--f-mono) !important;
     font-size: 12px !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Card hover kit — corner brackets close in and an accent line draws across
+   the top edge. Add px-hover to the card and card-fx as its first child.
+   -------------------------------------------------------------------------- */
+
+.px-hover {
+    position: relative;
+}
+
+.card-fx {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--tick);
+}
+
+.card-fx::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-image:
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent));
+    background-size:
+        12px 2px,
+        2px 12px,
+        12px 2px,
+        2px 12px,
+        12px 2px,
+        2px 12px,
+        12px 2px,
+        2px 12px;
+    background-position:
+        left top,
+        left top,
+        right top,
+        right top,
+        left bottom,
+        left bottom,
+        right bottom,
+        right bottom;
+}
+
+.card-fx::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 320ms steps(4, end);
+}
+
+@media (hover: hover) {
+    .px-hover:hover > .card-fx {
+        opacity: 1;
+    }
+
+    .px-hover:hover > .card-fx::before {
+        animation: card-corners 180ms steps(2, end);
+    }
+
+    .px-hover:hover > .card-fx::after {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes card-corners {
+    from {
+        opacity: 0.2;
+        transform: scale(1.03);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.px-hover:focus-within > .card-fx {
+    opacity: 1;
+}
+
+.px-hover:focus-within > .card-fx::after {
+    transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card-fx,
+    .card-fx::after {
+        transition: none;
+    }
+
+    .px-hover:hover > .card-fx::before {
+        animation: none;
+    }
 }

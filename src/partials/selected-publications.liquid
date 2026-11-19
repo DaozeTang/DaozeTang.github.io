@@ -10,6 +10,7 @@
 
     <div class="cart-list">
         {% for item in collections.selectedPublications %}
+        {% assign pubNo = forloop.index %}
         {% include "pub-card" %}
         {% endfor %}
     </div>
