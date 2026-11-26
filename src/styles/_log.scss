@@ -1,13 +1,12 @@
 // =============================================================================
-//  LOG — news as a quest log.
+//  LOG — the news ledger. Hairlines, year bands, date columns, no boxes.
 // =============================================================================
 
 .log {
     margin: 0;
     padding: 0;
     list-style: none;
-    border-top: var(--bw) solid var(--line-strong);
-    box-shadow: 0 -3px 0 var(--line-soft);
+    border-top: var(--bw-2) solid var(--line);
 }
 
 .log__year {
@@ -15,55 +14,67 @@
     align-items: center;
     gap: var(--s-3);
     margin: 0;
-    padding: var(--s-5) 0 var(--s-2);
-    color: var(--ink-3);
-    font-family: var(--f-pixel);
-    font-size: 16px;
-    letter-spacing: 0.08em;
+    padding: var(--s-4) 0 var(--s-2);
+    color: var(--accent);
+    font-family: var(--f-readout);
+    font-size: 26px;
+    line-height: 0.9;
+    letter-spacing: 0.04em;
 }
 
 .log__year::after {
     content: "";
     flex: 1;
-    height: 2px;
-    background-image: repeating-linear-gradient(90deg, var(--line) 0 4px, transparent 4px 8px);
+    height: 5px;
+    background-image:
+        linear-gradient(90deg, var(--line) 0 2px, transparent 2px),
+        repeating-linear-gradient(90deg, var(--line-soft) 0 1px, transparent 1px 18px);
+    background-size: 100% 1px, 100% 5px;
+    background-position: center 2px, 0 0;
+    background-repeat: no-repeat;
+    opacity: 0.9;
 }
 
 .log__item {
     display: grid;
-    grid-template-columns: 78px 14px minmax(0, 1fr);
+    grid-template-columns: 92px 12px minmax(0, 1fr);
     align-items: baseline;
     gap: var(--s-3);
     margin: 0;
-    padding: 10px 8px 10px 0;
-    border-bottom: 2px solid var(--line-soft);
-    transition: var(--tick);
+    padding: 11px 6px 11px 0;
+    border-bottom: var(--bw-2) solid var(--line-soft);
+    transition: background-color var(--tick), padding-left var(--tick);
 }
 
 .log__item:hover {
-    border-bottom-color: var(--accent);
     background: var(--surface);
+    padding-left: 8px;
 }
 
 .log__date {
-    color: var(--ink-3);
+    color: var(--ink-4);
     font-family: var(--f-mono);
-    font-size: 12px;
-    letter-spacing: 0.06em;
+    font-size: 11px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    transition: color var(--tick);
+}
+
+.log__item:hover .log__date {
+    color: var(--accent);
 }
 
 .log__dot {
-    width: 7px;
-    height: 7px;
-    background: var(--accent);
+    width: 6px;
+    height: 6px;
+    background: var(--ink-4);
     transform: translateY(-1px);
-    transition: transform var(--tick), background-color var(--tick);
+    transition: background-color var(--tick), transform var(--tick);
 }
 
 .log__item:hover .log__dot {
-    background: var(--ink);
-    transform: translate(2px, -1px) rotate(45deg);
+    background: var(--accent);
+    transform: translateY(-1px) scale(1.35);
 }
 
 .log__text {
@@ -73,23 +84,20 @@
 }
 
 .log__text .chip {
-    margin-left: 6px;
+    margin-left: 8px;
     vertical-align: 1px;
-}
-
-.log__item:hover .log__dot {
-    background: var(--ink);
 }
 
 @media (max-width: 560px) {
     .log__item {
-        grid-template-columns: 14px minmax(0, 1fr);
+        grid-template-columns: 12px minmax(0, 1fr);
         gap: var(--s-2);
     }
 
     .log__date {
         grid-column: 2;
         order: -1;
+        margin-bottom: 2px;
     }
 
     .log__dot {

@@ -53,11 +53,9 @@
         <div class="award-grid">
             {% for item in profile.awards %}
             <div class="award">
-                <span class="award__medal"><svg class="ico" aria-hidden="true"><use href="#i-trophy"></use></svg></span>
-                <div>
-                    <div class="award__name">{{ item.name }}</div>
-                    <div class="award__year">{{ item.date }}</div>
-                </div>
+                <span class="award__medal" aria-hidden="true"><svg class="ico"><use href="#i-trophy"></use></svg></span>
+                <span class="award__name">{{ item.name }}</span>
+                <span class="award__year">{{ item.date }}</span>
             </div>
             {% endfor %}
         </div>

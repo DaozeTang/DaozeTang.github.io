@@ -1,13 +1,13 @@
 <section class="hero" id="about">
     <div class="hero__grid">
-        <div class="hero__main">
-            {% if profile.status and profile.status != "" %}
-            <p class="kicker"><span class="led led--blink" aria-hidden="true"></span>{{ profile.status }}</p>
-            {% else %}
-            <p class="kicker"><span class="led led--blink" aria-hidden="true"></span>Pixel lab &middot; open to collaborations</p>
-            {% endif %}
+        <div class="hero__intro">
+            {% assign nameWords = profile.primary_name | split: " " %}
+            <h1 class="hero__name" data-decode aria-label="{{ profile.primary_name }}">
+                {% for word in nameWords %}
+                <span class="hero__word">{{ word }}{% if forloop.last %}<span class="hero__dot">.</span>{% endif %}</span>
+                {% endfor %}
+            </h1>
 
-            <h1 class="hero__name">{{ profile.primary_name }}<span class="hero__dot">.</span></h1>
             {% if profile.secondary_name and profile.secondary_name != "" %}
             <p class="hero__role">{{ profile.secondary_name }}</p>
             {% endif %}
@@ -20,12 +20,13 @@
                 </li>
                 {% endfor %}
             </ul>
+        </div>
 
-            <div class="hero__bio prose prose--tight">
-                {{ profile.short_bio }}
-            </div>
+        <div class="hero__bio prose prose--tight">
+            {{ profile.short_bio }}
+        </div>
 
-            <div class="hero__actions">
+        <div class="hero__actions">
                 {% for item in social %}
                 {% assign value = profile[item.key] %}
                 {% if value and value != "" %}
@@ -54,55 +55,73 @@
                 </a>
                 {% endif %}
                 {% endfor %}
-            </div>
         </div>
 
         <aside class="hero__side" aria-label="Profile">
-            {% if profile.portrait_url %}
-            <figure class="portrait" id="portrait-card">
-                <div class="portrait__cam">
-                    <div class="portrait__bar" aria-hidden="true">
-                        <span class="led led--coral led--blink"></span>
-                        <span>cam_01</span>
-                        <span>96&times;96</span>
-                        <span class="portrait__rec">rec</span>
-                    </div>
-                    <div class="portrait__screen screen">
-                        <img class="portrait__pixel" src="/assets/pixel/portrait-96.png" alt="{{ profile.portrait_alt | default: profile.primary_name }} — pixel-art portrait" width="288" height="288">
-                        <img class="portrait__photo" src="{{ profile.portrait_url }}" alt="{{ profile.portrait_alt | default: profile.primary_name }}" width="288" height="288">
-                        <span class="screen__glare" aria-hidden="true"></span>
-                        <span class="portrait__badge">subj. 01</span>
-                    </div>
+            <div class="plate js-plate hero__plate" data-scene="field">
+                <canvas class="plate__canvas" data-scene="field" role="img" aria-label="False-colour aerial view of a farm: crop plots, a canal, a barn and greenhouses, annotated by an object detector"></canvas>
+                <span class="plate__frame" aria-hidden="true"></span>
+                <span class="plate__cursor" aria-hidden="true"></span>
+                <div class="plate__bar" aria-hidden="true">
+                    <span class="plate__rec"><span class="led"></span>live</span>
+                    <span class="plate__seg">uav-04</span>
+                    <span class="plate__seg">rgb &middot; 8 fps</span>
+                    <span class="plate__seg plate__seg--right" data-readout></span>
                 </div>
-                <div class="portrait__cap">
-                    <p>{{ profile.portrait_caption | default: "Pixel study, 16 colours." }}</p>
-                    <button class="portrait__toggle" type="button" data-portrait-toggle aria-pressed="false">view photo</button>
+                <div class="plate__foot" aria-hidden="true">
+                    <span class="plate__scale">0 &mdash; 50 m</span>
+                    <span>frame 0001</span>
+                    <span class="plate__north">n &uarr;</span>
                 </div>
-                <span class="visually-hidden" role="status" id="portrait-status"></span>
-            </figure>
-            {% endif %}
+            </div>
 
-            {% assign project_total = 0 %}
-            {% for group in projects.groups %}{% assign project_total = project_total | plus: group.items.size %}{% endfor %}
-            {% assign funding_k = team.total_funding | divided_by: 1000 %}
-            <dl class="hud">
-                <div class="hud__cell">
-                    <dt class="hud__k">Papers</dt>
-                    <dd class="hud__v" data-count-to="{{ collections.publications.size }}">{{ collections.publications.size }}</dd>
-                </div>
-                <div class="hud__cell">
-                    <dt class="hud__k">Projects</dt>
-                    <dd class="hud__v" data-count-to="{{ project_total }}">{{ project_total }}</dd>
-                </div>
-                <div class="hud__cell">
-                    <dt class="hud__k">Team</dt>
-                    <dd class="hud__v">{{ team.member_count }}<small>+</small></dd>
-                </div>
-                <div class="hud__cell">
-                    <dt class="hud__k">Funding</dt>
-                    <dd class="hud__v"><small>&yen;</small>{{ funding_k }}<small>K</small></dd>
-                </div>
-            </dl>
+            <div class="hero__row">
+                {% if profile.portrait_url %}
+                <figure class="portrait" id="portrait-card">
+                    <div class="portrait__cam">
+                        <div class="portrait__bar" aria-hidden="true">
+                            <span class="led led--coral led--blink"></span>
+                            <span>subj</span>
+                            <span>96&times;96</span>
+                            <span class="portrait__rec">rec</span>
+                        </div>
+                        <div class="portrait__screen screen">
+                            <img class="portrait__pixel" src="/assets/pixel/portrait-96.png" alt="{{ profile.portrait_alt | default: profile.primary_name }} — pixel-art portrait" width="288" height="288">
+                            <img class="portrait__photo" src="{{ profile.portrait_url }}" alt="{{ profile.portrait_alt | default: profile.primary_name }}" width="288" height="288">
+                            <span class="screen__glare" aria-hidden="true"></span>
+                            <span class="portrait__badge">subj. 01</span>
+                        </div>
+                    </div>
+                    <div class="portrait__cap">
+                        <p>{{ profile.portrait_caption | default: "Pixel study, 16 colours." }}</p>
+                        <button class="portrait__toggle" type="button" data-portrait-toggle aria-pressed="false">view photo</button>
+                    </div>
+                    <span class="visually-hidden" role="status" id="portrait-status"></span>
+                </figure>
+                {% endif %}
+
+                {% assign project_total = 0 %}
+                {% for group in projects.groups %}{% assign project_total = project_total | plus: group.items.size %}{% endfor %}
+                {% assign funding_k = team.total_funding | divided_by: 1000 %}
+                <dl class="hud">
+                    <div class="hud__cell">
+                        <dt class="hud__k">Papers</dt>
+                        <dd class="hud__v" data-count-to="{{ collections.publications.size }}">{{ collections.publications.size }}</dd>
+                    </div>
+                    <div class="hud__cell">
+                        <dt class="hud__k">Projects</dt>
+                        <dd class="hud__v" data-count-to="{{ project_total }}">{{ project_total }}</dd>
+                    </div>
+                    <div class="hud__cell">
+                        <dt class="hud__k">Team</dt>
+                        <dd class="hud__v">{{ team.member_count }}<small>+</small></dd>
+                    </div>
+                    <div class="hud__cell">
+                        <dt class="hud__k">Funding</dt>
+                        <dd class="hud__v"><small>&yen;</small>{{ funding_k }}<small>K</small></dd>
+                    </div>
+                </dl>
+            </div>
         </aside>
     </div>
 </section>

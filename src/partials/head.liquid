@@ -25,12 +25,12 @@
 <meta name="twitter:title" content="{{ title }} - {{ profile.navbar_name }}">
 <meta name="twitter:description" content="{{ pageDescription | strip_html | strip_newlines | truncatewords: 30 }}">
 <meta name="twitter:image" content="{{ site.url }}/assets/pixel/og.png">
-<meta name="theme-color" id="meta-theme-color" content="#f1e7d2">
+<meta name="theme-color" id="meta-theme-color" content="#070b0d">
 
 <script>
     (function () {
         document.documentElement.classList.add("has-js");
-        var mode = "system";
+        var mode = "dark";
         try {
             var match = document.cookie.match(/(?:^|;\s*)dzt_theme=(light|dark|system)(?:;|$)/);
             var stored = match ? match[1] : localStorage.getItem("theme");
@@ -43,7 +43,7 @@
         root.setAttribute("data-theme", theme);
         root.setAttribute("data-theme-mode", mode);
         var meta = document.getElementById("meta-theme-color");
-        if (meta) meta.setAttribute("content", theme === "dark" ? "#101119" : "#f1e7d2");
+        if (meta) meta.setAttribute("content", theme === "dark" ? "#070b0d" : "#e8ebdb");
     })();
 </script>
 

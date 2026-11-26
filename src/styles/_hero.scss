@@ -1,26 +1,55 @@
 // =============================================================================
-//  HERO — an attract screen: name plate on the left, subject card on the right.
+//  HERO — the survey plate. Two monumental words on the left, the live aerial
+//  viewport bleeding into the right edge, the subject crop under it.
 // =============================================================================
 
 .hero {
+    position: relative;
     padding: var(--s-7) 0 var(--s-6);
 }
 
 .hero__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 340px;
-    gap: var(--s-8) var(--s-9);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    grid-template-areas:
+        "intro side"
+        "bio side"
+        "actions side";
+    grid-template-rows: auto auto 1fr;
+    gap: var(--s-5) var(--s-9);
     align-items: start;
 }
 
+.hero__intro {
+    grid-area: intro;
+    min-width: 0;
+    padding-top: var(--s-2);
+}
+
+/* The name is the poster: two stacked words, misregistered like a
+   false-colour print. */
 .hero__name {
-    margin: var(--s-4) 0 0;
+    margin: 0;
     color: var(--ink);
     font-family: var(--f-pixel);
-    font-size: var(--t-hero);
-    line-height: 0.95;
-    letter-spacing: -0.01em;
+    font-size: 104px;
+    font-weight: 400;
+    line-height: 0.84;
+    letter-spacing: -0.015em;
     text-transform: uppercase;
+    text-shadow:
+        2px 0 0 rgba(255, 79, 139, 0.4),
+        -2px 0 0 rgba(95, 227, 240, 0.34);
+}
+
+.hero__word {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+}
+
+.hero__word + .hero__word {
+    margin-top: 6px;
 }
 
 .hero__dot {
@@ -28,7 +57,7 @@
 }
 
 .hero__role {
-    margin: var(--s-3) 0 0;
+    margin: var(--s-4) 0 0;
     color: var(--ink-2);
     font-family: var(--f-dot);
     font-size: 24px;
@@ -38,8 +67,8 @@
 .hero__badges {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--s-2);
-    margin: var(--s-4) 0 0;
+    gap: 6px;
+    margin: var(--s-5) 0 0;
     padding: 0;
     list-style: none;
 }
@@ -47,112 +76,148 @@
 .hero__badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     margin: 0;
-    padding: 5px 10px 5px 6px;
-    border: 2px solid var(--line);
-    background: var(--surface);
+    padding: 4px 8px 4px 5px;
+    border: var(--bw-2) solid var(--line);
     color: var(--ink-2);
     font-family: var(--f-mono);
-    font-size: 12px;
-    line-height: 1.4;
-}
-
-.hero__badge img {
-    width: 22px;
-    height: 22px;
-    object-fit: contain;
-    background: #f7f1e2;
-    box-shadow: inset 0 0 0 1px rgba(22, 23, 31, 0.2);
-}
-
-.hero__badge {
+    font-size: 11px;
+    line-height: 1.5;
     transition: var(--move);
 }
 
 .hero__badge:hover {
-    border-color: var(--line-strong);
-    transform: translate(-1px, -1px);
-    box-shadow: var(--sh-1);
+    border-color: var(--accent);
+    color: var(--ink);
 }
 
+.hero__badge img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    background: #e9ece0;
+}
+
+/* Bio: the first paragraph is the lede, the rest reads in two columns on a
+   wide screen so the hero never becomes a wall. */
 .hero__bio {
-    margin-top: var(--s-5);
-    max-width: 60ch;
+    grid-area: bio;
+    margin-top: 0;
+    max-width: 62ch;
+    font-size: 15.5px;
+    line-height: 1.78;
+    color: var(--ink-2);
+}
+
+@media (min-width: 1180px) {
+    .hero__bio {
+        max-width: none;
+        columns: 2;
+        column-gap: 28px;
+        column-rule: var(--bw-2) solid var(--line-soft);
+        font-size: 14.5px;
+    }
+
+    .hero__bio > p:first-child {
+        column-span: all;
+    }
+}
+
+.hero__bio p {
+    break-inside: avoid;
+}
+
+.hero__bio > p:first-child {
+    padding-left: var(--s-3);
+    border-left: 2px solid var(--accent);
+    color: var(--ink-2);
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: var(--s-5);
 }
 
 .hero__actions {
+    grid-area: actions;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--s-2);
-    margin-top: var(--s-5);
+    gap: 6px;
+    margin-top: var(--s-1);
 }
 
 /* -----------------------------------------------------------------------------
-   Subject card
+   Side: the plate + subject crop + counters
    -------------------------------------------------------------------------- */
 
 .hero__side {
+    grid-area: side;
     display: grid;
     gap: var(--s-4);
+    min-width: 0;
+    align-self: start;
 }
+
+.hero__plate {
+    width: 100%;
+    aspect-ratio: 320 / 150;
+}
+
+.hero__row {
+    display: grid;
+    grid-template-columns: 176px minmax(0, 1fr);
+    gap: var(--s-3);
+    align-items: stretch;
+}
+
+/* -----------------------------------------------------------------------------
+   Subject crop: a contact-sheet frame, not a portrait card.
+   -------------------------------------------------------------------------- */
 
 .portrait {
     margin: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 1fr auto;
+    min-width: 0;
 }
 
 .portrait__cam {
     position: relative;
+    min-width: 0;
     overflow: hidden;
-    border: var(--bw) solid var(--line-strong);
+    border: var(--bw-2) solid var(--line);
     background: var(--surface);
-    box-shadow: var(--sh-3);
 }
 
-/* One power-on sweep when the attract screen boots. Runs once, then rests. */
 .portrait__cam::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
+    inset: 0;
     z-index: 5;
-    height: 26%;
-    background: linear-gradient(
-        180deg,
-        transparent,
-        rgba(86, 217, 139, 0.16),
-        rgba(86, 217, 139, 0.34),
-        transparent
-    );
-    opacity: 0;
     pointer-events: none;
-    animation: boot-scan 1200ms steps(10, end) 260ms 1 both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .portrait__cam::after {
-        display: none;
-    }
+    background:
+        linear-gradient(var(--line-soft), var(--line-soft)) center / 100% 1px no-repeat,
+        linear-gradient(var(--line-soft), var(--line-soft)) center / 1px 100% no-repeat;
+    opacity: 0.55;
 }
 
 .portrait__bar {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 6px 8px;
-    border-bottom: var(--bw) solid var(--line-strong);
-    background: var(--surface-2);
-    color: var(--ink-3);
+    gap: 8px;
+    padding: 4px 6px;
+    border-bottom: var(--bw-2) solid var(--line);
+    background: var(--bg-2);
+    color: var(--ink-4);
     font-family: var(--f-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
+    font-size: 9px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
 }
 
 .portrait__bar .led {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
     box-shadow: none;
 }
 
@@ -171,7 +236,8 @@
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
-    background: #0b0d16;
+    background: #04090a;
+    overflow: hidden;
 }
 
 .portrait__screen img {
@@ -203,17 +269,17 @@
 
 .portrait__badge {
     position: absolute;
-    left: 8px;
-    bottom: 8px;
+    left: 4px;
+    bottom: 4px;
     z-index: 4;
-    padding: 2px 6px;
-    border: 2px solid rgba(6, 10, 8, 0.5);
-    background: var(--accent-2);
-    color: #06110b;
+    padding: 1px 4px;
+    border: 1px solid rgba(4, 9, 10, 0.6);
+    background: var(--accent);
+    color: var(--on-accent);
     font-family: var(--f-mono);
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
@@ -221,83 +287,77 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--s-3);
-    margin-top: var(--s-3);
+    gap: var(--s-2);
+    margin-top: 5px;
 }
 
 .portrait__cap p {
     margin: 0;
-    color: var(--ink-3);
+    overflow: hidden;
+    color: var(--ink-4);
     font-family: var(--f-mono);
-    font-size: 11px;
+    font-size: 9px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .portrait__toggle {
     flex: 0 0 auto;
-    padding: 4px 8px;
-    border: 2px solid var(--line);
-    background: var(--surface);
+    padding: 2px 5px;
+    border: var(--bw-2) solid var(--line);
+    background: transparent;
     color: var(--ink-3);
     font-family: var(--f-mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: 9px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
     transition: var(--move);
 }
 
 .portrait__toggle:hover {
-    border-color: var(--line-strong);
-    background: var(--ink);
-    color: var(--bg);
-}
-
-.portrait__toggle:active {
-    transform: translate(1px, 1px);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 .portrait__toggle[aria-pressed="true"] {
     border-color: var(--accent);
-    background: var(--accent-soft);
-    color: var(--accent);
-}
-
-.portrait__toggle[aria-pressed="true"]:hover {
     background: var(--accent);
     color: var(--on-accent);
 }
 
 /* -----------------------------------------------------------------------------
-   HUD strip
+   Counters: a 2x2 readout plate
    -------------------------------------------------------------------------- */
 
 .hud {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2px;
+    gap: 1px;
     margin: 0;
-    padding: 2px;
-    background: var(--line-strong);
-    border: var(--bw) solid var(--line-strong);
-    box-shadow: var(--sh-2);
+    padding: 1px;
+    background: var(--line);
+    border: var(--bw-2) solid var(--line);
 }
 
 .hud__cell {
     display: grid;
-    gap: 2px;
-    padding: 10px 12px;
-    background: var(--surface);
+    gap: 6px;
+    align-content: center;
+    min-height: 64px;
+    padding: 8px 10px;
+    background: var(--bg-2);
     transition: background-color var(--tick);
 }
 
 .hud__cell:hover {
-    background: var(--surface-2);
+    background: var(--accent-soft);
 }
 
 .hud__k {
-    color: var(--ink-3);
+    color: var(--ink-4);
     font-family: var(--f-mono);
     font-size: 10px;
     letter-spacing: 0.14em;
@@ -306,10 +366,10 @@
 
 .hud__v {
     color: var(--ink);
-    font-family: var(--f-pixel);
-    font-size: 24px;
+    font-family: var(--f-readout);
+    font-size: 40px;
     font-variant-numeric: tabular-nums;
-    line-height: 1;
+    line-height: 0.78;
 }
 
 .hud__v small {
@@ -317,31 +377,90 @@
     font-size: 12px;
 }
 
-@media (max-width: 1023px) {
-    .hero__grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--s-6);
-    }
-
-    .hero__side {
-        max-width: 420px;
-    }
-
-    .hud {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+@media (max-width: 1280px) {
+    .hero__name {
+        font-size: 88px;
     }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 1100px) {
     .hero__name {
-        font-size: 32px;
+        font-size: 80px;
     }
 
-    .hero__role {
-        font-size: 24px;
+    .hero__bio {
+        max-width: 62ch;
+    }
+}
+
+@media (max-width: 1023px) {
+    .hero__grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "intro"
+            "side"
+            "bio"
+            "actions";
+        grid-template-rows: auto;
+        gap: var(--s-5);
     }
 
-    .hud {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .hero__intro {
+        padding-top: 0;
+    }
+
+    .hero__bio {
+        margin-top: var(--s-2);
+    }
+
+    .hero__name {
+        font-size: 72px;
+    }
+
+    .hero__side {
+        max-width: 620px;
+    }
+}
+
+@media (max-width: 720px) {
+    .hero {
+        padding: var(--s-6) 0 var(--s-4);
+    }
+
+    .hero__name {
+        font-size: 44px;
+        text-shadow:
+            1px 0 0 rgba(255, 79, 139, 0.4),
+            -1px 0 0 rgba(95, 227, 240, 0.34);
+    }
+
+    .hero__word + .hero__word {
+        margin-top: 2px;
+    }
+
+    .hero__bio {
+        font-size: 15px;
+    }
+
+    .hero__bio > p:first-child {
+        font-size: 16px;
+    }
+
+    .hero__row {
+        grid-template-columns: 120px minmax(0, 1fr);
+    }
+
+    .hud__cell {
+        min-height: 54px;
+        gap: 3px;
+        padding: 6px 8px;
+    }
+
+    .hud__k {
+        font-size: 9px;
+    }
+
+    .hud__v {
+        font-size: 26px;
     }
 }

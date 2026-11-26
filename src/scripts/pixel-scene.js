@@ -1,30 +1,36 @@
 /* =============================================================================
-   PIXEL SCENE — tiny 8-bit "object detection" viewports.
-   One canvas, integer-ish scaling, 8 fps, honest scanlines.
+   AERIAL SCENE — a tiny remote-sensing viewport.
+   Three hand-composed orthomosaics (hero field, blog station, wide transect)
+   painted on one canvas at 8 fps in a false-colour palette, with real DOM
+   detection boxes and a scene-space reticle.
    Markup contract:
-     <div class="screen"><canvas id="scene" data-scene="workshop"></canvas></div>
-   Detection boxes are real DOM elements so the labels stay razor sharp.
+     <div class="plate js-plate">
+       <canvas id="scene" data-scene="field"></canvas>
+       <span class="plate__cursor" aria-hidden="true"></span>
+       <span data-readout></span>
+     </div>
    ============================================================================= */
 (function () {
     "use strict";
 
-    var canvas = document.getElementById("scene");
-    if (!canvas) return;
-
+    /* One independent painter per <canvas data-scene>, so a page can carry the
+       hero plate and the transect strip at the same time. */
+    function boot(canvas) {
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     var motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     var reduced = motionQuery.matches;
-    var scene;
     var W = 1;
     var H = 1;
-    var p = 1;
+    var sx = 1;
+    var sy = 1;
     var tick = 0;
     var raf = null;
     var last = 0;
     var visible = true;
     var current = null;
+    var scene = null;
 
     /* --- painting helpers -------------------------------------------------- */
 
@@ -36,15 +42,23 @@
     }
 
     function r(x, y, w, h, color) {
-        if (w <= 0 || h <= 0) return;
+        if (w <= 0 || h <= 0 || !color) return;
         fill(color);
-        var x0 = Math.round(x * p);
-        var y0 = Math.round(y * p);
-        ctx.fillRect(x0, y0, Math.max(1, Math.round((x + w) * p) - x0), Math.max(1, Math.round((y + h) * p) - y0));
+        var x0 = Math.round(x * sx);
+        var y0 = Math.round(y * sy);
+        ctx.fillRect(x0, y0, Math.max(1, Math.round((x + w) * sx) - x0), Math.max(1, Math.round((y + h) * sy) - y0));
     }
 
     function px(x, y, color) {
         r(x, y, 1, 1, color);
+    }
+
+    function lineH(x, y, w, color) {
+        r(x, y, w, 1, color);
+    }
+
+    function lineV(x, y, h, color) {
+        r(x, y, 1, h, color);
     }
 
     function sprite(map, ox, oy, palette) {
@@ -84,362 +98,451 @@
         }
     }
 
+    /* Deterministic pseudo-random so a repaint never flickers. */
+    function rnd(seed) {
+        var a = seed | 0;
+        a = (a + 0x6D2B79F5) | 0;
+        var t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
+
+    function speckle(x, y, w, h, color, seed, count) {
+        for (var i = 0; i < count; i++) {
+            var ex = x + Math.floor(rnd(seed + i * 13) * w);
+            var ey = y + Math.floor(rnd(seed + i * 29 + 7) * h);
+            px(ex, ey, color);
+        }
+    }
+
+    /* Furrowed crop rows: 1px row lines on a pitch, with a lit leading edge. */
+    function furrow(x, y, w, h, base, row, pitch, phase) {
+        r(x, y, w, h, base);
+        for (var yy = 0; yy < h; yy += pitch) {
+            lineH(x, y + yy + (phase || 0), w, row);
+        }
+    }
+
+    function furrowV(x, y, w, h, base, row, pitch, phase) {
+        r(x, y, w, h, base);
+        for (var xx = 0; xx < w; xx += pitch) {
+            lineV(x + xx + (phase || 0), y, h, row);
+        }
+    }
+
+    /* A soft cloud shadow: stacked dithered ellipses, no blur. */
+    function cloudShadow(cx, cy, rx, ry, color, alpha) {
+        ctx.globalAlpha = alpha;
+        for (var y = -ry; y <= ry; y++) {
+            var span = Math.round(rx * Math.sqrt(Math.max(0, 1 - (y * y) / (ry * ry))));
+            for (var x = -span; x <= span; x++) {
+                if (((x + y) & 1) === 0) px(cx + x, cy + y, color);
+            }
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    /* Orthomosaic tile seams + registration crosses. Drawn last, very quiet. */
+    function seams(tw, th, W2, H2) {
+        ctx.globalAlpha = 0.55;
+        for (var x = tw; x < W2; x += tw) lineV(x, 0, H2, "rgba(0,0,0,0.55)");
+        for (var y = th; y < H2; y += th) lineH(0, y, W2, "rgba(0,0,0,0.55)");
+        ctx.globalAlpha = 1;
+        ctx.globalAlpha = 0.5;
+        for (var cx = 0; cx <= W2; cx += tw) {
+            for (var cy = 0; cy <= H2; cy += th) {
+                if (cx === 0 || cy === 0) continue;
+                px(cx, cy, "#e9f3e6");
+            }
+        }
+        ctx.globalAlpha = 1;
+    }
+
     var C = {
-        ink: "#0b0d16",
-        night: "#141a2e",
-        navy: "#1b2238",
-        slate: "#2b3352",
-        haze: "#3b4568",
-        mist: "#5b678e",
-        paper: "#f1e7d2",
-        paperShade: "#d8cba9",
-        green: "#56d98b",
-        greenDim: "#2f8f5c",
-        greenDeep: "#173d2b",
-        gold: "#ffc24b",
-        goldDim: "#b07c1e",
-        coral: "#ff8267",
-        rust: "#c8493a",
-        blue: "#8fa9ff",
-        wood: "#7a5638",
-        woodDark: "#4c3320",
-        woodLight: "#9a7444",
-        fur: "#e0b07a",
-        furDark: "#b9834c",
-        furPale: "#f2d3a5",
-        pink: "#e8846f",
-        white: "#fbf6e9"
+        void: "#04090a",
+        ink: "#06100c",
+        paper: "#e9f3e6",
+        soilDeep: "#26131b",
+        soil: "#3a1c27",
+        soilLit: "#552833",
+        rowSoil: "#6e3541",
+        cropDeep: "#0c2517",
+        crop: "#173f26",
+        cropLit: "#2b7038",
+        cropHi: "#7fd24a",
+        cropMax: "#b9f05c",
+        olive: "#2b3716",
+        oliveLit: "#4a5a21",
+        road: "#333a34",
+        roadLit: "#4b554c",
+        roadEdge: "#1b211d",
+        waterDeep: "#072733",
+        water: "#0a3a4a",
+        waterLit: "#12657e",
+        waterHi: "#4fd0e0",
+        roof: "#c6d0c2",
+        roofShade: "#7d8b80",
+        gh: "#9fe4dd",
+        ghHi: "#e0fbf5",
+        treeDark: "#06170d",
+        tree: "#0f3a20",
+        treeLit: "#2c7a3d",
+        glow: "#ffb454",
+        panel: "#123246",
+        panelLit: "#2a6f92"
     };
+
+    /* ---------------------------------------------------------------------
+       FIELD — the homepage plate. A false-colour farm survey in late light:
+       furrowed plots, a canal, a farmstead with greenhouses, and a tractor
+       crawling along the track while the tracker keeps hold of it.
+       ------------------------------------------------------------------ */
 
     var SCENES = {};
 
+    /* Large-scale helpers: a plot is a flat field with a few wide furrows and
+       sparse stipple. Dense texture at 1px pitch reads as noise, not crops. */
+    function hatchH(x, y, w, h, color, pitch, offset) {
+        for (var yy = y + (offset || 0); yy < y + h; yy += pitch) lineH(x, yy, w, color);
+    }
+
+    function hatchV(x, y, w, h, color, pitch, offset) {
+        for (var xx = x + (offset || 0); xx < x + w; xx += pitch) lineV(xx, y, h, color);
+    }
+
+    function vignette() {
+        ctx.globalAlpha = 0.35;
+        for (var i = 0; i < 6; i++) {
+            r(0, i, W, 1, "#02060a");
+            r(0, H - 1 - i, W, 1, "#02060a");
+            r(i, 0, 1, H, "#02060a");
+            r(W - 1 - i, 0, 1, H, "#02060a");
+        }
+        ctx.globalAlpha = 1;
+    }
+
     /* ---------------------------------------------------------------------
-       SCENE: workshop — a CRT, a mug, some books and one loafed cat.
+       FIELD — the homepage plate. A false-colour farm survey in late light:
+       big quiet plots, one canal, a farmstead with greenhouses, and a tractor
+       crawling along the track while the tracker keeps hold of it.
        ------------------------------------------------------------------ */
 
-    var LOAF = [
-        "..##..........##..",
-        ".#ff#........#ff#.",
-        ".#fffdfffffffdff#.",
-        "#ffffffffffffffff#",
-        "#fkffffffffffkfff#",
-        "#fffffffffffffkff#",
-        "#fffffppfffffffff#",
-        "#ffffffffffffkfff#",
-        ".#fffffffffffkff#.",
-        "..##############.."
-    ];
-
-    SCENES.workshop = {
-        width: 168,
-        height: 105,
-        boxes: [
-            { label: "CRT", conf: "0.99", x: 44, y: 18, w: 66, h: 62, side: "top" },
-            { label: "CAT", conf: "1.00", x: 122, y: 62, w: 30, h: 20, side: "top" },
-            { label: "MUG", conf: "0.96", x: 104, y: 62, w: 18, h: 20, side: "bottom" },
-            { label: "BOOKS", conf: "0.91", x: 20, y: 58, w: 28, h: 24, side: "bottom" }
-        ],
-        draw: function (t) {
-            /* wall */
-            r(0, 0, W, 74, C.night);
-            for (var band = 8; band < 74; band += 8) r(0, band, W, 3, "#171e33");
-            r(0, 70, W, 4, C.navy);
-            r(0, 73, W, 1, "#2a3350");
-
-            /* window */
-            r(7, 9, 44, 40, C.navy);
-            r(9, 11, 40, 36, "#090f22");
-            disc(38, 19, 5, "#f3e7c7");
-            px(36, 17, "#d8cba9"); px(37, 18, "#d8cba9"); px(38, 18, "#d8cba9"); px(39, 17, "#d8cba9");
-            var stars = [[13, 16], [17, 24], [21, 14], [25, 30], [31, 40], [44, 30], [18, 38], [12, 42], [42, 14]];
-            for (var s = 0; s < stars.length; s++) {
-                if ((t + s * 2) % 9 < 7) px(stars[s][0], stars[s][1], s % 3 === 0 ? C.paper : C.mist);
-            }
-            r(9, 28, 40, 1, "#1a2340");
-            r(28, 11, 1, 36, "#1a2340");
-            r(7, 9, 44, 2, "#31395c");
-            r(7, 47, 44, 2, "#31395c");
-            r(7, 9, 2, 40, "#31395c");
-            r(49, 9, 2, 40, "#31395c");
-            r(6, 49, 46, 2, "#242c47");
-
-            /* poster: the paper-on-the-wall */
-            r(112, 11, 40, 36, "#232a44");
-            r(114, 13, 36, 32, C.paper);
-            r(118, 17, 20, 2, C.ink);
-            r(118, 22, 26, 1, "#9a968f");
-            r(118, 26, 24, 1, "#9a968f");
-            r(118, 30, 27, 1, "#9a968f");
-            r(118, 34, 15, 1, "#9a968f");
-            r(140, 17, 6, 6, C.greenDim);
-            r(141, 18, 4, 4, C.green);
-            r(118, 38, 30, 2, C.rust);
-            r(118, 41, 12, 1, "#9a968f");
-
-            /* desk */
-            r(0, 74, W, 12, C.wood);
-            r(0, 74, W, 2, C.woodLight);
-            r(0, 80, W, 1, "#6a4a2e");
-            r(0, 86, W, 19, C.woodDark);
-            r(0, 86, W, 1, "#3a2616");
-            r(12, 92, 30, 1, "#432c1a");
-            r(128, 92, 30, 1, "#432c1a");
-
-            /* monitor */
-            r(44, 18, 66, 58, "#262d47");
-            r(46, 20, 62, 50, "#151a2d");
-            r(48, 22, 58, 44, C.ink);
-            r(44, 18, 66, 2, "#3a436b");
-            r(44, 74, 66, 2, "#1b2136");
-
-            /* screen content */
-            var code = [
-                [6, 3], [16, 5], [10, 2], [24, 6], [14, 3],
-                [20, 7], [9, 2], [18, 5], [12, 6], [22, 4], [8, 2]
+    SCENES.field = {
+        width: 320,
+        height: 150,
+        boxes: function (t) {
+            var tractorX = 14 + Math.floor(((t * 0.7) % 150));
+            /* Boxes are the object's own pixels in scene units — cast shadows
+               and the extruded dark side stay outside:
+                 barn roof      170, 82, 46 x 22
+                 greenhouses    254, 74, 64 wide, three 7px strips on an 11px
+                                pitch (last lit row at y102, so 29 tall)
+                 tractor        body from x, cab at x+8, light at x+13, 60..67
+                 surveyor       head + jacket 45..47, y58..64 */
+            return [
+                { label: "BARN", conf: "0.94", x: 170, y: 82, w: 46, h: 22, side: "top" },
+                { label: "GREENHOUSE", conf: "0.88", x: 254, y: 74, w: 64, h: 29, side: "bottom" },
+                { label: "TRACTOR", conf: "0.91", x: tractorX, y: 60, w: 14, h: 8, side: "top" },
+                { label: "SURVEYOR", conf: "0.79", x: 44, y: 57, w: 5, h: 9, side: "bottom" }
             ];
-            for (var i = 0; i < code.length; i++) {
-                var ly = 26 + i * 4;
-                if (ly > 60) break;
-                r(52, ly, code[i][0], 1, i % 5 === 0 ? C.green : (i % 3 === 0 ? "#3f7d63" : C.greenDim));
-                if (i % 3 === 1) r(52 + code[i][0] + 2, ly, code[i][1], 1, "#315a49");
+        },
+        draw: function (t) {
+            r(0, 0, W, H, C.void);
+            /* Underlay terrain: any unpainted margin reads as a dark field,
+               never as a hole in the plate. */
+            r(0, 0, W, 56, C.cropDeep);
+            r(0, 72, W, 78, C.olive);
+
+            /* ---- upper fields ------------------------------------------- */
+            r(0, 0, 112, 54, C.cropDeep);
+            hatchH(0, 0, 112, 54, "rgba(43,112,56,0.5)", 7, 2);
+            speckle(2, 3, 106, 46, C.cropLit, 5, 34);
+            speckle(2, 3, 106, 46, C.cropHi, 9, 14);
+            r(0, 51, 112, 3, C.treeDark);
+
+            r(118, 0, 78, 54, C.crop);
+            hatchV(118, 0, 78, 54, "rgba(185,240,92,0.38)", 8, 3);
+            speckle(120, 2, 74, 48, C.cropMax, 17, 26);
+
+            r(202, 0, 118, 54, C.soil);
+            hatchH(202, 0, 118, 54, "rgba(110,53,65,0.55)", 9, 3);
+            speckle(204, 2, 114, 48, C.soilLit, 23, 30);
+            speckle(204, 2, 114, 48, C.rowSoil, 29, 18);
+
+            /* canal between the west plots and the soil */
+            r(112, 0, 8, 56, C.waterDeep);
+            r(114, 0, 5, 56, C.water);
+            lineV(114, 0, 56, C.waterLit);
+            speckle(114, 2, 4, 52, C.waterHi, 37, 12);
+            lineV(112, 0, 56, C.ink);
+            lineV(119, 0, 56, C.ink);
+
+            /* ---- farm track --------------------------------------------- */
+            r(0, 56, W, 16, C.road);
+            lineH(0, 56, W, C.roadEdge);
+            lineH(0, 71, W, C.roadEdge);
+            hatchH(0, 58, W, 12, "rgba(75,85,76,0.55)", 4, 1);
+            for (var dash = 0; dash < W; dash += 28) lineH(dash + 6, 63, 14, "#7d8779");
+            lineV(112, 56, 16, C.roadEdge);
+
+            /* ---- lower fields ------------------------------------------- */
+            r(0, 72, 104, 78, C.olive);
+            hatchH(0, 72, 104, 78, C.oliveLit, 11, 3);
+            speckle(2, 74, 100, 74, C.cropLit, 41, 26);
+            r(0, 72, 104, 2, C.roadEdge);
+            r(102, 72, 2, 78, C.roadEdge);
+
+            /* pond: an irregular shoreline, not a window */
+            disc(122, 126, 17, "#2b211b");
+            disc(140, 132, 14, "#2b211b");
+            disc(122, 126, 15, C.waterDeep);
+            disc(140, 132, 12, C.waterDeep);
+            disc(122, 126, 12, C.water);
+            disc(140, 132, 10, C.water);
+            speckle(110, 114, 42, 32, C.waterLit, 43, 26);
+            speckle(112, 116, 38, 28, C.waterHi, 45, 10);
+            px(118, 118, C.waterHi);
+            px(134, 126, C.waterHi);
+            px(128, 140, C.waterHi);
+
+            /* farmstead yard */
+            r(162, 76, 94, 44, C.roadEdge);
+            r(164, 78, 90, 40, C.road);
+            hatchH(166, 80, 86, 36, "rgba(75,85,76,0.4)", 6, 2);
+
+            /* barn + silo + truck */
+            r(176, 94, 46, 6, "#0a0f0c");
+            r(172, 84, 46, 24, C.roofShade);
+            r(170, 82, 46, 22, C.roof);
+            lineH(170, 82, 46, C.paper);
+            lineH(170, 92, 46, C.roofShade);
+            lineV(193, 82, 22, C.roofShade);
+            r(180, 98, 9, 4, C.cropDeep);
+            disc(228, 98, 7, "#0a0f0c");
+            disc(226, 96, 6, C.roof);
+            ring(226, 96, 6, C.roofShade);
+            disc(226, 96, 2, C.roofShade);
+            r(236, 106, 15, 7, C.paper);
+            r(238, 107, 8, 4, C.roofShade);
+            r(247, 104, 4, 5, C.paper);
+            lineH(236, 113, 15, C.ink);
+
+            /* greenhouses: three lit ridges */
+            for (var g = 0; g < 3; g++) {
+                var gy = 74 + g * 11;
+                r(254, gy + 2, 64, 8, "#0a0f0c");
+                r(254, gy, 64, 7, C.gh);
+                lineH(254, gy, 64, C.ghHi);
+                lineH(254, gy + 6, 64, C.roofShade);
+                lineV(286, gy, 7, C.roofShade);
             }
-            if (Math.floor(t / 3) % 2 === 0) r(52, 62, 3, 2, C.green);
-            px(105, 24, t % 6 < 3 ? C.green : C.greenDeep);
-            px(102, 24, C.goldDim);
 
-            /* stand */
-            r(70, 76, 14, 4, "#262d47");
-            r(62, 80, 30, 3, "#2f3757");
-
-            /* keyboard */
-            r(50, 83, 52, 8, "#1d2236");
-            r(51, 84, 50, 6, "#2b3352");
-            for (var k = 0; k < 16; k++) r(53 + k * 3, 85, 2, 1, "#3b4568");
-            for (var k2 = 0; k2 < 15; k2++) r(54 + k2 * 3, 87, 2, 1, "#3b4568");
-
-            /* desk plant */
-            r(4, 68, 14, 6, "#8d6b4a");
-            r(5, 68, 12, 2, "#a9825a");
-            var sway = t % 8 < 4 ? 0 : 1;
-            r(9 + sway, 58, 2, 10, C.greenDim);
-            r(14, 60, 2, 8, C.greenDim);
-            r(9 + sway, 56, 7, 3, C.green);
-            r(6, 60, 4, 2, C.greenDim);
-            r(15, 62, 4, 2, C.greenDim);
-            r(11, 54, 3, 2, "#6fe3a1");
-
-            /* books */
-            r(20, 70, 26, 4, C.rust);
-            r(21, 71, 24, 2, "#e0654f");
-            r(22, 66, 22, 4, C.blue);
-            r(23, 67, 20, 1, "#a9bcff");
-            r(24, 62, 18, 4, C.gold);
-            r(25, 63, 16, 1, "#ffe08a");
-
-            /* mug */
-            r(104, 66, 14, 8, C.paperShade);
-            r(105, 67, 12, 6, C.paper);
-            r(105, 67, 12, 2, C.white);
-            r(117, 68, 2, 4, C.paperShade);
-            r(116, 69, 1, 2, C.paper);
-            r(107, 69, 4, 2, C.green);
-            for (var st = 0; st < 3; st++) {
-                var sy = 65 - ((t + st * 3) % 10);
-                px(107 + (st === 1 ? 5 : 1) + ((t + st) % 2), sy, "#7d86a6");
+            /* orchard */
+            r(254, 110, 64, 40, C.cropDeep);
+            for (var oy = 114; oy < 150; oy += 8) {
+                for (var ox = 258; ox < 318; ox += 8) {
+                    r(ox, oy + 1, 3, 2, "#04120a");
+                    r(ox, oy, 3, 2, C.tree);
+                    px(ox + 1, oy - 1, C.treeLit);
+                }
             }
 
-            /* cat loaf */
-            sprite(LOAF, 122, 66, {
-                "#": "#5d3d22",
-                "f": C.fur,
-                "d": C.furDark,
-                "k": "#2a1d12",
-                "p": C.pink
-            });
+            /* tree lines along the field margins — the signature of an
+               aerial farm frame */
+            for (var tl = 0; tl < W; tl += 6) {
+                if (tl < 100 || (tl > 120 && tl < 200)) {
+                    px(tl, 0, C.treeDark);
+                    px(tl + 2, 0, C.tree);
+                }
+                if (tl > 200) {
+                    px(tl, 55, C.treeDark);
+                    px(tl + 2, 55, C.tree);
+                }
+            }
+            for (var tv = 108; tv < 150; tv += 8) {
+                px(104, tv, C.treeDark);
+                px(104, tv + 2, C.tree);
+            }
 
-            /* floor shadow */
-            ditherRect(0, 86, W, 5, "#4c3320", "#452e1c");
+            /* hedgerow along the track */
+            for (var hx = 0; hx < W; hx += 5) {
+                if (hx < 104 || hx > 202) {
+                    r(hx, 53, 3, 3, C.treeDark);
+                    px(hx + 1, 52, C.tree);
+                }
+            }
+
+            /* surveyor on the track, high-vis jacket */
+            r(44, 65, 6, 3, "#0a0f0c");
+            r(45, 60, 3, 5, "#e8dc8a");
+            r(45, 58, 3, 2, C.glow);
+            px(48, 63, C.paper);
+
+            /* tractor: a lit box moving east along the track */
+            var tractorX = 14 + Math.floor(((t * 0.7) % 150));
+            r(tractorX, 62, 3, 3, "#6a5a2a");
+            r(tractorX - 1, 60, 14, 8, "#0a0f0c");
+            r(tractorX, 61, 11, 6, "#d8b93f");
+            r(tractorX + 8, 60, 4, 4, "#e8dc8a");
+            r(tractorX + 1, 64, 3, 2, "#0a0f0c");
+            r(tractorX + 7, 64, 3, 2, "#0a0f0c");
+            px(tractorX + 13, 63, C.glow);
+            if ((t % 4) < 2) {
+                px(tractorX - 3, 66, C.roadLit);
+                px(tractorX - 5, 65, C.roadLit);
+            }
+
+            /* cloud shadows crossing the survey */
+            var drift = (t * 1.2) % (W + 180);
+            cloudShadow(Math.floor(drift) - 50, 30, 40, 22, "#020806", 0.28);
+            cloudShadow(Math.floor(drift * 0.6) + 170, 108, 46, 24, "#020806", 0.24);
+            cloudShadow(W - Math.floor(drift * 0.4), 66, 30, 14, "#020806", 0.2);
+
+            /* sensor sweep */
+            var scanY = Math.floor((t * 4) % (H + 24)) - 12;
+            ctx.globalAlpha = 0.25;
+            lineH(0, scanY, W, C.cropMax);
+            ctx.globalAlpha = 1;
+
+            seams(80, 75, W, H);
+            vignette();
         }
     };
 
     /* ---------------------------------------------------------------------
-       SCENE: horizon — sunset, farmland, one drone, one sitter.
+       STATION — the blog cover. A field station at night seen from above:
+       warm skylights, a dish, a solar array, one cat on the gravel.
        ------------------------------------------------------------------ */
 
-    var SITTER = [
-        "..####....",
-        ".#ffff#...",
-        ".#fkkf#...",
-        ".#ffff#...",
-        ".#fwwf#...",
-        "##ffff##..",
-        "#wwwwww#..",
-        "#wwwwww#..",
-        "#wwddww#..",
-        ".##..##...",
-        ".#....#...",
-        ".........."
-    ];
-
-    var TINY_CAT = [
-        ".#....#.",
-        ".#ffff#.",
-        "#ffffff#",
-        "#f#ff#f#",
-        "#ffffff#",
-        ".######."
-    ];
-
-    var DRONE = [
-        "..#...#..",
-        ".#.....#.",
-        "###.#.###",
-        "..#.#.#..",
-        "...#.#..."
-    ];
-
-    SCENES.horizon = {
-        width: 320,
-        height: 80,
-        boxes: [
-            { label: "PERSON", conf: "0.97", x: 94, y: 41, w: 15, h: 16, side: "bottom" },
-            { label: "CAT", conf: "0.99", x: 112, y: 51, w: 14, h: 9, side: "top" },
-            { label: "DRONE", conf: "0.93", x: 191, y: 11, w: 24, h: 16, side: "top" },
-            { label: "BARN", conf: "0.88", x: 48, y: 37, w: 32, h: 24, side: "top" }
-        ],
-        draw: function (t) {
-            var bands = [
-                { h: 9, a: "#0e1430", b: "#131a3a" },
-                { h: 9, a: "#131a3a", b: "#1a2148" },
-                { h: 9, a: "#1a2148", b: "#272a58" },
-                { h: 9, a: "#272a58", b: "#3b3162" },
-                { h: 9, a: "#3b3162", b: "#5a3a61" },
-                { h: 9, a: "#5a3a61", b: "#85485c" },
-                { h: 9, a: "#85485c", b: "#ae5b52" },
-                { h: 9, a: "#ae5b52", b: "#d1744d" }
+    SCENES.station = {
+        width: 200,
+        height: 140,
+        boxes: function () {
+            /* Measured from the drawing: roof 74,50 50x34 over the dark body
+               80,62 48x30, so 74..127 x 50..91; dish disc radius 11 at 140,54
+               spans 129..151 x 43..65; solar cells start at 56,92 and the last
+               cell's right edge is 106; the cat is 110..116 x 87..93. */
+            return [
+                { label: "STATION", conf: "0.97", x: 74, y: 50, w: 54, h: 42, side: "top" },
+                { label: "DISH", conf: "0.9", x: 129, y: 43, w: 23, h: 23, side: "bottom" },
+                { label: "PV ARRAY", conf: "0.86", x: 56, y: 92, w: 51, h: 19, side: "bottom" },
+                { label: "CAT", conf: "0.99", x: 110, y: 87, w: 7, h: 7, side: "top" }
             ];
-            var y = 0;
-            bands.forEach(function (band) {
-                r(0, y, W, band.h, band.a);
-                ditherRect(0, y + band.h - 2, W, 2, band.a, band.b);
-                y += band.h;
-            });
+        },
+        draw: function (t) {
+            r(0, 0, W, H, C.cropDeep);
 
-            for (var i = 0; i < 30; i++) {
-                var sx = (i * 67 + 17) % W;
-                var sy = (i * 31 + 3) % 30;
-                if ((t * 0.5 + i) % 10 < 7) px(sx, sy, i % 4 === 0 ? C.paper : "#8f8fae");
+            /* surrounding crops, night tones */
+            r(0, 0, 54, H, C.olive);
+            hatchV(0, 0, 54, H, "rgba(74,90,33,0.8)", 9, 3);
+            speckle(2, 2, 50, H - 4, C.cropLit, 81, 30);
+
+            r(146, 0, 54, H, C.crop);
+            hatchV(146, 0, 54, H, "rgba(43,112,56,0.55)", 9, 2);
+            speckle(148, 2, 50, H - 4, C.cropHi, 83, 26);
+
+            /* compound gravel */
+            r(42, 30, 118, 92, C.roadEdge);
+            r(44, 32, 114, 88, C.road);
+            hatchH(46, 34, 110, 84, "rgba(75,85,76,0.35)", 8, 2);
+            speckle(46, 34, 110, 84, C.roadLit, 87, 60);
+
+            /* lane to the north edge */
+            r(148, 4, 12, 30, C.road);
+            lineV(148, 4, 30, C.roadEdge);
+            lineV(159, 4, 30, C.roadEdge);
+
+            /* main building: warm skylights are the only bright thing */
+            r(80, 62, 48, 30, "#0a0f0c");
+            r(74, 50, 50, 34, "#213239");
+            lineH(74, 50, 50, C.roofShade);
+            lineH(74, 83, 50, "#0a0f0c");
+            r(78, 57, 16, 6, C.glow);
+            r(98, 57, 10, 6, "#ffd08a");
+            lineH(78, 64, 30, "#7a4a18");
+            r(78, 70, 12, 5, C.glow);
+            r(94, 70, 14, 5, "#c98125");
+            r(106, 52, 12, 7, C.roofShade);
+            lineH(106, 52, 12, C.roof);
+            disc(114, 76, 3, C.roofShade);
+
+            /* dish */
+            disc(140, 54, 11, "#0a0f0c");
+            disc(139, 53, 10, C.roof);
+            ring(139, 53, 10, C.ink);
+            lineV(139, 45, 16, C.roofShade);
+            lineH(131, 53, 16, C.roofShade);
+            disc(139, 53, 3, C.ink);
+            disc(139, 53, 1, C.paper);
+
+            /* solar array */
+            r(56, 92, 48, 18, "#0a0f0c");
+            for (var py = 0; py < 5; py++) {
+                for (var px2 = 0; px2 < 12; px2++) {
+                    r(58 + px2 * 4, 94 + py * 3, 3, 2, ((px2 + py) % 4 === 0) ? C.panelLit : C.panel);
+                }
+            }
+            lineH(56, 92, 48, C.waterHi);
+
+            /* truck */
+            r(154, 90, 18, 9, "#0a0f0c");
+            r(152, 86, 18, 8, C.roof);
+            r(156, 88, 9, 5, C.waterDeep);
+            r(166, 88, 3, 5, "#ffcf8a");
+
+            /* pond */
+            disc(22, 104, 16, "#0a0f0c");
+            disc(22, 104, 15, C.waterDeep);
+            disc(22, 104, 12, C.water);
+            speckle(12, 94, 20, 20, C.waterLit, 89, 18);
+            for (var wy = 96; wy < 114; wy += 5) lineH(16 + (wy % 4), wy, 12, C.waterHi);
+
+            /* cat on the warm gravel */
+            r(110, 90, 6, 3, "#0a0f0c");
+            r(110, 88, 5, 3, "#e0b07a");
+            r(113, 87, 2, 2, "#f2d3a5");
+            px(110, 91, "#f2d3a5");
+
+            /* beacon on the dish mast */
+            px(139, 43, (Math.floor(t / 2) % 2 === 0) ? C.coral : C.ink);
+            px(139, 44, C.paper);
+
+            /* trees at the compound edge */
+            for (var tree = 0; tree < 6; tree++) {
+                var tx2 = 48 + tree * 23;
+                r(tx2, 26, 5, 4, "#04120a");
+                r(tx2, 25, 5, 3, C.tree);
+                px(tx2 + 2, 24, C.treeLit);
             }
 
-            disc(248, 34, 11, "#f3bd58");
-            disc(248, 34, 8, "#ffd98b");
-            ring(248, 34, 14, "#d99a4a");
-            for (var ray = 0; ray < 10; ray++) {
-                var angle = (ray / 10) * Math.PI * 2;
-                var rx = 248 + Math.round(Math.cos(angle) * 18);
-                var ry = 34 + Math.round(Math.sin(angle) * 18);
-                if ((t + ray) % 7 < 4) px(rx, ry, "#e8b45f");
-            }
+            var drift = (t * 0.8) % 280;
+            cloudShadow(Math.floor(drift) - 50, 20, 34, 16, "#020806", 0.24);
+            cloudShadow(200 - Math.floor(drift * 0.7), 116, 28, 14, "#020806", 0.2);
 
-            var clouds = [[-28, 18, 38], [64, 8, 30], [150, 24, 34], [246, 12, 26]];
-            clouds.forEach(function (cloud, index) {
-                var cx = Math.round(((cloud[0] + t * (0.7 + index * 0.25)) % (W + 76) + W + 76) % (W + 76)) - 34;
-                var cy = cloud[1];
-                var cw = cloud[2];
-                r(cx + Math.round(cw * 0.20), cy, Math.round(cw * 0.58), 2, "#4c3569");
-                r(cx + Math.round(cw * 0.08), cy + 2, Math.round(cw * 0.84), 2, "#573d74");
-                r(cx, cy + 4, cw, 3, "#62447f");
-                r(cx + Math.round(cw * 0.10), cy + 7, Math.round(cw * 0.80), 2, "#4a3468");
-                r(cx + Math.round(cw * 0.30), cy + 1, Math.round(cw * 0.36), 2, "#7d5a9d");
-                r(cx + Math.round(cw * 0.16), cy + 5, Math.round(cw * 0.30), 1, "#7a559a");
-            });
-
-            for (var hx = 0; hx < W; hx++) {
-                var h1 = 46 + Math.round(Math.sin(hx / 36) * 4) + Math.round(Math.sin(hx / 12) * 1);
-                r(hx, h1, 1, 80 - h1, "#221b3a");
-                var h2 = 52 + Math.round(Math.sin(hx / 24 + 2.2) * 3);
-                r(hx, h2, 1, 80 - h2, "#182631");
-            }
-
-            /* barn */
-            r(52, 46, 24, 14, "#3a2b33");
-            r(52, 46, 24, 2, "#58414c");
-            r(50, 44, 28, 3, "#241d24");
-            r(56, 50, 6, 10, "#1d2029");
-            r(65, 50, 5, 5, "#f0c061");
-            r(65, 55, 5, 5, "#262b38");
-            r(59, 40, 10, 4, "#4a3340");
-            r(60, 38, 8, 2, "#5c3f4c");
-            r(62, 41, 4, 1, "#f0c061");
-
-            /* fields: ploughed furrows getting wider toward the viewer */
-            r(0, 57, W, 23, "#1d3a32");
-            for (var fy = 57; fy < 80; fy++) {
-                var depth = (fy - 57) / 23;
-                if (fy % 3 === 0) r(0, fy, W, 1, depth > 0.55 ? "#33553f" : "#2a4b3c");
-                if (fy % 3 === 2 && depth > 0.45) r(0, fy, W, 1, "#244233");
-            }
-            ditherRect(0, 57, W, 3, "#1d3a32", "#2a4b3c");
-            for (var cx2 = -14; cx2 < W + 14; cx2 += 24) {
-                r(cx2 + 4, 66, 13, 1, "#17342b");
-                r(cx2 + 2, 71, 16, 1, "#17342b");
-                r(cx2 + 6, 76, 12, 1, "#122b23");
-            }
-            ditherRect(0, 76, W, 4, "#122b23", "#0f241d");
-
-            /* fence */
-            for (var fx = 4; fx < W; fx += 16) {
-                r(fx, 60, 1, 6, "#20262f");
-                r(fx, 62, 16, 1, "#20262f");
-            }
-
-            /* sitter + cat */
-            sprite(SITTER, 96, 42, {
-                "#": "#111827", "f": C.fur, "k": "#1c140d", "w": "#d9cdb6", "d": C.furDark
-            });
-            sprite(TINY_CAT, 114, 52, { "#": "#111827", "f": C.furDark });
-            /* tail flick */
-            if (t % 6 < 3) {
-                px(122, 55, C.furDark);
-            } else {
-                px(123, 54, C.furDark);
-                px(123, 55, C.furDark);
-            }
-            r(93, 56, 11, 1, "#2b3352");
-
-            /* drone: bobs on the spot and drifts two pixels either way */
-            var dy = 18 + (t % 8 < 4 ? 0 : -1);
-            var dx = Math.round(Math.sin(t / 14) * 2);
-            sprite(DRONE, 201 + dx, dy, { "#": "#1d2236" });
-            if (Math.floor(t / 2) % 2 === 0) px(209 + dx, dy + 4, C.coral);
-            r(202 + dx, dy - 2, 6, 1, "#3b4568");
-            r(200 + dx, dy + 2, 1, 2, "#3b4568");
-            r(209 + dx, dy + 2, 1, 2, "#3b4568");
-
-            /* foreground grass fringe */
-            for (var g = 0; g < W; g++) {
-                var gh = ((g * 13 + 5) % 4) + 1;
-                r(g, 80 - gh, 1, gh, g % 3 === 0 ? "#0f241d" : "#0b1d18");
-            }
-            r(0, 79, W, 1, "#0b1d18");
+            seams(100, 70, W, H);
+            vignette();
         }
     };
 
     /* --- scene selection (definitions exist from here on) ------------------ */
 
-    scene = SCENES[canvas.dataset.scene] || SCENES.workshop;
+    scene = SCENES[canvas.dataset.scene] || SCENES.field;
     W = scene.width;
     H = scene.height;
 
-    /* --- responsive scaling ------------------------------------------------ */
+    /* ---------------------------------------------------------------------
+       Resize: keep the art on integer-ish device pixels in both axes.
+       ------------------------------------------------------------------ */
 
     var lastDpr = 0;
+    var host = canvas.parentElement;
 
     function resize() {
         var rect = canvas.getBoundingClientRect();
         var cssW = rect.width || 480;
         var cssH = rect.height || (cssW * H / W);
-        p = cssW / W;
+        sx = cssW / W;
+        sy = cssH / H;
         var dpr = Math.min(window.devicePixelRatio || 1, 2);
         lastDpr = dpr;
         canvas.width = Math.max(1, Math.round(cssW * dpr));
@@ -447,8 +550,10 @@
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.imageSmoothingEnabled = false;
         current = null;
-        var layer = canvas.parentElement && canvas.parentElement.querySelector(".det-layer");
-        if (layer) layer.style.setProperty("--scan-span", cssH + "px");
+        if (host) {
+            var layer = host.querySelector(".det-layer");
+            if (layer) layer.style.setProperty("--scan-span", cssH + "px");
+        }
         draw();
     }
 
@@ -457,25 +562,41 @@
         scene.draw(tick);
     }
 
-    /* --- overlay boxes ----------------------------------------------------- */
+    /* ---------------------------------------------------------------------
+       Detection overlay: static boxes are built once; truck boxes move.
+       ------------------------------------------------------------------ */
+
+    var layer = null;
+    var detEls = [];
+
+    function boxList() {
+        return scene.boxes(tick) || [];
+    }
+
+    function place(el, box) {
+        el.style.setProperty("--x", (box.x / W) * 100);
+        el.style.setProperty("--y", (box.y / H) * 100);
+        el.style.setProperty("--w", (box.w / W) * 100);
+        el.style.setProperty("--h", (box.h / H) * 100);
+    }
 
     function buildOverlay() {
-        var host = canvas.parentElement;
         if (!host || host.querySelector(".det-layer")) return;
-        var layer = document.createElement("div");
+        layer = document.createElement("div");
         layer.className = "det-layer";
         layer.setAttribute("aria-hidden", "true");
         var scan = document.createElement("div");
         scan.className = "det-scan";
         layer.appendChild(scan);
-        scene.boxes.forEach(function (box, index) {
+
+        boxList().forEach(function (box, index) {
             var el = document.createElement("div");
             el.className = "det det--" + (box.side || "top");
-            el.style.setProperty("--x", (box.x / W) * 100);
-            el.style.setProperty("--y", (box.y / H) * 100);
-            el.style.setProperty("--w", (box.w / W) * 100);
-            el.style.setProperty("--h", (box.h / H) * 100);
-            el.style.animationDelay = (index * 140) + "ms";
+            /* Tiny targets get shorter corner arms so the frame still reads as
+               an annotation instead of swallowing a 5px-wide object. */
+            if (box.w <= 8) el.classList.add("det--tiny");
+            place(el, box);
+            el.style.animationDelay = (index * 120) + "ms";
             var tag = document.createElement("span");
             tag.className = "det__tag";
             var tagLabel = document.createElement("span");
@@ -488,8 +609,53 @@
             tag.appendChild(tagConf);
             el.appendChild(tag);
             layer.appendChild(el);
+            detEls.push(el);
         });
         host.appendChild(layer);
+    }
+
+    function syncOverlay() {
+        if (!detEls.length) return;
+        var boxes = boxList();
+        for (var i = 0; i < detEls.length && i < boxes.length; i++) place(detEls[i], boxes[i]);
+    }
+
+    /* ---------------------------------------------------------------------
+       Reticle: snap to scene pixels, report coordinates and the box under it.
+       ------------------------------------------------------------------ */
+
+    var plate = canvas.closest(".js-plate");
+    var cursor = plate && plate.querySelector(".plate__cursor");
+    var readout = plate && plate.querySelector("[data-readout]");
+    var canHover = window.matchMedia("(hover: hover)").matches;
+    if (plate && cursor && canHover) {
+        var queued = false;
+        var mx = W / 2;
+        var my = H / 2;
+        var paint = function () {
+            queued = false;
+            cursor.style.setProperty("--mx", ((mx / W) * 100).toFixed(2));
+            cursor.style.setProperty("--my", ((my / H) * 100).toFixed(2));
+            if (!readout) return;
+            var hit = null;
+            boxList().forEach(function (box) {
+                if (mx >= box.x && mx <= box.x + box.w && my >= box.y && my <= box.y + box.h) hit = box;
+            });
+            readout.textContent = "x " + String(mx).padStart(3, "0") + "  y " + String(my).padStart(3, "0") +
+                (hit ? "  /  " + hit.label + " " + hit.conf : "");
+        };
+        plate.addEventListener("pointermove", function (event) {
+            var rect = plate.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            mx = Math.max(0, Math.min(W, Math.round(((event.clientX - rect.left) / rect.width) * W)));
+            my = Math.max(0, Math.min(H, Math.round(((event.clientY - rect.top) / rect.height) * H)));
+            if (queued) return;
+            queued = true;
+            window.requestAnimationFrame(paint);
+        });
+        plate.addEventListener("pointerleave", function () {
+            if (readout) readout.textContent = "";
+        });
     }
 
     /* --- loop -------------------------------------------------------------- */
@@ -502,6 +668,7 @@
             last = now;
             tick += 1;
             draw();
+            syncOverlay();
         }
         raf = window.requestAnimationFrame(loop);
     }
@@ -558,5 +725,9 @@
     buildOverlay();
     resize();
     draw();
+    syncOverlay();
     if (!reduced) start();
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll("canvas[data-scene]"), boot);
 })();

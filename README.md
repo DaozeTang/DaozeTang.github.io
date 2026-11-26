@@ -1,6 +1,6 @@
 # daozetang.github.io
 
-Personal academic homepage of **Daoze Tang**. Built with [Eleventy](https://www.11ty.dev/) and a hand-rolled pixel-art SCSS design system shared with the [blog](https://github.com/DaozeTang/Blog); deployed to GitHub Pages via GitHub Actions on every push to `main` and on a daily schedule that refreshes citation counts.
+Personal academic homepage of **Daoze Tang**. Built with [Eleventy](https://www.11ty.dev/) and a hand-rolled, false-colour "aerial survey console" SCSS system shared with the [blog](https://github.com/DaozeTang/Blog); deployed to GitHub Pages via GitHub Actions on every push to `main` and on a daily schedule that refreshes citation counts.
 
 ## Develop
 
@@ -30,21 +30,67 @@ Paper front matter: `title`, `date`, `venue`, `selected`, optional `highlight`, 
 
 `scripts/refresh-citations.js` resolves counts at build time into `src/data/citations.json`, so badges ship in the HTML with no browser request. Semantic Scholar is preferred and OpenAlex (by DOI) seeds uncached papers; the two disagree, so each value sticks to its source and survives it going down. `fetchedAt` records when a count last *changed*, so the cache only diffs on real change. `deploy.yml` deploys on push to `main` and daily at 06:30 UTC: build, fail if badges did not render, then commit the cache back.
 
-## Design system (pixel, 16 colours, no blur)
+## Design system — GROUND TRUTH
 
-Same 4px grid, palette and components as the blog. Shared partials (`_tokens`, `_fonts`, `_base`, `_pixel`, `_layout`, `_chrome`, `_ui`, `_prose`, `_animations`, `_responsive`, `_a11y`) must stay identical in both repos — `npm run build` refuses to build on drift.
+Both sites share one hand-rolled SCSS core: a **nocturnal low-altitude survey
+console**. Daoze's research is object detection in UAV and remote-sensing
+imagery of farmland, so the interface takes that world literally — false-colour
+orthomosaics, detection plates, coordinate readouts — instead of a paper
+console. It still renders on a 4px grid with hard edges, stepped motion,
+self-hosted pixel type, no blur and no rounded corners.
 
-Homepage-only partials: `_hero`, `_horizon`, `_log` (news), `_cart` (publications), `_track` (education, experience, awards), `_team`, `_pages`.
+The shared partials (`_tokens`, `_fonts`, `_base`, `_pixel`, `_layout`,
+`_chrome`, `_ui`, `_prose`, `_animations`, `_responsive`, `_a11y`) must stay
+byte-identical in both repos — `npm run build` refuses to build on drift.
 
-**Signature art.** The hero portrait is a 96×96 pixel study generated from the source photo and snapped to the site palette; a button swaps it for the photograph. The full-bleed horizon strip under the hero is painted by `src/scripts/pixel-scene.js` (8 fps, deterministic, frozen under `prefers-reduced-motion`), with DOM tracking frames (corner brackets plus confidence labels), a grid-snapped reticle that reports scene coordinates in the HUD, and a live `AUTO · TRACK 04` status chip.
+**Palette.** A false-colour remote-sensing ramp on a void-blue ground: NDVI
+chartreuse (`--accent`) is the primary signal, false-colour magenta
+(`--coral`) marks alerts, sensor cyan (`--blue`) carries links and water, and
+thermal amber (`--gold`) adds warmth. Light mode is a daylight ortho paper
+(pale sand-green) with a deep olive accent. Every colour comes from a token;
+body text and micro labels clear WCAG AA in both themes.
 
-**Assets.** `scripts/pixel-art.py` (Pillow) regenerates the pixel portrait, the posterised institution emblems (`*-px.png`, referenced from `src/data/*.yml`), the 16×16 prompt-mark favicon / touch icon, and `src/assets/pixel/og.png` is the 1200×630 social card.
+**Type.** `Silkscreen` (8px grid) for display and controls, `Cubic 11`
+(12px grid) for CJK display and headings, `Noto Sans SC` for body copy,
+`VT323` for oversized readouts and indices, and mono for micro labels. Sizes
+stay on each face's native grid — the hero name is set at 104 / 88 / 80 / 72 /
+44px rather than a fluid interpolation, so the pixel glyphs stay crisp.
 
-**Interaction.** Every control exists in the markup first, so a blocked script still leaves a working page (the mobile nav reflows, the theme follows the system, the portrait falls back to the photograph). On top of that: a stepped dither shutter for theme changes, a focus-managed navigation drawer, a scroll meter under the masthead, a mobile header that retreats on scroll-down, stepped HUD counters, XP meters that charge cell by cell, a detection reticle on the horizon that reports snapped scene coordinates, card hover frames that close their corner brackets and draw an accent line across the top edge, a stepped print grade and focus frame on paper figures, reduced-motion-aware scroll reveals and cross-document view transitions (Chrome 126+, Safari 18.2+).
+**Signature art.** The hero is a live false-colour orthomosaic painted by
+`src/scripts/pixel-scene.js` at 8 fps: furrowed plots, a canal, a farmstead,
+greenhouses, and a tractor that a DOM tracking box follows along the track.
+The plate carries a sensor bar, a scale bar, a north arrow, and a
+scene-space reticle that reports `x/y` plus the class under the pointer.
+`prefers-reduced-motion` freezes the canvas; the DOM boxes stay put. One
+painter is booted per `[data-scene]`, so a page can carry more than one plate
+(the blog's cover is the third scene).
 
-**Sub-page system.** Every interior page shares one header shape: the title block plus a bordered *record stamp* (big VT323 count, year cells, two summary rows) computed from the same data as the page. Publications are cartridges with a 4:3 figure window and a spec plate (authors / links / citations); projects are numbered dossier rows with a working role filter and a timeline that hides filtered-out years; registrations are framed certificates with a copyable registration number; collaborators are ID cards grouped by institution. All counts, stamps and filter tallies are computed at build time — no client-side data fetching.
+**Chrome.** The masthead is a sensor bar (one lit edge, a hairline base, a
+segmented scroll gauge). Sections are annotated with a `01/` index, a ticked
+leader and a mono aside. Cards are thin plates whose corner brackets close on
+hover instead of lifting on a blurred shadow. The theme toggle steps through
+night survey → daylight survey → system with a dither shutter; the night
+survey is the default.
 
-**Accessibility + compatibility.** `_a11y.scss` carries the `prefers-contrast: more` and Windows forced-colours overrides; the theme icon and the current nav state are CSS-driven so they stay correct without JavaScript; `overflow-x: clip` (not `hidden`) keeps `position: sticky` working in Safari; all body text meets 4.5:1 (axe-core: zero violations on home, publications, projects, registrations, collaborators and 404); every interactive control is a real `<a>`/`<button>` and keyboard reachable; filtered-out years are removed from the timeline so the rail never points at a hidden section. Fonts are only sized on their pixel grids (Silkscreen multiples of 8, Cubic 11 of 12).
+Homepage-only partials: `_hero`, `_log` (news), `_cart` (publications),
+`_track` (education, experience, awards), `_team`, `_pages`.
+
+**Sub-page system.** Every interior page shares the same head: a poster-scale
+title block plus a bordered *record stamp* computed from the same data as the
+page (VT323 value, year cells, summary rows). Publications are annotated
+records with a 4:3 figure window and a spec plate (authors / links /
+citations); projects are numbered dossier rows with a working role filter and
+a year ledger; registrations are framed certificates with a copyable
+registration number; collaborators are ID cards grouped by institution; 404 is
+an empty detection window. All counts, stamps and tallies are computed at
+build time — no client-side data fetching.
+
+**Accessibility.** Theme colours come from tokens measured at AA contrast;
+controls are real `<a>`/`<button>` elements, keyboard reachable, with
+`steps()` motion that respects `prefers-reduced-motion`, plus
+`prefers-contrast: more` and Windows forced-colours overrides. `overflow-x:
+clip` (not `hidden`) keeps `position: sticky` working in Safari. Fonts are only
+sized on their pixel grids.
 
 ---
 

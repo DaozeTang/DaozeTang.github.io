@@ -18,8 +18,7 @@ metaDescription: >-
 
 <header class="page-head page-head--split">
     <div class="page-head__main">
-        <p class="kicker"><span class="led" aria-hidden="true"></span>People &middot; recent collaborations</p>
-        <h1 class="page-head__title">Collaborators<span style="color: var(--accent)">.</span></h1>
+        <h1 class="page-head__title">Collaborators<span class="page-head__dot">.</span></h1>
         <p class="page-head__sub">{{ collaborators.description }}</p>
         <ul class="page-head__meta">
             <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-users"></use></svg>{{ collaborators.people.size }} collaborator{% if collaborators.people.size != 1 %}s{% endif %}</span></li>
@@ -64,26 +63,29 @@ metaDescription: >-
                 <header class="collab-group__head">
                     <span class="collab-group__mark" aria-hidden="true"></span>
                     <h2 class="collab-group__name" id="inst-{{ forloop.index }}">{{ inst }}</h2>
+                    <span class="collab-group__rule" aria-hidden="true"></span>
                     <span class="collab-group__count">{{ people.size }} {% if people.size == 1 %}person{% else %}people{% endif %}</span>
                 </header>
 
                 <div class="collab-grid">
                     {% for person in people %}
                     {% assign personNo = personNo | plus: 1 %}
-                    <article class="collab px-hover">
-                        <span class="card-fx" aria-hidden="true"></span>
-                        <div class="collab__top">
+                    <article class="collab">
+                        <div class="collab__strip">
                             <span class="collab__no" aria-hidden="true">{% if personNo < 10 %}0{% endif %}{{ personNo }}</span>
-                            <span class="collab__mono" aria-hidden="true">{{ person.initials }}</span>
+                            <span class="collab__short">{{ person.institution_short }}</span>
                         </div>
 
-                        <h3 class="collab__name">
+                        <div class="collab__body">
+                            <span class="collab__mono" aria-hidden="true">{{ person.initials }}</span>
+                            <h3 class="collab__name">
                             {% if person.homepage %}
                             <a href="{{ person.homepage }}" target="_blank" rel="noopener" aria-label="{{ person.name }} personal homepage (opens in a new tab)">{{ person.name }}<svg class="ico" aria-hidden="true"><use href="#i-external"></use></svg></a>
                             {% else %}
                             {{ person.name }}
                             {% endif %}
-                        </h3>
+                            </h3>
+                        </div>
 
                         <div class="collab__inst">
                             <img class="px-img" src="{{ person.institution_logo }}" alt="" loading="lazy">

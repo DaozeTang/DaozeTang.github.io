@@ -4,30 +4,33 @@ title: 404 - Page Not Found
 permalink: /404.html
 noindex: true
 ---
-<div class="prompt panel">
-    <div class="prompt__hud">
+<div class="lost">
+    <div class="lost__bar">
         <span class="led led--coral led--blink" aria-hidden="true"></span>
         <span>CH.404</span>
-        <span class="prompt__hud-r">No signal</span>
+        <span class="lost__bar-tag">detector idle</span>
+        <span class="lost__bar-r">0 hits</span>
     </div>
 
-    <div class="prompt__screen">
-        <span class="prompt__snow" aria-hidden="true"></span>
-        <h1 class="prompt__code">404<span>.</span></h1>
-        <span class="prompt__bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <div class="lost__field">
+        <div class="lost__box">
+            <span class="lost__tag">Nothing detected</span>
+            <h1 class="lost__code">404<span>.</span></h1>
+            <span class="lost__cap">Page not found</span>
+        </div>
     </div>
 
-    <div class="prompt__copy">
-        <p class="prompt__text">The requested page could not be found &mdash; it may have moved, or never existed.</p>
-        <p class="prompt__log">&gt; GET /this/page HTTP/1.1<br>&gt; 404 &mdash; nothing here but static</p>
+    <div class="lost__copy">
+        <p class="lost__text">The requested page could not be found &mdash; it may have moved, or never existed.</p>
+        <p class="lost__log">&gt; GET /this/page HTTP/1.1<br>&gt; 404 &mdash; nothing here but static</p>
     </div>
 
-    <div class="prompt__actions">
+    <div class="lost__actions">
         <a class="btn btn--accent" href="/"><svg class="ico" aria-hidden="true"><use href="#i-home"></use></svg>Back to homepage</a>
         <a class="btn" href="/publications/"><svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>Publications</a>
     </div>
 
-    <nav class="prompt__links" aria-label="Site sections">
+    <nav class="lost__links" aria-label="Site sections">
         <a href="/projects/">Projects</a>
         <a href="/registrations/">Registrations</a>
         <a href="/collaborators/">Collaborators</a>

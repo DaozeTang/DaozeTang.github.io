@@ -19,8 +19,7 @@ subtitle: >-
 
 <header class="page-head page-head--split">
     <div class="page-head__main">
-        <p class="kicker"><span class="led led--coral" aria-hidden="true"></span>Registered works &middot; software copyrights</p>
-        <h1 class="page-head__title">Registrations<span style="color: var(--accent)">.</span></h1>
+        <h1 class="page-head__title">Registrations<span class="page-head__dot">.</span></h1>
         <p class="page-head__sub">{{ subtitle }}</p>
         <ul class="page-head__meta">
             <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-shield"></use></svg>{{ totalItems }} registrations</span></li>
@@ -40,6 +39,7 @@ subtitle: >-
             </div>
             {% endif %}
             <dl class="stamp__rows">
+                <div><dt>Year</dt><dd>{{ registrations.groups.first.year }}</dd></div>
                 <div><dt>Type</dt><dd>Software copyright</dd></div>
                 <div><dt>Role</dt><dd>First author</dd></div>
             </dl>

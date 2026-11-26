@@ -33,8 +33,7 @@ subtitle: >-
 
 <header class="page-head page-head--split">
     <div class="page-head__main">
-        <p class="kicker"><span class="led led--gold" aria-hidden="true"></span>Projects &middot; built with students</p>
-        <h1 class="page-head__title">Projects<span style="color: var(--accent)">.</span></h1>
+        <h1 class="page-head__title">Projects<span class="page-head__dot">.</span></h1>
         <p class="page-head__sub">{{ subtitle }}</p>
         <ul class="page-head__meta">
             <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-package"></use></svg>{{ totalProjects }} projects</span></li>
@@ -95,8 +94,7 @@ subtitle: >-
 
                     {% for item in group.items %}
                     {% assign projNo = projNo | plus: 1 %}
-                    <article class="proj px-hover" data-role="{{ item.role }}">
-                        <span class="card-fx" aria-hidden="true"></span>
+                    <article class="proj" data-role="{{ item.role }}">
                         <span class="proj__no" aria-hidden="true">{% if projNo < 10 %}0{% endif %}{{ projNo }}</span>
                         <div class="proj__main">
                             <div class="proj__head">
@@ -138,7 +136,7 @@ subtitle: >-
                 <ul class="key">
                     <li><span class="led led--gold" aria-hidden="true"></span><span>Advisor &mdash; supervised the team</span></li>
                     <li><span class="led" aria-hidden="true"></span><span>Leader &mdash; led the build</span></li>
-                    <li><span class="led led--coral" aria-hidden="true"></span><span>Member &mdash; contributed</span></li>
+                    <li><span class="led led--dim" aria-hidden="true"></span><span>Member &mdash; contributed</span></li>
                 </ul>
             </div>
         </div>

@@ -39,14 +39,14 @@
        ------------------------------------------------------------------ */
 
     var themeToggle = document.getElementById("theme-toggle");
-    var THEME_COLORS = { light: "#f1e7d2", dark: "#101119" };
-    var MODE_ORDER = ["light", "dark", "system"];
+    var THEME_COLORS = { light: "#e8ebdb", dark: "#070b0d" };
+    var MODE_ORDER = ["dark", "light", "system"];
     var MODE_LABELS = {
-        light: "Theme: light (click for dark)",
-        dark: "Theme: dark (click to follow system)",
-        system: "Theme: follow system (click for light)"
+        dark: "Theme: night survey (click for daylight)",
+        light: "Theme: daylight survey (click to follow system)",
+        system: "Theme: follow system (click for night survey)"
     };
-    var THEME_NAMES = { light: "Light theme", dark: "Dark theme", system: "Following the system theme" };
+    var THEME_NAMES = { dark: "Night survey theme", light: "Daylight survey theme", system: "Following the system theme" };
 
     function currentMode() {
         return root.getAttribute("data-theme-mode") || "system";
@@ -268,37 +268,43 @@
     }
 
     /* ---------------------------------------------------------------------
-       Horizon: a crosshair readout that snaps to the scene's 320x80 grid.
+       Display type decodes out of sensor noise, once, then stays put.
+       The h1 carries an aria-label, so assistive tech never reads the noise.
        ------------------------------------------------------------------ */
 
-    var horizonScreen = document.querySelector(".horizon__screen");
-    var horizonCursor = horizonScreen && horizonScreen.querySelector(".horizon__cursor");
-    var horizonReadout = document.getElementById("horizon-readout");
-    var canHover = window.matchMedia("(hover: hover)").matches;
-    if (horizonScreen && horizonCursor && canHover) {
-        var pointerQueued = false;
-        var pxX = 160;
-        var pxY = 40;
-        var paintCursor = function () {
-            pointerQueued = false;
-            horizonCursor.style.setProperty("--mx", ((pxX / 320) * 100).toFixed(2));
-            horizonCursor.style.setProperty("--my", ((pxY / 80) * 100).toFixed(2));
-            if (horizonReadout) {
-                horizonReadout.textContent = "X " + String(pxX).padStart(3, "0") + " Y " + String(pxY).padStart(3, "0");
+    var decodeBox = document.querySelector("[data-decode]");
+    if (decodeBox && !reducedMotion) {
+        var NOISE = "\u259a\u259e\u2591\u2592\u2588<>/\\01";
+        var words = Array.prototype.slice.call(decodeBox.querySelectorAll(".hero__word"));
+        var full = words.map(function (word) {
+            return word.firstChild ? word.firstChild.nodeValue : "";
+        });
+        var started = null;
+        var decodeTimer = window.setInterval(function () {
+            var now = Date.now();
+            if (started === null) started = now;
+            var elapsed = now - started;
+            if (elapsed < 120) return;
+            var progress = Math.min(1, (elapsed - 120) / 480);
+            var settled = Math.floor(progress * 16);
+            words.forEach(function (word, index) {
+                var source = full[index];
+                if (!word.firstChild) return;
+                var out = "";
+                for (var c = 0; c < source.length; c++) {
+                    if (c < settled - index * 2 || progress >= 1) out += source.charAt(c);
+                    else if (source.charAt(c) === " ") out += " ";
+                    else out += NOISE.charAt(Math.floor(Math.random() * NOISE.length));
+                }
+                word.firstChild.nodeValue = out;
+            });
+            if (progress >= 1) {
+                window.clearInterval(decodeTimer);
+                words.forEach(function (word, index) {
+                    if (word.firstChild) word.firstChild.nodeValue = full[index];
+                });
             }
-        };
-        horizonScreen.addEventListener("pointermove", function (event) {
-            var rect = horizonScreen.getBoundingClientRect();
-            if (!rect.width || !rect.height) return;
-            pxX = Math.max(0, Math.min(320, Math.round(((event.clientX - rect.left) / rect.width) * 320)));
-            pxY = Math.max(0, Math.min(80, Math.round(((event.clientY - rect.top) / rect.height) * 80)));
-            if (pointerQueued) return;
-            pointerQueued = true;
-            window.requestAnimationFrame(paintCursor);
-        });
-        horizonScreen.addEventListener("pointerleave", function () {
-            if (horizonReadout) horizonReadout.textContent = "";
-        });
+        }, 45);
     }
 
     /* ---------------------------------------------------------------------

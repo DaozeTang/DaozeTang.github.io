@@ -28,16 +28,6 @@
     }
 }
 
-@keyframes marquee {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        transform: translate3d(-50%, 0, 0);
-    }
-}
-
 @keyframes scan-drift {
     from {
         background-position: 0 0;
@@ -155,6 +145,33 @@
     }
 }
 
+/* A readout acquiring lock: three hard flickers, then solid. */
+@keyframes lock-in {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.7;
+    }
+
+    30% {
+        opacity: 0.1;
+    }
+
+    45% {
+        opacity: 1;
+    }
+
+    55% {
+        opacity: 0.35;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 /* -----------------------------------------------------------------------------
    Reveal on scroll: a stepped lift. It only shifts a few pixels and never
    changes opacity, so a stalled script cannot leave the page blank.
@@ -208,14 +225,14 @@
     gap: 8px;
     max-width: min(90vw, 420px);
     padding: 10px 14px;
-    border: var(--bw) solid var(--line-strong);
-    background: var(--ink);
-    color: var(--bg);
+    border: var(--bw-2) solid var(--accent);
+    background: var(--bg-2);
+    color: var(--ink);
     font-family: var(--f-mono);
     font-size: 12.5px;
     line-height: 1.5;
     letter-spacing: 0.02em;
-    box-shadow: var(--sh-3);
+    box-shadow: 3px 3px 0 0 var(--px-shadow);
     transform: translate(-50%, 0);
     animation: toast-in 180ms steps(3, end) both;
     pointer-events: none;
@@ -229,8 +246,8 @@
     width: 8px;
     height: 8px;
     flex: 0 0 auto;
-    background: var(--accent-2);
-    box-shadow: 0 0 0 2px var(--ink);
+    background: var(--accent);
+    box-shadow: 0 0 0 2px var(--bg-2);
 }
 
 @media (max-width: 560px) {

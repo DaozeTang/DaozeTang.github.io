@@ -1,33 +1,29 @@
 // =============================================================================
-//  PIXEL — the 8-bit chrome: beveled panels, LEDs, screens, dividers.
-//  No blur, no border-radius, no smooth easing. Shadows are solid offsets.
+//  PIXEL — the instrument chrome: plates, brackets, LEDs, screens, dividers.
+//  No blur, no border-radius, no smooth easing. Shadows are solid offsets and
+//  depth comes from hairlines, dither and one lit edge.
 // =============================================================================
 
 /* -----------------------------------------------------------------------------
-   Panels: 3px ink border + hard bevel + offset shadow.
+   Panels: a thin survey plate with one lit edge.
    -------------------------------------------------------------------------- */
 
 .panel {
     position: relative;
-    background: var(--surface);
-    border: var(--bw) solid var(--line-strong);
-    box-shadow:
-        inset var(--bw) var(--bw) 0 var(--px-hi),
-        inset calc(var(--bw) * -1) calc(var(--bw) * -1) 0 var(--px-lo),
-        var(--sh-2);
+    background:
+        linear-gradient(180deg, var(--surface-2) 0, var(--surface) 42px, var(--surface) 100%);
+    border: var(--bw-2) solid var(--line);
+    box-shadow: inset 0 1px 0 0 var(--px-hi);
 }
 
 .panel--flat {
-    box-shadow:
-        inset var(--bw) var(--bw) 0 var(--px-hi),
-        inset calc(var(--bw) * -1) calc(var(--bw) * -1) 0 var(--px-lo);
+    background: var(--surface);
+    box-shadow: none;
 }
 
 .panel--sunken {
-    background: var(--surface-2);
-    box-shadow:
-        inset var(--bw) var(--bw) 0 var(--px-lo),
-        inset calc(var(--bw) * -1) calc(var(--bw) * -1) 0 var(--px-hi);
+    background: var(--bg-2);
+    box-shadow: inset 0 1px 0 0 var(--px-lo);
 }
 
 .panel--ink {
@@ -42,42 +38,315 @@
     border-color: var(--accent-3);
 }
 
-/* Small 4px "screw" pixels in the corners — the classic 8-bit panel tell. */
+.panel--accent .label,
+.panel--accent h2,
+.panel--accent h3 {
+    color: var(--on-accent);
+}
+
+/* Corner brackets: four 8px L-marks, the frame of a detection plate. */
+.panel--ticks::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-image:
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent));
+    background-size:
+        10px 1px,
+        1px 10px,
+        10px 1px,
+        1px 10px,
+        10px 1px,
+        1px 10px,
+        10px 1px,
+        1px 10px;
+    background-position:
+        left top,
+        left top,
+        right top,
+        right top,
+        left bottom,
+        left bottom,
+        right bottom,
+        right bottom;
+    opacity: 0.75;
+}
+
+/* Small 2px "screw" pixels in the corners. Kept for the old markup. */
 .panel--studs::before,
 .panel--studs::after {
     content: "";
     position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--px-lo);
+    width: 2px;
+    height: 2px;
+    background: var(--line);
     pointer-events: none;
 }
 
 .panel--studs::before {
     top: 4px;
     left: 4px;
-    box-shadow: calc(100% + 0px) 0 0 var(--px-lo);
 }
 
 .panel--studs::after {
     right: 4px;
     bottom: 4px;
-    box-shadow: 0 calc(0px) 0 var(--px-lo);
 }
 
 /* -----------------------------------------------------------------------------
-   Screens: dark viewports with scanlines (used for canvas art and media).
+   Plates: the aerial viewports (homepage hero + blog cover).
+   A canvas sits inside a hairline frame with live corner brackets and a
+   stepped scanline wash. Metadata rides on the frame, not in a caption box.
+   -------------------------------------------------------------------------- */
+
+.plate {
+    position: relative;
+    overflow: hidden;
+    border: var(--bw-2) solid var(--line);
+    background: #04090a;
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.55),
+        0 8px 0 -4px var(--px-shadow);
+}
+
+.plate__canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* Scanlines above the art, below the HUD. */
+.plate::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background-image:
+        repeating-linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.22) 0 1px,
+            transparent 1px 3px
+        ),
+        radial-gradient(120% 100% at 50% 45%, transparent 55%, rgba(2, 6, 10, 0.58) 100%);
+    opacity: 0.7;
+}
+
+/* Frame brackets live on the parent so the canvas stays untouched. */
+.plate__frame {
+    position: absolute;
+    inset: 8px;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: opacity var(--tick);
+    background-repeat: no-repeat;
+    background-image:
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2));
+    background-size:
+        14px 1px,
+        1px 14px,
+        14px 1px,
+        1px 14px,
+        14px 1px,
+        1px 14px,
+        14px 1px,
+        1px 14px;
+    background-position:
+        left top,
+        left top,
+        right top,
+        right top,
+        left bottom,
+        left bottom,
+        right bottom,
+        right bottom;
+}
+
+.plate:hover .plate__frame {
+    opacity: 1;
+}
+
+/* Metadata strips clamp to the plate edges. */
+.plate__bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    background: rgba(4, 9, 10, 0.78);
+    border-bottom: var(--bw-2) solid rgba(200, 242, 79, 0.28);
+    color: rgba(233, 243, 230, 0.72);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.plate__bar .led {
+    width: 5px;
+    height: 5px;
+    box-shadow: none;
+    background: var(--accent);
+}
+
+.plate__rec {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent);
+}
+
+.plate__seg {
+    color: rgba(233, 243, 230, 0.5);
+}
+
+.plate__seg--right {
+    margin-left: auto;
+    color: var(--accent-2);
+    font-variant-numeric: tabular-nums;
+}
+
+.plate__foot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 10px;
+    background: linear-gradient(0deg, rgba(4, 9, 10, 0.86), rgba(4, 9, 10, 0));
+    color: rgba(233, 243, 230, 0.6);
+    font-family: var(--f-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.plate__scale {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(233, 243, 230, 0.72);
+}
+
+.plate__scale::before {
+    content: "";
+    width: 52px;
+    height: 5px;
+    border-left: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+}
+
+.plate__north {
+    color: var(--accent-2);
+}
+
+/* Reticle: snaps to the scene's integer grid, reports scene coordinates. */
+.plate__cursor {
+    --mx: 50;
+    --my: 50;
+    position: absolute;
+    left: calc(var(--mx) * 1%);
+    top: calc(var(--my) * 1%);
+    z-index: 5;
+    width: 37px;
+    height: 37px;
+    transform: translate(-18px, -18px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--tick);
+    background-repeat: no-repeat;
+    background-image:
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2)),
+        linear-gradient(var(--accent-2), var(--accent-2));
+    background-size:
+        1px 12px,
+        1px 12px,
+        12px 1px,
+        12px 1px,
+        3px 3px;
+    background-position:
+        center top,
+        center bottom,
+        left center,
+        right center,
+        center;
+    filter: drop-shadow(1px 1px 0 rgba(4, 9, 10, 0.65));
+}
+
+.plate:hover .plate__cursor {
+    opacity: 1;
+    animation: hz-reticle-in 140ms steps(2, end);
+}
+
+@keyframes hz-reticle-in {
+    from {
+        transform: translate(-18px, -18px) scale(1.25);
+    }
+
+    to {
+        transform: translate(-18px, -18px) scale(1);
+    }
+}
+
+@media (hover: none) {
+    .plate__cursor {
+        display: none;
+    }
+
+    .plate:hover .plate__cursor {
+        animation: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .plate:hover .plate__cursor {
+        animation: none;
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   Screens: dark viewports with scanlines (canvas art and media).
    -------------------------------------------------------------------------- */
 
 .screen {
     position: relative;
     overflow: hidden;
-    border: var(--bw) solid var(--line-strong);
-    background: #0b0d16;
-    box-shadow:
-        inset 2px 2px 0 rgba(0, 0, 0, 0.6),
-        inset -2px -2px 0 rgba(255, 255, 255, 0.08),
-        var(--sh-2);
+    border: var(--bw-2) solid var(--line-strong);
+    background: #04090a;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
 .screen::after {
@@ -87,11 +356,10 @@
     z-index: 3;
     background-image: repeating-linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.16) 0 2px,
-        transparent 2px 4px
+        rgba(0, 0, 0, 0.18) 0 1px,
+        transparent 1px 3px
     );
     pointer-events: none;
-    mix-blend-mode: multiply;
 }
 
 .screen__glare {
@@ -100,8 +368,8 @@
     z-index: 4;
     background: linear-gradient(
         112deg,
-        rgba(255, 255, 255, 0.07) 0 9%,
-        transparent 9% 100%
+        rgba(233, 243, 230, 0.05) 0 8%,
+        transparent 8% 100%
     );
     pointer-events: none;
 }
@@ -113,8 +381,8 @@
     z-index: 200;
     pointer-events: none;
     background-color: var(--accent);
-    background-image: repeating-conic-gradient(rgba(0, 0, 0, 0.14) 0 25%, transparent 0 50%);
-    background-size: 8px 8px;
+    background-image: repeating-conic-gradient(rgba(0, 0, 0, 0.16) 0 25%, transparent 0 50%);
+    background-size: 4px 4px;
     clip-path: inset(0 100% 0 0);
 }
 
@@ -132,30 +400,31 @@
 
 .rule {
     display: block;
-    height: 4px;
+    height: 1px;
     background-image: repeating-linear-gradient(
         90deg,
-        var(--ink) 0 8px,
-        transparent 8px 16px
+        var(--line-strong) 0 1px,
+        transparent 1px 6px
     );
-    opacity: 0.55;
-}
-
-.rule--dot {
-    background-image: radial-gradient(var(--ink-3) 1.5px, transparent 1.5px);
-    background-size: 8px 4px;
-    height: 4px;
     opacity: 0.7;
 }
 
+.rule--dot {
+    background-image: radial-gradient(var(--ink-4) 1px, transparent 1px);
+    background-size: 6px 1px;
+    height: 2px;
+    opacity: 0.8;
+}
+
 .rule--wave {
+    height: 2px;
     background: repeating-linear-gradient(
         90deg,
         transparent 0 2px,
-        var(--accent) 2px 4px,
-        transparent 4px 8px
+        var(--accent) 2px 6px,
+        transparent 6px 12px
     );
-    opacity: 0.9;
+    opacity: 0.7;
 }
 
 .dither {
@@ -163,19 +432,19 @@
         var(--px-dot) 0 25%,
         transparent 0 50%
     );
-    background-size: 8px 8px;
+    background-size: 4px 4px;
 }
 
 .dither--accent {
     background-image: repeating-conic-gradient(
-        var(--accent-2) 0 25%,
+        var(--accent) 0 25%,
         transparent 0 50%
     );
-    background-size: 8px 8px;
-    opacity: 0.35;
+    background-size: 4px 4px;
+    opacity: 0.4;
 }
 
-/* A 4-step dithered gradient band — the 8-bit way to fade. */
+/* A 4-step dithered fade — the 8-bit way to dissolve an edge. */
 .dither-fade {
     height: 24px;
     background-image:
@@ -183,6 +452,57 @@
     background-size: 4px 4px;
     -webkit-mask-image: linear-gradient(180deg, #000, transparent);
     mask-image: linear-gradient(180deg, #000, transparent);
+}
+
+/* -----------------------------------------------------------------------------
+   Annotation type — the vocabulary that labels every plate.
+   -------------------------------------------------------------------------- */
+
+.cls {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: var(--track-wide);
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.cls::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    background: currentColor;
+}
+
+.cls--dim {
+    color: var(--ink-3);
+}
+
+.cls--alert {
+    color: var(--coral);
+}
+
+.cls--cool {
+    color: var(--blue);
+}
+
+.readout {
+    color: var(--ink);
+    font-family: var(--f-readout);
+    font-size: var(--t-readout);
+    font-variant-numeric: tabular-nums;
+    line-height: 0.82;
+    letter-spacing: 0.01em;
+}
+
+.readout small {
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
 }
 
 /* -----------------------------------------------------------------------------
@@ -202,14 +522,14 @@
     color: var(--ink-3);
     font-family: var(--f-mono);
     font-size: var(--t-micro);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
 .px-caption::before {
     content: "";
-    width: 12px;
-    height: 2px;
+    width: 10px;
+    height: 1px;
     background: var(--accent);
 }
 
@@ -222,7 +542,7 @@
 }
 
 .pressable:active {
-    transform: translate(2px, 2px);
+    transform: translate(1px, 1px);
     box-shadow: var(--sh-none) !important;
 }
 
@@ -233,22 +553,22 @@
 .det-layer {
     position: absolute;
     inset: 0;
-    z-index: 2;
+    z-index: 3;
     pointer-events: none;
     overflow: hidden;
 }
 
 .det {
-    --det-line: #8bf0b2;
-    --det-ink: #06110b;
+    --det-line: #dcff7d;
+    --det-ink: #08110a;
     position: absolute;
     left: calc(var(--x) * 1%);
     top: calc(var(--y) * 1%);
     width: calc(var(--w) * 1%);
     height: calc(var(--h) * 1%);
-    border: 1px solid rgba(139, 240, 178, 0.45);
-    box-shadow: 0 0 0 1px rgba(6, 10, 8, 0.35);
-    animation: det-lock 420ms steps(6, end) both;
+    border: 1px solid rgba(220, 255, 125, 0.38);
+    animation: det-lock 380ms steps(5, end) both;
+    transition: background-color var(--tick), border-color var(--tick);
 }
 
 /* Open corner brackets read as a tracking frame; the faint full border keeps
@@ -269,14 +589,14 @@
         linear-gradient(var(--det-line), var(--det-line)),
         linear-gradient(var(--det-line), var(--det-line));
     background-size:
-        11px 2px,
-        2px 11px,
-        11px 2px,
-        2px 11px,
-        11px 2px,
-        2px 11px,
-        11px 2px,
-        2px 11px;
+        9px 1px,
+        1px 9px,
+        9px 1px,
+        1px 9px,
+        9px 1px,
+        1px 9px,
+        9px 1px,
+        1px 9px;
     background-position:
         left top,
         left top,
@@ -288,10 +608,47 @@
         right bottom;
 }
 
+.det.is-hot {
+    border-color: var(--det-line);
+    background: rgba(220, 255, 125, 0.1);
+}
+
+.det--tiny {
+    border-width: 1px;
+}
+
+.det--tiny::before {
+    inset: -1px;
+    background-size:
+        4px 1px,
+        1px 4px,
+        4px 1px,
+        1px 4px,
+        4px 1px,
+        1px 4px,
+        4px 1px,
+        1px 4px;
+}
+
+.det--tiny .det__tag {
+    top: -14px;
+    padding: 0 3px;
+    font-size: 8px;
+    letter-spacing: 0.06em;
+}
+
+.det--tiny.det--bottom .det__tag {
+    top: auto;
+    bottom: -13px;
+}
+
 .det__tag {
     position: absolute;
     left: -1px;
-    top: -16px;
+    top: -15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     padding: 1px 5px;
     background: var(--det-line);
     color: var(--det-ink);
@@ -299,15 +656,13 @@
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.08em;
-    line-height: 1.5;
+    line-height: 1.55;
     text-transform: uppercase;
     white-space: nowrap;
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
 }
 
 .det__conf {
-    margin-left: 4px;
-    opacity: 0.72;
+    opacity: 0.66;
 }
 
 .det--bottom .det__tag {
@@ -324,18 +679,18 @@
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(139, 240, 178, 0.55) 18%,
-        rgba(139, 240, 178, 0.55) 82%,
+        rgba(220, 255, 125, 0.5) 12%,
+        rgba(220, 255, 125, 0.5) 88%,
         transparent
     );
-    opacity: 0.45;
-    animation: det-scan 9s steps(72, end) infinite;
+    opacity: 0.5;
+    animation: det-scan 8s steps(64, end) infinite;
 }
 
 @keyframes det-lock {
     from {
         opacity: 0;
-        transform: scale(1.2);
+        transform: scale(1.18);
     }
 
     to {
@@ -351,6 +706,40 @@
 
     to {
         transform: translateY(var(--scan-span, 400px));
+    }
+}
+
+@media (max-width: 640px) {
+    .plate__bar {
+        gap: 7px;
+        padding: 5px 8px;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+    }
+
+    /* On a phone the live light, the scene name and the coordinate readout
+       carry the frame; the rest of the metadata is decoration. */
+    .plate__bar .plate__seg {
+        display: none;
+    }
+
+    .plate__bar .plate__rec + .plate__seg,
+    .plate__bar .plate__seg--right {
+        display: inline;
+    }
+
+    .plate__foot {
+        gap: 8px;
+        padding: 5px 8px;
+        font-size: 8.5px;
+    }
+
+    .plate__foot > span:nth-child(2) {
+        display: none;
+    }
+
+    .plate__scale::before {
+        width: 34px;
     }
 }
 

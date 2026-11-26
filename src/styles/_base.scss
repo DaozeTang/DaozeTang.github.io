@@ -1,5 +1,7 @@
 // =============================================================================
-//  BASE — reset, page shell, the paper stage, and shared primitives.
+//  BASE — reset, page shell, the survey stage, and shared primitives.
+//  The stage is a night aerial plate: faint 4px control points, stepped
+//  scanlines, a cold horizon glow, and a vignette that keeps the edges quiet.
 // =============================================================================
 
 *,
@@ -29,6 +31,10 @@ body {
     margin: 0;
     min-height: 100vh;
     background-color: var(--bg);
+    background-image:
+        radial-gradient(90% 62% at 8% -12%, var(--accent-softer), transparent 68%),
+        radial-gradient(70% 48% at 96% -8%, var(--coral-soft), transparent 72%);
+    background-repeat: no-repeat;
     color: var(--ink-2);
     font-family: var(--f-body);
     font-size: var(--t-body);
@@ -37,7 +43,7 @@ body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     accent-color: var(--accent);
-    -webkit-tap-highlight-color: rgba(11, 107, 67, 0.18);
+    -webkit-tap-highlight-color: var(--accent-soft);
 }
 
 /* clip never creates a scroll container, so position: sticky keeps working
@@ -149,8 +155,7 @@ kbd {
     display: inline-block;
     padding: 1px 6px;
     border: var(--bw-2) solid var(--line-strong);
-    border-bottom-width: 4px;
-    background: var(--surface);
+    background: var(--surface-2);
     color: var(--ink);
     font-family: var(--f-mono);
     font-size: 0.82em;
@@ -159,8 +164,9 @@ kbd {
 
 mark {
     padding: 0 2px;
-    background: var(--gold-soft);
+    background: var(--accent-soft);
     color: var(--ink);
+    box-shadow: inset 0 -0.35em 0 var(--accent-soft);
 }
 
 ::selection {
@@ -186,7 +192,7 @@ mark {
 }
 
 /* -----------------------------------------------------------------------------
-   Stage: the paper, the dot matrix, and a very faint CRT bloom.
+   Stage: the sensor plate behind every page.
    -------------------------------------------------------------------------- */
 
 .stage {
@@ -197,34 +203,45 @@ mark {
     pointer-events: none;
 }
 
+/* 4px control points, like the registration marks on an orthomosaic. */
 .stage__dots {
     position: absolute;
     inset: 0;
     background-image: radial-gradient(var(--px-dot) 1px, transparent 1px);
-    background-size: 8px 8px;
+    background-size: 4px 4px;
     background-position: 0 0;
+    opacity: 0.85;
 }
 
+/* A slow false-colour glow hanging off the top corners. */
 .stage__beam {
     position: absolute;
-    inset: -20% -10% auto -10%;
-    height: 60vh;
+    inset: -22% -12% auto -12%;
+    height: 74vh;
     background:
-        radial-gradient(60% 60% at 20% 0%, var(--accent-softer) 0 40%, transparent 70%),
-        radial-gradient(50% 50% at 80% 10%, var(--gold-soft) 0 30%, transparent 70%);
-    opacity: 0.55;
-    filter: saturate(1.1);
+        radial-gradient(46% 58% at 18% 0%, var(--accent-softer) 0 30%, transparent 72%),
+        radial-gradient(40% 46% at 84% 4%, var(--coral-soft) 0 24%, transparent 70%);
+    opacity: 0.9;
 }
 
+/* 1px scanlines on a 4px pitch — visible, never noisy. */
 .stage__scan {
     position: absolute;
     inset: 0;
     background-image: repeating-linear-gradient(
         180deg,
-        var(--px-scan) 0 2px,
-        transparent 2px 8px
+        var(--px-scan) 0 1px,
+        transparent 1px 4px
     );
-    opacity: 0.5;
+    opacity: 0.55;
+}
+
+.stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 90% at 50% 40%, transparent 52%, var(--bg) 100%);
+    opacity: 0.55;
 }
 
 /* Content always sits above the stage. */
@@ -286,24 +303,26 @@ mark {
     font-family: var(--f-mono);
     font-size: var(--t-micro);
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: var(--track-wide);
     text-transform: uppercase;
 }
 
 .kicker__dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     background: var(--accent);
-    box-shadow: 2px 2px 0 var(--px-shadow);
 }
 
+/* A real pixel LED: one lit cell inside a 2px socket. */
 .led {
     position: relative;
     display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: var(--accent-2);
-    box-shadow: 0 0 0 2px var(--px-shadow), 2px 2px 0 2px var(--px-shadow);
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    box-shadow:
+        0 0 0 2px var(--bg),
+        0 0 0 3px var(--line);
 }
 
 .led--blink {
@@ -316,6 +335,10 @@ mark {
 
 .led--gold {
     background: var(--gold);
+}
+
+.led--blue {
+    background: var(--blue);
 }
 
 .hl {
@@ -362,13 +385,13 @@ mark {
 
 /* Custom pixel scrollbar. */
 * {
-    scrollbar-color: var(--ink-3) transparent;
+    scrollbar-color: var(--ink-4) transparent;
     scrollbar-width: thin;
 }
 
 ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -376,8 +399,8 @@ mark {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--ink-3);
-    border: 3px solid var(--bg-2);
+    background: var(--ink-4);
+    border: 2px solid var(--bg-2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -430,9 +453,9 @@ mark {
     .post-nav,
     .rail,
     .cover__side,
-    .ticker,
-    .horizon,
-    .hero__side,
+    .hero__plate,
+    .hero__crop,
+    .telemetry,
     .skip-link,
     .post-tags,
     .post-meta {
@@ -536,24 +559,24 @@ mark {
 }
 
 ::view-transition-old(root) {
-    animation: px-vt-out 200ms steps(3, end) both;
+    animation: px-vt-out 180ms steps(3, end) both;
 }
 
 ::view-transition-new(root) {
-    animation: px-vt-in 200ms steps(3, end) both;
+    animation: px-vt-in 180ms steps(3, end) both;
 }
 
 @keyframes px-vt-out {
     to {
         opacity: 0;
-        transform: translateY(-8px);
+        transform: translateY(-6px);
     }
 }
 
 @keyframes px-vt-in {
     from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(6px);
     }
 }
 

@@ -9,18 +9,18 @@
 
 @media (prefers-contrast: more) {
     :root {
-        --line: rgba(22, 23, 31, 0.62);
-        --line-soft: rgba(22, 23, 31, 0.34);
-        --ink-3: #3c4054;
-        --ink-4: #4a4e64;
-        --px-lo: rgba(22, 23, 31, 0.42);
+        --line: rgba(10, 18, 13, 0.6);
+        --line-soft: rgba(10, 18, 13, 0.34);
+        --ink-3: #1f2e24;
+        --ink-4: #2c3f33;
+        --px-lo: rgba(10, 18, 13, 0.42);
     }
 
     [data-theme="dark"] {
-        --line: rgba(243, 234, 215, 0.6);
-        --line-soft: rgba(243, 234, 215, 0.32);
-        --ink-3: #b9bedb;
-        --ink-4: #a3a8c6;
+        --line: rgba(233, 243, 230, 0.58);
+        --line-soft: rgba(233, 243, 230, 0.3);
+        --ink-3: #cbd9d0;
+        --ink-4: #b3c5b9;
     }
 
     .panel,
@@ -51,7 +51,10 @@
     .screen::after,
     .screen__glare,
     .det-layer,
-    .horizon__label,
+    .plate::after,
+    .plate__frame,
+    .plate__bar,
+    .plate__foot,
     .wipe,
     .prompt__snow,
     .prompt__bars {

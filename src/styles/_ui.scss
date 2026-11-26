@@ -1,65 +1,54 @@
 // =============================================================================
-//  UI — buttons, chips, tags, dialogs, pagination, forms, code chrome.
+//  UI — buttons, chips, plates, dialogs, pagination, forms, code chrome.
 // =============================================================================
 
 /* -----------------------------------------------------------------------------
-   Buttons
+   Buttons: an outlined control that flips to solid NDVI when touched.
    -------------------------------------------------------------------------- */
 
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 12px 18px;
-    border: var(--bw) solid var(--line-strong);
-    background: var(--surface);
+    gap: 8px;
+    padding: 11px 14px;
+    border: var(--bw-2) solid var(--line-strong);
+    background: transparent;
     color: var(--ink);
     font-family: var(--f-pixel);
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1;
     letter-spacing: 0.02em;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow:
-        inset 0 2px 0 var(--px-hi),
-        inset 0 -2px 0 var(--px-lo),
-        var(--sh-2);
     transition: var(--move);
 }
 
 .btn svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     flex: 0 0 auto;
 }
 
 .btn:hover {
-    background: var(--surface-2);
-    transform: translate(-2px, -2px);
-    box-shadow:
-        inset 0 2px 0 var(--px-hi),
-        inset 0 -2px 0 var(--px-lo),
-        var(--sh-3);
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent);
 }
 
 .btn:active {
-    transform: translate(2px, 2px);
-    box-shadow:
-        inset 0 2px 0 var(--px-lo),
-        inset 0 -2px 0 var(--px-hi),
-        var(--sh-none);
+    transform: translate(1px, 1px);
 }
 
 .btn--accent {
     background: var(--accent);
-    border-color: var(--accent-3);
+    border-color: var(--accent);
     color: var(--on-accent);
 }
 
 .btn--accent:hover {
     background: var(--accent-2);
-    color: var(--on-accent);
+    border-color: var(--accent-2);
 }
 
 .btn--ink {
@@ -70,54 +59,48 @@
 
 .btn--ink:hover {
     background: var(--accent);
-    border-color: var(--accent-3);
+    border-color: var(--accent);
     color: var(--on-accent);
 }
 
 .btn--ghost {
-    background: transparent;
-    box-shadow: none;
+    border-color: var(--line);
+    color: var(--ink-2);
 }
 
 .btn--ghost:hover {
-    background: var(--surface);
-    box-shadow: var(--sh-2);
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
 }
 
 .btn--sm {
-    padding: 8px 12px;
+    padding: 8px 10px;
     font-size: 12px;
-    box-shadow: var(--sh-1);
 }
 
 /* -----------------------------------------------------------------------------
-   Chips + tags — mono micro type, hard edges.
+   Chips + tags — mono micro type, hairline edges.
    -------------------------------------------------------------------------- */
 
 .chip {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 8px;
-    border: 2px solid var(--line);
-    background: var(--surface-2);
+    padding: 3px 7px;
+    border: var(--bw-2) solid var(--line);
+    background: transparent;
     color: var(--ink-2);
     font-family: var(--f-mono);
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 11px;
+    line-height: 1.6;
     letter-spacing: 0.02em;
-    box-shadow: inset 0 -2px 0 var(--px-lo);
     transition: var(--move);
 }
 
 a.chip:hover {
-    border-color: var(--line-strong);
-    background: var(--ink);
-    color: var(--bg);
-    transform: translate(-1px, -1px);
-    box-shadow:
-        inset 0 2px 0 var(--px-lo),
-        var(--sh-1);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 .chip--accent {
@@ -126,8 +109,14 @@ a.chip:hover {
     color: var(--on-accent);
 }
 
+a.chip--accent:hover {
+    background: var(--accent-2);
+    border-color: var(--accent-2);
+    color: var(--on-accent);
+}
+
 .chip--soft {
-    border-color: var(--accent);
+    border-color: var(--accent-3);
     background: var(--accent-soft);
     color: var(--accent);
 }
@@ -161,8 +150,8 @@ a.chip:hover .chip__hash {
 
 .chip__count {
     padding-left: 6px;
-    border-left: 2px solid currentColor;
-    font-size: 11px;
+    border-left: var(--bw-2) solid currentColor;
+    font-size: 10px;
 }
 
 /* Tag row used under post titles */
@@ -187,20 +176,19 @@ a.chip:hover .chip__hash {
 .statbar {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 2px;
-    padding: 2px;
+    gap: 1px;
+    padding: 1px;
     margin: 0;
     list-style: none;
-    background: var(--line-strong);
-    border: var(--bw) solid var(--line-strong);
-    box-shadow: var(--sh-2);
+    background: var(--line);
+    border: var(--bw-2) solid var(--line);
 }
 
 .statbar > li {
     display: grid;
     gap: 4px;
     margin: 0;
-    padding: var(--s-4) var(--s-4) var(--s-4);
+    padding: var(--s-4);
     background: var(--surface);
 }
 
@@ -214,21 +202,21 @@ a.chip:hover .chip__hash {
 
 .statbar__v {
     color: var(--ink);
-    font-family: var(--f-pixel);
-    font-size: 24px;
-    line-height: 1;
+    font-family: var(--f-readout);
+    font-size: 30px;
+    line-height: 0.9;
 }
 
 .statbar__v small {
     color: var(--accent);
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /* Segmented meter — the pixel way to draw a progress bar. */
 .meter {
     display: flex;
-    gap: 3px;
-    height: 10px;
+    gap: 2px;
+    height: 8px;
 }
 
 .meter__cell {
@@ -248,10 +236,10 @@ dialog {
     max-width: min(94vw, 780px);
     max-height: 88vh;
     padding: 0;
-    border: var(--bw) solid var(--line-strong);
+    border: var(--bw-2) solid var(--line-strong);
     background: var(--surface);
     color: var(--ink-2);
-    box-shadow: var(--sh-4);
+    box-shadow: 6px 6px 0 0 var(--px-shadow);
     transition: opacity var(--tock), transform var(--tock);
 }
 
@@ -260,9 +248,9 @@ dialog:not([open]) {
 }
 
 dialog::backdrop {
-    background-color: rgba(10, 11, 17, 0.72);
+    background-color: rgba(4, 8, 9, 0.78);
     background-image: repeating-conic-gradient(
-        rgba(10, 11, 17, 0.9) 0 25%,
+        rgba(4, 8, 9, 0.85) 0 25%,
         transparent 0 50%
     );
     background-size: 4px 4px;
@@ -275,7 +263,7 @@ dialog::backdrop {
     @starting-style {
         dialog[open] {
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(8px);
         }
 
         dialog[open]::backdrop {
@@ -289,11 +277,11 @@ dialog::backdrop {
     align-items: center;
     justify-content: space-between;
     gap: var(--s-3);
-    padding: 12px 16px;
-    border-bottom: var(--bw) solid var(--line-strong);
-    background: var(--surface-2);
+    padding: 10px 14px;
+    border-bottom: var(--bw-2) solid var(--line);
+    background: var(--bg-2);
     font-family: var(--f-pixel);
-    font-size: 16px;
+    font-size: 14px;
     text-transform: uppercase;
     color: var(--ink);
 }
@@ -311,14 +299,14 @@ dialog::backdrop {
 .dialog__close {
     display: grid;
     place-items: center;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     padding: 0;
-    border: 2px solid var(--line-strong);
-    background: var(--surface);
+    border: var(--bw-2) solid var(--line);
+    background: transparent;
     color: var(--ink);
     font-family: var(--f-mono);
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1;
     cursor: pointer;
 }
@@ -326,7 +314,7 @@ dialog::backdrop {
 .dialog__close:hover {
     background: var(--coral);
     border-color: var(--coral);
-    color: #fff;
+    color: var(--on-accent);
 }
 
 /* Legacy close buttons that live outside a .dialog__head */
@@ -337,13 +325,13 @@ dialog > .dialog-close {
     z-index: 5;
     display: grid;
     place-items: center;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     padding: 0;
-    border: 2px solid var(--line-strong);
-    background: var(--surface);
+    border: var(--bw-2) solid var(--line);
+    background: transparent;
     color: var(--ink);
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1;
     cursor: pointer;
 }
@@ -358,43 +346,40 @@ dialog > .dialog-close {
     justify-content: space-between;
     gap: var(--s-3);
     margin-top: var(--s-8);
-    padding-top: var(--s-5);
-    border-top: var(--bw) solid var(--line-soft);
+    padding-top: var(--s-4);
+    border-top: var(--bw-2) solid var(--line-soft);
 }
 
 .pager__pages {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
 }
 
 .pager__btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 12px;
-    border: var(--bw-2) solid var(--line-strong);
-    background: var(--surface);
+    padding: 9px 11px;
+    border: var(--bw-2) solid var(--line);
+    background: transparent;
     color: var(--ink);
     font-family: var(--f-pixel);
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1;
     text-transform: uppercase;
-    box-shadow: var(--sh-1);
     transition: var(--move);
 }
 
 .pager__btn:hover {
-    background: var(--ink);
-    color: var(--bg);
-    transform: translate(-2px, -2px);
-    box-shadow: var(--sh-2);
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
 }
 
 .pager__btn.is-disabled {
     border-style: dashed;
     color: var(--ink-4);
-    box-shadow: none;
     pointer-events: none;
 }
 
@@ -413,36 +398,34 @@ dialog > .dialog-close {
 .pager__num {
     display: grid;
     place-items: center;
-    min-width: 36px;
-    height: 36px;
-    padding: 0 8px;
-    border: var(--bw-2) solid var(--line);
-    background: var(--surface);
-    color: var(--ink-2);
-    font-family: var(--f-mono);
-    font-size: 13px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    border: var(--bw-2) solid var(--line-soft);
+    background: transparent;
+    color: var(--ink-3);
+    font-family: var(--f-readout);
+    font-size: 18px;
     transition: var(--move);
 }
 
 .pager__num:hover {
-    border-color: var(--line-strong);
-    color: var(--ink);
-    transform: translate(-1px, -1px);
-    box-shadow: var(--sh-1);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 .pager__num.is-active {
-    border-color: var(--ink);
-    background: var(--ink);
-    color: var(--bg);
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
 }
 
 /* Empty result state — dashed box, mono line, no drama. */
 .empty {
     margin: 0;
     padding: var(--s-6) var(--s-5);
-    border: 2px dashed var(--line);
-    background: var(--surface);
+    border: 1px dashed var(--line);
+    background: var(--bg-2);
     color: var(--ink-3);
     font-family: var(--f-mono);
     font-size: 12px;
@@ -462,8 +445,8 @@ dialog > .dialog-close {
 .field__label {
     color: var(--ink-3);
     font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
+    font-size: 10px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 }
 
@@ -471,18 +454,17 @@ dialog > .dialog-close {
     width: 100%;
     padding: 12px 14px;
     caret-color: var(--accent);
-    border: var(--bw) solid var(--line-strong);
-    background: var(--surface);
+    border: var(--bw-2) solid var(--line);
+    background: var(--bg-2);
     color: var(--ink);
     font-family: var(--f-mono);
     font-size: 14px;
-    box-shadow: inset 2px 2px 0 var(--px-lo);
 }
 
 .input:focus-visible {
     outline: none;
     border-color: var(--accent);
-    box-shadow: inset 2px 2px 0 var(--px-lo), var(--ring);
+    box-shadow: var(--ring);
 }
 
 /* -----------------------------------------------------------------------------
@@ -503,30 +485,30 @@ dialog > .dialog-close {
 .code-copy {
     position: absolute;
     top: 6px;
-    right: 8px;
+    right: 7px;
     z-index: 2;
     display: grid;
     place-items: center;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     padding: 0;
-    border: 2px solid rgba(243, 234, 215, 0.35);
-    background: rgba(11, 13, 22, 0.9);
-    color: rgba(243, 234, 215, 0.85);
+    border: var(--bw-2) solid rgba(233, 243, 230, 0.3);
+    background: rgba(4, 9, 10, 0.9);
+    color: rgba(233, 243, 230, 0.8);
     cursor: pointer;
     transition: var(--move);
 }
 
 .code-copy:hover,
 .code-copy:focus-visible {
-    border-color: var(--accent-2);
+    border-color: var(--accent);
     background: var(--accent);
     color: var(--on-accent);
 }
 
 .code-copy.copied {
-    border-color: var(--accent-2);
-    color: var(--accent-2);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 .code-copy.failed {
@@ -539,11 +521,11 @@ dialog > .dialog-close {
 .code-block.is-scrollable::after {
     content: "";
     position: absolute;
-    top: 30px;
-    right: 3px;
-    bottom: 3px;
+    top: 28px;
+    right: 2px;
+    bottom: 2px;
     width: 30px;
-    background: linear-gradient(90deg, rgba(11, 13, 22, 0), rgba(11, 13, 22, 0.92));
+    background: linear-gradient(90deg, rgba(4, 9, 10, 0), rgba(4, 9, 10, 0.94));
     pointer-events: none;
     transition: opacity var(--tick);
 }
@@ -554,10 +536,10 @@ dialog > .dialog-close {
 
 .code-scroll {
     position: absolute;
-    right: 10px;
-    bottom: 6px;
+    right: 9px;
+    bottom: 5px;
     z-index: 3;
-    color: rgba(243, 234, 215, 0.55);
+    color: rgba(233, 243, 230, 0.5);
     font-family: var(--f-mono);
     font-size: 10px;
     letter-spacing: 0.08em;
@@ -570,14 +552,14 @@ dialog > .dialog-close {
 
 .code-lang {
     position: absolute;
-    top: 8px;
-    left: 12px;
+    top: 7px;
+    left: 10px;
     z-index: 2;
-    padding: 2px 8px;
-    border: 2px solid rgba(243, 234, 215, 0.22);
-    color: rgba(243, 234, 215, 0.6);
+    padding: 1px 6px;
+    border: var(--bw-2) solid rgba(233, 243, 230, 0.2);
+    color: rgba(233, 243, 230, 0.55);
     font-family: var(--f-mono);
-    font-size: 10px;
+    font-size: 9.5px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
 }
@@ -587,8 +569,8 @@ dialog > .dialog-close {
 }
 
 .meter--charge .meter__cell.is-on {
-    animation: meter-charge 260ms steps(3, end) both;
-    animation-delay: calc(var(--i, 0) * 55ms);
+    animation: meter-charge 240ms steps(3, end) both;
+    animation-delay: calc(var(--i, 0) * 50ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -601,7 +583,7 @@ dialog > .dialog-close {
 .table-scroll {
     margin: 28px 0;
     overflow-x: auto;
-    border: 2px solid var(--line-soft);
+    border: var(--bw-2) solid var(--line-soft);
 }
 
 .table-scroll:focus-visible {
@@ -617,7 +599,7 @@ dialog > .dialog-close {
 .lightbox__nav {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     margin-left: auto;
 }
 
@@ -625,7 +607,7 @@ dialog > .dialog-close {
     min-width: 52px;
     color: var(--ink-3);
     font-family: var(--f-mono);
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.1em;
     text-align: center;
 }
@@ -633,19 +615,19 @@ dialog > .dialog-close {
 .lightbox__step {
     display: grid;
     place-items: center;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     padding: 0;
-    border: 2px solid var(--line-strong);
-    background: var(--surface);
+    border: var(--bw-2) solid var(--line);
+    background: transparent;
     color: var(--ink);
     cursor: pointer;
     transition: var(--move);
 }
 
 .lightbox__step:hover {
-    background: var(--ink);
-    color: var(--bg);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 .lightbox__step[disabled] {
@@ -654,7 +636,7 @@ dialog > .dialog-close {
 }
 
 .lightbox__step[disabled]:hover {
-    background: var(--surface);
+    border-color: var(--line);
     color: var(--ink);
 }
 
@@ -676,10 +658,11 @@ dialog > .dialog-close {
     gap: var(--s-2);
     margin: 0 0 var(--s-3);
     padding-bottom: var(--s-2);
-    border-bottom: 2px dashed var(--line);
+    border-bottom: 1px dashed var(--line);
     color: var(--ink);
-    font-family: var(--f-pixel);
-    font-size: 16px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
 }
 
@@ -697,8 +680,8 @@ dialog > .dialog-close {
 
 .toc__link {
     display: block;
-    padding: 5px 8px 5px 10px;
-    border-left: 3px solid transparent;
+    padding: 5px 8px 5px 9px;
+    border-left: 1px solid var(--line-soft);
     color: var(--ink-3);
     font-family: var(--f-mono);
     font-size: 12.5px;
@@ -708,22 +691,23 @@ dialog > .dialog-close {
 
 .toc__link:hover {
     color: var(--ink);
+    border-left-color: var(--line-strong);
     background: var(--surface-2);
 }
 
 .toc__link.is-active {
     border-left-color: var(--accent);
-    background: var(--accent-soft);
     color: var(--accent);
+    background: var(--accent-soft);
 }
 
 .toc__item--2 .toc__link {
-    padding-left: 22px;
+    padding-left: 20px;
     font-size: 12px;
 }
 
 .toc__item--3 .toc__link {
-    padding-left: 34px;
+    padding-left: 30px;
     font-size: 11.5px;
 }
 
@@ -738,19 +722,18 @@ dialog > .dialog-close {
     --pagefind-ui-background: var(--surface);
     --pagefind-ui-border: var(--line);
     --pagefind-ui-tag: var(--surface-2);
-    --pagefind-ui-border-width: 2px;
+    --pagefind-ui-border-width: 1px;
     --pagefind-ui-border-radius: 0;
     --pagefind-ui-font: var(--f-body);
     font-family: var(--f-body);
 }
 
 .pagefind-box .pagefind-ui__search-input {
-    border: var(--bw) solid var(--line-strong) !important;
+    border: var(--bw-2) solid var(--line-strong) !important;
     border-radius: 0 !important;
-    background: var(--surface) !important;
+    background: var(--bg-2) !important;
     color: var(--ink) !important;
     font-family: var(--f-mono) !important;
-    box-shadow: inset 2px 2px 0 var(--px-lo) !important;
 }
 
 .pagefind-box .pagefind-ui__search-input:focus,
@@ -758,7 +741,7 @@ dialog > .dialog-close {
 .pagefind-box .pagefind-ui__search-input:hover {
     outline: none !important;
     border-color: var(--accent) !important;
-    box-shadow: inset 2px 2px 0 var(--px-lo), var(--ring) !important;
+    box-shadow: var(--ring) !important;
 }
 
 .pagefind-box .pagefind-ui__search-clear {
@@ -769,10 +752,9 @@ dialog > .dialog-close {
 
 .pagefind-box .pagefind-ui__result {
     padding: var(--s-4) !important;
-    border: 2px solid var(--line) !important;
+    border: var(--bw-2) solid var(--line) !important;
     border-radius: 0 !important;
     background: var(--surface) !important;
-    box-shadow: var(--sh-1);
 }
 
 .pagefind-box .pagefind-ui__result:hover {
@@ -801,7 +783,6 @@ dialog > .dialog-close {
     background: var(--surface) !important;
     color: var(--ink) !important;
     font-family: var(--f-pixel) !important;
-    box-shadow: var(--sh-1);
 }
 
 .pagefind-box .pagefind-ui__message {
@@ -831,7 +812,7 @@ dialog > .dialog-close {
 .card-fx::before {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -1px;
     background-repeat: no-repeat;
     background-image:
         linear-gradient(var(--accent), var(--accent)),
@@ -843,14 +824,14 @@ dialog > .dialog-close {
         linear-gradient(var(--accent), var(--accent)),
         linear-gradient(var(--accent), var(--accent));
     background-size:
-        12px 2px,
-        2px 12px,
-        12px 2px,
-        2px 12px,
-        12px 2px,
-        2px 12px,
-        12px 2px,
-        2px 12px;
+        12px 1px,
+        1px 12px,
+        12px 1px,
+        1px 12px,
+        12px 1px,
+        1px 12px,
+        12px 1px,
+        1px 12px;
     background-position:
         left top,
         left top,
@@ -865,14 +846,14 @@ dialog > .dialog-close {
 .card-fx::after {
     content: "";
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 2px;
     background: var(--accent);
     transform: scaleX(0);
     transform-origin: left center;
-    transition: transform 320ms steps(4, end);
+    transition: transform 280ms steps(4, end);
 }
 
 @media (hover: hover) {
@@ -881,7 +862,7 @@ dialog > .dialog-close {
     }
 
     .px-hover:hover > .card-fx::before {
-        animation: card-corners 180ms steps(2, end);
+        animation: card-corners 160ms steps(2, end);
     }
 
     .px-hover:hover > .card-fx::after {
@@ -892,7 +873,7 @@ dialog > .dialog-close {
 @keyframes card-corners {
     from {
         opacity: 0.2;
-        transform: scale(1.03);
+        transform: scale(1.02);
     }
 
     to {

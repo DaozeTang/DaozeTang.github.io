@@ -4,10 +4,10 @@
 // =============================================================================
 
 .prose {
-    max-width: 70ch;
+    max-width: 68ch;
     color: var(--ink-2);
     font-size: var(--t-body);
-    line-height: 1.92;
+    line-height: 1.88;
     overflow-wrap: break-word;
 }
 
@@ -24,9 +24,9 @@
 }
 
 .prose h2 {
-    margin: 56px 0 18px;
-    padding: 0 0 10px 22px;
-    border-bottom: 2px dashed var(--line);
+    margin: 54px 0 18px;
+    padding: 0 0 10px 20px;
+    border-bottom: var(--bw-2) dashed var(--line);
     font-family: var(--f-dot);
     font-size: 24px;
     font-weight: 400;
@@ -37,11 +37,10 @@
     content: "";
     position: absolute;
     left: 0;
-    top: 0.62em;
-    width: 10px;
-    height: 10px;
+    top: 0.58em;
+    width: 8px;
+    height: 8px;
     background: var(--accent);
-    box-shadow: 2px 2px 0 var(--px-shadow);
 }
 
 .prose h3 {
@@ -58,10 +57,9 @@
     position: absolute;
     left: 0;
     top: 0.62em;
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     background: var(--accent);
-    box-shadow: 2px 2px 0 var(--px-shadow);
 }
 
 .prose h4 {
@@ -81,7 +79,7 @@
 .prose strong {
     color: var(--ink);
     font-weight: 700;
-    background: linear-gradient(transparent 62%, var(--gold-soft) 62%);
+    background: linear-gradient(transparent 62%, var(--accent-soft) 62%);
 }
 
 .prose em {
@@ -140,10 +138,10 @@
 .prose ul > li::before {
     content: "";
     position: absolute;
-    left: 4px;
-    top: 0.78em;
-    width: 7px;
-    height: 7px;
+    left: 5px;
+    top: 0.7em;
+    width: 6px;
+    height: 6px;
     background: var(--accent);
     transform: translateY(-50%);
 }
@@ -181,13 +179,12 @@
 .prose blockquote {
     position: relative;
     margin: 28px 0;
-    padding: 20px 24px 20px 28px;
-    border: var(--bw) solid var(--line);
-    border-left-width: 8px;
+    padding: 18px 22px 18px 24px;
+    border: var(--bw-2) solid var(--line);
+    border-left-width: 3px;
     border-left-color: var(--accent);
     background: var(--accent-softer);
     color: var(--ink-2);
-    box-shadow: var(--sh-1);
 }
 
 .prose blockquote p {
@@ -209,8 +206,8 @@
 }
 
 .prose code {
-    padding: 1px 6px;
-    border: 2px solid var(--line-soft);
+    padding: 1px 5px;
+    border: var(--bw-2) solid var(--line-soft);
     background: var(--surface-3);
     color: var(--ink);
     font-family: var(--f-mono);
@@ -221,12 +218,12 @@
 .prose pre {
     position: relative;
     margin: 28px 0;
-    padding: 48px 20px 20px;
+    padding: 42px 18px 18px;
     overflow-x: auto;
-    border: var(--bw) solid var(--ink);
-    background: #0b0d16;
-    color: #e9e3d4;
-    box-shadow: var(--sh-2);
+    border: var(--bw-2) solid var(--line);
+    background: #04090a;
+    color: #dbe7dd;
+    box-shadow: 4px 4px 0 0 var(--px-shadow);
     font-size: 13.5px;
     line-height: 1.72;
     tab-size: 4;
@@ -248,24 +245,25 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 26px;
-    border-bottom: 2px solid rgba(243, 234, 215, 0.16);
-    background-image: radial-gradient(rgba(243, 234, 215, 0.5) 1.5px, transparent 1.5px);
-    background-size: 8px 8px;
-    background-position: 8px 12px;
+    height: 24px;
+    border-bottom: 1px solid rgba(233, 243, 230, 0.14);
+    background-image: radial-gradient(rgba(233, 243, 230, 0.45) 1.5px, transparent 1.5px);
+    background-size: 6px 6px;
+    background-position: 8px 11px;
     opacity: 0.7;
 }
 
 /* Syntax highlighting — warm 8-colour ramp that matches the palette. */
+/* Syntax highlighting — NDVI / false-colour ramp. */
 .prose .token.comment,
 .prose .token.prolog,
 .prose .token.doctype,
 .prose .token.cdata {
-    color: #7f8aa8;
+    color: #6f8479;
 }
 
 .prose .token.punctuation {
-    color: #b9b2a0;
+    color: #9fb2a7;
 }
 
 .prose .token.property,
@@ -283,25 +281,25 @@
 .prose .token.char,
 .prose .token.builtin,
 .prose .token.inserted {
-    color: #7fd48c;
+    color: #c8f24f;
 }
 
 .prose .token.operator,
 .prose .token.entity,
 .prose .token.url,
 .prose .token.variable {
-    color: #e9e3d4;
+    color: #e9f3e6;
 }
 
 .prose .token.atrule,
 .prose .token.attr-value,
 .prose .token.keyword {
-    color: #ff8266;
+    color: #ff4f8b;
 }
 
 .prose .token.function,
 .prose .token.class-name {
-    color: #8fb4ff;
+    color: #5fe3f0;
 }
 
 .prose .token.regex,
@@ -310,7 +308,7 @@
 }
 
 .prose .token.deleted {
-    color: #ff6f61;
+    color: #ff4f8b;
 }
 
 .prose table {
@@ -330,8 +328,8 @@
 
 .prose table th,
 .prose table td {
-    padding: 10px 14px;
-    border: 2px solid var(--line-soft);
+    padding: 9px 13px;
+    border: var(--bw-2) solid var(--line-soft);
     text-align: left;
     vertical-align: top;
 }
@@ -354,8 +352,8 @@
     display: block;
     max-width: 100%;
     margin: 28px auto;
-    border: var(--bw) solid var(--line-strong);
-    box-shadow: var(--sh-2);
+    border: var(--bw-2) solid var(--line-strong);
+    box-shadow: 3px 3px 0 0 var(--px-shadow);
     cursor: zoom-in;
 }
 
@@ -456,8 +454,7 @@
 .prose details {
     margin: 28px 0;
     border: var(--bw-2) solid var(--line);
-    background: var(--surface);
-    box-shadow: var(--sh-1);
+    background: var(--bg-2);
 }
 
 .prose summary {
@@ -482,19 +479,19 @@
     content: "+";
     display: grid;
     place-items: center;
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     flex: 0 0 auto;
-    border: 2px solid var(--line-strong);
-    background: var(--surface-2);
+    border: var(--bw-2) solid var(--line-strong);
+    background: transparent;
     color: var(--ink);
     font-family: var(--f-mono);
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1;
 }
 
 .prose details[open] summary {
-    border-bottom: 2px solid var(--line);
+    border-bottom: var(--bw-2) solid var(--line);
 }
 
 .prose details[open] summary::before {

@@ -26,8 +26,7 @@ subtitle: >-
 
 <header class="page-head page-head--split">
     <div class="page-head__main">
-        <p class="kicker"><span class="led" aria-hidden="true"></span>Papers &middot; peer reviewed &amp; preprints</p>
-        <h1 class="page-head__title">Publications<span style="color: var(--accent)">.</span></h1>
+        <h1 class="page-head__title">Publications<span class="page-head__dot">.</span></h1>
         <p class="page-head__sub">{{ subtitle }}</p>
         <ul class="page-head__meta">
             <li><span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>{{ collections.publications.size }} papers</span></li>
@@ -54,7 +53,7 @@ subtitle: >-
 
 <div class="split">
     <div>
-        <div class="year-stack" style="margin-top: 0">
+        <div class="year-stack">
             {% assign pubNo = 0 %}
             {% for group in collections.publicationsByYear %}
             <section class="year-block" id="year-{{ group.year }}">
